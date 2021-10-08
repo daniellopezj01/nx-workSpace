@@ -1,0 +1,74 @@
+{
+  "registration": {
+    "SUBJECT": "Verify your email at Mochileros",
+    "MESSAGE": "<p>Hello %s.</p> <p>Welcome! To verify your email, please click in this link:</p> <p>%s/verify/%s</p> <p>Thank you.</p>"
+  },
+  "forgotPassword": {
+    "SUBJECT": "Password recovery at Mochileros",
+    "MESSAGE": "<p>To recover the password for user: %s</p> <p>click the following link:</p> <p>%s/reset/%s</p> <p>If this was a mistake, you can ignore this message.</p> <p>Thank you.</p>"
+  },
+  "firstPay": {
+    "SUBJECT": "Gracias por su primer pago",
+    "MESSAGE": ""
+  },
+  "completePay": {
+    "SUBJECT": "Este es tu ultimo pago",
+    "MESSAGE": ""
+  },
+  "orderPay": {
+    "SUBJECT": "Gracias por su abono, mochileros.mx",
+    "MESSAGE": ""
+  },
+  "externalOperationPayment": {
+    "SUBJECT": "Pago registrado en operación, mochileros.mx",
+    "MESSAGE": ""
+  },
+  "successPnr": {
+    "SUBJECT": "Reserva de vuelo exitosa, mochileros.mx",
+    "MESSAGE": ""
+  },
+  "errorPnr": {
+    "SUBJECT": "Reserva de vuelo en proceso, mochileros.mx",
+    "MESSAGE": ""
+  },
+  "newChat": {
+    "SUBJECT": "Nuevo ticket de Soporte",
+    "MESSAGE": ""
+  },
+  "newMessageAdmin": {
+    "SUBJECT": "Mensaje en ticket de Soporte",
+    "MESSAGE": ""
+  },
+  "newMessageUser": {
+    "SUBJECT": "Respuesta a tu Solicitud",
+    "MESSAGE": ""
+  },
+  "lastPay": {
+    "SUBJECT": "!Felicidades¡ Recibimos su ultimo pago",
+    "MESSAGE": ""
+  },
+  "updateTour": {
+    "SUBJECT": "!Cambio de Tour!",
+    "MESSAGE": ""
+  },
+  "newReservation": {
+    "SUBJECT": "Tienes una nueva reserva",
+    "MESSAGE": ""
+  },
+  "updateReservation": {
+    "SUBJECT": "!Alerta¡ Reserva modificada",
+    "MESSAGE": ""
+  },
+  "cancelReservation": {
+    "SUBJECT": "!Alerta¡ Reserva cancelada",
+    "MESSAGE": ""
+  },
+  "linkAgency": {
+    "SUBJECT": "Nueva Agencia",
+    "MESSAGE": "Se ha vinculado una nueva agencia"
+  },
+  "newMessage": {
+    "SUBJECT": "Tienes un nuevo mensaje",
+    "MESSAGE": ""
+  }
+}

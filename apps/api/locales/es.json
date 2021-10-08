@@ -1,0 +1,58 @@
+{
+  "registration": {
+    "SUBJECT": "Verificar tu Email en myProject",
+    "MESSAGE": "<p>Hola %s.</p> <p>¡Bienvenido! Para verificar tu Email, por favor haz click en este enlace:</p> <p>%s/verify/%s</p> <p>Gracias.</p>"
+  },
+  "forgotPassword": {
+    "SUBJECT": "Recuperar contraseña en myProject",
+    "MESSAGE": "<p>Para recuperar la contraseña para el usuario: %s</p> <p>haz click en el siguiente enlace:</p> <p>%s/reset/%s</p> <p>Si esto fue un error, puedes ignorar este mensaje.</p> <p>Gracias.</p>"
+  },
+  "orderPay": {
+    "SUBJECT": "Gracias por su abono, mochileros.mx",
+    "MESSAGE": ""
+  },
+  "firstPay": {
+    "SUBJECT": "Gracias por su primer pago",
+    "MESSAGE": ""
+  },
+  "lastPay": {
+    "SUBJECT": "!Felicidades¡ Recibimos su ultimo pago",
+    "MESSAGE": ""
+  },
+  "updateTour": {
+    "SUBJECT": "!Cambio de Tour!",
+    "MESSAGE": ""
+  },
+  "newReservation": {
+    "SUBJECT": "Tienes una nueva reserva",
+    "MESSAGE": ""
+  },
+  "updateReservation": {
+    "SUBJECT": "!Alerta¡ Reserva modificada",
+    "MESSAGE": ""
+  },
+  "cancelReservation": {
+    "SUBJECT": "!Alerta¡ Reserva cancelada",
+    "MESSAGE": ""
+  },
+  "newMessage": {
+    "SUBJECT": "Tienes un nuevo mensaje",
+    "MESSAGE": ""
+  },
+  "newChat": {
+    "SUBJECT": "Nuevo ticket de Soporte",
+    "MESSAGE": ""
+  },
+  "newMessageAdmin": {
+    "SUBJECT": "Mensaje en ticket de Soporte",
+    "MESSAGE": ""
+  },
+  "linkAgency": {
+    "SUBJECT": "Nueva Agencia",
+    "MESSAGE": "Se ha vinculado una nueva agencia"
+  },
+  "newMessageUser": {
+    "SUBJECT": "Respuesta a tu Solicitud",
+    "MESSAGE": ""
+  }
+}

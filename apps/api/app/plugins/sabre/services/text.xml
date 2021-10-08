@@ -1,0 +1,32 @@
+<!-- <OriginDestinationInformation RPH="1">
+  <DepartureDateTime>2018-01-01T00:00:00</DepartureDateTime>
+  <OriginLocation LocationCode="SYD" />
+  <DestinationLocation LocationCode="KRK" />
+  <TPA_Extensions>
+    <SegmentType Code="O" />
+  </TPA_Extensions>
+</OriginDestinationInformation> -->
+
+<OriginDestinationInformation RPH="2" Fixed="true">
+  <DepartureDateTime>2018-01-07T00:00:00</DepartureDateTime>
+  <OriginLocation LocationCode="KRK" />
+  <DestinationLocation LocationCode="SYD" />
+  <TPA_Extensions>
+    <Flight DepartureDateTime="2018-01-07T18:50:00" ArrivalDateTime="2018-01-07T20:30:00" Number="1369" Type="A">
+      <OriginLocation LocationCode="KRK" />
+      <DestinationLocation LocationCode="FRA" />
+      <Airline Marketing="YY" Operating="YY" />
+    </Flight>
+    <Flight DepartureDateTime="2018-01-07T22:00:00" ArrivalDateTime="2018-01-08T14:40:00" Number="772" Type="A">
+      <OriginLocation LocationCode="FRA" />
+      <DestinationLocation LocationCode="BKK" />
+      <Airline Marketing="K0" Operating="K0" />
+    </Flight>
+    <Flight DepartureDateTime="2018-01-08T17:50:00" ArrivalDateTime="2018-01-09T07:10:00" Number="9744" Type="A">
+      <OriginLocation LocationCode="BKK" />
+      <DestinationLocation LocationCode="SYD" />
+      <Airline Marketing="K0" Operating="XX" />
+    </Flight>
+    <SegmentType Code="O" />
+  </TPA_Extensions>
+</OriginDestinationInformation>

@@ -1,0 +1,538 @@
+{
+  "status": "publish",
+  "category": [],
+  "transport": [],
+  "attached": [
+    {
+      "source": {
+        "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_5ccbe1fc-3a6c-4181-bdb1-e7152f882c8e.png",
+        "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_5ccbe1fc-3a6c-4181-bdb1-e7152f882c8e.png",
+        "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_5ccbe1fc-3a6c-4181-bdb1-e7152f882c8e.png",
+        "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_5ccbe1fc-3a6c-4181-bdb1-e7152f882c8e.png"
+      },
+      "type": "image",
+      "fileName": "5ccbe1fc-3a6c-4181-bdb1-e7152f882c8e.png",
+      "_id": "60392fecc13eca3e321cfac2"
+    },
+    {
+      "source": {
+        "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_e1f1406c-5170-4ad4-a79d-35946a0595a2.png",
+        "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_e1f1406c-5170-4ad4-a79d-35946a0595a2.png",
+        "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_e1f1406c-5170-4ad4-a79d-35946a0595a2.png",
+        "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_e1f1406c-5170-4ad4-a79d-35946a0595a2.png"
+      },
+      "type": "image",
+      "fileName": "e1f1406c-5170-4ad4-a79d-35946a0595a2.png",
+      "_id": "603931cec13eca3e321cfac3"
+    },
+    {
+      "source": {
+        "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_506ac0b0-7728-4681-9dce-6d38a89b7835.png",
+        "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_506ac0b0-7728-4681-9dce-6d38a89b7835.png",
+        "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_506ac0b0-7728-4681-9dce-6d38a89b7835.png",
+        "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_506ac0b0-7728-4681-9dce-6d38a89b7835.png"
+      },
+      "type": "image",
+      "fileName": "506ac0b0-7728-4681-9dce-6d38a89b7835.png",
+      "_id": "60393260c13eca3e321cfac4"
+    },
+    {
+      "source": {
+        "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_a06e4e34-a76d-47f1-89fb-930e9b80d8fa.png",
+        "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_a06e4e34-a76d-47f1-89fb-930e9b80d8fa.png",
+        "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_a06e4e34-a76d-47f1-89fb-930e9b80d8fa.png",
+        "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_a06e4e34-a76d-47f1-89fb-930e9b80d8fa.png"
+      },
+      "type": "image",
+      "fileName": "a06e4e34-a76d-47f1-89fb-930e9b80d8fa.png",
+      "_id": "60393273c13eca3e321cfac5"
+    },
+    {
+      "source": {
+        "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_95d522c2-bc14-4eeb-9942-194fc02af19f.png",
+        "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_95d522c2-bc14-4eeb-9942-194fc02af19f.png",
+        "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_95d522c2-bc14-4eeb-9942-194fc02af19f.png",
+        "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_95d522c2-bc14-4eeb-9942-194fc02af19f.png"
+      },
+      "type": "image",
+      "fileName": "95d522c2-bc14-4eeb-9942-194fc02af19f.png",
+      "_id": "603932a7c13eca3e321cfac7"
+    },
+    {
+      "source": {
+        "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_6ca74ef0-60ca-4e98-b672-aca07fa29aa1.png",
+        "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_6ca74ef0-60ca-4e98-b672-aca07fa29aa1.png",
+        "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_6ca74ef0-60ca-4e98-b672-aca07fa29aa1.png",
+        "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_6ca74ef0-60ca-4e98-b672-aca07fa29aa1.png"
+      },
+      "type": "image",
+      "fileName": "6ca74ef0-60ca-4e98-b672-aca07fa29aa1.png",
+      "_id": "603932cdc13eca3e321cfac8"
+    },
+    {
+      "source": {
+        "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_ee1da405-7eaa-43bd-8985-6ac2c91e0599.png",
+        "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_ee1da405-7eaa-43bd-8985-6ac2c91e0599.png",
+        "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_ee1da405-7eaa-43bd-8985-6ac2c91e0599.png",
+        "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_ee1da405-7eaa-43bd-8985-6ac2c91e0599.png"
+      },
+      "type": "image",
+      "fileName": "ee1da405-7eaa-43bd-8985-6ac2c91e0599.png",
+      "_id": "6039341ac13eca3e321cfac9"
+    },
+    {
+      "source": {
+        "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_06db37ec-bd10-4e45-8719-9ee717041d42.png",
+        "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_06db37ec-bd10-4e45-8719-9ee717041d42.png",
+        "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_06db37ec-bd10-4e45-8719-9ee717041d42.png",
+        "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_06db37ec-bd10-4e45-8719-9ee717041d42.png"
+      },
+      "type": "image",
+      "fileName": "06db37ec-bd10-4e45-8719-9ee717041d42.png",
+      "_id": "6039342bc13eca3e321cfaca"
+    },
+    {
+      "source": {
+        "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_fc42ba2d-9f38-4524-b7d5-066bdc147d55.png",
+        "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_fc42ba2d-9f38-4524-b7d5-066bdc147d55.png",
+        "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_fc42ba2d-9f38-4524-b7d5-066bdc147d55.png",
+        "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_fc42ba2d-9f38-4524-b7d5-066bdc147d55.png"
+      },
+      "type": "image",
+      "fileName": "fc42ba2d-9f38-4524-b7d5-066bdc147d55.png",
+      "_id": "6039343bc13eca3e321cfacb"
+    },
+    {
+      "source": {
+        "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_4a312540-fe66-45cf-8b5c-52a019cc8a03.png",
+        "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_4a312540-fe66-45cf-8b5c-52a019cc8a03.png",
+        "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_4a312540-fe66-45cf-8b5c-52a019cc8a03.png",
+        "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_4a312540-fe66-45cf-8b5c-52a019cc8a03.png"
+      },
+      "type": "image",
+      "fileName": "4a312540-fe66-45cf-8b5c-52a019cc8a03.png",
+      "_id": "6039344bc13eca3e321cfacc"
+    },
+    {
+      "source": {
+        "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_1b4d3a7d-2b19-4468-b12a-c4b5c0b41990.png",
+        "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_1b4d3a7d-2b19-4468-b12a-c4b5c0b41990.png",
+        "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_1b4d3a7d-2b19-4468-b12a-c4b5c0b41990.png",
+        "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_1b4d3a7d-2b19-4468-b12a-c4b5c0b41990.png"
+      },
+      "type": "image",
+      "fileName": "1b4d3a7d-2b19-4468-b12a-c4b5c0b41990.png",
+      "_id": "6039345bc13eca3e321cfacd"
+    },
+    {
+      "source": {
+        "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_4c4bd107-b8d9-4cc0-bee5-fb1ca191572d.png",
+        "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_4c4bd107-b8d9-4cc0-bee5-fb1ca191572d.png",
+        "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_4c4bd107-b8d9-4cc0-bee5-fb1ca191572d.png",
+        "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_4c4bd107-b8d9-4cc0-bee5-fb1ca191572d.png"
+      },
+      "type": "image",
+      "fileName": "4c4bd107-b8d9-4cc0-bee5-fb1ca191572d.png",
+      "_id": "60393469c13eca3e321cface"
+    }
+  ],
+  "likes": [],
+  "featured": "regular",
+  "type": "departures",
+  "continent": ["EU"],
+  "title": "Invierno en Europa 2021",
+  "subTitle": "Nieve y mercados navideños para recibir el 2022",
+  "description": "<h2><strong>Nieve y mercados navideños para recibir el 2022…</strong></h2><p>¿Quién dijo que viajar a Europa en Invierno no es buena idea? Es una época increíble con su decoración y mercados navideños. ¿Frío? ¡Sí! Pero no hay abrigo que no ayude, ni un buen vino caliente que no quite el frío. ¡Celebraremos la navidad en Praga y recibimos el año nuevo en París!&nbsp;&nbsp;</p>",
+  "route": "Múnich, Alpes Alemanes, Salzburgo, Praga, Berlín, Ámsterdam, Bruselas, Brujas y París",
+  "countries": "6",
+  "cities": "8",
+  "duration": 17,
+  "slug": "invierno-en-europa-2021",
+  "included": [
+    {
+      "isFeatured": true,
+      "title": "Lider Mochilero",
+      "description": "<p>Estarás acompañado por tu líder Mochilero, quien te llevará como un amigo a recorrer cada destino. Su objetivo es guiar el tour de principio a fin. Será el encargado de exprimir tus energías cada día para recorrer cada ciudad al máximo.</p>",
+      "image": {
+        "source": {
+          "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_38693ce9-9292-4216-8e79-460363bed061.png",
+          "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_38693ce9-9292-4216-8e79-460363bed061.png",
+          "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_38693ce9-9292-4216-8e79-460363bed061.png",
+          "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_38693ce9-9292-4216-8e79-460363bed061.png"
+        },
+        "type": "image",
+        "fileName": "38693ce9-9292-4216-8e79-460363bed061.png",
+        "_id": "6040fda1233e0f0eb5afdc0c"
+      }
+    },
+    {
+      "isFeatured": true,
+      "title": "Transporte",
+      "description": "<p>El transporte entre ciudades está incluido</p>",
+      "image": {
+        "source": {
+          "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_f3632c4f-482e-4186-83ac-20f551b0c2b0.png",
+          "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_f3632c4f-482e-4186-83ac-20f551b0c2b0.png",
+          "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_f3632c4f-482e-4186-83ac-20f551b0c2b0.png",
+          "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_f3632c4f-482e-4186-83ac-20f551b0c2b0.png"
+        },
+        "type": "image",
+        "fileName": "f3632c4f-482e-4186-83ac-20f551b0c2b0.png",
+        "_id": "6040fe1b233e0f0eb5afdc14"
+      }
+    },
+    {
+      "isFeatured": true,
+      "title": "Tours locales",
+      "description": "<p>Explorar una ciudad nueva andando a pie, es lo mejor. Disfrutas paisajes, sonidos, olores y sabores en primer plano. Te encantará conocer a nuestros guías profesionales. ¡Este tour incluye tour local en Roma, Praga, Múnich y París!</p>",
+      "image": {
+        "source": {
+          "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_a56d1c42-1ad6-409b-b2a3-3f175cc42a41.png",
+          "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_a56d1c42-1ad6-409b-b2a3-3f175cc42a41.png",
+          "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_a56d1c42-1ad6-409b-b2a3-3f175cc42a41.png",
+          "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_a56d1c42-1ad6-409b-b2a3-3f175cc42a41.png"
+        },
+        "type": "image",
+        "fileName": "a56d1c42-1ad6-409b-b2a3-3f175cc42a41.png",
+        "_id": "6040fe4a233e0f0eb5afdc1c"
+      }
+    },
+    {
+      "isFeatured": true,
+      "title": "Cena Navideña",
+      "description": "<p>Celebraremos Navidad en Praga, en un restaurante que nos regresa a la época Medieval con su peculiar decoración. Podrás degustar la típica cena Praguense y claro... brindar por los nuevos amigos.</p>",
+      "image": {
+        "source": {
+          "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_c73ec5ca-5fbe-4109-88a7-d400463c7a45.png",
+          "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_c73ec5ca-5fbe-4109-88a7-d400463c7a45.png",
+          "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_c73ec5ca-5fbe-4109-88a7-d400463c7a45.png",
+          "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_c73ec5ca-5fbe-4109-88a7-d400463c7a45.png"
+        },
+        "type": "image",
+        "fileName": "c73ec5ca-5fbe-4109-88a7-d400463c7a45.png",
+        "_id": "6040fe95233e0f0eb5afdc25"
+      }
+    },
+    {
+      "isFeatured": false,
+      "title": " Visita a Cervecería Hofbrauhaus",
+      "description": "<p>Hofbrauhaus es la cervecería más antigua y de gran historia en Múnich. Un lugar con increíble ambiente, excelente comida y la mejor cerveza. Prepárate para brindar varias veces ¡PROST!&nbsp;&nbsp;&nbsp;</p>",
+      "image": {
+        "source": {
+          "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_0a951918-d114-4d1a-817e-c646a7da88f7.png",
+          "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_0a951918-d114-4d1a-817e-c646a7da88f7.png",
+          "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_0a951918-d114-4d1a-817e-c646a7da88f7.png",
+          "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_0a951918-d114-4d1a-817e-c646a7da88f7.png"
+        },
+        "type": "image",
+        "fileName": "0a951918-d114-4d1a-817e-c646a7da88f7.png",
+        "_id": "604100bc233e0f0eb5afdc34"
+      }
+    },
+    {
+      "isFeatured": false,
+      "title": "Ticket Museo Louvre",
+      "description": "<p>Descubre más de 35 mil obras en exposición en uno de los museos más famosos y grandes del mundo. No te preocupes por comprar tu ticket ni hacer largas filas</p>",
+      "image": {
+        "source": {
+          "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_35111405-c4a0-4d17-b9c4-9b2860847cc3.png",
+          "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_35111405-c4a0-4d17-b9c4-9b2860847cc3.png",
+          "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_35111405-c4a0-4d17-b9c4-9b2860847cc3.png",
+          "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_35111405-c4a0-4d17-b9c4-9b2860847cc3.png"
+        },
+        "type": "image",
+        "fileName": "35111405-c4a0-4d17-b9c4-9b2860847cc3.png",
+        "_id": "604101f2233e0f0eb5afdc43"
+      }
+    },
+    {
+      "isFeatured": false,
+      "title": "Seguro médico de viaje",
+      "description": "<p>Es fundamental llevar contigo un seguro médico de viaje. Ésta atención ya está incluida en el tour y podrá ser utilizada únicamente para emergencias médicas, tales como un accidente o enfermedad grave no preexistente. Cobertura Covid-19</p>",
+      "image": {
+        "source": {
+          "original": "https://task-app-storage.s3.eu-west-3.amazonaws.com/original_7b603082-3e5e-41ca-acbc-d46fed0390cf.png",
+          "small": "https://task-app-storage.s3.eu-west-3.amazonaws.com/small_7b603082-3e5e-41ca-acbc-d46fed0390cf.png",
+          "medium": "https://task-app-storage.s3.eu-west-3.amazonaws.com/medium_7b603082-3e5e-41ca-acbc-d46fed0390cf.png",
+          "large": "https://task-app-storage.s3.eu-west-3.amazonaws.com/large_7b603082-3e5e-41ca-acbc-d46fed0390cf.png"
+        },
+        "type": "image",
+        "fileName": "7b603082-3e5e-41ca-acbc-d46fed0390cf.png",
+        "_id": "60410213233e0f0eb5afdc4b"
+      }
+    }
+  ],
+  "notIncluded": [
+    {
+      "isFeatured": false,
+      "title": "Transporte público",
+      "description": "<p>Transporte público como metro, tranvía, ferry, bus o taxi que utilizamos para movernos dentro de una ciudad.</p>"
+    },
+    {
+      "isFeatured": false,
+      "title": "Alimentos",
+      "description": "<p>Tu líder de viaje te recomendará siempre la opción más económica para disfrutar de la comida típica en cada ciudad nueva que visites. Tu decidir dónde, qué y con quién comer.</p>"
+    },
+    {
+      "isFeatured": false,
+      "title": "Actividades opcionales ",
+      "description": "<p>Como museos, excursiones, paseos, exposiciones, traslados o tours locales independientes a los que ya incluye el tour. Otorgamos tiempo libre para que puedas disfrutar de las actividades de tu interés.</p>"
+    }
+  ],
+  "faq": [
+    {
+      "isFeatured": false,
+      "title": "¿Qué debo llevar de equipaje?",
+      "description": "<p><strong>Regla #1 ¡Viaja ligero!</strong></p><p><br></p><p>Estarás mucho en movimiento, entrando y saliendo del metro, subiendo y bajando escaleras, usando elevadores pequeños, vagones de trenes angostos y tramos andando con tu mochila a cuestas. Por eso nuestro mejor consejo es empacar lo más ligero posible. ¿Mochila de hombros o maleta de rueditas? La pregunta que todos los mochileros se hacen. Realmente no importa qué tipo de maleta prefieras, lo que importará es su peso final y lo cómodo que te sientas con ella. El peso recomendable para cualquier tour es de entre 8 a 15 kg como máximo.</p>"
+    },
+    {
+      "isFeatured": false,
+      "title": "¿Qué necesito llevar en mi mochila?",
+      "description": "<p>Tenemos preparado una lista de artículos sugeridos:</p><p>•7 a 12 cambios de ropa cómoda • Ropa térmica • Sudadera • Sueter • Chamarra térmica o de pluma de ganso • Toalla de microfibra • Tenis/zapatos/botas para caminar resistentes y preferentemente impermeables • Gorro, guantes y bufanda • Gafas de sol • Bloqueador • Artículos de higiene • Botella de agua reusable • Bolsa para dinero • Mochila ligera de día • Botiquín personal • Adaptadores eléctricos del lugar al que se viaja&nbsp;&nbsp;</p><p>Te recordamos que no podrás llevar líquidos mayores a 100 ml. en tu equipaje de mano ni objetos punzocortantes.</p><p>El servicio de lavandería es ofrecido por la mayoría de los hostales en Europa. Habrá momentos en los que será posible lavar ropa sucia, así que sugerimos traer una pequeña bolsa de jabón detergente, o bien ahí mismo adquirirlo.</p>"
+    },
+    {
+      "isFeatured": false,
+      "title": "¿Qué documentos necesito?",
+      "description": "<p><strong>Registro de datos y pasaporte vigente</strong></p><p><br></p><p>Tendrás hasta 30 días antes de viajar en el tour elegido para completar tu registro de datos con la información del pasaporte vigente que utilizarás al salir del país. Eres completamente responsable de que tu pasaporte tenga una fecha de vigencia mayor a 6 meses posterior a la fecha de tu regreso del tour confirmado. Si no cumple estos términos, no esperes más y renueva tu pasaporte a la brevedad. ¡Tip! Es importante que tengas copia de tus documentos oficiales en un correo electrónico personal por seguridad.</p>"
+    },
+    {
+      "isFeatured": false,
+      "title": "¿Cuáles y cómo es el hospedaje?",
+      "description": "<p>El acomodo puede ser de entre 4 a 8 personas por habitación con baño privado o compartido. Estaremos anunciando la confirmación del hospedaje días antes de viajar, para que puedas conocer los detalles de cada uno. Ten por seguro que cuidamos siempre un buen ambiente, comodidad y sobre todo seguridad en cada uno de los hostales confirmados. El acomodo del primer hostal lo realiza el departamento de logística de forma aleatoria y los siguientes se hará de forma voluntaria al grupo antes del check in de cada hostal en base a la confirmación de habitaciones.&nbsp;</p>"
+    },
+    {
+      "isFeatured": false,
+      "title": "¿Qué pasa si no se puede realizar una actividad?",
+      "description": "<p><strong>Flexibilidad de viaje</strong></p><p><br></p><p>Debido a nuestro estilo de viaje y las regiones que visitamos, nuestros tours pueden sufrir modificaciones sin previo aviso; derivado de circunstancias ajenas a Mochileros.com.mx, tales como huelgas, bloqueos, condiciones climatológicas extremas, etc. Nuestro objetivo es ofrecerte siempre la experiencia más gratificante, ten por seguro que realizaremos, en caso de ser necesario, las modificaciones necesarias para que así sea.</p>"
+    },
+    {
+      "isFeatured": false,
+      "title": "¿Cómo administro mi dinero?",
+      "description": "<p>Recomendamos ampliamente llevar un poco menos de la mitad de tu presupuesto para gastos personales en efectivo convertido en la moneda local del primer país que se visita y el resto lo deposites en una tarjeta de débito para utilizarla en el extranjero a través de cajeros o directamente en los establecimientos. Tarjetas Visa o MasterCard las puedes utilizar sin inconvenientes.&nbsp;&nbsp;</p><p><br></p><p>¡Tip! Recomendamos ampliamente reportar a tu banco, una semana antes de viajar, las fechas y destinos de tu viaje, para evitar así algún bloqueo de seguridad en tu tarjeta por parte de tu banco.&nbsp;</p>"
+    },
+    {
+      "isFeatured": false,
+      "title": "¿Que tipo de moneda usare?",
+      "description": "<p>Debes tener en cuenta, que en algunos de los países de Europa manejan una moneda diferente al Euro. Podrás realizar este cambio de moneda una vez que llegues a cada destino que lo requiera. Tu líder de viaje te explicará más detalles de dónde y cómo poder cambiar a moneda local. También podrás utilizar tu tarjeta de débito o crédito en los cajeros automáticos y obtendrás tu dinero en la moneda local o bien comprar directamente en establecimientos con tus tarjetas y evitar comisiones innecesarias.&nbsp;</p>"
+    },
+    {
+      "isFeatured": false,
+      "title": "¿Que adaptador eléctrico necesitare?",
+      "description": "<p>Asegúrate de llevar contigo un adaptador/clavija de corriente universal o bien correspondiente al país que visitas para poder conectar tu celular y demás equipos móviles. Podrás conseguirlos en cualquier tienda de electrónica por bajo costo. Podrás conocer qué clavijas necesitas dependiendo de cada destino que visitas en este enlace:&nbsp;<a href=\"http://www.enchufesdelmundo.com/\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(92, 107, 192);\">enchufes del mundo</a></p>"
+    }
+  ],
+  "comments": [],
+  "itinerary": [
+    {
+      "_id": "60391071c13eca3e321cf921",
+      "stringLocation": {
+        "coordinates": [48.1351253, 11.5819806],
+        "country": "Germany",
+        "countryCode": "DE",
+        "city": "Munich"
+      },
+      "itineraryAttached": [],
+      "sort": "0",
+      "customData": [],
+      "itineraryName": "Múnich",
+      "details": [
+        {
+          "isNight": true,
+          "_id": "60391071c13eca3e321cf922",
+          "title": "Día 1 Bienvenida",
+          "description": "<p>Te esperamos por la tarde para el meeting de bienvenida.Tendrás oportunidad de conocer a tus compañeros de viaje y a tu líder de grupo. Es un gran momento para romper el hielo en el bar del hostal y brindar por que esta aventura ¡Ya comenzó!</p>"
+        },
+        {
+          "isNight": true,
+          "_id": "60391435c13eca3e321cf924",
+          "title": "Día 2 Visita Garmisch",
+          "description": "<p>Hoy tomaremos nuestro tren hacia Garmish, un encantador poblado a pie de los Alpes.</p><p>Como actividad opcional podrás adquirir tu ticket de acceso a Zugspitze, la montaña más alta de Alemania, un destino frecuentado por locales y claro, unos cuantos grupos de mochileros jajaja. Es una actividad 100% recomendada A nuestro regreso a Múnich, visitaremos \"Hofbräuhaus\" la cervecería más famosa de Alemania para brindar al ritmo de música bávara.</p><p>Incluye: Tren regional a Garmisch / Visita Hofbräuhaus</p>"
+        },
+        {
+          "isNight": true,
+          "_id": "60391551c13eca3e321cf929",
+          "title": "Día 3 Visita Salzburgo",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Por la mañana tomaremos el tren de Múnich con dirección a Salzburgo, a poco menos de dos horas cruzaremos la frontera de Austria. Tendremos oportunidad de subir como actividad opcional en teleférico a la fortaleza Hohensalzburg, visitar el mercadito Navideño de la plaza principal de Salzburgo, que tiene fama de ser el más hermoso de todos. Por la noche volvemos a Múnich. Incluye: Visita a Salzburgo / Tren regional</span></p>"
+        },
+        {
+          "isNight": true,
+          "_id": "603915cec13eca3e321cf933",
+          "title": "Día 4 Recorrido Múnich",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Guten Morgen München! Hoy nos espera nuestro tour local por lo más emblemático del centro histórico. Al terminar conoceremos el \"Parque Inglés\" más grande que el Central Park de NY y notablemente más peculiar,ya que ahí se practica el surf en el lugar más inesperado que puedas imaginarte. La tarde la tienes libre para otras actividades, si quieres seguirle el paso a tu guía, no te puedes perder la visita al olympia park, BMW welt y la imponente Allianz Arena. Incluye: Tour local</span></p>"
+        }
+      ],
+      "idTour": "60390fc6c13eca3e321cf920",
+      "createdAt": "2021-02-26T15:14:57.655Z",
+      "updatedAt": "2021-02-26T15:40:11.083Z"
+    },
+    {
+      "_id": "60391619c13eca3e321cf938",
+      "stringLocation": {
+        "coordinates": [50.0755381, 14.4378005],
+        "country": "Czechia",
+        "countryCode": "CZ",
+        "city": "Prague"
+      },
+      "itineraryAttached": [],
+      "sort": "1",
+      "customData": [],
+      "itineraryName": "Praga",
+      "details": [
+        {
+          "isNight": true,
+          "_id": "60391619c13eca3e321cf939",
+          "title": "Día 5 viajando a Praga",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Nos despedimos de Múnich, para tomar un tren que nos lleve a Praga, una ciudad llena de contrastes en todos los sentidos: cultura, arquitectura, gastronomía y paisajes, lo que la vuelve única en Europa... Después de instalarnos, estaremos listos para visitar el famoso puente de Carlos, la plaza de la Ciudad Vieja y por la noche nos espera un tour de bares, comenzando por los más auténticos de la ciudad y terminando¡hasta el amanecer! en la discoteca más grande de Europa. Incluye: Tour de bares</span></p>"
+        },
+        {
+          "isNight": true,
+          "_id": "60391647c13eca3e321cf93d",
+          "title": "Día 6 recorriendo Praga",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Sabemos que éste día no te levantarás tan temprano, así que hasta medio día tendremos nuestro tour por lo más representativo de Praga, comenzando por el Reloj Astronómico para continuar por el Barrio Judío, la Ciudad Vieja y más. Al término visitaremos el barrio de Mala Strana ubicado a los pies del Castillo de Praga. Podremos contemplar la impresionante vista desde el castillo, pasando junto al callejón mas estrecho de Praga, para después continuar por el muro de John Lennon. Incluye: Tour local / Visita Mala Strana y Castillo de Praga</span></p>"
+        },
+        {
+          "isNight": true,
+          "_id": "60391688c13eca3e321cf944",
+          "title": "Día 7 Cena navideña",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Este día lo tendrás libre para poder recorrer las encantadoras calles de Praga. Por la tarde nos espera nuestra cena de navidad en un increíble restaurante. Incluye: Cena de Navidad</span></p>"
+        }
+      ],
+      "idTour": "60390fc6c13eca3e321cf920",
+      "createdAt": "2021-02-26T15:39:05.447Z",
+      "updatedAt": "2021-02-26T15:40:56.737Z"
+    },
+    {
+      "_id": "603916bec13eca3e321cf945",
+      "stringLocation": {
+        "coordinates": [52.5200066, 13.404954],
+        "country": "Germany",
+        "countryCode": "DE",
+        "city": "Berlin"
+      },
+      "itineraryAttached": [],
+      "sort": "2",
+      "customData": [],
+      "itineraryName": "Berlín",
+      "details": [
+        {
+          "isNight": true,
+          "_id": "603916bec13eca3e321cf946",
+          "title": "Día 8 Viajando a Berlín",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Llegaremos por la tarde a ¡Berlin! Esta majestuosa ciudad nos impresiona en cada una de sus esquinas, calles, monumentos; es la ciudad que apasiona a los amantes de la historia, arte y música. Una vez instalados en nuestro hostal salimos para visitar la Galería del Este del Muro de Berlín, Alexanderplatz y terminar descubriendo un callejón de Street Art imperdible. Incluye: Visita Galería del Este / Visita Street Art</span></p>"
+        },
+        {
+          "isNight": true,
+          "_id": "603916ffc13eca3e321cf949",
+          "title": "Día 9 Recorriendo Berlín",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Este día tendremos nuestro tour local por la ciudad con mayor historia si de la Segunda Guerra Mundial se trata. Por el primer cuadro de la ciudad podremos ver las cicatrices que dejo la ocupación Nazi; pasaremos por uno de los tramos del icónico Muro de Berlín y llegaremos a la Puerta de Brandemburgo. A medio día visitaremos el campo de concentración Sachsenhausen. Incluye: Tour local / Visita a Sachsenhausen</span></p>"
+        }
+      ],
+      "idTour": "60390fc6c13eca3e321cf920",
+      "createdAt": "2021-02-26T15:41:50.026Z",
+      "updatedAt": "2021-02-26T15:42:55.845Z"
+    },
+    {
+      "_id": "6039172fc13eca3e321cf94a",
+      "stringLocation": {
+        "coordinates": [52.3675734, 4.9041389],
+        "country": "Netherlands",
+        "countryCode": "NL",
+        "city": "Amsterdam"
+      },
+      "itineraryAttached": [],
+      "sort": "3",
+      "customData": [],
+      "itineraryName": "Ámsterdam",
+      "details": [
+        {
+          "isNight": true,
+          "_id": "6039172fc13eca3e321cf94b",
+          "title": "Día 10 viajando a Ámsterdam",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Este día llegaremos a Ámsterdam, la ciudad de los canales y capital de Holanda. País distinguido por sus quesos, la cerveza Heineken, sus bicicletas, los famosos zapatos de madera y sus tulipanes. Estaremos llegando por la tarde donde nos espera una visita por el barrio rojo. Conoceremos un poco más de la increíble cultura de la ciudad de las bicicletas. Iremos a visitar los mejores coffee shops y por que no entrar a un show de sexo en vivo. Incluye: Visita Barrio Rojo</span></p>"
+        },
+        {
+          "isNight": true,
+          "_id": "6039174dc13eca3e321cf94d",
+          "title": "Día 11 recorriendo Ámsterdam",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Este día conoceremos la historia de la ciudad, desde sus comienzos como una aldea a las orillas del Río Amstel, hasta lo que es hoy, \"la ciudad más importante de Europa en cuanto a intercambio comercial se refiere\". En nuestro tour local conoceremos desde la controvertida historia del barrio rojo y sus coffeshops, hasta la trágica historia de Ana Frank y la ocupación Nazi. Y sí aun crees poder seguirnos el paso, por la noche haremos un recorrido por 2 bares famosos de la ciudad. Incluye: Tour local</span></p>"
+        }
+      ],
+      "idTour": "60390fc6c13eca3e321cf920",
+      "createdAt": "2021-02-26T15:43:43.654Z",
+      "updatedAt": "2021-02-26T15:44:19.244Z"
+    },
+    {
+      "_id": "60391787c13eca3e321cf950",
+      "stringLocation": {
+        "coordinates": [50.8503396, 4.3517103],
+        "country": "Belgium",
+        "countryCode": "BE",
+        "city": "Brussels"
+      },
+      "itineraryAttached": [],
+      "sort": "4",
+      "customData": [],
+      "itineraryName": "Bruselas",
+      "details": [
+        {
+          "isNight": true,
+          "_id": "60391787c13eca3e321cf951",
+          "title": "Día 12 Viajando a Bruselas",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Hoy nos despedimos de Ámsterdam para viajar a bordo del tren de alta velocidad hacía la capital de Bélgica. Llegaremos a Bruselas justo a tiempo para acomodarnos en nuestro hostal y salir a descubrir lo impresionante de esta ciudad. Iremos a la Grand Place recorriendo sus callejuelas. La tarde es libre para visitar su palacio o bien el famoso Atomium y por la noche nos reunimos para visitar el Delirium Monasterium. Incluye: Visita Delirium Monasterium</span></p>"
+        },
+        {
+          "isNight": true,
+          "_id": "60391814c13eca3e321cf955",
+          "title": "Día 13 visita a Brujas",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Hoy nos dirigimos temprano a Brujas. Donde nos espera un paseo en bici para recorrer sus calles y su arquitectura medieval,pasear por sus molinos de viento que rodean la ciudad y descubrir el Minnewaterpark donde se esconde el Lago del amor. Por la tarde conoceremos y tendremos una degustación en la chocolatería más antigua, donde se fabrican de manera artesanal los chocolates belgas más deliciosos. Al término de este increíble día regresaremos a Bruselas Incluye: Tren regional a Brujas / Degustación de chocolate Belga</span></p>"
+        }
+      ],
+      "idTour": "60390fc6c13eca3e321cf920",
+      "createdAt": "2021-02-26T15:45:11.628Z",
+      "updatedAt": "2021-02-26T15:47:32.679Z"
+    },
+    {
+      "_id": "60391845c13eca3e321cf956",
+      "stringLocation": {
+        "coordinates": [48.856614, 2.3522219],
+        "country": "France",
+        "countryCode": "FR",
+        "city": "Paris"
+      },
+      "itineraryAttached": [],
+      "sort": "5",
+      "customData": [],
+      "itineraryName": "París",
+      "details": [
+        {
+          "isNight": true,
+          "_id": "60391845c13eca3e321cf957",
+          "title": "Día 14 viajando a París para recibir 2022",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Voilá...¡Bienvenidos a París! Llegaremos a nuestro hostal y después saldremos justo a tiempo para conocer a “La gran Madame” como le llamamos en Mochileros... La majestuosa Torre Eiffel de noche nos ayudará a descubrir porque le llaman a París la ciudad de las luces. Estaremos preparados para recibir el Año Nuevo en la avenida más famosa \"Champs-Elysées\".Por donde se mire, restaurantes, discotecas y bares estarán de gala para pasar una noche inolvidable. Incluye: Brindis de fin de año</span></p>"
+        },
+        {
+          "isNight": true,
+          "_id": "6039186ac13eca3e321cf95a",
+          "title": "Día 15 recorriendo París",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Por la mañana tendremos un recorrido bohemio por el barrio de Montmartre, visitaremos atractivos como el Moulin Rouge, el muro de je t'aime y subiremos en funicular a la hermosa Sacre Coeur. El resto del día será libre para disfrutarlo a tu manera. El líder mochilero podrá orientarte en como llegar a los destinos de tu elección. Incluye: Recorrido bohemio por Montmartre / Funicular Montmartre</span></p>"
+        },
+        {
+          "isNight": true,
+          "_id": "60391886c13eca3e321cf95d",
+          "title": "Día 16 libre en París",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Tendrás la mañana libre para poder ingresar al museo de tu preferencia y por la tarde nos dirigiremos a la famosa Notre Dame, para comenzar nuestro tour local acompañados de nuestro guía. Recorreremos no sólo las calles de esta increíble ciudad, sino también aprenderemos de su historia y cultura. El resto de la tarde es libre para ti. Al término si deseas acompañar al líder podremos caminar por Champs-Elysées hasta el Arco del Triunfo. Incluye: Tour local</span></p>"
+        },
+        {
+          "isNight": false,
+          "_id": "603918a0c13eca3e321cf961",
+          "title": "Día 17 Despedida",
+          "description": "<p><span style=\"background-color: rgba(0, 0, 0, 0.075); color: rgba(0, 0, 0, 0.87);\">Ha llegado el último día de nuestro increíble tour, después de realizar el check out, podremos tomar nuestra última foto de grupo y despedirnos. ¡Buen viaje a todos! Seguiremos en contacto con los amigos que hemos conocido durante el viaje y estaremos esperándolos para el próximo tour mochilero</span></p>"
+        }
+      ],
+      "idTour": "60390fc6c13eca3e321cf920",
+      "createdAt": "2021-02-26T15:48:21.362Z",
+      "updatedAt": "2021-02-26T15:49:52.957Z"
+    }
+  ],
+  "video": "Gz_6U7JToh0"
+}

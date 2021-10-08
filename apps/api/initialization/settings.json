@@ -1,0 +1,18 @@
+{
+  "name": "Mochileros V3",
+  "key": "defaultCurrencies",
+  "currencies": [
+    {
+      "name": "USD",
+      "value": 1,
+      "currency": "US"
+    },
+    {
+      "name": "EUR",
+      "value": 0.85,
+      "currency": "ES"
+    }
+  ],
+  "payAmount": [100, 15, 25, 50],
+  "instaFeed": "IGQVJVbUE0ejJyeEpwUEFCOXAzMkJkdUNQY1pkZAXpEZAWtTNVB0UnRJZA25xLXRibXozR0w3WktqR21YR2ptVGFKMlVTVTg1OUtyckJFNXdXcmtLOG5Tb0hlLXJSSURyZAHl3a0J1M3lR"
+}

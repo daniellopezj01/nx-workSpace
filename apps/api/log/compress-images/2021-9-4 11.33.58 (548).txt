@@ -1,0 +1,7 @@
+File from: [C:\Users\USUARIO\Documents\empresa\mochileros 3.0\api/public/media/original_7138aa4a-14e3-4a8e-b109-1b8db89467df.png]
+
+File to: [C:\Users\USUARIO\Documents\empresa\mochileros 3.0\api/public/media_compress/original_7138aa4a-14e3-4a8e-b109-1b8db89467df.png]
+
+Compression algorithm: [pngquant]
+
+Description: Error: Command failed: C:\Users\USUARIO\Documents\empresa\mochileros 3.0\api\node_modules\pngquant-bin\vendor\pngquant.exe --quality=20-40 -o C:\Users\USUARIO\Documents\empresa\mochileros 3.0\api/public/media_compress/original_7138aa4a-14e3-4a8e-b109-1b8db89467df.png C:\Users\USUARIO\Documents\empresa\mochileros 3.0\api/public/media/original_7138aa4a-14e3-4a8e-b109-1b8db89467df.png
