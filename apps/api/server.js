@@ -77,9 +77,15 @@ app.set('views', path.join(__dirname, 'views'))
 app.engine('html', require('ejs').renderFile)
 
 app.set('view engine', 'html')
+
 app.use('/api/1.0', require('./app/routesApi'))
 app.use('/admin', require('./app/routesAdmin'))
-app.use('/', require('./app/routes'))
+// app.use('/', require('./app/routes/tests'))
+// var testRoutes = require('./app/routes/tests');
+
+// require('./app/routes/tests')(app);
+// app.use('/', require('./app/routes'))
+
 
 server.listen(process.env.PORT)
 
