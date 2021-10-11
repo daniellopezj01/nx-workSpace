@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/styles_login.css">
+  <script src="../js/custom_login.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <title>Mochileros login</title>
+</head>
+
+
+<body>
+<div class="header">
+  <div class="container-logo">
+    <img src="../img/logo.f9af979ae4c629101390.svg" class="logo">
+  </div>
+</div>
+<div class="container-page">
+  <div class="col-lg-12 offset-xl-3 col-xl-6 animate__animated animate__fadeInDown animation-1">
+    <div class="cont-all">
+      <div class="main-text text-center">
+        <h3 class="wellcome">Bienvenido a</h3>
+        <h2 class="title">Mi cuenta Mochileros</h2><span class="text-description opacity-0-70">Administra
+                        todos los detalles
+                        de tu próxima aventura</span>
+      </div>
+      <div class="containers-Form animate__animated animate__fadeInDown animation-3">
+        <div class="manager-forms">
+          <div class="buttons">
+            <button onclick="showLogin()" class="col-6 style-button btn classActive" id="btn-login"> Inicia sesión
+            </button>
+            <button onclick="showRegister()" class="col-6 style-button" id="btn-register"> Regístrate</button>
+          </div>
+      
+          <!-- LOGIN FORM -->
+          <div class="forms" id="login_form">
+            <div class="col-12 form-login animate__animated animate__fadeIn">
+              <!-- <form id="login" onsubmit="login(event)" class="ng-untouched ng-pristine ng-invalid"> -->
+              <form id="login" action="/login?redirect={{redirect}}" method="POST" class="ng-untouched ng-pristine
+              ng-invalid">
+              <div class="form-group"><small class="text-muted">Email</small><input type="email"
+                                                                                    placeholder="" required
+                                                                                    name="email"
+                                                                                    class="form-control ng-untouched ng-pristine ng-invalid">
+              </div>
+              <div class="form-group"><small class="text-muted">Contraseña</small><input
+                      appeyepassword="" placeholder="" required
+                      type="password" name="password"
+                      class="form-control ng-untouched ng-pristine ng-invalid"><span>
+                                            <div class="small" style="cursor: pointer">Show password</div>
+                                        </span></div>
+              <div class="w-100 text-center pb-2">
+                <button
+                        class="btn btn-primary btn-block" type="submit" style="width: 100%;">Inicia sesión
+                </button>
+              </div>
+              <div class="p-3 small text-center text-uppercase"> o
+              </div>
+              <div class="w-100 text-center pb-2">
+                <a class="btn hvr-shrink btn-default btn-block btn-social btn-facebook"
+                   id="login_facebook"
+                   href="/register-facebook?tenant={{tenant}}&redirect={{redirect}}"
+                >Inicia con Facebook</a>
+              </div>
+              <div class="w-100 text-center pb-2">
+                <a class="btn hvr-shrink btn-default btn-block btn-social btn-google"
+                   id="login_google"
+
+                   href="/register-google?tenant={{tenant}}&redirect={{redirect}}"
+                >Inicia con Google</a></div>
+              </form>
+              <a class="small text-dark" href="/auth/forgot">
+                ¿Olvidaste contraseña? </a>
+            </div>
+            <!---->
+            <div class="style-form">
+              <!---->
+              <!---->
+            </div>
+          </div>
+          <!-- REGISTER FORM -->
+          <div class="forms" id="register_form" style="display: none;">
+            <div
+                    class="col-12 form-login animate__animated animate__fadeIn">
+              <form action="/register?redirect={{redirect}}" method="POST"
+              class="">
+              <div class="row">
+                <div class="col-lg-6 input-cont-register">
+                  <div class="form-group"><small
+                          class="text-muted">Nombre</small>
+                    <input type="text" required
+                           name="name"
+                           placeholder=""
+                           class="form-control "></div>
+                </div>
+                <div class="col-lg-6 input-cont-register">
+                  <div class="form-group"><small
+
+                          class="text-muted">Apellido</small><input
+                          type="text"
+                          name="surname"
+                          placeholder="" required
+                          class="form-control ng-untouched ng-pristine ng-invalid"></div>
+                </div>
+              </div>
+              <div class="input-cont-register">
+                <div class="form-group position-relative"><small
+                        class="text-muted">Email</small><input
+                        type="text" name="email"
+                        placeholder="" required
+                        class="form-control ng-untouched ng-pristine ng-invalid">
+                  <!---->
+                </div>
+                <div class="form-group"><small
+                        class="text-muted">Contraseña</small><input
+                        appeyepassword=""
+                        type="password"
+                        name="password" placeholder="" required=""
+                        class="form-control ng-untouched ng-pristine ng-invalid"><span>
+                  {{!-- <div class="small" style="cursor: pointer">Show password</div> --}}
+                </span></div>
+                <div>
+                  <password-strength-meter>
+                  </password-strength-meter>
+                </div>
+              </div>
+              <div class="instruction-password pb-2"><span
+              >Su contraseña debe tener un mínimo de 6
+                                            caracteres y debe contener al menos 1 letra minúscula, 1 letra mayúscula, 1
+                                            carácter especial (ejemplo: @ $% &amp; * #) y 1 número.</span></div>
+              <div class="w-100 pt-2">
+                <button type="submit"
+                        class="btn btn-primary btn-block" style="width: 100%;"
+                >Registro usuario
+                </button>
+              </div>
+              <div class="p-3 small text-center text-uppercase"> o
+              </div>
+              <a class="w-100 text-center pb-2"><a
+                      class="btn hvr-shrink btn-default btn-block btn-social btn-facebook"
+                      href="/register-facebook?tenant={{tenant}}&redirect={{redirect}}">
+                Registrar con Facebook</a>
+                </a>
+              <a class="w-100 text-center pb-2">
+                <button
+                      class="btn hvr-shrink btn-default btn-block btn-social btn-google"
+                      href="/register-google?tenant={{tenant}}&redirect={{redirect}}">
+                Registrar con Google</button>
+                </a>
+              </form>
+            </div>
+            <!---->
+            <div class="style-form">
+              <!---->
+              <!---->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="change-tab"> ¿Todavía no tienes una cuenta? <a class="font-click text-dark"> Click aqui</a>
+      </div>
+      <div class="rem-padding-width custom-row">
+        <div class="rem-padding-width col-6 terms-privacy"><a target="_blank"
+                                                              class="link link-d pt-1 text-dark pb-1 text-capitalize"
+                                                              href="https://info.mochileros.com.mx/terminos-y-condiciones-de-mochileros-com-mx/">
+          Términos
+          y Condiciones </a></div>
+        <div class="rem-padding-width col-6 terms-privacy"><a target="_blank"
+                                                              class="link link-d pt-1 text-dark pb-1 text-capitalize"
+                                                              href="https://info.mochileros.com.mx/politica-de-privacidad/">
+          Política de privacidad </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

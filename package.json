@@ -93,7 +93,10 @@
     "trim-request": "^1.0.6",
     "utf8": "^3.0.0",
     "uuid": "^8.3.2",
-    "validator": "^13.5.2"
+    "validator": "^13.5.2",
+    "cookie-parser": "^1.4.5",
+    "handlebars": "^4.7.7",
+    "hbs": "^4.1.2"
   },
   "devDependencies": {
     "@nrwl/cli": "12.9.0",
