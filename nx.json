@@ -30,6 +30,13 @@
     "api": {
       "tags": []
     },
+    "front": {
+      "tags": []
+    },
+    "front-e2e": {
+      "tags": [],
+      "implicitDependencies": ["front"]
+    },
     "oauth": {
       "tags": []
     }
