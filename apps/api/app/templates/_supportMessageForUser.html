@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="newReservation.css" /> -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+    <style>
+      #main-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        font-family: Avenir, Helvetica, sans-serif;
+        box-sizing: border-box;
+        font-size: 1rem;
+      }
+      #title {
+        color: #2f3133;
+        margin-top: 0;
+        text-align: left;
+      }
+
+      #margin-t-1 {
+        margin-top: 1rem !important;
+      }
+
+      #title-info-reservation {
+        color: #2f3133;
+        font-weight: bold;
+        text-align: center;
+        font-size: 1.4rem;
+      }
+      #bold {
+        font-weight: bolder;
+      }
+
+      tr {
+        display: flex;
+      }
+
+      .tr-inside {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+        border-collapse: collapse;
+        margin: 1rem auto;
+        font-size: 1.2rem;
+      }
+
+      #td-inside {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        word-wrap: break-word;
+        text-align: left;
+        margin: 1rem auto;
+        font-size: 1.2rem;
+      }
+
+      #text-center {
+        text-align: center !important;
+      }
+
+      table,
+      td,
+      tr {
+        background-color: white;
+        font-size: 1.1rem;
+      }
+
+      .table-data {
+        margin: 2rem 0;
+      }
+
+      #style-main-table {
+        background-color: #f7f7f7;
+        margin: 0 auto;
+        padding: 0;
+        width: 600px;
+      }
+
+      .logo {
+        max-width: 100%;
+        border: none;
+      }
+
+      #style-buttons {
+        text-decoration: none;
+        max-width: max-content;
+        border-radius: 10px;
+        color: white;
+        padding: 1rem;
+        font-weight: bolder;
+        background-color: #e52914;
+        font-size: 1.1rem;
+        white-space: nowrap;
+      }
+
+      #go-to-messenger {
+        text-decoration: none;
+        max-width: max-content;
+        border-radius: 10px;
+        color: white;
+        padding: 0.7rem;
+        font-weight: bolder;
+        background-color: #0c72b0;
+        font-size: 0.95rem;
+        white-space: nowrap;
+      }
+      #go-to-whatsapp {
+        max-width: max-content;
+        border-radius: 10px;
+        color: white;
+        padding: 0.7rem;
+        font-weight: bolder;
+        background-color: #0cb039;
+        font-size: 0.95rem;
+        white-space: nowrap;
+      }
+
+      @media print, screen and (max-width: 740px) {
+        .style-main-table {
+          width: 96%;
+        }
+        table,
+        td,
+        tr {
+          font-size: 0.95rem;
+        }
+        .text-descrition-name {
+          text-align: center;
+          font-size: 1rem;
+        }
+        .main-text {
+          font-size: 1.1rem;
+        }
+        .go-to-messenger,
+        .go-to-whatsapp {
+          font-size: 0.9rem;
+        }
+      }
+
+      @media print, screen and (max-width: 1140px) and (min-width: 740px) {
+        .style-main-table {
+          width: 80%;
+        }
+      }
+
+      @media print, screen and (min-width: 1140px) {
+      }
+    </style>
+  </head>
+  <body style="margin: 0 !important; padding: 0 !important">
+    <div id="main-container">
+      <div id="style-main-table" style="background-color: white">
+        <table width="100%">
+          <tbody>
+            <br />
+            <tr style="width: 100%">
+              <td style="width: 100%">
+                <div
+                  style="display: inline-block; text-align: center; width: 100%"
+                >
+                  <a
+                    style="margin: auto"
+                    href="https://mochileros.com.mx/"
+                    target="_blank"
+                    data-saferedirecturl="https://www.google.com/url?q=http://api.mochileros.com.mx/&amp;source=gmail&amp;ust=1608745565550000&amp;usg=AFQjCNG4MgoPuwewmcUoFayI1zcLrBMIKw"
+                  >
+                    <img
+                      class="logo"
+                      src="https://ci4.googleusercontent.com/proxy/oKfIkxuhQf24a_9kIR40c6hDcOeDnZCutmU8y0MJoncHO1adymkYeQyh23bnD4Re2QNY_tvRk38u2sXt6XoBNbrhdUKUMqpfqSPaeDG49m7Ff8yDhA=s0-d-e1-ft#https://s3.us-east-2.amazonaws.com/media-mochileros/asset/logo.png"
+                      height="40px"
+                  /></a>
+                </div>
+                <div
+                  style="
+                    margin: 3rem 0;
+                    display: inline-block;
+                    text-align: center;
+                    width: 100%;
+                  "
+                >
+                  <span
+                    style="font-size: 1.6rem; font-weight: bolder; margin: auto"
+                  >
+                    Respuesta del Soporte
+                  </span>
+                </div>
+
+                <div style="margin: 1rem 0 1.5rem 0">
+                  <span style="font-size: 1.2rem; margin: auto">
+                    El equipo administrativo de mochileros, ha dado respuesta a
+                    tu pregunta.
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <!-- INFORMACION RESERVACION -->
+            <tr class="justify-content-start">
+              <table width="100%" class="table-data">
+                <tbody>
+                  <tr class="tr-inside" style="margin-bottom: 4rem">
+                    <td class="td-inside">
+                      <span
+                        class="title"
+                        style="font-weight: bolder; font-size: 1.2rem"
+                        >Codigo de Soporte:
+                      </span>
+                    </td>
+                    <td
+                      class="td-inside"
+                      style="font-weight: bolder; font-size: 1.2rem"
+                    >
+                      <span>SUPPORT_HASH</span>
+                    </td>
+                  </tr>
+                  <tr class="tr-inside">
+                    <td class="td-inside" style="font-size: 1.2rem">
+                      <span class="title">Codigo de Reserva: </span>
+                    </td>
+                    <td class="td-inside" style="font-size: 1.2rem">
+                      <span>RESERVATION_CODE</span>
+                    </td>
+                  </tr>
+                  <tr class="tr-inside">
+                    <td class="td-inside" style="font-size: 1.2rem">
+                      <span class="title">Tour: </span>
+                    </td>
+                    <td class="td-inside" style="font-size: 1.2rem">
+                      <span>TOUR_TITLE</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </tr>
+            <tr style="margin: 1rem 0 1.5rem 0">
+              <span style="font-size: 1.2rem; margin: auto">
+                Mensaje: MESSAGE_RECEIVE
+              </span>
+            </tr>
+            <tr style="width: 100%">
+              <td style="width: 100%">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 2.5rem;
+                    font-weight: bold;
+                    text-align: center;
+                  "
+                >
+                  <span style="margin: auto">
+                    En el siguiente enlace puedes ver tu conversación
+                    relacionada a este ticket de soporte
+                  </span>
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    margin: 0.5rem 0;
+                  "
+                >
+                  <a
+                    href="GO_TO_URL"
+                    target="_blank"
+                    style="margin: auto"
+                    id="style-buttons"
+                  >
+                    Ver Ticket
+                  </a>
+                </div>
+                <div
+                  style="
+                    margin: 8rem 0 0 0;
+                    display: inline-block;
+                    text-align: center;
+                    width: 100%;
+                  "
+                >
+                  <span
+                    style="font-size: 1rem; font-weight: bolder; margin: auto"
+                  >
+                    www.mochileros.com.mx
+                  </span>
+                </div>
+                <div
+                  style="display: inline-block; text-align: center; width: 100%"
+                >
+                  <span
+                    style="font-size: 1rem; font-weight: bolder; margin: auto"
+                  >
+                    Mochileros por el Viejo y Nuevo Mundo S.L.U.
+                  </span>
+                </div>
+                <div
+                  style="display: inline-block; text-align: center; width: 100%"
+                >
+                  <span
+                    style="font-size: 1rem; font-weight: bolder; margin: auto"
+                  >
+                    Calle: Lagasca 26 -1º derecha
+                  </span>
+                </div>
+                <div
+                  style="display: inline-block; text-align: center; width: 100%"
+                >
+                  <span
+                    style="font-size: 1rem; font-weight: bolder; margin: auto"
+                  >
+                    28001 Madrid España
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

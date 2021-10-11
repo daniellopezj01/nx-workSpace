@@ -1,0 +1,16 @@
+{
+  "name": "Api Travelpayouts hoteles",
+  "version": "0.0.1",
+  "description": "Obténer hoteles en diferentes metodos de busqueda",
+  "author": "leifer33@gmail.com",
+  "path": "travelpayouts-api-hotels",
+  "features": {
+    "sortBy": [
+      { "name": "popularity" },
+      { "name": "price" },
+      { "name": "name" },
+      { "name": "guestScore" },
+      { "name": "stars" }
+    ]
+  }
+}

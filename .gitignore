@@ -8,7 +8,18 @@
 # dependencies
 /node_modules
 
+#  api
+/apps/api/src
+/apps/api/.env
+/apps/api/public
+/apps/api/logs
+/apps/api/coverage
+/apps/api/.nyc_output
+# /apps/api/app
+/apps/api/.idea
+
 # IDEs and editors
+/apps/api/.idea
 /.idea
 .project
 .classpath

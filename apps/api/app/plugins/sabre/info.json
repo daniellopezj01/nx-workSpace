@@ -1,0 +1,7 @@
+{
+  "name": "SABRE",
+  "version": "0.0.1",
+  "description": "venta de vuelos mediante la plataforma sabre",
+  "author": "leanga software",
+  "path": "sabre"
+}

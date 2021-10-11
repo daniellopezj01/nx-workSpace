@@ -1,0 +1,8 @@
+{
+  "name": "Api Travelpayouts vuelos",
+  "version": "0.0.1",
+  "description": "Obténer vuelos de cualquier pais, y transformar la data en la estructura de mongoose-paginate-v2.",
+  "author": "leifer33@gmail.com",
+  "path": "travelpayouts-api-fligths",
+  "features": {}
+}
