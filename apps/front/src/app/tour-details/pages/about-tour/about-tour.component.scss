@@ -1,0 +1,122 @@
+@import "./src/shared.scss";
+
+::ng-deep .about-tour {
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: $font-family-1 !important;
+    font-stretch: normal !important;
+  }
+}
+
+.continer-title {
+  margin-bottom: 1.5rem;
+}
+
+.about-tour {
+  line-height: 26px;
+  font-size: $font-size-1;
+  color: $text-color-1;
+  word-break: break-word;
+}
+
+.container-about-tour {
+  width: 100%;
+}
+
+.container-info-buy {
+  background-color: $border-color-3;
+  border-radius: $border-radius;
+}
+
+.container-info-buy {
+  padding: 0.5rem;
+  //height: 100%;
+}
+
+.item-buy {
+  display: flex;
+  padding: 1.5rem 0.5rem;
+}
+
+.icon-style {
+  font-size: 1.5rem;
+  color: $base-color;
+}
+
+.content-info-but {
+  width: 85%;
+}
+
+.wrapper-icon-check {
+  width: 4rem;
+  text-align: center;
+}
+
+.description-buy-info {
+  font-size: $font-size-3;
+  font-weight: normal;
+  color: $text-color-2;
+  margin-top: 5px;
+}
+
+.title-buy-info {
+  font-size: $font-size-3;
+  font-weight: 500;
+}
+
+.style-about {
+  position: relative;
+  overflow: hidden;
+}
+
+.default-height {
+  height: 0;
+}
+
+.degradient {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    360deg,
+    rgba(255, 255, 255, 1) 4%,
+    rgba(0, 0, 0, 0) 28%
+  );
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .style-about {
+    padding: 0;
+  }
+  .container-about-tour {
+    padding: 0;
+    text-align: center;
+  }
+  .continer-title {
+    text-align: center;
+  }
+  .container-info-buy {
+    padding: 0;
+    //height: 100%;
+  }
+  .wrapper-icon-check {
+    width: 3rem;
+  }
+  .icon-style {
+    font-size: 1.2rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

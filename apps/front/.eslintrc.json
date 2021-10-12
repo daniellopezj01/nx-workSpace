@@ -16,15 +16,15 @@
             "prefix": "nxWorkSpace",
             "style": "camelCase"
           }
-        ],
-        "@angular-eslint/component-selector": [
-          "error",
-          {
-            "type": "element",
-            "prefix": "nx-work-space",
-            "style": "kebab-case"
-          }
         ]
+        // "@angular-eslint/component-selector": [
+        //   "error",
+        //   {
+        //     "type": "element",
+        //     "prefix": "nx-work-space",
+        //     "style": "kebab-case"
+        //   }
+        // ]
       }
     },
     {

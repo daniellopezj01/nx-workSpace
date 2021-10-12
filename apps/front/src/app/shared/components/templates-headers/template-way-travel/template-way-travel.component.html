@@ -1,0 +1,31 @@
+<app-loading [loading]="loading"></app-loading>
+<div class="container-categories" *ngIf="categories.length">
+  <div class="title">{{ "SHARED.CATEGORIES" | translate }}</div>
+  <div class="section-categories">
+    <div
+      class="square"
+      *ngFor="let category of categories; let i = index"
+      (click)="gotoCategory(category)"
+    >
+      <div class="container-category">
+        <div
+          class="contenedor lazyload"
+          [ngStyle]="{
+            backgroundImage: 'url(' + category?.icon?.source?.medium + ')'
+          }"
+          style="
+            object-fit: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+          "
+        ></div>
+        <div class="bodyInter">
+          <div class="inside-general-title p-2 text-capitalize">
+            <span class="text-white">{{ category.name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

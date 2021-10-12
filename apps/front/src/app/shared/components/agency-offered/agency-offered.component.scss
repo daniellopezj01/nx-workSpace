@@ -1,0 +1,25 @@
+@import "./src/shared.scss";
+
+.container-agency {
+  justify-content: center;
+}
+
+.container-style-agency {
+  border-right: 2px solid $text-color-3;
+  cursor: pointer;
+}
+
+.custom-agency {
+  margin-left: 0.5rem;
+  font-size: $font-size-2;
+  cursor: pointer;
+}
+
+.offered {
+  color: $text-color-1;
+  font-weight: bolder;
+}
+
+.name {
+  color: $base-color;
+}

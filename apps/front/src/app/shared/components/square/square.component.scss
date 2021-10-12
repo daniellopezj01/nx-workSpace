@@ -1,0 +1,42 @@
+@import "./src/shared.scss";
+
+.card {
+  background-color: transparent;
+  display: block !important;
+  width: 100% !important;
+  box-shadow: 0 0 0 transparent;
+  padding: 0;
+  border-color: transparent !important;
+  //margin: 8px 0px !important;
+  border-radius: $border-radius !important;
+  text-decoration: none !important;
+  height: 100%;
+}
+
+.icon-style {
+  margin-bottom: 0.5rem;
+  height: 32px;
+  width: 32px;
+  fill: $base-color-2;
+}
+
+.cont-title {
+  margin-bottom: 0.5rem;
+  //display: inline-flex;
+}
+
+.cont-title p {
+  margin: 0;
+  outline: 0;
+}
+
+.description-card {
+  color: $text-color-1;
+  font-size: $font-size-2;
+  line-height: 1.5;
+}
+
+.title-card {
+  //font-size:;
+  //font-weight: bold;
+}

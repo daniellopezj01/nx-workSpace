@@ -1,0 +1,115 @@
+@import "./src/shared.scss";
+
+.container-component {
+  width: 100%;
+  display: grid;
+}
+
+.container-score {
+  display: grid;
+  min-height: 5rem;
+  margin: auto;
+  justify-content: center;
+  // border: 1px solid #f0f0f0;
+}
+
+.section-one {
+  padding: 2rem;
+}
+
+.score {
+  justify-content: center;
+  display: flex;
+  font-size: 2.7rem;
+  font-weight: 500;
+}
+
+.main-container-bars {
+  display: grid;
+}
+
+.container-bars {
+  position: relative;
+  margin: 0.5rem 0;
+  cursor: pointer;
+}
+
+.mark-reviews {
+  background: #efeef0;
+  border-radius: 5px;
+  overflow: hidden;
+  display: block;
+  height: 13px;
+  position: relative;
+  width: auto;
+}
+
+.mark-reviews:hover .draw-score {
+  background: #dfad2f;
+}
+
+.draw-score {
+  background: #f9c74f;
+  border-radius: $border-radius;
+  border-width: 0;
+  height: 13px;
+  line-height: 40px;
+  position: relative;
+}
+
+.number-star {
+  position: absolute;
+  top: 50%;
+  left: -1rem;
+  font-weight: 500;
+  transform: translate(0, -50%);
+}
+
+.transform {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
+
+.new-padding {
+  padding: 2rem 0rem !important;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .main-container-bars {
+    width: 70%;
+    padding: 0 1rem;
+  }
+  .section-one {
+    width: 30%;
+    padding: 0;
+    margin: auto;
+    display: grid;
+    justify-content: center;
+  }
+  .container-component {
+    display: initial;
+  }
+  .mark-reviews {
+    height: 10px;
+  }
+
+  .number-star {
+    font-size: 0.9rem;
+  }
+  .score {
+    font-size: 2.2rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .section-one {
+    padding: 2rem 1rem;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

@@ -1,0 +1,224 @@
+@import "../../../../shared";
+
+.first-cont {
+  display: flex;
+}
+
+.style-name {
+  color: $text-color-header;
+}
+
+.go-to {
+  font-size: 1em;
+  color: $text-color-header;
+  text-decoration: underline;
+  cursor: pointer;
+  font-family: $font-family-1;
+}
+
+.account {
+  cursor: pointer;
+  border-radius: $border-radius;
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+#dropdown-alignment {
+  right: 0.5rem !important;
+  margin-top: -0.2rem !important;
+
+  &:before {
+    background: white;
+    background: linear-gradient(45deg, white 49%, transparent 49%);
+    box-shadow: -2px 2px 2px 0 rgba(239, 239, 239, 0.4);
+    content: " ";
+    display: block;
+    height: 20px;
+    position: absolute;
+    top: -8px;
+    transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    width: 20px;
+    right: 18px;
+  }
+}
+
+li:hover {
+  background-color: $border-color-2;
+}
+
+li a {
+  color: $text-color-header;
+  font-size: 1rem;
+}
+
+.dropdown-item-style {
+  color: $text-color-header;
+  cursor: pointer;
+  display: block;
+  padding: 0.5em 0.5rem 0.5em 0.5rem !important;
+}
+
+.icon-style-inside {
+  font-size: 1.1em;
+  margin-right: 0.5em;
+}
+
+p {
+  margin: 0;
+  outline: 0;
+}
+
+/****/
+
+.custom-a {
+  font-family: "Hind Siliguri", Sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  color: #525252;
+  padding: 0px 15px 0px 15px;
+}
+
+nav {
+  display: block;
+  text-align: center;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav a,
+.text-not-login {
+  font-family: "Hind Siliguri", Sans-serif;
+  color: $text-color-header;
+  display: block;
+  background: white;
+  text-decoration: none;
+  padding: 1rem;
+  text-transform: capitalize;
+  font-size: 1rem;
+  position: relative;
+  font-weight: 500;
+}
+
+.nav {
+  vertical-align: top;
+  display: inline-block;
+  border-radius: 6px;
+  min-width: min-content;
+}
+
+.nav li {
+  position: relative;
+}
+
+.nav > li {
+  float: left;
+  margin-right: 1px;
+}
+
+.nav > li > a {
+  margin-bottom: 1px;
+}
+
+.nav > li:hover,
+.nav > li:hover > a {
+  border-bottom-color: $base-color;
+}
+
+.nav > li > ul li:hover a:hover {
+  border-bottom-color: $base-color;
+  background-color: $border-color-1;
+}
+
+.nav li:hover > a {
+  color: $base-color;
+}
+
+.text-active {
+  color: $base-color !important;
+}
+
+.nav > li:first-child {
+  border-radius: 4px 0 0 4px;
+}
+.nav > li:first-child > a {
+  border-radius: 4px 0 0 0;
+}
+.nav > li:last-child {
+  border-radius: 0 0 4px 0;
+}
+.nav > li:last-child > a {
+  border-radius: 0 4px 0 0;
+}
+.nav li li a {
+  text-align: left;
+  color: black;
+  font-size: 85%;
+}
+
+.nav li a:first-child:nth-last-child(2):before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  border: 5px solid transparent;
+  top: 50%;
+  right: 5px;
+}
+
+/* submenu positioning*/
+.nav ul {
+  position: absolute;
+  white-space: nowrap;
+  z-index: 1;
+  left: -99999em;
+  box-shadow: $shadow-header;
+}
+
+.nav > li:hover > ul {
+  left: auto;
+  padding-top: 5px;
+}
+.nav > li:hover > .space-right {
+  right: 1rem;
+  padding-top: 5px;
+}
+
+.nav > li li ul {
+  border-left: 1px solid #aaa;
+}
+
+.nav > li li:hover > ul {
+  left: 100%;
+  top: -1px;
+  box-shadow: $shadow-header;
+}
+
+/* arrow hover styling */
+.nav > li > a:first-child:nth-last-child(2):before {
+  border-top-color: #aaa;
+}
+
+.nav > li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent;
+  margin-top: -5px;
+}
+
+.nav li li > a:first-child:nth-last-child(2):before {
+  border-left-color: #aaa;
+  margin-top: -5px;
+}
+
+.nav li li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent;
+  border-right-color: $base-color;
+  right: 10px;
+}

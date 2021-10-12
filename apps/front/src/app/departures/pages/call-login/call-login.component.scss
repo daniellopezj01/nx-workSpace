@@ -1,0 +1,40 @@
+@import "./src/shared.scss";
+/***STEP TWO**/
+.container-step-login {
+  width: 100%;
+  display: grid;
+  min-height: 200px;
+  margin: 4rem 0;
+  box-shadow: $shadow-custom;
+}
+
+.title-Step {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  margin: 3rem 0;
+  text-align: center;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .title-Step {
+    margin: 2rem 0;
+  }
+  .title-Step span {
+    font-size: 1.3rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .icon-style {
+    //margin: auto 1rem auto auto;
+  }
+}
+
+@media print, screen and (min-width: 1140px) {
+  .icon-style {
+    //margin: auto 1rem auto auto;
+  }
+}

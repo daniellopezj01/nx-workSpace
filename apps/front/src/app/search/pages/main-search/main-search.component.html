@@ -1,0 +1,71 @@
+<div class="sticky-top">
+  <app-header [shadow]="false" #m></app-header>
+</div>
+
+<div class="w-100 main-custom-row">
+  <div class="cont-main-search">
+    <div class="main-items">
+      <div class="container-items">
+        <button
+          class="style-button col-6 btn"
+          *ngFor="let item of mainActions; let i = index"
+          [ngClass]="{ classActive: activeItem === i }"
+          (click)="goTo(item)"
+        >
+          {{ item.name | translate }}
+        </button>
+      </div>
+    </div>
+    <ng-container *ngTemplateOutlet="templateItem"></ng-container>
+    <ng-template #templateItem>
+      <span class="container-templates" [ngSwitch]="activeItem">
+        <div
+          *ngSwitchCase="0"
+          class="style-tours animate__animated animate__fadeIn"
+        >
+          <ng-container *ngTemplateOutlet="toursTemplate"></ng-container>
+        </div>
+        <div *ngSwitchCase="1" class="animate__animated animate__fadeIn">
+          <ng-container *ngTemplateOutlet="hotelTemplate"></ng-container>
+        </div>
+        <div *ngSwitchCase="2" class="animate__animated animate__fadeIn">
+          <ng-container *ngTemplateOutlet="flightTemplate"></ng-container>
+        </div>
+      </span>
+    </ng-template>
+  </div>
+</div>
+
+<app-message-inbox *appOnlyBrowser="true"></app-message-inbox>
+<app-footer></app-footer>
+
+<ng-template #toursTemplate>
+  <div class="cont-tours">
+    <ng-container
+      *ngIf="paramQ; then toursWith; else toursWithOut"
+    ></ng-container>
+    <ng-template #toursWith>
+      <div class="container-tours mt-2 mb-2">
+        <app-container-tour></app-container-tour>
+      </div>
+    </ng-template>
+    <ng-template #toursWithOut>
+      <!-- <div class="popular mt-2 mb-2">
+        <app-popular></app-popular>
+      </div> -->
+      <div class="container-tours mt-4 mb-2">
+        <app-container-tour></app-container-tour>
+      </div>
+    </ng-template>
+  </div>
+</ng-template>
+
+<ng-template #hotelTemplate>
+  <app-container-hotel></app-container-hotel>
+</ng-template>
+
+<ng-template #flightTemplate>
+  <div>
+    <app-container-flight></app-container-flight>
+  </div>
+</ng-template>

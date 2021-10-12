@@ -1,0 +1,53 @@
+@import "./src/shared.scss";
+
+.general-cont {
+  width: 100%;
+  min-height: 60vh;
+}
+
+.header-title p-3 {
+}
+
+.manager-forms {
+  width: 100%;
+  padding: 1.15rem;
+  box-shadow: $shadow-custom;
+  border: solid 1px $border-color-1;
+}
+
+.all {
+  background-color: blue;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.5rem;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .manager-forms {
+  }
+  .cont-form {
+    width: 100%;
+  }
+  .header-title p-3 {
+  }
+  .reservation {
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .header-title p-3 {
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+  .header-title p-3 {
+    // margin-top: 2.5rem;
+    //padding-left: 1rem;
+    // margin-bottom: 3.5rem;
+  }
+}

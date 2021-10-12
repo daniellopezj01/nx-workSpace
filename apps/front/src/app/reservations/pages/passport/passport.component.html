@@ -1,0 +1,63 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="cont">
+  <div class="col-xs-12 col-xl-12 container">
+    <div class="manager-forms">
+      <div class="animate__animated animate__fadeInDown animation-2 section">
+        <div class="description-avatar small">
+          {{ "RESERVATION.ADD_PASSPORT" | translate }}
+        </div>
+        <div>
+          <ngx-file-picker
+            #uploaderVideo
+            [totalMaxSize]="50"
+            [fileMaxSize]="50"
+            (validationError)="onValidationError($event, 'video')"
+            [adapter]="adapterVideo"
+            [fileExtensions]="['jpg', 'jpeg', 'png']"
+            (uploadSuccess)="onUploadSuccess($event)"
+            [showeDragDropZone]="true"
+            [showPreviewContainer]="true"
+            [itemTemplate]="myItemTemplate"
+          >
+            <div class="dropzoneTemplate">
+              <div class="container-logo">
+                <img
+                  class="video-image"
+                  [src]="
+                    data?.imagePassPort?.medium ||
+                    '../../../../../assets/reservations/select-passport.svg'
+                  "
+                  alt="default image avatar"
+                />
+              </div>
+            </div>
+          </ngx-file-picker>
+          <div class="message-error" *ngIf="errorPassport">
+            <p>{{ "RESERVATION.INVALID_FORMAT_VIDEO" | translate }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex" *ngIf="data?.imagePassPort?.medium">
+        <div class="icon-anxiety-passport">
+          <img
+            [src]="'../../../../../assets/reservations/anxiety-passport.svg'"
+            class="lazyload img-fluid"
+            alt="anxiety-passport"
+          />
+        </div>
+        <span>
+          {{ "RESERVATION.SUCCESS_ADD_PASSPORT" | translate }}
+        </span>
+      </div>
+      <hr />
+    </div>
+  </div>
+</div>
+<ng-template
+  #itemTemplate
+  let-fileItem="fileItem"
+  let-uploadProgress="uploadProgress"
+>
+</ng-template>
+<ng-template #myItemTemplate let-fileItem="fileItem"> </ng-template>

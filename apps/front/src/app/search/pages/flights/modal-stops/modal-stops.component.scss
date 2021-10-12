@@ -1,0 +1,57 @@
+.body-section {
+  display: flex;
+  vertical-align: top;
+  width: 100%;
+  border-bottom: 1px solid #dfdfdf;
+  // padding: 1rem 0;
+}
+
+.air-brand {
+  text-align: center;
+  width: 30%;
+}
+
+.data-ticket {
+  // display: grid;
+  margin: auto 0;
+  width: 70%;
+}
+
+.time-line {
+  display: flex;
+  justify-content: space-between;
+}
+
+.times-flights {
+  white-space: nowrap;
+}
+
+.time {
+  color: #424242;
+  font-size: 1.2rem;
+  line-height: 20px;
+}
+
+.duration {
+  margin: 0 1rem;
+  color: #848484;
+}
+
+.close {
+  cursor: pointer;
+}
+
+.place-line {
+  display: flex;
+  justify-content: space-between;
+}
+
+.airports {
+  white-space: nowrap;
+  // font-weight: bolder;
+}
+
+.place {
+  // font-weight: bolder;
+  margin: auto 0;
+}

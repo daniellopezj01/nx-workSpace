@@ -1,0 +1,265 @@
+<ng-container
+  *ngIf="small; then smallTemplate; else bigTemplate"
+></ng-container>
+<ng-template #smallTemplate>
+  <div class="modal-body">
+    <div class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </div>
+    <ng-container *ngTemplateOutlet="filterTemplate"></ng-container>
+    <button
+      (click)="closeFilters()"
+      class="btn btn-primary filter-small-result size-button-results"
+    >
+      {{ 'SEARCH.TOURS.VIEW' | translate }} {{ tripsNumber ? tripsNumber : '' }}
+      {{ 'SEARCH.TOURS.OUR_TRIPS' | translate }}
+    </button>
+  </div>
+</ng-template>
+<ng-template #bigTemplate>
+  <ng-container *ngTemplateOutlet="filterTemplate"></ng-container>
+</ng-template>
+
+<ng-template #filterTemplate>
+  <div class="main">
+    <div
+      class="
+        main-header
+        d-flex
+        justify-content-between
+        align-items-center align-content-center
+      "
+    >
+      <h6
+        class="main-title"
+        [innerHTML]="'SEARCH.TOURS.FILTERS' | translate"
+      ></h6>
+      <div
+        class="clear-filter"
+        [innerHTML]="'SEARCH.TOURS.CLEAR_ALL' | translate"
+        (click)="clearFilters()"
+        *ngIf="checkAllParamsActive()"
+      ></div>
+    </div>
+    <!-- CONTINENTS -->
+    <div class="section-filter" *ngIf="continents?.length > 0">
+      <ng-container
+        *ngTemplateOutlet="
+          templateTitle;
+          context: { title: 'CONTINENTS', key: 'continent' }
+        "
+      ></ng-container>
+      <div class="w-100">
+        <div class="d-flex flex-column">
+          <div
+            (click)="filterContinent(continent)"
+            class="continent"
+            *ngFor="let continent of continents"
+            [ngClass]="{
+              'active-item': valueActive('continent', continent)
+            }"
+          >
+            <div class="cont-image">
+              <div
+                class="img-continent"
+                [ngStyle]="{
+                  'background-image':
+                    'url(' + routeContinents + continent?.code + '.svg)'
+                }"
+              ></div>
+            </div>
+            <span class="continent-name">{{ continent?.name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- PRICE -->
+    <div class="section-filter">
+      <ng-container
+        *ngTemplateOutlet="
+          templateTitle;
+          context: { title: 'PRICE', key: 'minPrice,maxPrice' }
+        "
+      ></ng-container>
+      <div class="body-price custom-slider">
+        <ng-container *appOnlyBrowser="true">
+          <ngx-slider
+            [(value)]="currentMinPrice"
+            [(highValue)]="currentMaxPrice"
+            [options]="optionsPrice"
+            (userChangeEnd)="filterPrice($event)"
+          >
+          </ngx-slider>
+        </ng-container>
+        <span class="font-price">
+          {{ currentMinPrice | number | currencyCurrent: '0:true' }}
+          -
+          {{ currentMaxPrice | number | currencyCurrent: '0:true' }}
+        </span>
+      </div>
+    </div>
+    <!-- CATEGORIES -->
+    <div class="section-filter" *ngIf="categories?.length > 0">
+      <ng-container
+        *ngTemplateOutlet="
+          templateTitle;
+          context: { title: 'CATEGORIES', key: 'category' }
+        "
+      ></ng-container>
+      <div class="form-group">
+        <ng-select
+          [items]="categories"
+          (change)="filterCategory($event)"
+          bindLabel="name"
+          bindValue="_id"
+          [clearable]="false"
+          [multiple]="false"
+          [(ngModel)]="ngSelectCategory"
+          [searchable]="false"
+        >
+        </ng-select>
+      </div>
+    </div>
+    <!-- AGES -->
+    <div class="section-filter">
+      <ng-container
+        *ngTemplateOutlet="
+          templateTitle;
+          context: { title: 'AGES', key: 'minAge,maxAge' }
+        "
+      ></ng-container>
+      <div class="body-price custom-slider">
+        <ng-container *appOnlyBrowser="true">
+          <ngx-slider
+            [(value)]="currentMinAge"
+            [(highValue)]="currentMaxAge"
+            [options]="optionsAge"
+            (userChangeEnd)="filterAge($event)"
+          >
+          </ngx-slider>
+        </ng-container>
+        <span class="font-price">
+          {{ currentMinAge }}{{ 'GENERAL.YEARS' | translate }}
+          -
+          {{ currentMaxAge }}{{ 'GENERAL.YEARS' | translate }}
+        </span>
+      </div>
+    </div>
+    <!-- DATES -->
+    <div class="section-filter">
+      <ng-container
+        *ngTemplateOutlet="
+          templateTitle;
+          context: { title: 'DATES', key: 'minDate,maxDate' }
+        "
+      ></ng-container>
+      <div class="cont-form">
+        <input
+          #inputDates="bsDaterangepicker"
+          [minDate]="today"
+          bsDaterangepicker
+          readonly
+          [(ngModel)]="bsRangeValue"
+          (bsValueChange)="filterDates($event)"
+          [placement]="device.isMobile() ? 'bottom' : 'right'"
+          [bsConfig]="bsOptions"
+          [ngClass]="{
+            'active-item': valueActive('dates')
+          }"
+          class="input-checkIn"
+          placeholder="Departure by - Return by"
+        />
+      </div>
+    </div>
+    <!-- LANGUAGES -->
+    <div class="section-filter">
+      <ng-container
+        *ngTemplateOutlet="
+          templateTitle;
+          context: { title: 'LANGUAGES', key: 'language' }
+        "
+      ></ng-container>
+      <ul class="row ml-0 mr-0 custom-ul">
+        <li
+          class="li-item"
+          *ngFor="let item of languages"
+          (click)="filterLanguage(item)"
+        >
+          <button
+            class="square-item"
+            [ngClass]="{
+              'active-item': valueActive('language', item)
+            }"
+          >
+            <span>{{ item?.text | translate }}</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <!-- OWN_OR_AGENCY -->
+    <div class="section-filter">
+      <ng-container
+        *ngTemplateOutlet="
+          templateTitle;
+          context: { title: 'OFFERED_BY', key: 'offeredBy' }
+        "
+      ></ng-container>
+      <ul class="row ml-0 mr-0 custom-ul">
+        <li
+          class="li-item"
+          *ngFor="let item of offeredBy"
+          (click)="filterOfferedBy(item)"
+        >
+          <button
+            class="square-item"
+            [ngClass]="{
+              'active-item': valueActive('offeredBy', item)
+            }"
+          >
+            <span>{{ item?.text | translate }}</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <!-- DURATION -->
+    <div class="section-filter d-flex flex-column last-item">
+      <ng-container
+        *ngTemplateOutlet="
+          templateTitle;
+          context: { title: 'DURATION', key: 'minDuration,maxDuration' }
+        "
+      ></ng-container>
+      <ul class="row ml-0 mr-0 custom-ul">
+        <li
+          class="li-item"
+          *ngFor="let item of itemsDuration"
+          (click)="filterDuration(item)"
+        >
+          <button
+            class="square-item"
+            [ngClass]="{
+              'active-item': valueActive('duration', item)
+            }"
+          >
+            <span>{{ item.name | translate }}</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateTitle let-title="title" let-key="key">
+  <div class="d-flex justify-content-between align-items-center">
+    <span class="title">
+      {{ 'SEARCH.TOURS.' + title | translate }}
+    </span>
+    <span
+      class="clean-one"
+      (click)="removeFilter(key)"
+      *ngIf="checkActiveFilter(key)"
+    >
+      {{ 'GENERAL.CLEAR_ONE' | translate }}
+    </span>
+  </div>
+</ng-template>

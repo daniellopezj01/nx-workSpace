@@ -1,0 +1,200 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-family: Avenir, Helvetica, sans-serif;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.title {
+  color: #2f3133;
+  margin-top: 0;
+  text-align: left;
+}
+
+.margin-t-1 {
+  margin-top: 1rem !important;
+}
+
+.title-info-reservation {
+  color: #2f3133;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.4rem;
+}
+.bold {
+  font-weight: bolder;
+}
+
+.td-logo {
+  background-color: white;
+  justify-content: center;
+  display: flex;
+}
+
+tr {
+  display: flex;
+}
+
+.text-name {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.text-descrition-name {
+  font-weight: initial;
+  font-size: 1.2rem;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.justify-content-start {
+  justify-content: flex-start !important;
+}
+
+.main-text {
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+
+.tr-inside {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.td-inside {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  word-wrap: break-word;
+  text-align: left;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+table,
+td,
+tr {
+  background-color: white;
+  font-size: 1.1rem;
+}
+
+.table-data {
+  margin: 2rem 0;
+}
+
+.style-main-table {
+  background-color: #f7f7f7;
+  margin: 0 auto;
+  padding: 0;
+  width: 600px;
+}
+
+.logo {
+  max-width: 100%;
+  border: none;
+}
+
+.go-to-payment {
+  max-width: 30%;
+  border-radius: 10px;
+  color: white;
+  padding: 0.7rem;
+  font-weight: bolder;
+  background-color: #e52914;
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.type-colum {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-contact {
+  span {
+    font-size: 0.75rem;
+    margin-top: 0.3rem;
+  }
+  div {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+}
+
+.color-schedule {
+  color: #7f7f7f;
+}
+.container-button-social {
+  display: flex;
+  justify-content: center;
+}
+
+.go-to-messenger {
+  max-width: max-content;
+  border-radius: 10px;
+  color: white;
+  padding: 0.7rem;
+  font-weight: bolder;
+  background-color: #0c72b0;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+.go-to-whatsapp {
+  max-width: max-content;
+  border-radius: 10px;
+  color: white;
+  padding: 0.7rem;
+  font-weight: bolder;
+  background-color: #0cb039;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .style-main-table {
+    width: 96%;
+  }
+  table,
+  td,
+  tr {
+    font-size: 0.95rem;
+  }
+  .go-to-payment {
+    max-width: max-content;
+  }
+  .text-descrition-name {
+    text-align: center;
+    font-size: 1rem;
+  }
+  .main-text {
+    font-size: 1.1rem;
+  }
+  .text-name {
+    font-size: 1rem;
+  }
+
+  .go-to-messenger,
+  .go-to-whatsapp {
+    font-size: 0.9rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .style-main-table {
+    width: 80%;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

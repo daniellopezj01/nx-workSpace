@@ -1,0 +1,23 @@
+.custom-alert-primary {
+  width: min-content;
+  margin: auto;
+  // white-space: nowrap;
+} //phone
+
+.customClick {
+  font-weight: bold;
+  cursor: pointer;
+}
+@media print, screen and (max-width: 740px) {
+  .custom-alert-primary {
+    width: 100%;
+  } //phone
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

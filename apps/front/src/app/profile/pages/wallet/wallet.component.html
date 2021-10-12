@@ -1,0 +1,220 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="general-cont">
+  <div class="general">
+    <app-bread-crumb></app-bread-crumb>
+    <div class="header-title pl-3">
+      <h3>{{ 'USER.WALLET.TITLE_WALLET' | translate }}</h3>
+    </div>
+    <div
+      class="
+        container
+        custom-row
+        animate__animated animate__fadeInDown
+        animation-1
+      "
+    >
+      <div class="manager-forms">
+        <div class="custom-row row">
+          <div class="col-md-6 col-lg-6 col-xl-8 col-sm-12">
+            <div>
+              <p class="mb-2">
+                {{ 'USER.WALLET.SQUARE_DESC_WALLET' | translate }}
+              </p>
+            </div>
+            <button
+              [routerLink]="['/payment']"
+              class="mr-2 btn btn-sm btn-primary"
+            >
+              {{ 'USER.WALLET.ENTER_DINNER' | translate }}
+            </button>
+            <a
+              [href]="'LINKS_EXTERNAL.PROGRAM_WALLET.LINK' | translate"
+              target="_blank"
+              class="mr-2 btn btn-sm btn-default"
+            >
+              {{ 'USER.WALLET.HOW_IT_WORK' | translate }}
+            </a>
+          </div>
+          <div
+            class="
+              col-md-6
+              total
+              col-lg-6 col-xl-4 col-sm-12
+              d-flex
+              justify-content-center
+              align-items-center align-content-center
+            "
+          >
+            <h3 class="font-weight-bolder">
+              $ {{ total | number: '1.2-2' | currencyCurrent: '2:true' }}
+            </h3>
+          </div>
+        </div>
+        <hr class="row" />
+        <div class="transactions">
+          <ng-container
+            *ngIf="data?.length; then with; else withOut"
+          ></ng-container>
+
+          <ng-template #with>
+            <ng-container
+              *ngIf="
+                deviceService.isMobile();
+                then mobileTemplate;
+                else desktopTemplate
+              "
+            ></ng-container>
+          </ng-template>
+
+          <ng-template #withOut>
+            <div class="container-with-out d-flex justify-content-center">
+              <div class="with-out-transaction">
+                <p class="text-center">
+                  {{ 'USER.WALLET.NOT_TRANSACTIONS' | translate }}
+                </p>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="w-100">
+        <hr />
+        <pagination
+          [itemsPerPage]="walletService.limitPerPage"
+          [(ngModel)]="walletService.page"
+          (pageChanged)="pageChanged($event)"
+          [customPreviousTemplate]="pageTemplateLeft"
+          [customNextTemplate]="pageTemplateRight"
+          [maxSize]="walletService.maxSize"
+          [totalItems]="dataRaw?.totalDocs"
+        ></pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #mobileTemplate>
+  <div class="d-flex flex-column w-100">
+    <div
+      *ngFor="let item of data; let i = index"
+      class="transacction-small d-flex flex-column"
+    >
+      <div class="d-flex justify-content-between">
+        <span
+          class="font-weight-bold"
+          [ngClass]="{
+            'text-danger': item?.amount < 0,
+            'text-dark': item?.amount === 0,
+            'text-success': item?.amount > 0
+          }"
+        >
+          {{ item?.amount | number: '1.2-2' | currencyCurrent: '2:true' }}</span
+        >
+        <span clas>{{ item?.platform }}</span>
+      </div>
+      <div class="d-flex justify-content-between">
+        <span
+          [innerHTML]="item?.description"
+          class="description-small truncate"
+        ></span>
+        <span
+          class="status-row badge"
+          [ngClass]="{
+            'badge-info': item?.status === 'await',
+            'badge-danger': item?.status === 'failure',
+            'badge-success': item?.status === 'succeeded'
+          }"
+          >{{ item?.status }}</span
+        >
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #desktopTemplate>
+  <div class="container-transaction">
+    <div>
+      <table class="table table-striped">
+        <thead class="thead">
+          <tr>
+            <th
+              *ngFor="let item of columns"
+              class="text-uppercase item-head"
+              scope="col"
+            >
+              {{ item.key | translate }}
+            </th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+          <tr *ngFor="let item of data; let i = index">
+            <td class="amount-row">
+              <span
+                [ngClass]="{
+                  'text-danger': item?.amount < 0,
+                  'text-dark': item?.amount === 0,
+                  'text-success': item?.amount > 0
+                }"
+              >
+                {{ item?.amount | number: '1.2-2' | currencyCurrent: '2:true' }}
+              </span>
+            </td>
+            <td>
+              <span
+                class="status-row badge"
+                [ngClass]="{
+                  'badge-info': item?.status === 'await',
+                  'badge-danger': item?.status === 'failure',
+                  'badge-success': item?.status === 'succeeded'
+                }"
+                >{{ item?.status }}</span
+              >
+            </td>
+            <td class="custom-item-description td-truncate">
+              <span [innerHTML]="item?.description"> </span>
+            </td>
+            <td class="date-row">
+              {{ item?.createdAt | date: 'medium' }}
+            </td>
+
+            <td class="platform-row">{{ item?.platform }}</td>
+            <td class="platform-row" *ngIf="item?.attached">
+              <div class="icon-style">
+                <a href="{{ item.attached }}" target="_blank">
+                  <img
+                    [src]="'../../../../../assets/downloadPdf.svg'"
+                    class="lazyload img-fluid"
+                    alt="download pdf"
+                  />
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>
+
+<!--- ********** ZONE TEMPLATES **************** -->
+
+<ng-template
+  #pageTemplateLeft
+  let-page
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <i class="uil uil-angle-left-b"></i>
+</ng-template>
+<ng-template
+  #pageTemplateRight
+  let-page
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <i class="uil uil-angle-right-b"></i>
+</ng-template>
+
+<ng-template #empty let-data="data" let-loading="loading">
+  <app-empty class="w-100" [loading]="loading" [data]="data"></app-empty>
+</ng-template>

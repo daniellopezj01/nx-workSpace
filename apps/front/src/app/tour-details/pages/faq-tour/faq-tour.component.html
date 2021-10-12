@@ -1,0 +1,61 @@
+
+<div class="container-reviews">
+  <div class="w-100">
+    <button
+      (click)="changeTab(1)"
+      class="text-decoration-none title mr-2 btn btn-link text-dark pl-0"
+      [style.opacity]="select !== 2 ? '1' : '.5'"
+      type="button">
+      <h4 class="mt-4 mb-4">{{ "DETAILS_TOUR.FAQ" | translate }}</h4>
+    </button>
+  </div>
+
+  <div class="animate__animated animate__fadeIn">
+    <div class="w-100 list-child item-accordion">
+      <accordion [isAnimated]="false" [closeOthers]="false">
+        <accordion-group
+          class="faq-section mb-2"
+          [isOpen]="false"
+          *ngFor="let a of tour?.faq; let i = index">
+          <div accordion-heading is class="d-flex justify-content-between">
+            <div class="d-flex align-items-center align-content-center">
+              <span class="">{{ a?.title }}</span>
+            </div>
+            <div class="col-2 pl-2 pr-2 d-flex justify-content-end">
+              <div class="d-flex justify-content-end">
+                <div
+                  class="icon-angle d-flex justify-content-between align-content-center align-items-center"
+                >
+                  <fa-icon class="text-muted" [icon]="faAngleDown"></fa-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ng-container
+            *ngTemplateOutlet="itemRef; context: { data: a }"
+          ></ng-container>
+        </accordion-group>
+      </accordion>
+    </div>
+  </div>
+</div>
+
+<ng-template #itemRef let-data="data">
+  <div class="wrap-includes">
+    <div class="list-child">
+      <span
+        class="font-family-1 line-clamp-3"
+        [innerHTML]="data?.description"
+      ></span>
+      <div class="pt-1">
+        <button
+          class="d-block small btn btn-sm btn-default"
+          (click)="includesService.moreInfo(data)"
+        >
+          {{ "GENERAL.MORE_INFO" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+

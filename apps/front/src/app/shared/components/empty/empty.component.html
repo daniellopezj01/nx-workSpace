@@ -1,0 +1,7 @@
+<div
+  *ngIf="!data?.length && !loading"
+  class="w-100 empty-template text-center w-100"
+>
+  <img class="img" src="/assets/extra/LayingDoodle.svg" alt="empty tour" />
+  <p class="p-3" [innerHTML]="text | translate"></p>
+</div>

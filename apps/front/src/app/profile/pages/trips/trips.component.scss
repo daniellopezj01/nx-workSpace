@@ -1,0 +1,159 @@
+@import "./src/shared.scss";
+
+.general-cont {
+  width: 100%;
+  min-height: 60vh;
+}
+
+.cont-form {
+  //background-color: white;
+}
+
+.custom-alert-primary {
+  width: min-content;
+  margin: auto;
+  // white-space: nowrap;
+} //phone
+
+.customClick {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.calendar-block-day {
+  opacity: 0.8;
+  text-align: center;
+  width: fit-content;
+  border-radius: $border-radius;
+  background-color: $base-color-1;
+  padding: 0.15rem 0.25rem;
+
+  .month-name {
+    font-size: 70%;
+  }
+
+  .month-day {
+    min-width: 2rem;
+    background-color: white;
+    padding: 0 0.35rem;
+    font-size: 1.15rem;
+    border-radius: $border-radius;
+  }
+}
+
+.manager-forms {
+  width: 100%;
+}
+
+.reservation {
+  width: 100%;
+  margin: 0 auto;
+  padding: 5px;
+  cursor: pointer;
+  box-shadow: $shadow-custom-sm;
+  border: 1px solid $border-color-2;
+}
+
+.body-reservation {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  border-radius: $border-radius;
+  figcaption,
+  figure {
+    border-radius: $border-radius;
+  }
+  img {
+    opacity: 0.7;
+    border-radius: $border-radius;
+    height: 7.5rem;
+    object-fit: cover;
+  }
+}
+
+.content {
+  width: 100%;
+  .flag-icon {
+    border-radius: $border-radius;
+  }
+}
+
+.content p {
+  outline: none;
+  margin: 0;
+}
+
+.disabledcountdown {
+  opacity: 0.2;
+}
+
+.container-reservations {
+  width: 100%;
+}
+
+.date-reservation {
+  p {
+    font-size: $font-size-3;
+  }
+}
+
+.container-count-down {
+  display: flex;
+}
+
+.disabled-item {
+  background: rgba(255, 255, 255, 0.9);
+  opacity: 0.6;
+  cursor: no-drop;
+}
+
+.trip-disabled {
+  color: white;
+  font-size: $font-size-6;
+  margin-top: 0.5rem;
+  background-color: $base-color;
+  padding: 0.3rem;
+  width: min-content;
+  white-space: nowrap;
+}
+//phone
+@media print, screen and (max-width: 740px) {
+  .image-in-body {
+    width: 100%;
+  }
+  .body-reservation {
+    padding-left: 0;
+  }
+  .container-count-down {
+    margin-top: 0.3rem;
+    display: grid;
+    text-align: left;
+  }
+
+  .cont-form {
+    width: 100%;
+  }
+
+  .content {
+    padding-left: 1rem;
+  }
+  .body-reservation {
+    display: grid;
+    justify-content: inherit;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .header-title p-3 {
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+  .body-reservation {
+    justify-content: space-between;
+  }
+  .header-title p-3 {
+  }
+}

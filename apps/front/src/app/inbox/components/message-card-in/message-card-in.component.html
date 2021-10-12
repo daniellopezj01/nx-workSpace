@@ -1,0 +1,106 @@
+<div class="tap-inbox">
+  <!--  {{data?._id}}-->
+  <ng-container
+    *ngTemplateOutlet="header; context: { message: data }"
+  ></ng-container>
+  <ng-container
+    *ngTemplateOutlet="body; context: { open: data?.openBox, message: data }"
+  ></ng-container>
+  <div
+    *ngIf="data?.openBox"
+    class="d-flex w-100 align-content-center align-items-center justify-content-between pt-0 pb-1 border-message"
+  >
+    <form [formGroup]="form" class="w-100">
+      <textarea
+        name=""
+        (keydown.enter)="saveNewChat(); (false)"
+        appFocusMe
+        autofocus
+        formControlName="message"
+        class="form-control input-chat"
+        id=""
+        cols="30"
+        rows="10"
+      ></textarea>
+      <div
+        class="w-100 d-flex justify-content-end pl-2 pr-2 pt-1 pb-1 bottom-bar-message"
+      >
+        <button
+          name="sendMessage"
+          class="btn btn-default btn-sm"
+          (click)="saveNewChat()"
+          ngxLoading
+          [loadingFlag]="loading"
+          [disabled]="form.invalid"
+          [textInitial]="'GENERAL.SEND' | translate"
+          [textLoading]="'GENERAL.SENDING' | translate"
+        ></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #header let-message="message" let-i="i">
+  <div
+    (click)="openBox(data)"
+    class="d-flex w-100 align-content-center header-chat align-items-center justify-content-between p-1"
+  >
+    <div class="d-flex align-content-center align-items-center truncate">
+      <div
+        [routerLink]="['/', 'profile', (message?.membersOmit | firstValue)._id]"
+      >
+        <ngx-avatar
+          [round]="false"
+          cornerRadius="3"
+          size="28"
+          [src]="(message?.membersOmit | firstValue).avatar"
+          [name]="(message?.membersOmit | firstValue).name"
+        ></ngx-avatar>
+      </div>
+      <div class="pl-2 truncate">
+        {{ (message?.membersOmit | firstValue).name }}
+        {{ (message?.membersOmit | firstValue).surname }}
+      </div>
+    </div>
+    <div (click)="openBox(data)" class="pl-3">
+      <i *ngIf="!message?.openBox" class="uil uil-angle-up"></i>
+      <i *ngIf="message?.openBox" class="uil uil-angle-down"></i>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #body let-open="open" let-message="message" let-i="i">
+  <div
+    class="w-100 pl-2 pr-2 pt-3 pb-3 text-center text-muted"
+    *ngIf="message?.mock && open"
+  >
+    {{ "INBOX.GREETING_USER" | translate }}
+  </div>
+  <div
+    [perfectScrollbar]="config"
+    class="inbox-wrapper-chat p-1"
+    *ngIf="open && message?.list?.length"
+  >
+    <div
+      class="bubble-chat d-flex w-100"
+      [ngClass]="{ 'send-by-me': a?.creator === this.user?._id }"
+      *ngFor="let a of message?.list"
+    >
+      <div class="pr-1 pt-1">
+        <ngx-avatar
+          [round]="false"
+          cornerRadius="3"
+          size="20"
+          [src]="(message?.members | userChat: a?.creator)?.avatar"
+          [name]="(message?.members | userChat: a?.creator)?.name"
+        ></ngx-avatar>
+      </div>
+      <div>
+        <p class="m-0 word-break" [innerHTML]="a?.message | linkify"></p>
+        <span class="text-muted small">{{
+          a?.dateCreate | date: "short"
+        }}</span>
+      </div>
+    </div>
+  </div>
+</ng-template>

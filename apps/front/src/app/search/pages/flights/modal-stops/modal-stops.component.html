@@ -1,0 +1,46 @@
+<div class="main-container-modal">
+  <div class="modal-header header-reviews">
+    <span class="style-title-modal"> Escalas</span>
+    <div class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="body-secction" *ngFor="let flight of stops; let i = index">
+      <div class="aeroline">
+        <img
+          src="{{ getAeroline(flight) }}"
+          alt="logo_aerolinea"
+          class="lazyLoading"
+        />
+      </div>
+      <div class="data-ticket">
+        <div class="time-line">
+          <div class="times-flights">
+            <font class="time">{{ flight?.departureTime }} </font>-<font
+              class="time"
+            >
+              {{ flight?.arrivaTime }}</font
+            >
+          </div>
+          <div class="duration">
+            <font>{{ flight?.durationFlight }} </font>
+          </div>
+        </div>
+        <div class="place-line">
+          <ng-template #popTemplate>
+            <span class="style-template-tooltip">
+              <span>{{ getStringLocation(flight) }}</span>
+              <span>{{ getStringLocation(flight, false) }}</span>
+            </span>
+          </ng-template>
+          <div class="airports" [tooltip]="popTemplate">
+            <font class="place">{{ flight.departureLocation.city_code }} </font
+            >-
+            <font class="place"> {{ flight.arrivalLocation.city_code }}</font>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

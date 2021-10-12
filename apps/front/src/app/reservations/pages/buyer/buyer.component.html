@@ -1,0 +1,339 @@
+<ng-container
+  *ngTemplateOutlet="loadingRef; context: { loading: loading }"
+></ng-container>
+
+<div class="cont">
+  <div class="general-cont">
+    <div class="general">
+      <app-bread-crumb></app-bread-crumb>
+      <div class="header-title p-3 p-2">
+        <h3>{{ 'RESERVATION.TITLE_BUYER_INFO' | translate }}</h3>
+      </div>
+      <div class="row ml-0 mr-0">
+        <div
+          class="
+            col-xs-12
+            animate__animated animate__fadeInDown
+            animation-1
+            col-xl-8
+            container
+          "
+        >
+          <div class="manager-forms">
+            <div>
+              <div
+                class="item-style"
+                *ngFor="let item of showInfo; let i = index"
+              >
+                <div class="d-flex bd-highlight">
+                  <div class="bd-highlight key-style text-capitalize">
+                    {{ item.key | translate }}
+                  </div>
+                  <div class="ml-auto bd-highlight">
+                    <button
+                      *ngIf="!isItem(i)"
+                      [disabled]="isItemActive(i)"
+                      class="action-item"
+                      (click)="buttonActive(i)"
+                    >
+                      {{
+                        isItem(i)
+                          ? ('USER.PERSONAL_INFO.CANCEL' | translate)
+                          : !item.value
+                          ? ('USER.PERSONAL_INFO.ADD' | translate)
+                          : ('USER.PERSONAL_INFO.EDIT' | translate)
+                      }}
+                    </button>
+                    <button
+                      *ngIf="isItem(i)"
+                      [disabled]="isItemActive(i)"
+                      class="action-item"
+                      (click)="cancel()"
+                    >
+                      {{ 'USER.PERSONAL_INFO.CANCEL' | translate }}
+                    </button>
+                  </div>
+                </div>
+                <div class="value-style">
+                  <ng-container
+                    *ngIf="!isItem(i); then thenTemplate; else openTemp"
+                  ></ng-container>
+                  <ng-template #thenTemplate>
+                    <div *ngIf="item?.isPhone">
+                      <span
+                        *ngIf="item?.value?.number"
+                        class="flag-icon flag-icon-{{
+                          item?.value?.code | lowercase
+                        }}"
+                      ></span
+                      >{{
+                        item?.value?.number
+                          ? item?.value?.number
+                          : ('GENERAL.NOT_PROPORTIONED' | translate)
+                      }}
+                    </div>
+
+                    <p *ngIf="!item?.isPhone">
+                      {{
+                        item?.value
+                          ? item?.value
+                          : ('GENERAL.NOT_PROPORTIONED' | translate)
+                      }}
+                    </p>
+                  </ng-template>
+                  <ng-template #openTemp>
+                    <span [ngSwitch]="i">
+                      <p *ngSwitchCase="0">
+                        <ng-container *ngTemplateOutlet="name"></ng-container>
+                      </p>
+                      <p *ngSwitchCase="1">
+                        <ng-container *ngTemplateOutlet="email"></ng-container>
+                      </p>
+                      <p *ngSwitchCase="2">
+                        <ng-container
+                          *ngTemplateOutlet="document"
+                        ></ng-container>
+                      </p>
+                      <p *ngSwitchCase="3">
+                        <ng-container
+                          *ngTemplateOutlet="tempBirthDate"
+                        ></ng-container>
+                      </p>
+                      <p *ngSwitchCase="4">
+                        <ng-container *ngTemplateOutlet="phone"></ng-container>
+                      </p>
+                    </span>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="animate__animated animate__fadeInDown col-xs-12 col-xl-4">
+          <div class="squeare">
+            <app-square [item]="squareItem"></app-square>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #name>
+  <div class="cont-templates animate__animated animate__fadeInDown">
+    <p class="title-template"></p>
+    <form autocomplete="nope" [formGroup]="nameForm">
+      <div class="row">
+        <div class="col-lg-6 inputs">
+          <div class="form-group">
+            <small class="text-muted">{{
+              'AUTH_LOGIN.ENTER_NAME' | translate
+            }}</small>
+            <input
+              autocomplete="nope"
+              type="text"
+              class="form-control"
+              [(ngModel)]="auxUser.buyerFirstName"
+              formControlName="buyerFirstName"
+              [controlErrorsTpl]="tpl"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 inputs">
+          <div class="form-group">
+            <small class="text-muted">{{
+              'AUTH_LOGIN.ENTER_LAST_NAME' | translate
+            }}</small>
+            <input
+              autocomplete="nope"
+              type="text"
+              class="form-control"
+              [(ngModel)]="auxUser.buyerLastName"
+              formControlName="buyerLastName"
+              [controlErrorsTpl]="tpl"
+            />
+          </div>
+        </div>
+      </div>
+      <ng-container
+        *ngTemplateOutlet="templateButton; context: { form: nameForm }"
+      ></ng-container>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #email>
+  <div class="cont-templates animate__animated animate__fadeInDown">
+    <form autocomplete="nope" [formGroup]="emailForm">
+      <div class="col-lg-12 rem-padding-width inputs">
+        <div class="form-group">
+          <small class="text-muted">{{
+            'AUTH_LOGIN.ENTER_EMAIL' | translate
+          }}</small>
+          <input
+            autocomplete="nope"
+            type="text"
+            class="form-control"
+            [controlErrorsTpl]="tpl"
+            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+            [(ngModel)]="auxUser.buyerEmail"
+            formControlName="buyerEmail"
+          />
+        </div>
+      </div>
+      <ng-container
+        *ngTemplateOutlet="templateButton; context: { form: emailForm }"
+      ></ng-container>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #document>
+  <div class="cont-templates animate__animated animate__fadeInDown">
+    <form autocomplete="nope" [formGroup]="documentForm">
+      <div class="col-lg-12 rem-padding-width inputs">
+        <div class="form-group">
+          <small class="text-muted">{{
+            'USER.ENTER_DOCUMENT' | translate
+          }}</small>
+          <input
+            autocomplete="nope"
+            type="text"
+            class="form-control"
+            [(ngModel)]="auxUser.buyerDocument"
+            formControlName="buyerDocument"
+            [controlErrorsTpl]="tpl"
+          />
+        </div>
+      </div>
+      <ng-container
+        *ngTemplateOutlet="templateButton; context: { form: documentForm }"
+      ></ng-container>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #tempBirthDate>
+  <div class="cont-templates animate__animated animate__fadeInDown">
+    <form autocomplete="nope" [formGroup]="birthDateForm">
+      <div class="col-lg-12 rem-padding-width inputs">
+        <div class="form-group">
+          <small class="text-muted">{{
+            'USER.INPUT_BIRTHDATE' | translate
+          }}</small>
+          <input
+            autocomplete="nope"
+            class="form-control"
+            readonly
+            type="text"
+            bsDatepicker
+            [controlErrorsTpl]="tpl"
+            [(ngModel)]="auxUser.buyerBirthDay"
+            formControlName="buyerBirthDay"
+            [bsConfig]="{
+              showWeekNumbers: false,
+              isAnimated: false,
+              dateInputFormat: 'DD-MMM-YYYY',
+              containerClass: 'theme-red'
+            }"
+          />
+        </div>
+      </div>
+      <ng-container
+        *ngTemplateOutlet="templateButton; context: { form: birthDateForm }"
+      ></ng-container>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #phone>
+  <div class="cont-templates animate__animated animate__fadeInDown">
+    <form autocomplete="nope" [formGroup]="phoneForm">
+      <div class="col-lg-12 rem-padding-width inputs">
+        <div class="form-group">
+          <small class="text-muted">{{
+            'CREATE_RESERVATION.PHONE_REQUIRED' | translate
+          }}</small>
+          <ngx-intl-tel-input
+            class="form-control dp-dd"
+            [(ngModel)]="auxUser.buyerPhone"
+            [enableAutoCountrySelect]="true"
+            [enablePlaceholder]="false"
+            [searchCountryField]="[
+              SearchCountryField.Iso2,
+              SearchCountryField.Name
+            ]"
+            [selectFirstCountry]="false"
+            [searchCountryFlag]="true"
+            [searchCountryPlaceholder]="''"
+            [selectedCountryISO]="CountryISO.Mexico"
+            [maxLength]="'15'"
+            [spellcheck]="false"
+            inputmode="search"
+            [separateDialCode]="true"
+            formControlName="buyerPhone"
+            [controlErrorsTpl]="tpl"
+          >
+          </ngx-intl-tel-input>
+        </div>
+      </div>
+      <ng-container
+        *ngTemplateOutlet="templateButton; context: { form: phoneForm }"
+      ></ng-container>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #templateButton let-form="form">
+  <div class="pt-2">
+    <button
+      (click)="update(form)"
+      class="btn btn-primary"
+      ngxLoading
+      [loadingFlag]="loading"
+      [disabled]="loading || form.invalid"
+      [textInitial]="'GENERAL.SAVE' | translate"
+      [textLoading]="'GENERAL.SENDING' | translate"
+    ></button>
+  </div>
+</ng-template>
+
+<ng-template let-error let-text="text" #tpl>
+  <ng-container *ngIf="error">
+    {{ 'GENERAL.ERROR_FIELD_REQUIRED' | translate }}
+  </ng-container>
+</ng-template>
+
+<ng-template #loadingRef let-loading="loading">
+  <div
+    class="w-100 loading-wrap animate__animated animate__fadeIn"
+    *ngIf="loading === true"
+  >
+    <div class="in">
+      <img
+        class="circle"
+        src="../../../../../assets/loading.svg"
+        alt="loading"
+      />
+      <div>
+        <small>{{ 'GENERAL.LOADING' | translate }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-100 error-wrap animate__animated animate__fadeIn"
+    *ngIf="loading?.status"
+  >
+    <div class="in">
+      <img
+        class="img"
+        src="../../../../../assets/extra/drawkit-grape-pack-illustration-7.svg"
+        alt="loading"
+      />
+      <div>
+        <small>{{ 'GENERAL.ERROR' | translate }}</small>
+      </div>
+    </div>
+  </div>
+</ng-template>

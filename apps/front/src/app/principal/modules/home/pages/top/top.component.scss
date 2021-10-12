@@ -1,0 +1,98 @@
+@import "./src/shared";
+
+.form-inside {
+  margin-top: 2rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  padding: 0.75rem;
+  border-radius: $border-radius;
+  box-shadow: $shadow-custom;
+}
+
+.activeItem {
+  //border-bottom: 2px solid #fff;
+  background-color: white;
+  color: $text-color !important;
+  border-radius: $border-radius;
+}
+
+.item-style {
+  color: white;
+  padding: 0.5rem 1rem;
+  //text-shadow: $text-shadow;
+  //font-weight: bolder;
+  cursor: pointer;
+  // margin: 0.5rem;
+}
+
+.container-main {
+  display: grid;
+  grid-template-areas: "overflow-content";
+  position: relative;
+}
+
+.container-image {
+  grid-area: overflow-content;
+
+  &:before {
+    transition: all ease $all-transition-2;
+    content: "";
+    pointer-events: none;
+    background-color: rgb(0 0 0 / 30%);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+
+  &:hover:before {
+    //background-color: rgb(0 0 0 / 30%);
+  }
+}
+
+.container-body {
+  grid-area: overflow-content;
+  margin: 5% auto 5% auto;
+  z-index: 1;
+  width: 50%;
+  //width: 55%;
+}
+
+.text-title {
+  color: #fff;
+  text-shadow: $text-shadow;
+  text-align: center;
+}
+
+img {
+  // width: 100%;
+  // height: 100%;
+  width: 100%;
+  height: 100%;
+  min-height: 50%;
+  object-fit: cover;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  // .image-One {
+  //   min-height: 19.5rem;
+  // }
+  .container-body {
+    width: 90%;
+  }
+
+  .container-body p {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .container-body {
+    width: 80%;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

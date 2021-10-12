@@ -1,0 +1,13 @@
+<div class="main-container">
+  <div class="container-tours" *ngIf="tours.length">
+    <div class="section-tours">
+      <div
+        class="square"
+        *ngFor="let tour of tours; let i = index"
+        (click)="gotoDetails(tour)"
+      >
+        <app-card-tour [tour]="tour"></app-card-tour>
+      </div>
+    </div>
+  </div>
+</div>

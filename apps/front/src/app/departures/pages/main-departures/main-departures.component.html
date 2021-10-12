@@ -1,0 +1,105 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="sticky-top">
+  <app-header #m></app-header>
+</div>
+
+<div class="w-100 container-info">
+  <div class="title-Step">
+    <h6 class="text-muted">{{ "DEPARTURES.STEP" | translate }} 1</h6>
+    <h4>{{ "DEPARTURES.DEPARTURE_DATES" | translate }}</h4>
+    <div
+      *ngIf="data?.specialInfo"
+      class="mt-2 alert custom-special-info"
+      [innerHTML]="data.specialInfo"
+    ></div>
+  </div>
+  <div class="main-container">
+    <div
+      *ngFor="let departure of dataRaw; let ia = index"
+      class="for-departures animate__animated animate__fadeInDown animation-{{
+        ia
+      }}"
+    >
+      <span class="title text-capitalize">
+        {{ departure | dateMonth | date: "MMMM yyyy" }}</span
+      >
+      <div class="container-dates-departures">
+        <ng-container
+          [ngTemplateOutlet]="departureTemplate"
+          *ngFor="let item of departure?.data; let i = index"
+          [ngTemplateOutletContext]="{ item: item }"
+        ></ng-container>
+      </div>
+    </div>
+    <div class="w-100">
+      <hr />
+      <pagination
+        [itemsPerPage]="service.limitPerPage"
+        (pageChanged)="pageChanged($event)"
+        [customPreviousTemplate]="pageTemplateLeft"
+        [customNextTemplate]="pageTemplateRight"
+        [maxSize]="service.maxSize"
+        [totalItems]="data?.departures?.length"
+      ></pagination>
+    </div>
+  </div>
+  <ng-container [ngTemplateOutlet]="stepLoginTemplate"></ng-container>
+  <ng-container [ngTemplateOutlet]="stepTwoTemplate"></ng-container>
+</div>
+<app-footer></app-footer>
+<!-- <div [ngClass]="{ 'mb-small': activeDepartures?._id }"></div> -->
+
+<ng-template #departureTemplate let-item="item">
+  <div class="container-departure">
+    <app-card-departure
+      [item]="item"
+      [activeDepartures]="activeDepartures"
+    ></app-card-departure>
+  </div>
+</ng-template>
+
+<ng-template #stepLoginTemplate>
+  <app-call-login
+    [activeDepartures]="activeDepartures"
+    [isLogged]="isLogged"
+  ></app-call-login>
+</ng-template>
+
+<ng-template #stepTwoTemplate>
+  <app-step-two [tour]="data" [isLogged]="isLogged"></app-step-two>
+</ng-template>
+
+<div
+  class="small-dates d-lg-none d-xl-none animate__animated animate__fadeInUp"
+  *ngIf="!loading && activeDepartures?._id"
+>
+  <div class="section-data">
+    <button
+      name="goReservation"
+      (click)="gotoReservation()"
+      class="smallButton btn btn-primary btn-lg btn-block"
+    >
+      {{ "DEPARTURES.BOOK_TRIP" | translate }}
+    </button>
+  </div>
+</div>
+
+<!--- ********** ZONE TEMPLATES **************** -->
+
+<ng-template
+  #pageTemplateLeft
+  let-page
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <i class="uil uil-angle-left-b"></i>
+</ng-template>
+<ng-template
+  #pageTemplateRight
+  let-page
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <i class="uil uil-angle-right-b"></i>
+</ng-template>

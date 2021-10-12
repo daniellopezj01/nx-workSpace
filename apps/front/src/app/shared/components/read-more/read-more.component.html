@@ -1,0 +1,9 @@
+<span class="{{ classText }}">{{ content }} </span>
+<span *ngIf="activeControls">
+  <span class="more" *ngIf="!isContentToggled" (click)="toggleContent()" i18n>{{
+    "SHARED.READ_MORE" | translate
+  }}</span>
+  <span class="less" *ngIf="isContentToggled" (click)="toggleContent()" i18n>{{
+    "SHARED.READ_LESS" | translate
+  }}</span>
+</span>

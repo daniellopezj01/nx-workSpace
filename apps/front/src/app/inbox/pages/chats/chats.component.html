@@ -1,0 +1,43 @@
+<app-header></app-header>
+<div class="w-100 position-absolute">
+  <div class="custom-row cont-all h-100">
+    <div
+      class="conversations animate__animated animate__fadeInLeft pl-0 pr-0 animation-2 col-md-12 col-sm-12 wrapper-message"
+      [ngClass]="{
+        'col-lg-8 col-xl-8': openConversation,
+        'col-lg-3 col-xl-3': !openConversation
+      }"
+    >
+      <app-conversations
+        [hash]="hash"
+        (selectChat)="goChat($event)"
+      ></app-conversations>
+    </div>
+    <div
+      class="pl-0 pr-0 col-md-12 col-sm-12 wrapper-message wrapper-message-inbox"
+      [ngClass]="{
+        'd-none': openConversation,
+        'col-lg-9 col-xl-9': !openConversation
+      }"
+    >
+      <app-messages></app-messages>
+    </div>
+    <div
+      class="pl-0 pr-0 col-md-12 col-sm-12 wrapper-message"
+      [ngClass]="{
+        'col-lg-4 col-xl-4': openConversation,
+        'd-none': !openConversation
+      }"
+    >
+      <!--      <app-details></app-details>-->
+      <div class="p-3">
+        <app-square
+          [item]="{
+            description: 'INBOX.CONTENT_INBOX',
+            title: 'INBOX.TITLE_INBOX'
+          }"
+        ></app-square>
+      </div>
+    </div>
+  </div>
+</div>

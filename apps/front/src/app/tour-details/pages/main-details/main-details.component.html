@@ -1,0 +1,185 @@
+<div class="sticky-top">
+  <app-header [shadow]="false" #m></app-header>
+</div>
+
+<app-loading [loading]="loading"></app-loading>
+<!--- *** DEBUG *** -->
+<div
+  class="small-dates d-lg-none d-xl-none animate__animated animate__fadeInUp"
+  *ngIf="tour?.bestDeparture"
+>
+  <div class="d-flex flex-column">
+    <ng-container *ngTemplateOutlet="templatePrice"></ng-container>
+    <ng-container *ngTemplateOutlet="templateReserveWith"></ng-container>
+  </div>
+  <span class="dates" [routerLink]="['/departures/' + tour?.slug]">{{
+    "DETAILS_TOUR.VIEW_DATES" | translate
+  }}</span>
+</div>
+
+<div class="w-100 container-info" *ngIf="!loading">
+  <ng-container *ngTemplateOutlet="templateNavigation"></ng-container>
+  <div class="main-container" id="id-tour-details">
+    <app-main-header *ngIf="tour" [tour]="tour"></app-main-header>
+    <ng-container
+      *ngIf="tour?.idExternal; then externalHeader; else mainHeader"
+    ></ng-container>
+    <ng-template #externalHeader>
+      <div class="header pt-3 pb-4" id="headerTourExternal">
+        <app-external-header *ngIf="tour" [tour]="tour"></app-external-header>
+      </div>
+    </ng-template>
+    <ng-template #mainHeader>
+      <div class="header pt-3 pb-4" id="headerTour">
+        <app-header-details *ngIf="tour" [tour]="tour"></app-header-details>
+      </div>
+    </ng-template>
+
+    <div class="header pt-3 pb-4" id="generalInfoTour">
+      <app-general-info *ngIf="tour" [tour]="tour"></app-general-info>
+    </div>
+    <hr class="d-sm-none mt-3 mb-5" />
+    <div class="about pt-3" id="aboutTour">
+      <app-about-tour *ngIf="tour" [tour]="tour"></app-about-tour>
+    </div>
+    <hr class="d-sm-none mt-3 mb-5" />
+
+    <ng-container *appOnlyBrowser="true">
+      <div
+        class="section-map mb-3"
+        id="itineraryMap"
+        *ngIf="tour?.itinerary?.length"
+      >
+        <div class="title-map">
+          <h4 class="mb-4 mt-4">
+            {{ "DETAILS_TOUR.MAP_ITINERARY" | translate }}
+          </h4>
+        </div>
+        <div class="container-map mb-3">
+          <app-map-tour [tour]="tour"></app-map-tour>
+        </div>
+        <div class="section-itinerary">
+          <app-itinerary-tour [tour]="tour"></app-itinerary-tour>
+        </div>
+      </div>
+    </ng-container>
+
+    <hr class="d-none d-sm-block d-sm-none d-md-block mt-5 mb-5" />
+    <div class="about pt-3" id="featuredTour">
+      <app-container-featured
+        *ngIf="tour"
+        [tour]="tour"
+      ></app-container-featured>
+    </div>
+
+    <hr class="d-sm-none mt-5 mb-5" />
+
+    <ng-container *ngIf="tour?.included?.length || tour?.notIncluded?.length">
+      <div class="included-section" id="includesTour">
+        <app-includes [tour]="tour"></app-includes>
+      </div>
+      <hr class="mt-5 mb-5" />
+    </ng-container>
+
+    <ng-container *ngIf="tour?.faq?.length">
+      <div class="included-section" id="FAQS">
+        <app-faq-tour [tour]="tour"></app-faq-tour>
+      </div>
+      <hr class="mt-5 mb-5" />
+    </ng-container>
+    <!-- REVIEWS --->
+
+    <div class="reviews" id="main-containemapbox-gl.cssr-reviews">
+      <app-container-reviews [tour]="tour"></app-container-reviews>
+    </div>
+    <div class="popular mt-2 mb-2">
+      <!--- EL carousel afecta el perfomance -->
+      <app-popular></app-popular>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+<div class="margin-small"></div>
+
+<ng-template #templateNavigation>
+  <div
+    *ngIf="!showGlobalNavigation"
+    class="barNavigation animate__animated animate__fadeInDown"
+  >
+    <div class="containerNavigation">
+      <div class="items-navigation">
+        <span
+          class="section-navigation"
+          *ngFor="let item of itemsNavigation; let i = index"
+          [ngClass]="{ activeItem: activeNavigate === item?.idSection }"
+          (click)="goToSection(item?.idSection)"
+          >{{ item?.name | translate }}</span
+        >
+      </div>
+      <div class="container-two">
+        <div class="main-section-two">
+          <div class="d-flex flex-column">
+            <ng-container *ngTemplateOutlet="templatePrice"></ng-container>
+            <ng-container
+              *ngTemplateOutlet="templateReserveWith"
+            ></ng-container>
+          </div>
+          <button
+            type="button"
+            class="btn btn-default ml-2 text-capitalize custom-button ml-3"
+          >
+            {{ "DETAILS_TOUR.MORE_INFO" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary ml-2 text-capitalize custom-button ml-3 button-dates-navigation"
+            [routerLink]="['/departures/' + tour?.slug]"
+          >
+            {{ "DETAILS_TOUR.VIEW_DATES" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateReserveWith>
+  <div class="d-flex min-percentage">
+    <span>
+      {{ "DETAILS_TOUR.RESERVE_WITH" | translate }}
+      <span
+        class="pink-color pr-2"
+        *ngIf="!(tour?.bestDeparture | smallPercentage)?.specialPayment"
+      >
+        {{ (tour?.bestDeparture | smallPercentage)?.percentage }}%
+      </span></span
+    >
+    <span class="pink-color">
+      {{
+        (tour?.bestDeparture | smallPercentage)?.amount
+          | number: "1.2-2"
+          | currencyCurrent: "0:true":tour?.bestDeparture?.currencies
+      }}</span
+    >
+  </div>
+</ng-template>
+
+<ng-template #templatePrice>
+  <div class="container-normal">
+    <small class="normal-price" *ngIf="checkDiscount">
+      {{
+        tour?.bestDeparture?.normalPrice
+          | number: "1.2-2"
+          | currencyCurrent: "0:true":tour?.bestDeparture?.currencies
+      }}
+    </small>
+    <!--    <span class="discount">-->
+    <!--      {{-->
+    <!--      tour?.bestDeparture-->
+    <!--        | discountPrice-->
+    <!--        | number: "1.2-2"-->
+    <!--        | currencyCurrent: "0:true"-->
+    <!--      }}-->
+    <!--    </span>-->
+  </div>
+</ng-template>

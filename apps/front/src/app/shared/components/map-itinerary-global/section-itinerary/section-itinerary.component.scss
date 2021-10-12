@@ -1,0 +1,101 @@
+@import "./src/shared.scss";
+
+::ng-deep {
+  .card-header {
+    border-bottom: solid 1px $border-color-3;
+    padding: 0.25rem !important;
+  }
+  .header-items {
+    border-bottom: 0;
+    &:last-child {
+      border-bottom-color: transparent;
+    }
+  }
+}
+
+.container-details {
+  position: relative;
+}
+
+.icon-place,
+.icon-place-second {
+  position: absolute;
+  left: 0;
+  font-size: 15px;
+  background: #fff;
+  color: $base-color;
+  top: -5px;
+  z-index: 3;
+}
+
+.icon-place-second {
+  top: calc(100% - 20px);
+}
+
+.details {
+  position: relative;
+  display: grid;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.activity-title {
+  //font-weight: bolder;
+  //margin-bottom: 1rem;
+}
+
+.activity-description {
+  //padding-top: .5rem;
+  color: $text-color-1;
+  font-weight: 400;
+  width: 90%;
+  word-break: break-word;
+}
+
+.line-activity {
+  background-color: white;
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  height: calc(100% - 20px);
+  left: 5px;
+  top: 10px;
+  width: 2px;
+}
+
+.chevron-bottom:before {
+  top: 0;
+  transform: rotate(135deg);
+}
+
+.rote {
+  transform: rotate(-180deg);
+  transition: transform 150ms ease;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .details {
+    padding: 0 1rem 0 2.5rem;
+  }
+  .custom-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  .chevron::before {
+    content: "";
+    height: 10px;
+    width: 10px;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .details {
+    padding: 0 1rem 0 2.5rem;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

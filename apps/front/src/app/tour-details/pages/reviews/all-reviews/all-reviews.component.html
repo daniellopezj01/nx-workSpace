@@ -1,0 +1,71 @@
+<div
+  class="main-container-modal"
+  id="containerReviews"
+  (scroll)="onScroll($event)"
+>
+  <div class="modal-header header-reviews">
+    <span class="style-title-modal">
+      {{ "DETAILS_TOUR.REVIEWS" | translate }}</span
+    >
+    <div class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </div>
+  </div>
+  <div class="modal-body container-modal-reviews">
+    <div class="container-title">
+      <span>{{ tour?.title }}</span>
+    </div>
+    <div class="container-number-reviews">
+      <span
+        >{{ tour?.numberComments }}
+        {{ "DETAILS_TOUR.REVIEWS" | translate }}</span
+      >
+    </div>
+    <div class="big-filter">
+      <app-filter-reviews></app-filter-reviews>
+    </div>
+    <div class="main-container">
+      <div class="container-stars">
+        <app-stars-reviews [inReviews]="true"></app-stars-reviews>
+      </div>
+      <div class="small-filter">
+        <app-filter-reviews></app-filter-reviews>
+      </div>
+      <div class="reviews">
+        <app-card-review
+          [index]="i + 1"
+          [allComments]="true"
+          [review]="item"
+          *ngFor="let item of dataShow; let i = index"
+        ></app-card-review>
+        <div class="load-more">
+          <p class="show-number-tours">
+            {{ "DETAILS_TOUR.SHOWING" | translate }} {{ dataShow?.length }}
+            {{ "DETAILS_TOUR.OF" | translate }} {{ data?.length }}
+            {{ "DETAILS_TOUR.REVIEWS" | translate }}
+          </p>
+          <p class="progress-bar-tours">
+            <span class="disabled-progress-bar">
+              <span class="active-progress-bar" [style.width.%]="progress()">
+              </span>
+            </span>
+          </p>
+          <button
+            *ngIf="dataShow.length < data.length"
+            class="btn btn-primary btn-lg"
+            ngxLoading
+            [loadingFlag]="loading"
+            [textInitial]="'GENERAL.LOAD_MORE' | translate"
+            [textLoading]="'GENERAL.LOAD_MORE' | translate"
+            (click)="moreData()"
+          ></button>
+          <div class="container-back-top">
+            <span (click)="gotoTop()">{{
+              "DETAILS_TOUR.BACK_TO_TOP" | translate
+            }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

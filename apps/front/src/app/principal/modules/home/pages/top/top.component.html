@@ -1,0 +1,47 @@
+<div class="container-main">
+  <div class="container-image">
+    <img
+      loading="lazy"
+      src="https://dssvuzr9zfb17.cloudfront.net/header1-2300x700.webp"
+      alt="img-welcome-Hotels"
+    />
+  </div>
+  <div class="container-body">
+    <h2
+      class="text-title mt-3 mb-4"
+      [innerHTML]="'HOME.MAIN_TITLE' | translate"
+    ></h2>
+    <div class="pt-4 pb-4 d-flex justify-content-center">
+      <button
+        name="seeTrips2"
+        class="btn btn-default btn-lg hvr-shrink"
+        [routerLink]="['/search']"
+      >
+        {{ "HOME.SEE_TRIPS" | translate }}
+      </button>
+    </div>
+    <div class="form-inside">
+      <div class="d-flex mb-3">
+        <div
+          *ngFor="let item of mainActions"
+          class="item-style"
+          (click)="changeItem(item?.id)"
+          [ngClass]="{ activeItem: active === item?.id }"
+        >
+          <i class="{{ item.icon }}"></i> {{ item.name | translate }}
+        </div>
+      </div>
+      <span [ngSwitch]="active">
+        <span *ngSwitchCase="0">
+          <app-input-search></app-input-search>
+        </span>
+        <!-- <span *ngSwitchCase="1">
+          <app-search-hotels [fromHome]="true"></app-search-hotels>
+        </span> -->
+        <span *ngSwitchCase="2">
+          <app-search-fligths [fromHome]="true"></app-search-fligths>
+        </span>
+      </span>
+    </div>
+  </div>
+</div>

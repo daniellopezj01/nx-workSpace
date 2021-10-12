@@ -1,0 +1,78 @@
+<app-loading [loading]="loading"> </app-loading>
+
+<div class="w-100 pt-4">
+  <h2 class="main-title mb-4 mt-2 text-center">
+    {{ "SEARCH.FLIGHTS.FIND_CHEAP" | translate }}
+  </h2>
+  <div class="container-search">
+    <app-search-fligths></app-search-fligths>
+  </div>
+  <div class="container-body">
+    <ng-container *ngTemplateOutlet="withData"></ng-container>
+  </div>
+</div>
+
+<button
+  (click)="openFilters()"
+  class="btn btn-default filter-small-result d-md-block d-md-block d-lg-none"
+>
+  <i class="uil uil-filter"></i> {{ "SEARCH.FILTERS.VIEW_FILTER" | translate }}
+</button>
+
+<section>
+  <ng-template #withData>
+    <div
+      class="w-100 d-flex data-style"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="moreData()"
+    >
+      <div
+        class="filter col-xl-2 col-sm-4 d-none d-sm-none d-md-none d-lg-block"
+      >
+        <app-filter-flight [small]="false"></app-filter-flight>
+      </div>
+
+      <div class="w-100 global-style">
+        <!--        <div class="header">-->
+        <!--          <div class="tours-found" *ngIf="qParam">-->
+        <!--            <span class="main-title"> {{"SEARCH.HOTELS.WE_HAVE_FOUND" | translate}}-->
+        <!--              <span> {{data?.length}}</span> {{"SEARCH.HOTELS.HOTELS_OF" | translate}}<span-->
+        <!--                class="value-search">"{{qParam}}"</span>-->
+        <!--            </span>-->
+        <!--          </div>-->
+        <!--        </div>-->
+
+        <div class="w-100">
+          <div class="pl-3 pr-3" *ngIf="loadingSecondary">
+            <p
+              [style.lineHeight]="'15px'"
+              class="small m-0 d-flex align-content-center align-items-center"
+            >
+              <img
+                class="mr-1"
+                [style.width]="'18px'"
+                src="../../../../../../assets/loading.svg"
+                alt="loading"
+              />
+              {{ "SEARCH.FLIGHTS.LOADING_CURRENT" | translate }}
+            </p>
+          </div>
+          <app-cart-flights
+            class="col-12 col-xl-12 col-lg-12 col-sm-12 col-xs-12 animate__animated animate__fadeIn"
+            [mainFlight]="flight"
+            [adults]="adults"
+            [children]="children"
+            [fromToArrive]="fromToArrive"
+            *ngFor="let flight of data"
+          >
+          </app-cart-flights>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</section>
+<!--<ng-template #empty>-->
+<!--  <app-empty-search></app-empty-search>-->
+<!--</ng-template>-->

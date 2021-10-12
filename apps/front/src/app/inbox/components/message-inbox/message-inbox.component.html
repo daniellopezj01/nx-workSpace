@@ -1,0 +1,11 @@
+<div
+  *appOnlyBrowser="true"
+  [style.opacity]="loading ? '.6' : '1'"
+  class="d-flex justify-content-end row ml-0 mr-0 align-items-end w-100 wrapper-chat"
+>
+  <app-message-card-in
+    class="pl-0 pr-0 col-sm-12 col-md-6 col-lg-4 col-xl-2 mr-lg-2 mr-xl-2 d-none d-lg-block d-xl-block"
+    [data]="data"
+    *ngFor="let data of inbox | slice: 0:4"
+  ></app-message-card-in>
+</div>

@@ -1,0 +1,129 @@
+<ng-container
+  *ngIf="small; then smallTemplate; else bigTemplate"
+></ng-container>
+<ng-template #smallTemplate>
+  <div class="modal-body">
+    <div class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </div>
+    <ng-container *ngTemplateOutlet="filterTemplate"></ng-container>
+    <button (click)="closeFilters()" class="btn filter-small-result">
+      {{ 'SEARCH.HOTELS.VIEW' | translate }}
+      {{ 'SEARCH.HOTELS.RESULTS' | translate }}
+    </button>
+  </div>
+</ng-template>
+<ng-template #bigTemplate>
+  <ng-container *ngTemplateOutlet="filterTemplate"></ng-container>
+</ng-template>
+
+<ng-template #filterTemplate>
+  <div class="main">
+    <div class="main-header">
+      <h6
+        class="main-title"
+        [innerHTML]="'SEARCH.HOTELS.FILTERS' | translate"
+      ></h6>
+      <span
+        class="clear-filter"
+        (click)="clearFilters()"
+        *ngIf="activeClear || small"
+      >
+        {{ 'SEARCH.HOTELS.CLEAR_ALL' | translate }}
+      </span>
+    </div>
+    <div class="section-filter">
+      <div class="title">
+        {{ 'SEARCH.HOTELS.PRICE_PER_NIGHT' | translate }}
+      </div>
+      <div class="body-price custom-slider">
+        <ng-container *appOnlyBrowser="true">
+          <ngx-slider
+            [(value)]="filterService.currentMinPrice"
+            [(highValue)]="filterService.currentMaxPrice"
+            (userChange)="
+              filterService.actionFilters(
+                [filterService.currentMinPrice, filterService.currentMaxPrice],
+                'price'
+              )
+            "
+            [options]="filterService.optionsPrice"
+          ></ngx-slider>
+        </ng-container>
+
+        <span class="font-price">
+          {{
+            filterService.currentMinPrice | number | currencyCurrent: '0:true'
+          }}
+          -
+          {{
+            filterService.currentMaxPrice | number | currencyCurrent: '0:true'
+          }}
+        </span>
+      </div>
+    </div>
+    <div class="section-filter">
+      <div class="title">
+        {{ 'SEARCH.HOTELS.STAR_RATING' | translate }}
+      </div>
+      <div class="body-stars custom-slider pt-3">
+        <div
+          class="col col-lg-12"
+          *ngFor="let item of filterService.starsArray; let i = index"
+        >
+          <label class="stars-row-style">
+            <p-checkbox
+              color="primary"
+              (change)="filterService.actionFilters(item?.stars, 'stars')"
+              shape="curve"
+              stroke="thick"
+              bigger="true"
+            >
+              <ngx-stars
+                [readonly]="true"
+                [color]="'#f9c74f'"
+                [id]="'__' + i"
+                [initialStars]="item?.stars"
+                [wholeStars]="false"
+                [size]="1"
+              ></ngx-stars>
+            </p-checkbox>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="section-filter">
+      <div class="title">
+        {{ 'SEARCH.HOTELS.DISTANCE' | translate }}
+      </div>
+      <div class="body-distance custom-slider">
+        <ng-container *appOnlyBrowser="true">
+          <ngx-slider
+            [(value)]="filterService.currentDistance"
+            [options]="filterService.optionsDistance"
+            (userChange)="
+              filterService.actionFilters(
+                [0, filterService.currentDistance],
+                'distance'
+              )
+            "
+          >
+          </ngx-slider>
+        </ng-container>
+
+        <span class="font-price">{{ filterService?.currentDistance }} km</span>
+      </div>
+    </div>
+    <!--    <div class="section-filter">-->
+    <!--      <div class="title">-->
+    <!--        {{"SEARCH.HOTELS.GUEST_RATING_FILTER" | translate}}-->
+    <!--      </div>-->
+    <!--      <div class="body-price custom-slider">-->
+    <!--        <ngx-slider [(value)]="filterService.currentMinRating" [(highValue)]="filterService.currentMaxRating"-->
+    <!--                    [options]="filterService.optionsRating"-->
+    <!--                    (userChange)="onChangeRange()"></ngx-slider>-->
+    <!--        <span class="font-price">{{filterService.currentMinRating}} - {{filterService.currentMaxRating}}</span>-->
+    <!--      </div>-->
+    <!--    </div>-->
+  </div>
+</ng-template>

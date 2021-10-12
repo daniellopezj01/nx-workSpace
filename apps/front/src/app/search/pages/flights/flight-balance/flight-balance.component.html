@@ -1,0 +1,57 @@
+<ng-container *ngTemplateOutlet="sectionNormalPrice"></ng-container>
+<ng-container
+  *ngTemplateOutlet="
+    sectionAmounts;
+    context: {
+      text: 'SEARCH.FLIGHTS.TAXES',
+      amount: mainFlight?.price?.totalTaxAmount
+    }
+  "
+></ng-container>
+<ng-container
+  *ngTemplateOutlet="
+    sectionAmounts;
+    context: {
+      text: 'SEARCH.FLIGHTS.OPERATION_CHARGES',
+      amount: mainFlight?.price?.operationalCharges
+    }
+  "
+></ng-container>
+<ng-container *ngTemplateOutlet="sectionTotalPrice"></ng-container>
+
+<ng-template #sectionNormalPrice>
+  <div class="div-price">
+    <span class="normal-price-text text-dark">{{
+      "DEPARTURES.TOTAL_PRICE" | translate
+    }}</span>
+    <span class="normal-price-number">
+      {{
+        mainFlight?.price?.equivalentAmount
+          | number: "1.2-2"
+          | currencyCurrent: "2:true"
+      }}</span
+    >
+  </div>
+</ng-template>
+
+<ng-template #sectionTotalPrice>
+  <div class="div-price">
+    <span class="total-text">{{ "DEPARTURES.PAY_NOW" | translate }} </span>
+    <span class="total-number">
+      {{
+        mainFlight?.price?.totalPrice
+          | number: "1.2-2"
+          | currencyCurrent: "2:true"
+      }}</span
+    >
+  </div>
+</ng-template>
+
+<ng-template #sectionAmounts let-text="text" let-amount="amount">
+  <div class="d-flex justify-content-between">
+    <span class="save-of-text truncate pr-3">{{ text | translate }} </span>
+    <span class="save-of-number"
+      >{{ amount | number: "1.2-2" | currencyCurrent: "2:true" }}
+    </span>
+  </div>
+</ng-template>

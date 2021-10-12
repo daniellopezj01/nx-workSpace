@@ -1,0 +1,224 @@
+<div>
+  <form [formGroup]="sendForm">
+    <div
+      class="d-flex justify-content-between align-content-center align-items-center"
+      [ngClass]="{
+        'cont-form-top': type === 'Header',
+        'cont-form': type === 'main'
+      }"
+    >
+      <input
+        [ngClass]="{ 'style-small-input': type === 'Header' }"
+        autocomplete="off"
+        [id]="idInput"
+        spellcheck="false"
+        (focus)="onFocus()"
+        (clickOutside)="onBlur($event)"
+        formControlName="search"
+        [(ngModel)]="searchValue"
+        class="input-search"
+        (keyup.enter)="goToSearch()"
+        (ngModelChange)="onSearchChange($event)"
+        aria-label="input search"
+        placeholder="{{ 'HOME.INPUT_SEARCH' | translate }}"
+      />
+      <!-- <label for="idInput" ></label> -->
+      <div
+        [ngClass]="{
+          'button-send-top': type === 'main',
+          'button-send-Style-small': type === 'Header'
+        }"
+      >
+        <!-- BUTTON SEARCH  -->
+        <button
+          *ngIf="!activeSmallTemplate"
+          (click)="goToSearch()"
+          aria-label="search"
+          class="btn btn-search"
+        >
+          <i
+            [style.fontSize]="'1.5rem'"
+            *ngIf="!loading"
+            class="uil uil-search-alt"
+          ></i>
+          <span *ngIf="loading">
+            <img
+              [style.width]="'2rem'"
+              src="../../../../assets/loading.svg"
+              alt="loading"
+            />
+          </span>
+        </button>
+        <!-- CLOSE BUTTON IN SMALL TEMPLATE -->
+        <button
+          *ngIf="activeSmallTemplate"
+          (click)="closeTemplate()"
+          aria-label="search"
+          class="btn btn-search"
+        >
+          <i
+            [style.fontSize]="'1.5rem'"
+            *ngIf="!loading"
+            class="uil uil-times"
+          ></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div
+  *ngIf="focusSearch"
+  class="style-relative"
+  [ngClass]="{ activeMenuSmall: activeSmallTemplate }"
+>
+  <ng-container *ngTemplateOutlet="templateSearch"></ng-container>
+</div>
+
+<!--*********** TEMPLATE ZONE ********* -->
+
+<ng-template #templateSearch>
+  <div class="container-template" [style.opacity]="loading ? '0' : '1'">
+    <div class="body-template">
+      <ng-container *ngIf="!notFound; then empty; else null"></ng-container>
+      <ng-container
+        *ngTemplateOutlet="withData; context: { n: notFound }"
+      ></ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #withData let-n="n">
+  <div class="cont-data">
+    <div class="body-list">
+      <div
+        *ngFor="let value of data$ | async; let first = first; let last = last"
+      >
+        <!--- ******** LA PRIMEA VUELTA SON LOS TOURS **************** -->
+        <ng-container *ngIf="first && value?.length">
+          <div class="title-data small mb-1">
+            {{ "HOME.TOUR_TITLE" | translate }}
+          </div>
+          <div
+            class="item-data-list-place p-2 pl-3 pr-3 w-100"
+            (click)="goToTour(tour)"
+            *ngFor="let tour of value"
+          >
+            <div class="style-item-tour">
+              <div class="mode-item-view">
+                <span class="tour-title">{{ tour?.title }}</span>
+                <div class="starts-input-search pl-1 d-flex">
+                  <ngx-stars
+                    *ngIf="tour?.score"
+                    [readonly]="true"
+                    [size]="1"
+                    [color]="'#f9c74f'"
+                    [initialStars]="tour?.score"
+                  ></ngx-stars>
+                  <span class="score-text small" *ngIf="tour?.score">{{
+                    tour?.score
+                  }}</span>
+                </div>
+                <span class="new-tour" *ngIf="!tour?.score">{{
+                  "SEARCH.TOURS.NEW_TRIP" | translate
+                }}</span>
+              </div>
+              <div class="small text-muted">
+                <span class="small"
+                  >{{ tour?.duration }} {{ "SEARCH.TOURS.DAYS" | translate }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <!--- ******** LA ULTIMA VUELTA SON PLACES **************** -->
+
+        <ng-container *ngIf="last && value?.length">
+          <div class="title-data small mb-1">
+            {{ "HOME.PLACES" | translate }}
+          </div>
+          <div class="body-list">
+            <div
+              class="item-data-list-place p-2 pl-3 pr-3 w-100"
+              (click)="goToSearch(place)"
+              *ngFor="let place of value"
+            >
+              <div class="cont-image">
+                <i class="uil uil-map-marker-alt"></i>
+              </div>
+              <div class="body-place">
+                <div class="cont-body-place">
+                  <p class="title-place col-xm-12 col-xs-12">
+                    {{ place?.fullName }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #empty>
+  <div class="squares-main custom-row">
+    <div
+      class="styleSquare col-12 col-xl-4 col-lg-4 col-sm-12 col-xs-12 pl-0 pr-0"
+      (click)="selectContinent(item?.code)"
+      *ngFor="let item of squareContinents"
+    >
+      <div class="square">
+        <div
+          class="inside-square d-flex w-100 justify-content-between align-items-center align-content-center"
+        >
+          <div class="d-flex align-items-center align-content-center">
+            <div class="icon-style p-1">
+              <!-- <img [src]="item?.icon" class="lazyload img-fluid" /> -->
+              <div
+                class="img-continent"
+                [ngStyle]="{
+                  'background-image':
+                    'url(../../../../../assets/insearch/' + item?.code + '.svg)'
+                }"
+              ></div>
+            </div>
+            <div class="d-grid-items pl-2">
+              <span>{{ item?.continent?.name }}</span>
+              <span class="number-trips-squeare">
+                {{ item?.count }}
+                {{ "SEARCH.TOURS.TRIPS_AVAILABLE" | translate }}
+              </span>
+            </div>
+          </div>
+          <div>
+            <i [style.fontSize]="'1.5rem'" class="uil uil-angle-right-b"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cont-continent w-100">
+      <div class="body-list">
+        <div
+          (click)="selectContinent(item?.code)"
+          class="continent"
+          *ngFor="let item of listContinents"
+        >
+          <div class="cont-image">
+            <div
+              class="img-continent"
+              [ngStyle]="{
+                'background-image':
+                  'url(../../../../../assets/insearch/' + item?.code + '.svg)'
+              }"
+            ></div>
+          </div>
+          <p class="continent-name">{{ item?.continent?.name }}</p>
+          <p class="number-trips">
+            {{ item?.count }} {{ "SEARCH.TOURS.TRIPS_AVAILABLE" | translate }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

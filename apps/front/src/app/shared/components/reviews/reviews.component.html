@@ -1,0 +1,55 @@
+<div>
+  <div *ngIf="!loading">
+    <div *ngIf="data?.length">
+      <div *ngFor="let item of data; let index = index">
+        <div class="cont-slide">
+          <div class="data-tour">
+            <div
+              class="image-in-body flex-shrink-1 d-flex justify-content-center align-content-center align-items-center"
+            >
+              <img
+                data-src="{{ item?.attached?.source?.small }}"
+                class="lazyload img-fluid"
+                alt="reviews"
+              />
+            </div>
+            <div class="content-tour">
+              <p class="tour-name">{{ item?.title }}</p>
+              <div class="cont-first">
+                <div>
+                  <div class="score-starts">
+                    <ngx-stars
+                      [readonly]="true"
+                      [size]="1"
+                      [color]="'#f9c74f'"
+                      [initialStars]="item?.score"
+                    >
+                    </ngx-stars>
+                    <font class="score-text"> {{ item?.score }}</font>
+                  </div>
+                  <p class="details">ver detalles del tour.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="content-principal-comments">
+            <div class="content-comment">
+              <div class="name-person-comment">
+                <p>{{ item?.creatorComment?.name }}, comento.</p>
+                <div
+                  class="ago"
+                  timeago
+                  [date]="item?.comments?.dateCreate"
+                ></div>
+              </div>
+              <p class="coment">{{ item?.comments?.content }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loading">
+    <h1>loading...</h1>
+  </div>
+</div>

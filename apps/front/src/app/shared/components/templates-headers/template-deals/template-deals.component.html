@@ -1,0 +1,21 @@
+<app-loading [loading]="loading"></app-loading>
+<div class="main-container">
+  <div class="section-menu">
+    <div
+      (click)="actionItem(item)"
+      class="text-item"
+      *ngFor="let item of itemList"
+    >
+      <span>{{ item?.text | translate }}</span>
+    </div>
+  </div>
+  <div class="section-tours">
+    <div
+      class="square"
+      *ngFor="let tour of tours | slice: 0:4; let i = index"
+      (click)="gotoDetails(tour)"
+    >
+      <app-card-tour [tour]="tour"></app-card-tour>
+    </div>
+  </div>
+</div>

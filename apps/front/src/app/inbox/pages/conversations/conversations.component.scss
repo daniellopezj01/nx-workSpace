@@ -1,0 +1,107 @@
+@import "./src/shared.scss";
+
+.title-conversation {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center !important;
+  position: relative !important;
+  border-bottom: solid 1px $border-color-2;
+}
+
+.principal-cont {
+  background-color: white;
+  height: 100%;
+  overflow: auto;
+  box-shadow: $shadow-custom-sm;
+  border-right: solid 1px $border-color-1;
+}
+
+.cont-conversations {
+  // margin-top: 1rem;
+  max-height: 100%;
+  position: relative;
+}
+
+.text-title {
+}
+
+.style-chat {
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+}
+
+.style-chat:hover {
+  background-color: #f0efef;
+}
+
+.person {
+  // width: 15%;
+}
+
+.chat-active {
+  background-color: $border-color-3 !important;
+}
+
+.icon-style {
+  background-color: gray;
+  border-radius: 50%;
+  position: relative;
+  margin: auto;
+  height: 40px;
+  width: 40px;
+}
+
+.icon-style img {
+  position: absolute;
+  background-color: white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.content {
+  // width: 85%;
+}
+
+.content p {
+  outline: 0;
+  margin: 0;
+}
+
+.name-person {
+  //font-weight: bold;
+}
+
+.last-message {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.date {
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .principal-cont {
+    //max-height: calc(100vh - 4.1rem);
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .principal-cont {
+    //max-height: calc(100vh - 4.5rem);
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+  .principal-cont {
+    //max-height: calc(100vh - 5rem);
+  }
+}

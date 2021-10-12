@@ -1,0 +1,35 @@
+<app-loading [loading]="!!loading"></app-loading>
+<div class="sticky-top">
+  <app-header #m></app-header>
+</div>
+
+<div class="w-100 container-info" *ngIf="!loading">
+  <div class="main-container">
+    <div class="container-dates-departures">
+      <ng-container
+        [ngTemplateOutlet]="templateDetailsFlight"
+        [ngTemplateOutletContext]="{ item: data | firstValue }"
+      ></ng-container>
+    </div>
+  </div>
+  <div class="main-container">
+    <div class="container-dates-departures">
+      <ng-container [ngTemplateOutlet]="stepTwoTemplate"></ng-container>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+
+<ng-template #templateDetailsFlight let-item="item">
+  <div class="container-flight">
+    <app-card-details [mainFlight]="item" [params]="params"></app-card-details>
+  </div>
+</ng-template>
+
+<ng-template #stepTwoTemplate>
+  <app-from-pnr
+    [code]="code || ''"
+    [adults]="numberAdults || 0"
+    [childrens]="numberchildrens || 0"
+  ></app-from-pnr>
+</ng-template>

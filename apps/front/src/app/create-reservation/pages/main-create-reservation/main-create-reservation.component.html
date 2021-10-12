@@ -1,0 +1,124 @@
+<app-loading [loading]="loading"></app-loading>
+<div class="sticky-top">
+  <app-header #m></app-header>
+</div>
+
+<div class="w-100 container-info">
+  <div class="section-header">
+    <div class="">
+      <h2>{{ "CREATE_RESERVATION.OVERVIEW" | translate }}</h2>
+    </div>
+    <div class="faqs">
+      <button class="btn btn-outline-primary" name="createReservation">
+        <i class="uil uil-question-circle"></i>
+        <span class="pl-1">{{ "CREATE_RESERVATION.FAQ" | translate }}</span>
+      </button>
+    </div>
+  </div>
+  <div class="d-flex row ml-0 mr-0">
+    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 small-padding">
+      <ng-container [ngTemplateOutlet]="sectionTour"></ng-container>
+      <div class="small-trips">
+        <app-trip-sumary
+          *ngIf="departure"
+          class="animate__animated animate__fadeInDown animation-3"
+          [departure]="departure"
+          [intention]="intention"
+          [tour]="tour"
+        ></app-trip-sumary>
+      </div>
+      <app-form-reservation
+        class="animate__animated animate__fadeInDown animation-1"
+        *ngIf="departure"
+        [departure]="departure"
+        [tour]="tour"
+        [intention]="intention"
+      >
+      </app-form-reservation>
+    </div>
+    <div class="section-payment col-sm-12 col-md-12 col-lg-4 col-xl-4">
+      <app-trip-sumary
+        class="animate__animated animate__fadeInDown animation-3"
+        *ngIf="departure"
+        [departure]="departure"
+        [intention]="intention"
+        [tour]="tour"
+      ></app-trip-sumary>
+    </div>
+  </div>
+</div>
+<div>
+  <app-footer></app-footer>
+</div>
+
+<ng-template #sectionTour>
+  <div
+    *ngIf="tour"
+    class="main-container-tour animate__animated animate__fadeInDown animation-2 row ml-0 mr-0"
+  >
+    <img
+      class="section-image-tour col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 p-0"
+      appImgFallback
+      [src]="
+        deviceDetector.isDesktop()
+          ? (tour?.attached | firstValue)?.source?.small
+          : (tour?.attached | firstValue)?.source?.sm ||
+            (tour?.attached | firstValue)?.source?.medium
+      "
+      alt="{{ featured?.title }}"
+    />
+    <div
+      class="section-information-tour truncate p-3 col-12 col-sm-12 col-md-6 col-lg-9 col-xl-9"
+    >
+      <div>
+        <h4 class="tour-title mb-0">{{ tour?.title }}</h4>
+        <!-- <div class="score mt-1 mb-1">
+          <ngx-stars
+            *ngIf="tour?.score"
+            [readonly]="true"
+            [size]="1"
+            [color]="'#f9c74f'"
+            [initialStars]="tour?.score"
+          >
+          </ngx-stars>
+          <span class="new-tour" *ngIf="!tour?.score">
+            <span> {{ "CREATE_RESERVATION.NEW_TRIPS" | translate }}</span>
+          </span>
+          <span class="score-text">{{ tour?.score }}</span>
+        </div> -->
+        <app-score [tour]="tour"></app-score>
+      </div>
+      <div class="section-countries-score">
+        <div class="container-icons">
+          <i class="uil uil-globe"></i>
+          <span>
+            {{ tour?.countries
+            }}{{ tour?.countries | numberCountries | translate }} ,
+            {{ tour?.cities
+            }}{{ tour?.countries | numberCountries: "cities" | translate }}
+          </span>
+        </div>
+      </div>
+      <div class="night-itinerary">
+        <div class="container-icons d-flex align-items-center">
+          <i class="uil uil-schedule"></i>
+          <span class="night pr-2">
+            {{ tour?.duration }}
+            {{ "CREATE_RESERVATION.DAYS" | translate }} ,
+            {{ tour?.nights - 1 }}
+            {{ "CREATE_RESERVATION.NIGHTS" | translate }}
+          </span>
+          <div>
+            <app-tour-language-offered
+              [tour]="tour"
+            ></app-tour-language-offered>
+          </div>
+        </div>
+        <div class="itinerary-map" (click)="openModal()">
+          <span>{{ "CREATE_RESERVATION.ITINERARY_MAP" | translate }}</span>
+          <span class="pl-1"><i class="uil uil-expand-arrows"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,25 @@
+<ng-container>
+  <div class="cont-popular" *ngIf="!loading">
+    <div class="title-in-search title-popular">
+      <h5>{{ 'SEARCH.TOURS.RECOMMEND_TOURS' | translate }}</h5>
+    </div>
+    <div class="cont-carousel d-flex mt-3 mb -3">
+      <ng-container *appOnlyBrowser="true">
+        <carousel
+          class="custom-carousel-populars"
+          [arrows]="true"
+          [cellWidth]="sizeItemCarousel"
+          [arrowsTheme]="'dark'"
+        >
+          <div
+            class="carousel-cell card-tour"
+            [routerLink]="['/', 'destination', item?.slug]"
+            *ngFor="let item of data"
+          >
+            <app-card-tour [sizeCarousel]="true" [tour]="item"></app-card-tour>
+          </div>
+        </carousel>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

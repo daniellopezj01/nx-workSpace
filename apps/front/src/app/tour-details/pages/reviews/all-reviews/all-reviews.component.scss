@@ -1,0 +1,205 @@
+@import "./src/shared.scss";
+
+.main-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
+
+.main-container-modal {
+  overflow: auto;
+  max-height: 99vh;
+  //height: 99vh;
+  position: relative;
+}
+
+.container-modal-reviews {
+  max-width: 1300px;
+  padding: 1rem !important;
+  margin: auto;
+}
+
+.modal-header {
+  position: sticky !important;
+  top: 0;
+  z-index: 1;
+  background-color: white;
+}
+
+.reviews {
+  width: 70%;
+  margin-right: 5%;
+}
+
+.container-stars {
+  width: 25%;
+}
+
+.container-title,
+.container-number-reviews {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.container-number-reviews span {
+  font-size: 1.1rem;
+}
+
+.container-title span {
+  font-weight: bolder;
+  font-size: 2.5rem;
+}
+
+/**LOAD MORE**/
+
+.load-more {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.show-number-tours {
+  font-size: 0.9rem;
+  color: #302a3d;
+}
+
+.progress-bar-tours {
+  // color: #302a3d;
+  margin-bottom: 20px;
+  position: relative;
+  display: block;
+  margin: auto;
+}
+
+.disabled-progress-bar {
+  background-color: #d5d3da;
+  border-radius: 2px;
+  display: block;
+  height: 3px;
+  margin: 17px auto 10px auto;
+  overflow: hidden;
+  position: relative;
+  width: 192px;
+}
+
+.active-progress-bar {
+  background-color: $base-color;
+  display: inline-block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: width 0.5s ease;
+}
+
+.button-more-data {
+  border-radius: 2px;
+  cursor: pointer;
+  margin-top: 1rem;
+  height: 50px;
+  outline: 0;
+  padding: 0 30px;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: $base-color;
+  color: #fff;
+  border: 1px solid $base-color;
+}
+
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+.button-more-data {
+  border-radius: 2px;
+  cursor: pointer;
+  margin-top: 1rem;
+  height: 50px;
+  outline: 0;
+  padding: 0 30px;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: $base-color;
+  color: #fff;
+  border: 1px solid $base-color;
+}
+
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+.container-back-top {
+  margin: 2rem auto;
+  span {
+    color: $base-color;
+    font-size: $font-size-3;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: bolder;
+    text-decoration: underline;
+  }
+}
+
+.form-stars {
+  min-width: 250px;
+  margin-right: 1rem;
+}
+
+.small-filter {
+  display: none;
+}
+
+.big-filter {
+  width: 50%;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .main-container {
+    display: grid;
+  }
+  .container-stars {
+    width: 100%;
+    margin: 2rem 0;
+  }
+
+  .container-number-reviews {
+    margin: 1rem 0 0 0;
+  }
+  .container-title span {
+    font-size: 1.5rem;
+  }
+  .reviews {
+    width: 100%;
+    margin-right: 0;
+  }
+  .container-back-top {
+    margin: 2rem auto 5rem auto;
+  }
+  .form-stars {
+    width: 100%;
+    margin-right: 0;
+  }
+  .small-filter {
+    display: initial;
+  }
+  .big-filter {
+    display: none;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .big-filter {
+    width: 60%;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

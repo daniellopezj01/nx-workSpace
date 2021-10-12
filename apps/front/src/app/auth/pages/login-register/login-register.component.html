@@ -1,0 +1,96 @@
+<div>
+  <app-header-empty></app-header-empty>
+  <div class="container-page">
+    <div
+      class="col-lg-12 offset-xl-3 col-xl-6 animate__animated animate__fadeInDown animation-1"
+    >
+      <div class="cont-all">
+        <ng-container
+          *ngIf="
+            userReferred?.email;
+            then referredTemplate;
+            else normalTemplate
+          "
+        ></ng-container>
+        <app-form-login-register
+          (changeItem)="changeActiveRoute($event)"
+          (actionLogin)="login($event)"
+          [formAction]="formAction"
+          (actionRegister)="register($event)"
+        ></app-form-login-register>
+
+        <div *ngIf="formAction" class="change-tab">
+          {{ "AUTH_LOGIN.GO_TO_REGISTER" | translate }}
+          <a class="font-click text-dark" (click)="change(false)">
+            {{ "AUTH_LOGIN.CLICK_HERE" | translate }}</a
+          >
+        </div>
+        <div *ngIf="!formAction" class="change-tab">
+          {{ "AUTH_LOGIN.GO_TO_LOGIN" | translate }}
+          <a class="font-click text-dark" (click)="change(true)">
+            {{ "AUTH_LOGIN.CLICK_HERE" | translate }}</a
+          >
+        </div>
+        <div class="rem-padding-width custom-row">
+          <div class="rem-padding-width col-6 terms-privacy">
+            <!-- <span>{{
+              "LINKS_EXTERNAL.TERMS_AND_CONDITIONS.NAME" | translate
+            }}</span> -->
+            <a
+              class="link link-d pt-1 text-dark pb-1 text-capitalize"
+              [href]="'LINKS_EXTERNAL.TERMS_AND_CONDITIONS.LINK' | translate"
+              target="_blank"
+            >
+              {{ "LINKS_EXTERNAL.TERMS_AND_CONDITIONS.NAME" | translate }}
+            </a>
+          </div>
+          <div class="rem-padding-width col-6 terms-privacy">
+            <a
+              class="link link-d pt-1 text-dark pb-1 text-capitalize"
+              [href]="'LINKS_EXTERNAL.PRIVACY_AND_POLICY.LINK' | translate"
+              target="_blank"
+            >
+              {{ "LINKS_EXTERNAL.PRIVACY_AND_POLICY.NAME" | translate }}
+            </a>
+            <!-- <span>{{ "AUTH_LOGIN.PRIVACY" | translate }}</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #referredTemplate>
+  <div class="main-text d-flex flex-column text-center">
+    <div class="icon-style d-flex justify-content-center">
+      <ngx-avatar
+        size="75"
+        [round]="true"
+        [src]="userReferred?.avatar"
+        [name]="userReferred?.name"
+      ></ngx-avatar>
+      <!--      <img data-src="{{(user?.avatar) ? user?.avatar:imageUser}}" class="lazyload img-fluid ">-->
+    </div>
+    <span class="mt-2">
+      {{ "AUTH_LOGIN.CONGRATULATION" | translate }}
+      <span class="main-color">{{ userReferred | transformName }} </span>
+      {{ "AUTH_LOGIN.SEND_YOU" | translate
+      }}<span class="main-color">
+        {{ userReferred?.plan?.amountTo }} usd</span
+      ></span
+    >
+    <span class="mt-2 custom-text">
+      {{ "AUTH_LOGIN.DESCRIPTION_REFERRED" | translate }}</span
+    >
+  </div>
+</ng-template>
+
+<ng-template #normalTemplate>
+  <div class="main-text">
+    <h3 class="wellcome">{{ "AUTH_LOGIN.WELCOME" | translate }}</h3>
+    <h2 class="title">{{ "AUTH_LOGIN.MY_COMPANY" | translate }}</h2>
+    <span class="text-description opacity-0-70">{{
+      "AUTH_LOGIN.SECOND_COMPANY" | translate
+    }}</span>
+  </div>
+</ng-template>

@@ -1,0 +1,234 @@
+@import "./src/shared";
+
+.cont-list {
+  width: 100%;
+}
+
+.image-blur {
+  filter: blur(15px) !important;
+}
+
+.square {
+  box-shadow: $shadow-custom;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #efeef0;
+  border-radius: $border-radius;
+  height: 100%;
+  max-height: 600px;
+  opacity: 1;
+  overflow: hidden !important;
+  position: relative;
+  // transition: opacity 1.5s ease, max-height 1s ease, border 0.3s;
+  transition: $all-transition-2;
+}
+
+.square:hover {
+  cursor: pointer;
+  box-shadow: $shadow-custom-lg;
+
+  .img-card {
+    transition: $all-transition-2;
+    filter: opacity(0.9);
+  }
+}
+
+.img-wrap-new {
+  cursor: pointer;
+  height: 15rem;
+  position: relative;
+}
+
+.img-card {
+  width: 100%;
+  display: block;
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  position: relative;
+  min-height: 12rem;
+  height: 100%;
+  object-fit: cover !important;
+  filter: contrast(110%);
+}
+
+.new-tour {
+  border: 1px solid $base-color-3;
+  border-radius: $border-radius;
+  color: $base-color-3;
+  font-size: 60%;
+  line-height: revert;
+  padding: 0.15rem 0.25rem;
+  text-transform: inherit;
+  height: min-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.new-tour p {
+  font-size: inherit !important;
+}
+
+.cont-body ngx-stars,
+.cont-body font {
+  margin-left: 0.5rem;
+}
+
+.book-now {
+  color: $base-color-2;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.container-route {
+  display: flex;
+  flex: 1 1 auto;
+  font-weight: lighter;
+
+  p {
+    font-weight: 400;
+    font-size: $font-size-2;
+  }
+}
+
+/********* Body***********/
+p {
+  margin: 0 !important;
+}
+
+.body-tour {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1 1 auto;
+}
+
+.description {
+  color: $text-color-1;
+  font-size: $font-size-3;
+  flex: 1 1 auto;
+}
+
+.style-text {
+  font-size: 0.8rem;
+}
+
+.second-line {
+  display: flex;
+}
+
+.percentage {
+  color: $base-color-2;
+  display: inline-block;
+  font-size: $font-size-3;
+}
+
+.first-line {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.general-info {
+  display: flex;
+  span {
+    font-size: 65%;
+    color: $text-color-2;
+    font-weight: 500;
+  }
+
+  i {
+    padding-right: 1px;
+    color: $base-color;
+  }
+  div {
+    padding-right: 6px;
+  }
+}
+
+.score {
+  display: flex;
+}
+
+.four-line {
+  margin-top: 1rem;
+}
+
+.last-item {
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+}
+
+.more-info {
+  text-decoration: none;
+  opacity: 0.7;
+  a {
+    color: $text-color-1;
+  }
+}
+
+.more-info,
+.view {
+  color: $text-color-1;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+}
+
+.view {
+  border: 1px solid $base-color;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.custom-text-tour-language {
+  * {
+    font-size: 65%;
+    color: $text-color-2;
+    font-weight: 500;
+  }
+}
+
+.big-amount {
+  color: $text-color-2;
+  opacity: 0.9;
+  span {
+    font-size: $font-size-4;
+    text-decoration: line-through;
+  }
+}
+
+.percentage-discount {
+  font-size: $font-size-3;
+  font-weight: lighter;
+}
+//phone
+@media print, screen and (max-width: 740px) {
+  .width-small {
+    width: 98vw !important;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .square {
+    flex-wrap: wrap;
+    flex-direction: inherit !important;
+  }
+  .img-wrap-new {
+    width: calc(100% - 100% / 12 * 7);
+  }
+  .body-tour {
+    width: calc(100% - 100% / 12 * 5);
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

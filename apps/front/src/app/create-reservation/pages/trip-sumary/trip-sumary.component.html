@@ -1,0 +1,114 @@
+<div class="main-container">
+  <div class="section-title">
+    <span class="main-title">
+      {{ "CREATE_RESERVATION.TRIP_SUMARY" | translate }}</span
+    >
+    <div
+      class="important-section"
+      tooltip="{{ importantNotes | translate }}"
+      placement="bottom"
+    >
+      <span class="pr-1"><i class="uil uil-exclamation-octagon"></i></span>
+      <span>{{ "CREATE_RESERVATION.TRIPS_NOTES" | translate }}</span>
+    </div>
+  </div>
+
+  <ng-container
+    [ngTemplateOutlet]="datesTemplate"
+    [ngTemplateOutletContext]="{
+      date: departure?.startDateDeparture,
+      type: 'START'
+    }"
+  >
+  </ng-container>
+  <ng-container
+    [ngTemplateOutlet]="datesTemplate"
+    [ngTemplateOutletContext]="{
+      date: departure?.endDateDeparture,
+      type: 'END'
+    }"
+  >
+  </ng-container>
+  <div>
+    <ng-container *ngTemplateOutlet="sectionNormalPrice"></ng-container>
+    <ng-container *ngTemplateOutlet="sectionDiscounts"></ng-container>
+    <ng-container *ngTemplateOutlet="sectionTotalPrice"></ng-container>
+  </div>
+</div>
+<div>
+  <app-agency-offered [tour]="tour"></app-agency-offered>
+</div>
+<div class="container-why-book">
+  <span class="main-title">
+    {{ "CREATE_RESERVATION.WHY_BOOK_WITH_US" | translate }}
+  </span>
+  <div class="container-with-us">
+    <div class="icons-details-book-us" *ngFor="let item of dataBookUs">
+      <i class="uil uil-check"></i>
+      <span class="trip-text pl-2">{{ item?.name | translate }}</span>
+    </div>
+  </div>
+</div>
+
+<ng-template #sectionNormalPrice>
+  <div class="div-price">
+    <span class="normal-price-text text-dark">{{
+      "DEPARTURES.TRIP_PRICE" | translate
+    }}</span>
+    <span class="normal-price-number">
+      {{
+        departure?.normalPrice
+          | number: "1.2-2"
+          | currencyCurrent: "2:true":departure?.currencies
+      }}</span
+    >
+  </div>
+</ng-template>
+
+<ng-template #sectionDiscounts>
+  <div *ngIf="intention">
+    <div class="div-price" *ngFor="let contract of intention?.resume.history">
+      <span class="save-of-text truncate pr-3">{{ contract?.name }} </span>
+      <span class="save-of-number"
+        >-{{
+          contract?.priceDiscount
+            | number: "1.2-2"
+            | currencyCurrent: "2:true":departure?.currencies
+        }}
+      </span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #sectionTotalPrice>
+  <div class="div-price" *ngIf="intention">
+    <span class="total-text">{{ "DEPARTURES.TOTAL_PRICE" | translate }} </span>
+    <span class="total-number">
+      {{
+        intention?.total
+          | number: "1.2-2"
+          | currencyCurrent: "2:true":departure?.currencies
+      }}</span
+    >
+  </div>
+</ng-template>
+
+<ng-template #datesTemplate let-date="date" let-type="type">
+  <div class="main-container-date">
+    <div class="icon-container">
+      <i class="uil uil-calendar-alt"></i>
+      <span></span>
+    </div>
+    <div class="container-date">
+      <span class="title-date">
+        {{ "CREATE_RESERVATION.TRIP_" + type | translate }}</span
+      >
+      <span class="body-date">{{
+        date | datesFormatDeparture | date: "E d LLLL yyyy"
+      }}</span>
+      <span class="body-location">{{
+        type === "START" ? startLocation : endLocation
+      }}</span>
+    </div>
+  </div>
+</ng-template>

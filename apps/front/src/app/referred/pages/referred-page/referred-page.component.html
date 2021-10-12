@@ -1,0 +1,183 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="general-cont">
+  <div class="general">
+    <app-bread-crumb></app-bread-crumb>
+    <div class="header-title p-3 p-2">
+      <h3>{{ 'REFERRED_LIST.TITLE' | translate }}</h3>
+    </div>
+    <div
+      class="
+        container
+        custom-row
+        animate__animated animate__fadeInDown
+        animation-1
+      "
+    >
+      <div class="manager-forms">
+        <div class="custom-row row">
+          <div class="col-md-6 col-lg-6 col-xl-8 col-sm-12">
+            <div>
+              <p class="mb-2">{{ 'REFERRED_LIST.DESCRIPTION' | translate }}</p>
+            </div>
+            <button
+              [routerLink]="['/referred']"
+              class="mr-2 btn btn-sm btn-primary"
+            >
+              {{ 'REFERRED_LIST.GET_STARTED_REFERRED' | translate }}
+            </button>
+            <!-- //TODO agregar link de blog -->
+            <button [routerLink]="['/']" class="mr-2 btn btn-sm btn-default">
+              {{ 'USER.WALLET.HOW_IT_WORK' | translate }}
+            </button>
+            <!--            <button [routerLink]="['/payment']" disabled-->
+            <!--                    class="mr-2 btn btn-sm btn-default">{{ "USER.WALLET.BUY_GIFT" | translate }}</button>-->
+          </div>
+          <div
+            class="
+              col-md-6 col-lg-6 col-xl-4 col-sm-12
+              d-flex
+              justify-content-center
+              align-items-center align-content-center
+            "
+          >
+            <h3 class="m-0" *ngIf="data?.total">
+              {{ data?.total | number: '1.2-2' | currencyCurrent: '2:true' }}
+            </h3>
+          </div>
+        </div>
+        <hr class="row" />
+        <div class="transactions">
+          <ng-container
+            *ngIf="data?.length; then with; else withOut"
+          ></ng-container>
+
+          <ng-template #with>
+            <div class="container-transaction">
+              <div>
+                <table class="table">
+                  <thead class="thead">
+                    <tr>
+                      <th
+                        *ngFor="let item of columns"
+                        class="text-uppercase"
+                        scope="col"
+                      >
+                        {{ item.key | translate }}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="tbody">
+                    <tr *ngFor="let item of data; let i = index">
+                      <td class="amount-row">
+                        <div
+                          class="d-flex"
+                          [routerLink]="['/', 'profile', item?.user?._id]"
+                        >
+                          <ngx-avatar
+                            [round]="false"
+                            cornerRadius="3"
+                            size="28"
+                            [src]="item?.user?.name?.avatar"
+                            [name]="item?.user?.name"
+                          ></ngx-avatar>
+                          <span class="pl-2"
+                            >{{ item?.user?.name }}
+                            {{ item?.user?.surname }}</span
+                          >
+                        </div>
+                      </td>
+                      <td>
+                        {{
+                          item?.amountTo | number | currencyCurrent: '2:true'
+                        }}
+                      </td>
+                      <td>
+                        {{
+                          item?.amountFrom | number | currencyCurrent: '2:true'
+                        }}
+                      </td>
+                      <td>
+                        <span
+                          class="status-row badge"
+                          [ngClass]="{
+                            'badge-warning': item?.status === 'available',
+                            'badge-success': item?.status === 'unavailable'
+                          }"
+                        >
+                          <span
+                            [tooltip]="
+                              'REFERRED_LIST.STATUS_WAIT_TOOLTIP' | translate
+                            "
+                            *ngIf="item?.status === 'available'"
+                          >
+                            {{ 'REFERRED_LIST.STATUS_WAIT' | translate }}</span
+                          >
+                          <span
+                            [tooltip]="
+                              'REFERRED_LIST.STATUS_WAIT_TOOLTIP' | translate
+                            "
+                            *ngIf="item?.status === 'unavailable'"
+                          >
+                            {{
+                              'REFERRED_LIST.STATUS_SUCCESS' | translate
+                            }}</span
+                          >
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template #withOut>
+            <div class="container-with-out d-flex justify-content-center">
+              <div class="with-out-transaction">
+                <p class="text-center">
+                  {{ 'USER.WALLET.NOT_TRANSACTIONS' | translate }}
+                </p>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="w-100">
+        <hr />
+        <pagination
+          [itemsPerPage]="referredService.limitPerPage"
+          [(ngModel)]="referredService.page"
+          (pageChanged)="pageChanged($event)"
+          [customPreviousTemplate]="pageTemplateLeft"
+          [customNextTemplate]="pageTemplateRight"
+          [maxSize]="referredService.maxSize"
+          [totalItems]="dataRaw?.totalDocs"
+        ></pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--- ********** ZONE TEMPLATES **************** -->
+
+<ng-template #empty let-data="data" let-loading="loading">
+  <app-empty class="w-100" [loading]="loading" [data]="data"></app-empty>
+</ng-template>
+
+<ng-template
+  #pageTemplateLeft
+  let-page
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <i class="uil uil-angle-left-b"></i>
+</ng-template>
+<ng-template
+  #pageTemplateRight
+  let-page
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <i class="uil uil-angle-right-b"></i>
+</ng-template>

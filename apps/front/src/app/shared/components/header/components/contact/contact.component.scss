@@ -1,0 +1,131 @@
+@import "./src/shared";
+
+.main-section-contact {
+  background-color: white;
+  cursor: initial;
+}
+
+.main-container-info {
+  max-width: 1132px;
+  margin: auto;
+}
+
+.container-info-template {
+  padding: 50px;
+  text-align: left;
+}
+
+.custom-index {
+  border-right: 0.5px solid #e7e7e7;
+}
+
+.container-title {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  span {
+    color: #363333;
+    font-family: "Hind Siliguri", Sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+}
+
+.line-decorator {
+  width: 30px;
+  height: 3px;
+  color: #ef2f2f;
+  background: linear-gradient(90deg, #ef2f2f 0%, #ef2f2f 100%);
+}
+
+.ul-list {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+/********* PHONE TEMPLATE ********/
+
+.phone-item {
+  a {
+    color: black;
+    font-size: 1.1rem;
+    font-family: "Hind Siliguri", Sans-serif;
+    font-weight: 500;
+  }
+  margin-bottom: 20px;
+}
+
+.business-hours {
+  display: flex;
+  align-items: center;
+  span {
+    font-size: 1rem;
+    text-transform: uppercase;
+  }
+  i {
+    color: #ef2f2f !important;
+    padding-right: 0.5rem;
+    font-size: 1.5rem;
+  }
+}
+
+.text-business-hours {
+  span {
+    font-size: $font-size-5;
+    color: #8e8e8e;
+    text-transform: uppercase;
+  }
+}
+/********* CHAT TEMPLATE ********/
+.chat-item {
+  color: white;
+  font-size: $font-size-2;
+  font-family: "Roboto", Sans-serif;
+  font-weight: bolder;
+  border-radius: 3px;
+  padding: 14px 28px;
+  margin-bottom: 20px;
+}
+
+.inside-button {
+  display: flex;
+  span {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.social-items {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  a {
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+    font-size: 14px;
+    width: 36px;
+    height: 36px;
+    line-height: 38px;
+    display: initial;
+    position: relative;
+    margin: 0 0.5rem;
+    i {
+      padding: 0;
+      font-size: 1.2rem;
+      color: white;
+      position: absolute;
+      left: 25%;
+      // top: 50%;
+      transform: translate(0, -5%);
+    }
+  }
+}
+
+// .social-button {
+//   border-radius: 50%;
+//   position: relative;
+// }
+/********* PLACE TEMPLATE ********/

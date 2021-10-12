@@ -1,0 +1,106 @@
+@import "./src/shared";
+
+.cont {
+  height: 100vh;
+  width: 100vw;
+}
+.o-mainContent {
+  border: none;
+  margin: 5em auto;
+  padding: 2em;
+  overflow: auto;
+  width: 100%;
+}
+
+.o-mainContent {
+  background-color: #fff;
+  border: 1px solid #cacaca;
+  margin: 5em auto;
+  max-width: 560px;
+}
+
+.o-mainContent h3 {
+  font-weight: bold;
+}
+
+.cont-input {
+  position: relative;
+  margin-top: 2rem;
+}
+
+.show-hide fa-icon {
+  z-index: 9;
+  height: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  position: absolute;
+  border-radius: 50%;
+}
+
+input::placeholder {
+  font-style: italic;
+}
+
+input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #d5d3da;
+  border-radius: 0;
+  box-shadow: none;
+  color: #302a3d;
+  font-weight: 400;
+  margin-bottom: 5px;
+  padding: 0;
+  position: relative;
+  outline: none;
+  width: 100%;
+  z-index: 3;
+}
+
+.show-error {
+  margin-top: 3rem;
+  color: red;
+  text-align: left;
+  text-align: justify;
+}
+.btn-forget {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  margin-top: 2rem;
+}
+
+.btn-forget button {
+  -webkit-appearance: none;
+  border-radius: 0;
+  font-family: "Soleil W01 Bold", arial, sans-serif !important;
+  font-weight: bold;
+  background-color: transparent;
+  border: 2px solid #d5d3da;
+  border-radius: 0;
+  color: #302a3d;
+  cursor: pointer;
+  float: none;
+  font-size: 1em !important;
+  height: 45px;
+  text-transform: uppercase;
+  outline: none;
+  opacity: 1;
+  padding: 0 21px 0 21px;
+  width: auto;
+}
+
+.message-error-login {
+  color: $bg-danger;
+  position: relative;
+  text-align: left;
+  font-size: $font-size-3;
+}
+
+.message-error {
+  color: $bg-danger;
+  position: relative;
+  text-align: left;
+  font-size: $font-size-3;
+}

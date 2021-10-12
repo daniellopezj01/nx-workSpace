@@ -1,0 +1,354 @@
+@import "./src/shared";
+
+/********BIG********/
+::ng-deep {
+  ul,
+  li {
+    cursor: pointer;
+    list-style: none;
+  }
+  ul {
+    min-width: 220px;
+  }
+  i {
+    padding-right: 5px;
+  }
+}
+
+.not-logged {
+  min-width: min-content;
+}
+.main {
+  background-color: white;
+  z-index: 8;
+  text-align: left;
+  max-height: 4rem;
+  padding-right: 1rem;
+  width: 100%;
+}
+
+#containerTemplateDestination1,
+#containerTemplateDestination,
+#containerTemplateWays1 {
+  margin-top: -0.3rem;
+}
+
+.shadow-effect {
+  box-shadow: $shadow-custom-sm;
+}
+
+.grid {
+  padding-right: 0;
+}
+
+.container-logo {
+  margin-right: 2em;
+  min-height: $height-menu;
+  padding-left: 1.2rem;
+}
+
+.active-item {
+  display: none;
+}
+
+.second {
+  display: flex;
+}
+
+.logo {
+  cursor: pointer;
+  height: $height-menu;
+  width: 6rem;
+  background-image: url("../../../../assets/logo.svg");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position: center;
+  background-size: contain;
+}
+
+.navbar {
+  min-height: 100%;
+  max-width: 70%;
+  width: 70%;
+  padding: 0 !important;
+  transition: $all-transition-1;
+  color: $text-color;
+}
+
+.change-navbar-input-active {
+  max-width: 55% !important;
+  width: 55% !important;
+}
+
+.change-search-input-active {
+  max-width: 45% !important;
+  width: 45% !important;
+}
+
+/*******Form*********/
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .big {
+    display: none;
+  }
+  .small-none {
+    display: none;
+  }
+}
+
+//tablets and smartphone
+@media print, screen and (max-width: 1200px) {
+  .big {
+    display: none;
+  }
+  .main {
+    display: flex;
+    padding-right: 0rem;
+  }
+  .container-logo {
+    margin-right: 0;
+    min-height: 3rem;
+    padding: 0 0.3rem;
+  }
+  .logo {
+    height: 3rem;
+    width: 4.5rem;
+  }
+  .cont-small-form {
+    width: 100%;
+    display: flex;
+  }
+  .small-form {
+    min-width: 50%;
+    flex-grow: 1;
+    margin: auto;
+    position: relative;
+    margin-left: 0.3rem;
+  }
+  .cont {
+    max-width: 100%;
+    width: 100%;
+  }
+  .button-send button {
+    top: 10px;
+    right: 5px;
+    width: 1.7rem;
+    height: 1.7rem;
+    background-size: 1.1rem;
+  }
+  .cont-form input {
+    border-radius: 0.9rem;
+    width: 100%;
+    height: 3rem;
+    padding-left: 0.5rem;
+    padding-right: 3rem;
+    border: none;
+    font-size: 0.9rem;
+  }
+  .not-login {
+    white-space: inherit;
+    font-size: $font-size-3;
+    text-align: center;
+    display: inline-flex;
+    margin: auto;
+    font-weight: inherit;
+    // color: #5F536A;
+    color: $text-color-1;
+    cursor: pointer;
+    min-height: 2.75rem;
+    align-items: center;
+    padding: 0 0.75rem;
+  }
+  .alert-tap {
+    font-size: 65%;
+    text-align: center;
+    width: 100%;
+  }
+  .small-none {
+    display: none;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1200px) {
+  .small {
+    display: none;
+  }
+}
+
+/**
+Esto debemos haceru un componente
+ */
+
+.alert-tap {
+  background: #f52020;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color: white;
+  font-weight: lighter;
+  // position: fixed;
+  width: 100%;
+  left: 0;
+  height: 45px;
+
+  span {
+    padding-left: 2px;
+    color: white;
+  }
+}
+
+.click-here {
+  text-decoration: underline;
+  font-weight: bolder;
+  color: yellow;
+}
+
+.custom-a {
+  font-family: "Hind Siliguri", Sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  color: #525252;
+  padding: 0px 15px 0px 15px;
+}
+
+nav {
+  display: block;
+  text-align: center;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav a,
+.text-not-login {
+  font-family: "Hind Siliguri", Sans-serif;
+  color: $text-color-header;
+  display: block;
+  background: white;
+  text-decoration: none;
+  padding: 1rem;
+  text-transform: capitalize;
+  font-size: 1rem;
+  position: relative;
+  font-weight: 500;
+}
+
+.nav {
+  vertical-align: top;
+  display: inline-block;
+  border-radius: 6px;
+}
+
+.nav li {
+  position: relative;
+}
+
+.nav > li {
+  float: left;
+  margin-right: 1px;
+}
+
+.nav > li > a {
+  margin-bottom: 1px;
+}
+
+.nav > li:hover,
+.nav > li:hover > a {
+  border-bottom-color: $base-color;
+}
+
+.nav > li > ul li:hover a:hover {
+  border-bottom-color: $base-color;
+  background-color: $border-color-1;
+}
+
+.nav li:hover > a {
+  color: $base-color;
+}
+
+.text-active {
+  color: $base-color !important;
+}
+
+.nav > li:first-child {
+  border-radius: 4px 0 0 4px;
+}
+.nav > li:first-child > a {
+  border-radius: 4px 0 0 0;
+}
+.nav > li:last-child {
+  border-radius: 0 0 4px 0;
+}
+.nav > li:last-child > a {
+  border-radius: 0 4px 0 0;
+}
+.nav li li a {
+  text-align: left;
+  color: black;
+  font-size: 85%;
+}
+
+.nav li a:first-child:nth-last-child(2):before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  border: 5px solid transparent;
+  top: 50%;
+  right: 5px;
+}
+
+/* submenu positioning*/
+.nav ul {
+  position: absolute;
+  white-space: nowrap;
+  z-index: 1;
+  left: -99999em;
+  box-shadow: $shadow-header;
+}
+
+.nav > li:hover > ul {
+  left: auto;
+  padding-top: 5px;
+}
+.nav > li:hover > .space-right {
+  right: 1rem;
+  padding-top: 5px;
+}
+
+.nav > li li ul {
+  border-left: 1px solid #aaa;
+}
+
+.nav > li li:hover > ul {
+  left: 100%;
+  top: -1px;
+  box-shadow: $shadow-header;
+}
+
+/* arrow hover styling */
+.nav > li > a:first-child:nth-last-child(2):before {
+  border-top-color: #aaa;
+}
+
+.nav > li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent;
+  margin-top: -5px;
+}
+
+.nav li li > a:first-child:nth-last-child(2):before {
+  border-left-color: #aaa;
+  margin-top: -5px;
+}
+
+.nav li li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent;
+  border-right-color: $base-color;
+  right: 10px;
+}

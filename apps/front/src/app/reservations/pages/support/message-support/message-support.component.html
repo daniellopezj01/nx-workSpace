@@ -1,0 +1,99 @@
+<app-loading [loading]="mainLoading"></app-loading>
+
+<div class="main-container-messages">
+  <div class="custom-title p-2">
+    <button
+      class="btn custom-button"
+      name="return-to-message"
+      [routerLink]="['/', 'trips', code, 'support']"
+    >
+      <i class="custom-icon-left uil uil-arrow-left"></i>
+    </button>
+    <span
+      >{{ "RESERVATION.TICKET_CODE" | translate }}
+      <span class=""> {{ hash }}</span></span
+    >
+  </div>
+  <div class="cont-messages">
+    <div #containerMessage class="structure-messages">
+      <div class="mb-3" *ngFor="let message of chat?.messages; let i = index">
+        <div
+          class="single-message"
+          [ngStyle]="{
+            'justify-content': checkMessage(message?.creator)
+              ? 'flex-start'
+              : 'flex-end'
+          }"
+        >
+          <div class="message">
+            <ng-container
+              *ngIf="
+                checkMessage(message?.creator);
+                then sendTemp;
+                else receiveTemp
+              "
+            >
+            </ng-container>
+            <ng-template #sendTemp>
+              <div class="send combinate-style">
+                <div [innerHTML]="message.message"></div>
+                <span class="time small text-muted"
+                  >{{ message?.createdAt | date: "dd LLL HH:mm" }}
+                </span>
+              </div>
+            </ng-template>
+            <ng-template #receiveTemp>
+              <div class="receive combinate-style">
+                <div [innerHTML]="message.message"></div>
+                <span class="time small text-muted"
+                  >{{ message?.createdAt | date: "dd LLL HH:mm" }}
+                </span>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div
+        class="alert alert-warning"
+        role="alert"
+        *ngIf="!chat?.userShouldSend"
+      >
+        {{ "RESERVATION.DISABLED_CHAT" | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="send-message">
+    <form [formGroup]="sendForm">
+      <div class="form-group d-flex">
+        <textarea
+          #textArea
+          rows="1"
+          formControlName="message"
+          spellcheck="false"
+          autosize
+          name=""
+          [disabled]="chat?.userShouldSend"
+          id=""
+          [attr.disabled]="!chat?.userShouldSend ? '' : null"
+          class="text-not-resize form-control"
+          [placeholder]="'INBOX.WRITE_MESSAGE' | translate"
+        ></textarea>
+        <div
+          class="group-btn-send d-flex align-items-center align-content-center justify-content-center pl-2 pr-2"
+        >
+          <button
+            name="message"
+            class="btn btn-primary"
+            (click)="send()"
+            type="button"
+            ngxLoading
+            [loadingFlag]="loadingButton"
+            [disabled]="!sendForm.valid"
+            [textInitial]="'GENERAL.SEND' | translate"
+            [textLoading]="'GENERAL.SENDING' | translate"
+          ></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

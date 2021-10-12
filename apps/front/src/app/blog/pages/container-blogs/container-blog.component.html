@@ -1,0 +1,46 @@
+<ng-container
+  *ngTemplateOutlet="loadingRef; context: { loading: loading }"
+></ng-container>
+<div>
+  <app-header></app-header>
+  <div class="general">
+    <div>
+      <h2 class="title pt-3 pb-3">{{ data?.title }}</h2>
+      <p class="text-blog p-2" [innerHTML]="data?.description"></p>
+      <p>
+        <span class="date"> {{ "BLOG.LAST_UPDATE" | translate }}</span>
+        {{ data?.updatedAt | date: "dd-LLLL-yyyy" }}
+      </p>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>
+<ng-template #loadingRef let-loading="loading">
+  <div
+    class="w-100 loading-wrap animate__animated animate__fadeIn"
+    *ngIf="loading == true"
+  >
+    <div class="in">
+      <img class="circle" src="/assets/loading.svg" alt="loading" />
+      <div>
+        <small>{{ "GENERAL.LOADING" | translate }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-100 error-wrap animate__animated animate__fadeIn"
+    *ngIf="loading?.status"
+  >
+    <div class="in">
+      <img
+        class="img"
+        src="/assets/extra/drawkit-grape-pack-illustration-7.svg"
+        alt="err"
+      />
+      <div>
+        <small>{{ "GENERAL.ERROR" | translate }}</small>
+      </div>
+    </div>
+  </div>
+</ng-template>

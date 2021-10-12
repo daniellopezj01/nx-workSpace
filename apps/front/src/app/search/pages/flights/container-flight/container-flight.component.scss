@@ -1,0 +1,89 @@
+.custom-tour {
+  flex: 1 1 auto;
+  //padding: 10px 0;
+  margin-bottom: 0;
+}
+
+.container-body {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1500px;
+  padding: 0.5rem;
+  min-height: 60vh;
+  flex-grow: 1;
+}
+
+.header {
+  padding: 0.5rem;
+}
+
+.control-pagination-hotels {
+  display: flex;
+  justify-content: center;
+  margin: 5rem;
+}
+
+.errorMessageTours {
+  color: #8c8c8c;
+  font-size: 1.5rem;
+  margin: 2rem 1rem;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.container-search {
+  margin: 2rem auto 3rem auto;
+  width: 55%;
+  text-align: center;
+}
+//phone
+@media print, screen and (max-width: 740px) {
+  .filter {
+    display: none;
+  }
+  .smallFlex {
+    display: flex;
+  }
+  .container-body {
+    padding: 0;
+  }
+  .tours-found {
+    width: 100%;
+    display: flex;
+  }
+  .main-title {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  .container-search {
+    width: 90%;
+  }
+  .global-style {
+    min-height: 100vh;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .filter {
+    min-width: 200px;
+  }
+  .container-search {
+    width: 80%;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+  .cont-form .input-search {
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+  }
+  .cont-form .input-person {
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+  .filter {
+    min-width: 250px;
+  }
+}

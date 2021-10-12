@@ -1,0 +1,18 @@
+<div class="d-flex flex-column p-3">
+  <div class="justify-content-center row p-0 style-header">
+    <span class="logo"></span>
+    <span class="modal-title-Error">{{
+      'SEARCH.FLIGHTS.ERRORS.' + errorTitle | translate
+    }}</span>
+  </div>
+  <span class="message d-flex flex-column">
+    <span class="mb-3">
+      {{ 'SEARCH.FLIGHTS.ERRORS.' + errorDescription | translate }}</span
+    >
+  </span>
+  <div class="d-flex justify-content-center mb-3">
+    <button type="button" (click)="ClosemodalError()" class="btn btn-danger">
+      {{ 'GENERAL.RELOAD' | translate }}
+    </button>
+  </div>
+</div>

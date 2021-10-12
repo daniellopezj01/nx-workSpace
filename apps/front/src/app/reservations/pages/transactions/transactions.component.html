@@ -1,0 +1,245 @@
+<ng-container
+  *ngTemplateOutlet="loadingRef; context: { loading: loading }"
+></ng-container>
+
+<div class="general-cont">
+  <div class="general">
+    <app-bread-crumb></app-bread-crumb>
+    <div class="header-title pl-3">
+      <h3>{{ 'RESERVATION.TITLE_TRANSACTIONS' | translate }}</h3>
+    </div>
+    <div class="row ml-0 mr-0">
+      <div
+        class="
+          col-xs-12
+          animate__animated animate__fadeInDown
+          animation-1
+          col-xl-8
+        "
+      >
+        <div class="manager-forms">
+          <div class="w-100">
+            <div *ngIf="data">
+              <progress-bar
+                [progress]="progress()"
+                [color-degraded]="colorLevels"
+              >
+              </progress-bar>
+              <ng-container
+                *ngTemplateOutlet="
+                  data?.status === 'completed'
+                    ? CompletedPaymentTemplate
+                    : pendingPaymentTemplate
+                "
+              ></ng-container>
+              <ng-template #CompletedPaymentTemplate> </ng-template>
+
+              <ng-template #pendingPaymentTemplate>
+                <div class="pt-3 pb-1 w-100">
+                  <button
+                    class="mr-2 btn btn-primary btn-sm"
+                    [routerLink]="['/', 'payment', codeReservation]"
+                  >
+                    {{ 'RESERVATION.PAY_TO' | translate }}
+                  </button>
+                  <button
+                    class="mr-2 btn btn-default btn-sm"
+                    [routerLink]="['/', 'payment', codeReservation]"
+                  >
+                    {{ 'RESERVATION.VIEW_MORE' | translate }}
+                  </button>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+          <hr class="row" />
+          <div class="transactions">
+            <ng-container
+              *ngIf="data?.transactions?.length; then with; else withOut"
+            ></ng-container>
+            <ng-template #with>
+              <ng-container
+                *ngIf="
+                  deviceService.isMobile();
+                  then mobileTemplate;
+                  else desktopTemplate
+                "
+              ></ng-container>
+            </ng-template>
+            <ng-template #withOut>
+              <div class="container-with-out d-flex justify-content-center">
+                <div class="with-out-transaction">
+                  <p class="text-center">
+                    {{ 'USER.WALLET.NOT_TRANSACTIONS' | translate }}
+                  </p>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="animate__animated animate__fadeInDown col-xs-12 col-xl-4">
+        <div class="balance">
+          <label class="mt-4 font-weight-bold">{{
+            'RESERVATION.BALANCE.TITLE' | translate
+          }}</label>
+          <div class="section-balance">
+            <span class="pb-2 pt-2"
+              >{{ 'RESERVATION.BALANCE.PAID' | translate }}
+              <span class="text-success font-weight-bold">
+                {{
+                  data?.totalPrice - data?.pending
+                    | number: '1.2-2'
+                    | currencyCurrent: '0:true':departure?.currencies
+                }}
+              </span>
+            </span>
+            <span class="pb-2 pt-2"
+              >{{ 'RESERVATION.BALANCE.PENDING' | translate }}
+              <span class="text-danger font-weight-bold">
+                {{
+                  data?.pending
+                    | number: '1.2-2'
+                    | currencyCurrent: '0:true':departure?.currencies
+                }}</span
+              ></span
+            >
+            <span class="pb-2 pt-2"
+              >{{ 'RESERVATION.BALANCE.TOTAL' | translate }}
+              <span class="font-weight-bold">
+                {{
+                  data?.totalPrice
+                    | number: '1.2-2'
+                    | currencyCurrent: '0:true':departure?.currencies
+                }}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #mobileTemplate>
+  <div class="d-flex flex-column w-100">
+    <div
+      *ngFor="let item of data?.transactions; let i = index"
+      class="transacction-small d-flex flex-column"
+    >
+      <div class="d-flex justify-content-between">
+        <span
+          class="font-weight-bold"
+          [ngClass]="{
+            'text-danger': item?.amount < 0,
+            'text-dark': item?.amount === 0,
+            'text-success': item?.amount > 0
+          }"
+        >
+          {{
+            item?.amount
+              | number: '1.2-2'
+              | currencyCurrent: '2:true':departure?.currencies
+          }}</span
+        >
+        <span clas>{{ item?.platform }}</span>
+      </div>
+      <div class="d-flex justify-content-between style-single-row">
+        <span class="description-small truncate">
+          {{ item?.createdAt | date: 'd MMM HH:mm' }}
+        </span>
+        <span
+          class="status-row badge"
+          [ngClass]="{
+            'badge-info': item?.status === 'await',
+            'badge-danger': item?.status === 'failure',
+            'badge-success': item?.status === 'succeeded'
+          }"
+          >{{ item?.status }}</span
+        >
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #desktopTemplate>
+  <div class="container-transaction">
+    <div>
+      <table class="table">
+        <thead class="thead">
+          <tr>
+            <th *ngFor="let item of columns" class="text-uppercase" scope="col">
+              {{ item.key | translate }}
+            </th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+          <tr *ngFor="let item of data?.transactions; let i = index">
+            <td class="amount-row">
+              <span
+                [ngClass]="{
+                  'text-danger': item?.amount < 0,
+                  'text-dark': item?.amount === 0,
+                  'text-success': item?.amount > 0
+                }"
+              >
+                {{
+                  item?.amount
+                    | number: '1.2-2'
+                    | currencyCurrent: '2:true':departure?.currencies
+                }}
+              </span>
+            </td>
+            <td>
+              <span
+                class="status-row badge"
+                [ngClass]="{
+                  'badge-info': item?.status === 'await',
+                  'badge-danger': item?.status === 'failure',
+                  'badge-success': item?.status === 'succeeded'
+                }"
+                >{{ item?.status }}</span
+              >
+            </td>
+            <td class="date-row">
+              {{ item?.createdAt | date: 'medium' }}
+            </td>
+
+            <td class="platform-row">{{ item?.platform }}</td>
+            <td class="platform-row" *ngIf="item.attached">
+              <div class="icon-style">
+                <a href="{{ item.attached }}" target="_blank">
+                  <img
+                    [src]="'../../../../../assets/downloadPdf.svg'"
+                    class="lazyload img-fluid"
+                    alt="download pdf"
+                  />
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>
+
+<!--- ********** ZONE TEMPLATES **************** -->
+
+<ng-template #loadingRef let-loading="loading">
+  <div
+    class="w-100 loading-wrap animate__animated animate__fadeIn"
+    *ngIf="loading"
+  >
+    <div class="in">
+      <img
+        class="circle"
+        src="../../../../../assets/loading.svg"
+        alt="loading"
+      />
+      <div>
+        <small>{{ 'GENERAL.LOADING' | translate }}</small>
+      </div>
+    </div>
+  </div>
+</ng-template>

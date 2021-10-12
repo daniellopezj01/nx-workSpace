@@ -1,0 +1,80 @@
+@use "sass:math";
+
+$asset-path: "src/assets";
+$base-color: #ef233c;
+$base-color-1: #a8dadc;
+$base-color-2: #2d728f;
+$base-color-3: #3993dd;
+$base-color-4: #ebfafb;
+$base-color-flight: #498c2f;
+
+$border-color: #7a394f3b;
+$border-color-1: #e9ecef;
+$border-color-2: #f5f3f4;
+$border-color-3: #f8f9fa;
+$bg-white: #ffffff;
+$border-radius: 0.15rem;
+$border-radius-1: 0.25rem;
+$bg-danger: #dc3545;
+$bg-info: #2d728f;
+$bg-success: #52b788;
+$bg-warning: #f5cb5c;
+$all-transition: 50ms;
+$all-transition-1: 100ms;
+$all-transition-2: 200ms;
+$height-menu: 3.75em;
+$text-color: #222222;
+$text-color-1: #343a40;
+$text-color-2: #6c757d;
+$text-color-3: #ced4da;
+$text-color-header: #525252;
+$font-size-1: 1.05rem;
+$font-size-2: 0.95rem;
+$font-size-3: 0.9rem;
+$font-size-4: 0.85rem;
+$font-size-5: 0.8rem;
+$font-size-6: 0.75rem;
+$footer-height: 2.5rem;
+$font-family: "Alata", sans-serif;
+$font-family-1: "Hind Siliguri", sans-serif;
+$text-shadow: 1px 1px 10px rgb(0 0 0 / 88%);
+$shadow-header: 13px 0px 10px 0px rgb(0 0 0 / 25%);
+$shadow-custom: 0 0px 10px rgba(0, 0, 0, 0.035), 0 0px 80px rgba(0, 0, 0, 0.1);
+$shadow-custom-sm: 0 0.3px 4.8px rgba(0, 0, 0, 0.015),
+  0 2px 38px rgba(0, 0, 0, 0.03);
+$shadow-custom-lg: 0 0px 2.2px rgba(0, 0, 0, 0.014),
+  0 0px 5.3px rgba(0, 0, 0, 0.02), 0 0px 10px rgba(0, 0, 0, 0.024),
+  0 0px 17.9px rgba(0, 0, 0, 0.028), 0 0px 33.4px rgba(0, 0, 0, 0.037),
+  0 0px 80px rgba(0, 0, 0, 0.07);
+$background-hover-light: #f2f2f2;
+$filter-shadow: drop-shadow(0px 9px 20px rgba(0, 0, 0, 0.1));
+$filter-shadow-sm: drop-shadow(0px 9px 20px rgba(0, 0, 0, 0.05));
+
+@for $i from 1 through 100 {
+  .animation-#{$i} {
+    animation-delay: math.div($i, 10) s;
+  }
+}
+
+@for $i from 1 through 100 {
+  .z-index-#{$i} {
+    z-index: #{$i};
+  }
+}
+
+@for $i from 1 through 10 {
+  .line-clamp-#{$i} {
+    display: -webkit-box;
+    -webkit-line-clamp: #{$i};
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  text-overflow: ellipsis;
+  width: 100%;
+}

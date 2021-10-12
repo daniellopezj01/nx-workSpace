@@ -1,0 +1,35 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="general-cont">
+  <div class="general">
+    <app-bread-crumb class="custom-bread-crumb"></app-bread-crumb>
+    <div class="header-title custom-line-title" *ngIf="!hash">
+      <h3>{{ "RESERVATION.TITLE_SUPPORT" | translate }}</h3>
+      <button class="btn btn-primary" (click)="newChat()">
+        {{ "RESERVATION.NEW" | translate }}
+      </button>
+    </div>
+    <div class="row custom-section-message">
+      <div
+        class="col-12 animate__animated animate__fadeInDown animation-1 container p-0"
+      >
+        <ng-container
+          *ngIf="hash; then templateCurrentChat; else templateChats"
+        ></ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #templateChats>
+  <app-chats-support></app-chats-support>
+</ng-template>
+<ng-template #templateCurrentChat>
+  <app-message-support></app-message-support>
+</ng-template>
+
+<ng-template let-error let-text="text" #tpl>
+  <ng-container *ngIf="error">
+    {{ "GENERAL.ERROR_FIELD_REQUIRED" | translate }}
+  </ng-container>
+</ng-template>

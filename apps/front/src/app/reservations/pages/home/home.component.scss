@@ -1,0 +1,149 @@
+@import "./src/shared.scss";
+
+.cont {
+  // min-height: 100vh;
+  // min-width: 100vw;
+  // background-color: #fbfbfb;
+}
+
+.go-to-profile {
+  //font-weight: bold;
+  color: $base-color;
+  cursor: pointer;
+}
+
+.header-title p-3 {
+}
+
+.general-cont {
+  width: 100%;
+  min-height: 60vh;
+}
+
+.cards-style {
+  width: 100%;
+}
+
+.cont-image {
+  width: 100%;
+}
+
+.icon-style {
+  margin-bottom: 0.5rem;
+  height: 32px;
+  width: 32px;
+}
+
+.cont-card {
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+  margin-bottom: 0.5rem;
+  border-radius: $border-radius;
+  box-shadow: $shadow-custom;
+}
+
+.title-card {
+  font-size: $font-size-1;
+  font-weight: 500;
+}
+
+.description-card {
+  color: $text-color-1;
+  font-size: $font-size-3;
+}
+
+.cont-title {
+  //font-weight: 400;
+  //margin-bottom: .5rem;
+  //display: inline-flex;
+  //align-items: center;
+  //align-content: center;
+}
+
+.cont-title p {
+  margin: 0;
+  outline: 0;
+}
+
+.card p {
+  margin: 0;
+  outline: 0;
+}
+
+.arow {
+  margin-left: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+.card svg {
+  height: 12px;
+  width: 12px;
+  color: #006c70;
+}
+
+.card {
+  cursor: pointer;
+  display: block !important;
+  width: 100% !important;
+  box-shadow: $shadow-custom !important;
+  padding: 1rem;
+  border-radius: $border-radius !important;
+  margin: 0px !important;
+  border-color: $border-color-1;
+  text-decoration: none !important;
+  height: 100%;
+
+  &:hover {
+    //box-shadow: $shadow-custom-lg !important;
+  }
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .cont-card {
+    width: 50%;
+  }
+  .description-card,
+  .arow {
+    display: none;
+  }
+  .icon-style {
+    //margin: auto;
+  }
+
+  .cont-title {
+    //width: 100%;
+    //margin-top: .7rem;
+    //margin-bottom: 0;
+    //align-items: center;
+    //display: grid;
+  }
+  .title-card {
+    text-align: center !important;
+    font-size: $font-size-1;
+  }
+  .card {
+    padding: 0.7rem;
+  }
+  .header-title p-3 {
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .cont-card {
+    width: 50%;
+  }
+  .card {
+    padding: 1rem 1.5rem 1rem 1.5rem;
+  }
+  .header-title p-3 {
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+  .cont-card {
+    width: 33.3%;
+  }
+}

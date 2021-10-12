@@ -1,0 +1,38 @@
+.custom-line-title {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0 2rem 0;
+}
+
+.general-cont {
+}
+
+.custom-bread-crumb {
+  margin-left: 0 !important;
+}
+.header-title,
+.custom-section-message {
+  margin-left: 1rem;
+}
+.custom-section-message {
+  margin-right: 0;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .custom-line-title {
+    margin-bottom: 1rem;
+  }
+  .header-title,
+  .custom-section-message {
+    margin-left: 1rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

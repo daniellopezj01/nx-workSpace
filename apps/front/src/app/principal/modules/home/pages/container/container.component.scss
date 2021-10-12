@@ -1,0 +1,586 @@
+@import "./src/shared";
+
+.image-Trips {
+  margin-top: 5rem;
+  min-height: 30rem;
+  background-image: url("https://dssvuzr9zfb17.cloudfront.net/header3-2300x700.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.image-Trips:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.inside-trips {
+  margin: auto;
+  position: absolute;
+  top: 40%; /* Position Y halfway in */
+  left: 85%; /* Position X halfway in */
+  transform: translate(-90%, -40%); /* Move it halfway back(x,y) */
+  z-index: 9;
+  width: 20%;
+}
+
+.inside-trips p {
+  color: white;
+}
+
+.image-trips-first-div {
+  color: white;
+  //width: max-content;
+  //background-color: white;
+}
+
+.image-trips-first-div p {
+  white-space: nowrap;
+}
+
+/*********COMUNITY********/
+.comunity {
+  margin-left: auto;
+  margin-right: auto;
+  //width: 80%;
+  max-width: 1350px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.info-comunity {
+  display: flex;
+  margin-top: 2rem;
+}
+
+.icon-style {
+  margin: auto;
+  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  width: 100%;
+}
+
+.icon-style img {
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.card-comunity {
+  width: calc(100% / 6);
+}
+
+.content-card {
+  margin: 0.8rem;
+  transition: 0.3s;
+}
+
+.intagram-icon {
+  color: #525252;
+}
+
+.content-card:hover {
+  filter: brightness(80%);
+}
+
+.name-instagram {
+  margin-top: 0.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.name-instagram p {
+  outline: none;
+  font-size: 0.9rem;
+  margin: 0 0 0 0.2rem;
+  justify-content: left;
+  font-weight: 500;
+  color: $text-color-1;
+}
+
+.img-card {
+  position: relative;
+  overflow: hidden;
+  object-fit: cover;
+  border-radius: $border-radius;
+  box-shadow: $shadow-custom;
+  height: 14rem;
+}
+
+.container-body-about {
+  background-image: url("https://dssvuzr9zfb17.cloudfront.net/header2-2300x700.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 3rem 0;
+  min-height: 25rem;
+  z-index: 1;
+}
+
+.container-body-trips {
+  background-image: url("https://dssvuzr9zfb17.cloudfront.net/header3-2300x700.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 3rem 0;
+  min-height: 25rem;
+  z-index: 1;
+}
+
+/*****************DESTINATIONS****************/
+
+.destination {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1680px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.card-destination {
+  max-width: 10rem;
+  min-width: 10rem;
+  padding: 1rem 0.5rem;
+}
+
+.content-destination-card {
+  min-height: 10rem;
+  border-radius: $border-radius;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  align-content: center;
+
+  &:before {
+    content: "";
+    position: absolute;
+    border-radius: $border-radius;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+}
+
+.info-destination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+.inside-destination {
+  z-index: 1;
+  color: white;
+  text-transform: capitalize;
+  text-shadow: $text-shadow;
+  font-weight: 500;
+}
+
+/***************GENERAL***************/
+
+.cont-cards-generals {
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 1600px;
+}
+
+.content-general-card {
+  min-height: 28rem;
+}
+
+.content-general-card:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.img-general {
+  height: auto;
+  width: auto;
+  max-width: 100%;
+  max-height: 20rem;
+}
+
+.inside-general {
+  margin: auto;
+  position: absolute;
+  bottom: 10%; /* Position Y halfway in */
+  left: 10%; /* Position X halfway in */
+  z-index: 9;
+  width: 80%;
+}
+
+.inside-general p {
+  color: white;
+  font-size: $font-size-1;
+  text-align: left;
+  font-weight: 400;
+  text-shadow: 0 0 20px #0000008c;
+}
+
+.overlay-black {
+  position: absolute;
+  pointer-events: none;
+  background: rgb(0 0 0 / 27%);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.inside-general-title {
+  width: max-content;
+  background-color: white;
+  box-shadow: $shadow-custom-lg;
+}
+
+.inside-general-title p {
+  color: black;
+  font-size: 2rem;
+  font-weight: bolder;
+  padding: 0.5rem;
+  white-space: nowrap;
+}
+
+/***********BLOGS************/
+.content-blogs {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  max-width: 1300px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.cont-card-blog {
+  width: 50%;
+  padding: 1rem;
+}
+
+.cont-card {
+  min-height: 16rem;
+  padding: 2rem;
+  border-radius: $border-radius;
+}
+
+.title-blog {
+  font-size: 1.2rem;
+}
+
+.content-blog {
+  font-size: $font-size-1;
+  text-align: left;
+}
+
+/***************History***/
+.content-history {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  max-width: 1300px;
+}
+
+.content-history-card {
+  min-height: 20rem;
+  transition: 0.3s;
+}
+
+.custom-carousel {
+  min-height: 20rem;
+}
+
+.card-history {
+  box-shadow: $shadow-custom;
+  min-height: 21.8rem;
+  max-height: 21.8rem;
+  margin-left: 0.2rem;
+  border-radius: $border-radius;
+  border: solid 1px $border-color-1;
+
+  &:hover {
+    box-shadow: $shadow-custom-lg;
+  }
+}
+
+.img-wrap-history {
+  width: 100%;
+  height: 11rem;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  cursor: grab;
+  margin: 0;
+}
+
+.img-wrap-history img {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-height: 100%;
+  min-width: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: cover !important;
+  transform: translate(-50%, -50%);
+}
+
+.title-card-history {
+  font-size: $font-size-1;
+  font-weight: 500;
+  padding: 0.35rem;
+}
+
+.content-card-history {
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  color: $text-color-2;
+}
+
+.content-card-history font {
+  color: black;
+}
+
+.content-history-card:hover {
+  cursor: pointer;
+  filter: brightness(80%);
+}
+
+.global-subtitle-home {
+  margin-top: -1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.global-subtitle-home p {
+  font-size: 1.2rem;
+  color: #302a3d;
+}
+
+/**********ABOUT*********/
+.image-about {
+  margin-top: 2rem;
+  min-height: 32rem;
+  background-image: url("~assets/auth/header2-2300x700.png");
+  background-repeat: no-repeat;
+  background-position: top;
+}
+
+.minHeightCard {
+  cursor: pointer;
+  min-height: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.image-about:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.container-image {
+  grid-area: overflow-content;
+
+  &:before {
+    transition: all ease $all-transition-2;
+    content: "";
+    pointer-events: none;
+    background-color: rgb(0 0 0 / 20%);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+}
+
+.container-image {
+  img {
+    width: 100%;
+    height: 100%;
+    min-height: 50%;
+    object-fit: cover;
+  }
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .cont-cards-generals {
+    max-height: none;
+  }
+  .card-general {
+    width: 100%;
+  }
+  .inside-trips {
+    top: 40%; /* Position Y halfway in */
+    left: 20%; /* Position X halfway in */
+    transform: translate(-20%, -40%); /* Move it halfway back(x,y) */
+    width: 70%;
+  }
+  .image-trips-first-div p {
+    font-size: 1.5rem;
+  }
+  .inside-trips {
+    font-size: 0.9rem;
+  }
+  /******COMUNITY********/
+
+  .info-comunity {
+    display: flex;
+    margin-top: 1rem;
+  }
+  .card-comunity {
+    width: calc(100% / 2);
+  }
+  .comunity {
+    width: 100%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .destination {
+    width: 100%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .img-card {
+    height: 10rem;
+  }
+  .info-destination {
+    width: 100%;
+  }
+  .content-general-card {
+    margin-bottom: 1rem;
+    min-height: 18rem;
+  }
+  /********BLOGS*****/
+  .cont-card-blog {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0;
+  }
+  /***** GENERAL ******/
+
+  .inside-general-title p {
+    font-size: 1.4rem;
+    padding: 0.2rem;
+    white-space: nowrap;
+  }
+  /******HISTORIES******/
+
+  .content-history {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .global-subtitle-home {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .global-subtitle-home p {
+    font-size: 1rem;
+  }
+  .title-card-history {
+    font-size: $font-size-1;
+  }
+  /****ABOUT****/
+  .inside-about {
+    top: 10%; /* Position Y halfway in */
+    left: 15%; /* Position X halfway in */
+    width: 85%;
+  }
+  .image-about {
+    min-height: 20rem;
+  }
+  .inside-about p {
+    font-weight: 400;
+  }
+
+  .container-body-trips,
+  .container-body-about {
+    font-size: $font-size-3;
+    //position: relative;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .inside-trips {
+    top: 40%; /* Position Y halfway in */
+    left: 80%; /* Position X halfway in */
+    transform: translate(-60%, -40%); /* Move it halfway back(x,y) */
+    width: 30%;
+  }
+  .image-trips-first-div p {
+    font-size: 1.5rem;
+  }
+  .inside-trips {
+    font-size: 0.9rem;
+  }
+  /******COMUNITY********/
+  .card-comunity {
+    width: calc(100% / 3);
+  }
+  .comunity {
+    width: 100%;
+  }
+  .img-card {
+    height: 16rem;
+  }
+  .info-destination {
+    width: 80%;
+    max-width: 600px;
+  }
+  .image-Trips {
+    margin-top: 5rem;
+  }
+  .content-general-card {
+    min-height: 20rem;
+  }
+  .inside-general p {
+    font-size: $font-size-1;
+  }
+  .content-history {
+    max-width: 1000px;
+  }
+  /*****histories*****/
+  .content-history {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  /*****about*****/
+  .image-about {
+    min-height: 25rem;
+  }
+  .inside-about {
+    top: 10%; /* Position Y halfway in */
+    left: 15%; /* Position X halfway in */
+    width: 50%;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+  .title-blog {
+    font-size: 1.5rem;
+  }
+  .cont-card {
+    min-height: 15rem;
+    max-height: 15rem;
+  }
+  .content-blog {
+    font-size: $font-size-1;
+  }
+}

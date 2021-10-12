@@ -1,0 +1,22 @@
+@import "./src/shared.scss";
+
+.close-button {
+  position: absolute;
+  right: 0;
+  top: -2rem;
+  z-index: 9;
+}
+
+.custom-button {
+  background-color: transparent;
+  font-weight: 400;
+  color: $text-color;
+}
+
+.icon-style {
+  font-size: 0.9rem;
+}
+
+.btn {
+  padding: 0 !important;
+}

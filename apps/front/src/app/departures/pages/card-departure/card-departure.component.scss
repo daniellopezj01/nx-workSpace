@@ -1,0 +1,231 @@
+@import "./src/shared.scss";
+
+label {
+  border-bottom: 1px solid #adadad;
+  cursor: pointer;
+  padding: 1rem;
+  margin: 0;
+  transition: all ease $all-transition-1;
+}
+
+.styleHover {
+  background-color: #a8dadc;
+}
+
+.changeBackground {
+  background-color: $base-color-1;
+  .item-pay-amount {
+    border-color: transparent;
+  }
+}
+
+.container-date {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.container-date {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.calendar {
+  align-items: center;
+  background-color: $base-color-1;
+  border: solid 1px white;
+  display: flex;
+  flex-direction: column;
+  height: 43px;
+  justify-content: center;
+  position: relative;
+  width: 36px;
+}
+
+.calendar:before {
+  content: "";
+  border-color: transparent;
+  border-style: solid;
+  border-width: 6px 6px 0 0;
+  height: 0;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 0;
+}
+
+.month-calendar {
+  font-size: 65%;
+  padding-top: 2px;
+  color: $text-color-1;
+  display: block;
+  line-height: 1;
+  text-align: center;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.day-calendar {
+  background-color: #fff;
+  flex: 1;
+  font-size: $font-size-2;
+  margin: 3px 0;
+  padding-top: 4px;
+  width: calc(100% - 6px);
+  color: $text-color-1;
+  line-height: 1;
+  text-align: center;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.icon-arrow {
+  font-size: 0.8rem;
+  color: black;
+}
+
+.item-date {
+  display: grid;
+  padding: 0 1rem;
+  white-space: nowrap;
+}
+
+.date {
+  font-weight: 500;
+  font-size: $font-size-2;
+}
+
+.day {
+  font-size: $font-size-3;
+  color: $text-color-1;
+  font-weight: 500;
+}
+
+.container-price {
+  display: inline-flex;
+}
+
+.normalPrice {
+  font-size: $font-size-1;
+  color: $text-color-1;
+  // text-decoration: line-through;
+  white-space: nowrap;
+}
+
+.percentage-value {
+  font-size: $font-size-2;
+}
+
+.specialPrice {
+  white-space: nowrap;
+  color: $base-color;
+  font-weight: 500;
+  font-size: $font-size-3;
+}
+
+.discount {
+  font-weight: 500;
+  background-color: $base-color;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 70%;
+  padding: 3px 5px;
+  white-space: nowrap;
+}
+
+.container-special-price {
+  display: flex;
+  flex-direction: column;
+
+  span {
+    margin-right: 0.5rem;
+  }
+}
+
+.container-normal-price {
+  margin: auto 0.5rem auto auto;
+  display: flex;
+}
+
+.ticket-flight {
+  margin: auto;
+  background-color: $base-color-flight;
+  width: min-content !important;
+}
+
+.payAmount-main-container {
+  .item-pay-amount {
+    padding: 0.5rem;
+    background-color: #a8dadc38;
+    height: 5rem;
+    border: solid 3px white;
+  }
+}
+
+.payAmount-main-container {
+  display: flex;
+  flex-grow: 1;
+}
+
+.container-first-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sold-out {
+  color: white;
+  font-size: 1rem;
+  background-color: $base-color;
+  padding: 0.5rem;
+  width: min-content;
+  white-space: nowrap;
+}
+//phone
+@media print, screen and (max-width: 740px) {
+  .container-single-departure {
+    padding: 1rem 0.5rem;
+  }
+  .item-date {
+    padding: 0 0.5rem;
+  }
+  .icon-arrow {
+    display: none;
+  }
+  .manager-price {
+    display: initial;
+  }
+  .normal {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .discount {
+    padding: 5px 5px;
+  }
+  .container-input {
+    padding: 0 1rem;
+  }
+  .custom-section-payment {
+    display: flex;
+    flex-direction: column;
+  }
+  .style-big {
+    display: none !important;
+  }
+  label {
+    padding: 0.5rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .style-small {
+    display: none !important;
+  }
+}
+
+@media print, screen and (min-width: 1140px) {
+  .style-small {
+    display: none !important;
+  }
+}

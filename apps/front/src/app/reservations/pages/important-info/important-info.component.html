@@ -1,0 +1,38 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="general-cont">
+  <div class="general">
+    <app-bread-crumb></app-bread-crumb>
+    <div class="p-3 d-flex flex-column">
+      <div class="row m-0 custom-header">
+        <span class="mb-4">
+          {{ "RESERVATION.IMPORTANT.TITLE" | translate }}
+        </span>
+      </div>
+      <ng-container
+        *ngIf="info; then templateInfo; else templateEmptyInfo"
+      ></ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #templateInfo>
+  <div class="col-sm-12 p-3 meeting-point">
+    <span [innerHTML]="info?.text"></span>
+    <span
+      class="mt-4 small download-files"
+      (click)="donwload()"
+      *ngIf="info?.attached.length"
+    >
+      {{ "RESERVATION.IMPORTANT.DOWNLOAD_FILES" | translate }}
+    </span>
+  </div>
+</ng-template>
+<ng-template #templateEmptyInfo>
+  <app-empty
+    class="w-100"
+    [loading]="loading"
+    [data]="[]"
+    [text]="'GENERAL.NOT_LOAD_INFO'"
+  ></app-empty>
+</ng-template>

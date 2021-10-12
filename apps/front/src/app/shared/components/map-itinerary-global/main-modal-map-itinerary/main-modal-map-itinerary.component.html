@@ -1,0 +1,26 @@
+<div class="main-container-modal" id="container-map-itinerary">
+  <div class="modal-header header-reviews d-flex w-100 justify-content-between">
+    <span class="style-title-modal text-uppercase">
+      {{ "MODAL_ITINERARY.TITLE" | translate }} | {{ tour?.title }}</span
+    >
+    <div (click)="closeModal()" class="cursor-pointer">
+      <i class="uil uil-times"></i>
+    </div>
+  </div>
+  <div class="modal-body container-modal-map-itinerary">
+    <div class="container-map-itinerary">
+      <div class="section-map">
+        <!--        <div class="second-title m-0">-->
+        <!--          <span>Trip map</span>-->
+        <!--        </div>-->
+        <app-map-tour [tour]="tour"></app-map-tour>
+      </div>
+      <div class="section-itinerary">
+        <!--        <div class="second-title">-->
+        <!--          <span>Detailed itinerary</span>-->
+        <!--        </div>-->
+        <app-section-itinerary [tour]="tour"></app-section-itinerary>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+@import "./src/shared.scss";
+
+.main-container-tour {
+  box-shadow: $shadow-custom;
+  display: flex;
+  border-radius: $border-radius;
+  padding: 1rem;
+  flex: 1 1 auto;
+  background-color: white;
+  &:hover {
+    box-shadow: $shadow-custom-lg;
+  }
+}
+
+.description-card {
+  overflow: hidden;
+  line-clamp: 6;
+  &p {
+    font-size: 0.8rem !important;
+    margin: 0;
+  }
+}
+
+.section-image-tour {
+  display: block;
+  background-size: cover;
+  background-position: center;
+  flex: 2;
+  object-fit: cover;
+  height: 12rem;
+  border-radius: $border-radius 0 0 $border-radius;
+}
+
+.degradient {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  // background: rgb(255, 255, 255);
+  // background: linear-gradient(
+  //   360deg,
+  //   rgba(255, 255, 255, 1) 4%,
+  //   rgba(0, 0, 0, 0) 28%
+  // );
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .section-image-tour {
+    height: 12rem;
+    object-fit: cover;
+  }
+  .main-container-tour {
+    height: auto;
+    padding: 0;
+  }
+  .description-card {
+    -webkit-line-clamp: 3 !important;
+  }
+  .section-two {
+    max-height: 8rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .main-container-tour {
+    min-height: 8rem;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

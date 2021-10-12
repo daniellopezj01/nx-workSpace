@@ -1,0 +1,23 @@
+@import "./src/shared.scss";
+
+.general-cont {
+  width: 100%;
+  min-height: 60vh;
+}
+
+.custom-button {
+  font-weight: 600;
+  font-size: $font-size-1;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

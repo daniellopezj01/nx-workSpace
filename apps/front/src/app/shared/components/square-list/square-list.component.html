@@ -1,0 +1,36 @@
+<div class="row ml-0 mr-0">
+  <div
+    class="col-lg-4 col-xl-4 col-6 col-sm-4 col-md-4 p-2 animate__animated animate__fadeInDown animation-{{
+      i
+    }}"
+    *ngFor="let item of data; let i = index"
+  >
+    <div
+      class="card"
+      [ngClass]="{ 'hvr-shrink': !item?.disable }"
+      [style.opacity]="item?.disable ? '.35' : '1'"
+      [routerLink]="item?.route"
+    >
+      <div class="icon-style">
+        <img
+          [src]="'../../../../../assets/user/' + item?.icon"
+          class="lazyload img-fluid"
+          alt="{{ item?.icon }}"
+        />
+      </div>
+      <div class="cont-title d-flex">
+        <div class="w-100 truncate">
+          <span class="title-card truncate text-capitalize">{{
+            item?.title | translate
+          }}</span>
+        </div>
+        <div class="">
+          <i [style.fontSize]="'1.2rem'" class="uil uil-angle-right-b"></i>
+        </div>
+      </div>
+      <div class="description-card d-none d-lg-block d-xl-block">
+        {{ item?.description | translate }}
+      </div>
+    </div>
+  </div>
+</div>

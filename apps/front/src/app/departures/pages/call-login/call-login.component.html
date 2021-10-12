@@ -1,0 +1,12 @@
+<div id="Login">
+  <div class="container-step-login" *ngIf="activeDepartures?._id && !isLogged">
+    <div class="title-Step">
+      <h6 class="text-muted">{{ "DEPARTURES.STEP" | translate }} 2</h6>
+      <h4>{{ "DEPARTURES.TITLE_STEP_LOGIN" | translate }}</h4>
+    </div>
+    <app-form-login-register
+      (actionLogin)="login($event)"
+      (actionRegister)="register($event)"
+    ></app-form-login-register>
+  </div>
+</div>

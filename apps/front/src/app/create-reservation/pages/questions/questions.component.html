@@ -1,0 +1,44 @@
+<div class="main-container-modal">
+  <div class="modal-header header-reviews d-flex w-100 justify-content-between">
+    <span class="style-title-modal text-uppercase">
+      {{ "CREATE_RESERVATION.LAST_QUESTIONS" | translate }}</span
+    >
+    <div (click)="closeModal()" class="cursor-pointer">
+      <i class="uil uil-times"></i>
+    </div>
+  </div>
+  <div class="main-container">
+    <span> {{ currenQuestion?.question }}</span>
+    <div class="container-radio">
+      <label>
+        {{ "GENERAL.YES" | translate }}
+        <p-radio
+          #checkAccepted
+          shape="round"
+          class="m-0"
+          color="primary"
+          name="basic"
+          (change)="accepted()"
+          animation="smooth"
+          bigger="true"
+        ></p-radio>
+      </label>
+      <label>
+        {{ "GENERAL.NOT" | translate }}
+        <p-radio
+          shape="round"
+          class="m-0"
+          color="primary"
+          name="basic"
+          (change)="refuse()"
+          animation="smooth"
+          bigger="true"
+        ></p-radio>
+      </label>
+    </div>
+
+    <div *ngIf="showSection" class="alert alert-danger mt-2" role="alert">
+      {{ "GENERAL.ALERT_QUESTION_ERROR" | translate }}
+    </div>
+  </div>
+</div>

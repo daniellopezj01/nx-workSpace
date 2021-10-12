@@ -1,0 +1,189 @@
+<div>
+  <!-- <div
+    class="inside-main-imag col-xl-8 offset-xl-2 col-lg-10 offset-lg-2 text-center"
+  > -->
+  <ng-container *ngTemplateOutlet="firstForm"></ng-container>
+  <!-- </div> -->
+</div>
+
+<ng-template #firstForm>
+  <form
+    [formGroup]="formSearch"
+    autocomplete="off"
+    class="custom-row form-search"
+  >
+    <div class="cont-form rpadding div-input-from input-group-custom">
+      <input
+        autocomplete="off"
+        [id]="'idInputFrom'"
+        formControlName="from"
+        [spellcheck]="false"
+        class="input-search"
+        (focus)="onFocus('from')"
+        [(ngModel)]="searchFrom"
+        (ngModelChange)="getPlaces($event)"
+        [placeholder]="'SEARCH.FLIGHTS.ORIGIN' | translate"
+      />
+      <ng-container
+        *ngIf="focusSearch === 'from'; then withData; else null"
+      ></ng-container>
+      <div
+        *ngIf="focusSearch && dataPlaces?.length && inputFrom"
+        class="div-show-places"
+      ></div>
+    </div>
+    <div class="cont-form rpadding div-input-to input-group-custom">
+      <input
+        autocomplete="off"
+        [id]="'idInputTo'"
+        formControlName="to"
+        [spellcheck]="false"
+        class="input-search"
+        (focus)="onFocus('to')"
+        [placeholder]="'SEARCH.FLIGHTS.DESTINATION' | translate"
+        [(ngModel)]="searchTo"
+        (ngModelChange)="getPlaces($event)"
+      />
+      <ng-container
+        *ngIf="focusSearch === 'to'; then withData; else null"
+      ></ng-container>
+    </div>
+    <div class="cont-form rpadding div-input-dates input-group-custom">
+      <ng-container *ngTemplateOutlet="datesTemplate"></ng-container>
+      <ng-template #datesTemplate>
+        <!--        {{bsRangeValue | json}}-->
+        <input
+          #inputDates="bsDaterangepicker"
+          [spellcheck]="false"
+          class="form-control input-checkIn"
+          [minDate]="today"
+          bsDaterangepicker
+          readonly
+          [(ngModel)]="bsRangeValue"
+          [bsConfig]="bsOptions"
+          formControlName="dates"
+          placeholder="Salida - Regreso"
+        />
+      </ng-template>
+      <!-- **************** SOLO IDA ******************* -->
+      <!--      <ng-template #onlyDateTemplate>-->
+      <!--        <input #inputOnlyDate readonly type="text" [spellcheck]="false" (bsValueChange)="changeDatepickerOnly($event)"-->
+      <!--               bsDatepicker-->
+      <!--               [(ngModel)]="onlyDate" formControlName="date" class="form-control" [minDate]="today" placeholder="Salida"-->
+      <!--               [bsConfig]="bsOptions"/>-->
+      <!--      </ng-template>-->
+    </div>
+    <div
+      class="cont-form rpadding div-input-people input-group-custom"
+      (clickOutside)="focusPerson = false"
+    >
+      <!--      &ndash;&gt; {{adultsCount}} {{'SEARCH.FLIGHTS.ADULTS' |translate}} {{ (childrenCount) ? childrenCount +' '+  ('SEARCH.FLIGHTS.CHILDREN' |translate) : '' }}-->
+      <input
+        #inputPerson
+        (focus)="focusPerson = true"
+        readonly
+        formControlName="people"
+        class="input-people"
+        value="{{ adultsCount }} {{ 'SEARCH.FLIGHTS.ADULTS' | translate }} {{
+          childrenCount
+            ? childrenCount + ' ' + ('SEARCH.FLIGHTS.CHILDREN' | translate)
+            : ''
+        }}"
+        placeholder="{{ adultsCount }} {{
+          'SEARCH.FLIGHTS.ADULTS' | translate
+        }} {{
+          childrenCount
+            ? childrenCount + ' ' + ('SEARCH.FLIGHTS.CHILDREN' | translate)
+            : ''
+        }}"
+      />
+      <div *ngIf="focusPerson" class="div-show-person">
+        <ng-container *ngTemplateOutlet="templatePerson"></ng-container>
+      </div>
+    </div>
+    <div class="cont-form rpadding div-button-search hvr-shrink">
+      <button
+        class="btn button-search"
+        (click)="search()"
+        ngxLoading
+        [disabled]="!formSearch.valid"
+        [loadingFlag]="loadingSearch"
+        [textInitial]="'SEARCH.FLIGHTS.SEARCH' | translate"
+        [textLoading]="'GENERAL.SENDING' | translate"
+      ></button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #withData>
+  <div class="cont-data">
+    <div class="body-list">
+      <div
+        class="item-data-list-place p-2 pl-3 pr-3 w-100"
+        (click)="selectedPlace(place)"
+        *ngFor="let place of dataPlaces$ | async"
+      >
+        <div class="cont-image">
+          <i class="uil uil-map-marker-alt"></i>
+        </div>
+        <div class="body-place">
+          <div class="cont-body-place">
+            <p class="title-place col-xm-12 col-xs-12">
+              {{ place?.name }}, {{ place?.country_name }} ({{ place?.code }})
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templatePerson>
+  <div class="container-template-person">
+    <div class="custom-row item-list">
+      <div class="label-person">
+        <span>{{ "SEARCH.HOTELS.ADULTS" | translate }} </span>
+      </div>
+      <div
+        class="cont-values w-50 d-flex justify-content-around align-content-center align-items-center"
+      >
+        <button
+          [disabled]="adultsCount < 2"
+          class="btn btn-default text-primary"
+          (click)="changeValuesPerson('adults', -1)"
+        >
+          <fa-icon class="icon-value" [icon]="faMinus"></fa-icon>
+        </button>
+        <button
+          class="btn btn-default text-primary"
+          (click)="changeValuesPerson('adults', 1)"
+        >
+          <fa-icon class="icon-value" [icon]="faPlus"></fa-icon>
+        </button>
+      </div>
+    </div>
+    <div class="custom-row item-list">
+      <div class="label-person">
+        <span>{{ "SEARCH.HOTELS.CHILDREN" | translate }}</span>
+      </div>
+
+      <div
+        class="cont-values w-50 d-flex justify-content-around align-content-center align-items-center"
+      >
+        <button
+          [disabled]="childrenCount < 1"
+          class="btn btn-default text-primary"
+          (click)="changeValuesPerson('children', -1)"
+        >
+          <fa-icon class="icon-value" [icon]="faMinus"></fa-icon>
+        </button>
+        <button
+          class="btn btn-default text-primary"
+          (click)="changeValuesPerson('children', 1)"
+        >
+          <fa-icon class="icon-value" [icon]="faPlus"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

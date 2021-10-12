@@ -29,6 +29,7 @@
 /apps/oauth/.idea
 
 # IDEs and editors
+/apps/front/.serverless/
 /apps/api/.idea
 /.idea
 .project

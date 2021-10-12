@@ -1,0 +1,35 @@
+@import "./src/shared.scss";
+
+.referer-link {
+  background-color: transparent;
+  padding: 1rem 0.5rem;
+  height: 3rem;
+  font-weight: 500;
+  font-family: $font-family-1;
+  font-size: 1.1rem;
+  border: solid 1px $base-color;
+  box-shadow: $shadow-custom;
+}
+
+.currency-symbol {
+  position: absolute;
+  padding: 0.75rem 1.2rem;
+  font-size: $font-size-3;
+}
+
+.alert-referred {
+  background-color: $border-color-3;
+}
+
+.image-box {
+  width: 4rem;
+  height: 4rem;
+}
+
+.text-block {
+  color: $text-color-1;
+}
+
+.number-size {
+  font-size: 4rem;
+}

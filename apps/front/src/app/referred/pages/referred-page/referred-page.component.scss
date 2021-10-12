@@ -1,0 +1,191 @@
+@import "./src/shared.scss";
+
+.general-cont {
+  width: 100%;
+  min-height: 60vh;
+}
+
+.table thead th {
+  border-bottom: 0 transparent;
+  border-top: 0 transparent;
+}
+
+.table {
+  .tbody td {
+    border-bottom: solid 1px $border-color-1;
+  }
+
+  .tbody tr:last-child td {
+    border-bottom: solid 1px transparent;
+  }
+}
+
+.table {
+  font-size: $font-size-2;
+  font-weight: 500;
+}
+
+th {
+  font-weight: 500;
+}
+
+.header-title p-3 {
+}
+
+.manager-forms {
+  width: 100%;
+  padding: 1.15rem;
+  box-shadow: $shadow-custom;
+  border: solid 1px $border-color-1;
+}
+
+/***THREE SQUARE TOP */
+.card-top {
+  width: 100%;
+  text-decoration: none !important;
+}
+
+.squeare-three {
+  padding-top: 1rem;
+  text-align: center;
+}
+
+.transactions {
+  //margin-top: 2rem;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .manager-forms {
+  }
+  .cont-form {
+    width: 100%;
+  }
+  .header-title p-3 {
+  }
+
+  .square-one,
+  .square-two {
+    border-right: 0;
+    border-bottom: 2px solid #e7e7e7;
+    padding-top: 1rem;
+  }
+  .square-one {
+    text-align: center;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .header-title p-3 {
+  }
+  .square-one,
+  .square-two {
+    border-right: 0;
+    border-bottom: 2px solid #e7e7e7;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .square-one {
+    text-align: center;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+  .header-title p-3 {
+    // margin-top: 2.5rem;
+    //padding-left: 1rem;
+    // margin-bottom: 3.5rem;
+  }
+}
+
+/******TRANSACTIONS**/
+.container-transaction {
+  background-color: white;
+}
+
+.body-transaction {
+  padding: 0.3em;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  //font-weight: bold;
+}
+
+.status-body {
+  font-size: $font-size-3;
+}
+
+.with-out-transaction {
+  font-size: $font-size-1;
+  width: 80%;
+  height: 3em;
+  color: $text-color-2;
+  padding: 0.5em;
+}
+
+.container-with-out {
+  background-color: white;
+  padding-top: 2em;
+}
+
+.title-transaction {
+  //margin-top: 1rem;
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0 0.75rem;
+}
+
+.table td,
+.table th {
+  padding: 0.35rem;
+}
+.table td {
+  cursor: pointer;
+}
+.date-row {
+  font-family: $font-family-1;
+  font-weight: 400;
+  //color: $text-color-2;
+}
+
+.description-row {
+  font-weight: 400;
+  font-family: $font-family-1;
+}
+
+.amount-row {
+  //color: $bg-success;
+  font-weight: 500;
+}
+
+.platform-row {
+  font-weight: 500;
+  font-family: $font-family-1;
+  text-transform: capitalize;
+}
+
+.status-row {
+}
+
+.status-row.badge {
+  font-family: $font-family-1;
+  font-size: $font-size-3;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.thead {
+  th {
+    font-size: $font-size-3;
+  }
+}
+
+table,
+tr,
+td {
+  border: transparent;
+  font-weight: 500;
+}

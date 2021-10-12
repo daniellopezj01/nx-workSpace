@@ -1,0 +1,117 @@
+@import "./src/shared.scss";
+
+::ng-deep .file-drop-wrapper {
+  background-color: white !important;
+  padding: 0rem !important;
+}
+
+::ng-deep {
+  #dropZone {
+    display: flex;
+    cursor: pointer;
+    border-radius: $border-radius !important;
+    max-width: 100% !important;
+    padding: 1rem 0 !important;
+    border: solid 0px $border-color-2 !important;
+  }
+
+  file-drop {
+    padding: 0 !important;
+  }
+}
+
+.general-cont {
+  width: 100%;
+  min-height: 60vh;
+}
+
+.custom-file-input-ex {
+  background-color: transparent;
+  opacity: 0;
+  position: absolute;
+  height: 135px;
+  width: 135px;
+  cursor: pointer;
+}
+.custom-file-input-ex::before {
+  content: "";
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+  height: 135px;
+  width: 135px;
+  position: absolute;
+}
+.custom-file-input-ex:hover::before {
+  border-color: black;
+}
+.custom-file-input-ex:active::before {
+  background: transparent;
+}
+
+.container-logo {
+  background-color: white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .video-image {
+    width: 8rem;
+  }
+}
+
+.icon-anxiety-passport {
+  margin-right: 0.5rem;
+  height: 20px;
+  width: 20px;
+}
+
+.manager-forms {
+  width: 100%;
+  padding: 1.15rem;
+  box-shadow: $shadow-custom;
+  border: solid 1px $border-color-1;
+}
+
+.squeare {
+  margin-bottom: 1.5rem;
+}
+
+.cont-template p {
+  margin: 0;
+  outline: none;
+}
+
+.description-avatar {
+  color: $text-color-2;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .squeare-info {
+    margin-left: 0.5rem;
+  }
+
+  .section {
+    margin-bottom: 3rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .squeare-info {
+    margin-left: 0.5rem;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

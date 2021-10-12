@@ -1,0 +1,93 @@
+@import "src/shared.scss";
+
+::ng-deep {
+  .faq-section {
+    border-bottom: 1px solid $border-color-1;
+    .panel-heading {
+      padding: 1.25rem;
+      //padding-top: 1rem !important;
+      //padding-bottom: 1rem !important;
+    }
+  }
+}
+
+.wrap-includes {
+  .list-child {
+    //border-top: solid 1px $border-color-1;
+    background-color: white;
+    padding: 0.5rem 0rem;
+    word-break: break-word;
+  }
+}
+
+::ng-deep {
+  .panel-heading {
+    border: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: transparent;
+  }
+
+  .panel-default {
+    border: 0;
+  }
+
+  .panel-body {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .panel-open {
+    .icon-lock {
+      display: block !important;
+    }
+    .icon-angle {
+      font-size: 1.5wrem;
+      transform: rotate(180deg);
+      transition: all ease var(--animate-duration);
+    }
+  }
+}
+
+.style-title {
+  // font-weight: 600;
+  font-size: 1.3rem;
+}
+
+fa-icon {
+  font-size: 1.5rem;
+}
+
+.font-family-1 {
+  line-height: 1.8rem;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .wrap-includes {
+    display: initial;
+  }
+  ::ng-deep {
+    .faq-section {
+      border-bottom: 1px solid #dadada;
+      .panel-heading {
+        padding: 1rem 0 !important;
+      }
+    }
+  }
+  fa-icon {
+    font-size: 1rem;
+  }
+  .style-title {
+    font-size: 1rem;
+  }
+  .icon-angle {
+    font-size: 1rem;
+  }
+}
+
+@media print, screen and (min-width: 1140px) {
+  .icons-details-book-us span {
+    font-weight: lighter;
+  }
+}

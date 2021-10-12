@@ -1,0 +1,102 @@
+@import "./src/shared.scss";
+
+.container-info {
+  max-width: 700px;
+  padding: 0.5rem;
+  height: 100%;
+  margin: 0 auto;
+  min-height: 60vh;
+}
+
+.main-title {
+  margin: 5rem auto 2rem auto;
+}
+
+.main-container {
+  box-shadow: $shadow-custom-lg;
+  background-color: white;
+  margin: 0 auto 5rem auto;
+  padding: 1rem;
+}
+
+.single-departure {
+  display: inline-flex;
+}
+
+.for-departures {
+  display: grid;
+}
+
+.custom-special-info {
+  color: white;
+  background-color: $base-color;
+}
+
+/***STEP TWO**/
+.small-dates {
+  position: fixed;
+  bottom: 0;
+  min-height: 4rem;
+  background-color: white;
+  z-index: 10;
+  padding: 1rem;
+  width: 100%;
+  box-shadow: $shadow-custom-lg;
+  border-top: 1px solid $border-color-1;
+  border-bottom: 0px solid transparent;
+}
+
+.section-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.container-flight {
+  border-bottom: solid 1px $border-color-1;
+}
+
+.container-passengers {
+}
+//phone
+@media print, screen and (max-width: 740px) {
+  .main-container {
+    margin: 2rem auto;
+  }
+  .small-dates {
+    padding: 0.5rem;
+  }
+  .container-single-departure {
+    padding: 1rem 0.5rem;
+  }
+  .title-departures {
+    margin: 1.5rem 0;
+    span {
+      font-size: 1.5rem;
+    }
+  }
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .title-Step {
+    margin: 2rem 0;
+  }
+  .title-Step span {
+    font-size: 1.3rem;
+  }
+  h4 {
+    font-size: 1.2rem;
+  }
+  .mb-small {
+    margin-bottom: 4rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+}
+
+@media print, screen and (min-width: 1140px) {
+}

@@ -1,0 +1,15 @@
+<div class="w-100 m-3">
+  <ul class="history-menu">
+    <li
+      role="menuitem"
+      class="custom-li"
+      *ngFor="let a of history"
+      (click)="goTo(a)"
+    >
+      <span class="ml-1"
+        >{{ "ROUTES." + a | translate | routeTranslate }}
+        <i class="uil uil-angle-right"></i
+      ></span>
+    </li>
+  </ul>
+</div>

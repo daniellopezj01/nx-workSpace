@@ -1,0 +1,21 @@
+@import "./src/shared";
+
+.style-language {
+  align-items: center;
+  display: flex;
+}
+
+.container-img-simple {
+  display: flex;
+  img {
+    padding-right: 5px;
+    flex: 1;
+  }
+}
+
+.container-details {
+  display: grid;
+  // display: flex;
+  // flex-direction: column;
+  flex: 1 100%;
+}

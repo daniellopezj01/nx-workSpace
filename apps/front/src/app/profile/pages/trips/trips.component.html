@@ -1,0 +1,173 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="cont">
+  <div class="general-cont">
+    <div class="general">
+      <app-bread-crumb></app-bread-crumb>
+      <div class="header-title pl-3">
+        <h3>{{ 'USER.MY_TRIPS' | translate }}</h3>
+      </div>
+      <div class="alert alert-primary mb-4" role="alert">
+        <span>
+          {{ 'GENERAL.ALERT_COVID' | translate }}
+          <a
+            href="https://info.mochileros.com.mx/informacion-status-tours-2021/"
+            target="_blank"
+          >
+            <span class="customClick">
+              {{ 'GENERAL.CLICK_HERE' | translate }}</span
+            >
+          </a>
+        </span>
+      </div>
+      <div class="container">
+        <ng-container
+          *ngIf="data?.length; then whitData; else empty"
+        ></ng-container>
+        <ng-template #whitData>
+          <div class="container-reservations">
+            <div
+              class="reservation mb-2"
+              (click)="goToDetails(item)"
+              *ngFor="let item of data; let i = index"
+              [ngClass]="{
+                'disabled-item': item?.tour?.status === 'construction'
+              }"
+            >
+              <div class="body-reservation p-0">
+                <div class="p-0 h-100 d-flex flex-column">
+                  <h6 class="title-reservation mb-0 truncate">
+                    <span
+                      class="badge small text-uppercase"
+                      [ngClass]="{
+                        'badge-success': item?.status === 'completed',
+                        'badge-warning': item?.status === 'progress',
+                        'badge-info': item?.status === 'pending',
+                        'badge-danger': item?.status === 'cancelled'
+                      }"
+                    >
+                      {{ item?.status }}</span
+                    >
+                    {{ item?.travelerFirstName }}
+                    {{ item?.travelerLastName }}
+                  </h6>
+                  <div class="date-reservation">
+                    <p class="text-muted m-0 text-capitalize">
+                      {{ item?.tour?.title }} | {{ item?.tour?.subTitle }}
+                    </p>
+                  </div>
+                  <div class="row pt-2">
+                    <div class="d-flex col-12">
+                      <div class="calendar-block-day mr-2">
+                        <div class="month-name text-uppercase">
+                          {{
+                            item?.departure?.startDateDeparture
+                              | datesFormatDeparture
+                              | date: 'MMM'
+                          }}
+                        </div>
+                        <div class="month-day">
+                          {{
+                            item?.departure?.startDateDeparture
+                              | datesFormatDeparture
+                              | date: 'dd'
+                          }}
+                        </div>
+                      </div>
+                      <div class="calendar-block-day">
+                        <div class="month-name text-uppercase">
+                          {{
+                            item?.departure?.endDateDeparture
+                              | datesFormatDeparture
+                              | date: 'MMM'
+                          }}
+                        </div>
+                        <div class="month-day">
+                          {{
+                            item?.departure?.endDateDeparture
+                              | datesFormatDeparture
+                              | date: 'dd'
+                          }}
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="item?.departure?.seconds > 0"
+                      class="
+                        col-12
+                        pt-1
+                        d-flex
+                        align-items-center align-content-center
+                      "
+                    >
+                      <span class="pr-1">
+                        <i class="uil uil-clock"></i>
+                      </span>
+                      <countdown
+                        class="pl-1 small pr-1 pt-2 pb-1 d-block"
+                        [ngClass]="{
+                          disabledcountdown: finaliCountDown.includes(item?._id)
+                        }"
+                        [config]="{
+                          leftTime: item?.departure?.seconds,
+                          format: item?.departure?.formatSecond
+                        }"
+                        (event)="handleEvent($event, item?._id)"
+                      ></countdown>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <small class="text-muted">{{
+                    'USER.TRIPS.RESERVATION' | translate
+                  }}</small>
+                  <div class="text-capitalize truncate small">
+                    {{ item?.code }}
+                  </div>
+                  <small
+                    *ngIf="item?.tour?.status === 'construction'"
+                    class="trip-disabled"
+                  >
+                    Tour en construcción
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <pagination
+            [itemsPerPage]="tripsServiceService.limitPerPage"
+            [(ngModel)]="tripsServiceService.page"
+            (pageChanged)="pageChanged($event)"
+            [customPreviousTemplate]="pageTemplateLeft"
+            [customNextTemplate]="pageTemplateRight"
+            [maxSize]="tripsServiceService.maxSize"
+            [totalItems]="dataRaw?.totalDocs"
+          ></pagination>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #empty let-data="data" let-loading="loading">
+  <app-empty class="w-100" [loading]="loading" [data]="data"></app-empty>
+</ng-template>
+
+<ng-template
+  #pageTemplateLeft
+  let-page
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <i class="uil uil-angle-left-b"></i>
+</ng-template>
+<ng-template
+  #pageTemplateRight
+  let-page
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <i class="uil uil-angle-right-b"></i>
+</ng-template>

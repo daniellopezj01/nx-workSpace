@@ -1,0 +1,21 @@
+@import "./src/shared.scss";
+
+.new-tour {
+  border: 1px solid $base-color-3;
+  border-radius: $border-radius;
+  color: $base-color-3;
+  font-size: 75%;
+  line-height: revert;
+  padding: 0.15rem 0.25rem;
+  text-transform: inherit;
+  height: min-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.new-tour font {
+  font-weight: bolder;
+  font-size: inherit !important;
+}

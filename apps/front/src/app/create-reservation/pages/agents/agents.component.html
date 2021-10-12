@@ -1,0 +1,59 @@
+<div class="main-container-modal">
+  <div class="modal-header header-reviews d-flex w-100 justify-content-between">
+    <span class="style-title-modal text-uppercase">
+      {{ "CREATE_RESERVATION.LAST_QUESTIONS" | translate }}</span
+    >
+    <div (click)="closeModal()" class="cursor-pointer">
+      <i class="uil uil-times"></i>
+    </div>
+  </div>
+  <div class="main-container">
+    <div class="title">
+      <span> {{ "CREATE_RESERVATION.TITLE_AGENT" | translate }}</span>
+    </div>
+    <div class="row ml-0 mr-0 cards-containers">
+      <div
+        class="col-lg-4 col-xl-4 col-12 col-sm-4 col-md-4 p-0  animate__animated animate__fadeInDown animation-{{
+          i
+        }}"
+        *ngFor="let item of agentList; let i = index"
+        [ngClass]="{ agentActive: agentSelected === item?._id }"
+        (click)="agentSelected = item?._id"
+      >
+        <div class="p-2">
+          <div class="agent-card" [routerLink]="item?.route">
+            <div class="icon-style">
+              <img
+                appImgFallback
+                [src]="item?.avatar"
+                class="lazyload img-fluid"
+                alt="{{ item?.name }}"
+              />
+            </div>
+            <div class="name-section flex-grow-1 simple-truncate">
+              <span class="title-card text-capitalize"
+                >{{ item?.name }} {{ item?.surname }}</span
+              >
+            </div>
+          </div>
+          <i
+            class="icon-selected uil uil-check"
+            *ngIf="agentSelected === item?._id"
+          ></i>
+        </div>
+      </div>
+    </div>
+    <div class="container-button">
+      <button
+        name="agentButton"
+        (click)="sendAgent()"
+        class="btn btn-primary btn-lg"
+        [disabled]="!agentSelected"
+        ngxLoading
+        [loadingFlag]="loading"
+        [textInitial]="'GENERAL.CONTINUE' | translate"
+        [textLoading]="'GENERAL.SENDING' | translate"
+      ></button>
+    </div>
+  </div>
+</div>

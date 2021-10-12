@@ -1,0 +1,23 @@
+<div class="close-button">
+  <div (click)="close()" class="btn custom-button">
+    {{ "GENERAL.CLOSE" | translate }}
+    <fa-icon class="icon-style" [icon]="faTimes"></fa-icon>
+  </div>
+</div>
+<div class="container-modal-share">
+  <div class="modal-body">
+    <div class="">
+      <vg-player>
+        <video
+          [vgMedia]="media"
+          #media
+          preload="auto"
+          loop="true"
+          autoplay="true"
+        >
+          <source src="{{ url }}" type="video/mp4" />
+        </video>
+      </vg-player>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<ng-container
+  *ngTemplateOutlet="loadingRef; context: { loading: loading }"
+></ng-container>
+<div class="p-4" *appOnlyBrowser="true">
+  <div>
+    <h3>{{ "PROFILE.TITLE_CROP" | translate }}</h3>
+    <p>
+      {{ "PROFILE.DESCRIPTION_CROP" | translate }}
+    </p>
+  </div>
+  <ng-container *ngTemplateOutlet="mock"></ng-container>
+  <image-cropper
+    [imageChangedEvent]="imageChangedEvent"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="1 / 1"
+    format="png"
+    [transform]="transform"
+    (imageCropped)="imageCropped($event)"
+    (imageLoaded)="imageLoaded()"
+    (cropperReady)="cropperReady()"
+    (loadImageFailed)="loadImageFailed()"
+  ></image-cropper>
+</div>
+<ng-container *appOnlyBrowser="true">
+  <div
+    class="w-100 d-flex justify-content-between align-content-center align-items-center p-2"
+  >
+    <div class="p-1 pl-2 pr-2">
+      <button name="crop" (click)="zoomOut()" class="btn btn-default btn-sm">
+        <i class="uil uil-minus"></i>
+      </button>
+    </div>
+    <div class="w-100 custom-slider">
+      <ngx-slider
+        [(value)]="scale"
+        (userChange)="changeZoom($event)"
+        [options]="optionZoom"
+      ></ngx-slider>
+    </div>
+    <div class="p-1 pl-2 pr-2">
+      <button name="crop2" (click)="zoomIn()" class="btn btn-default btn-sm">
+        <i class="uil uil-plus"></i>
+      </button>
+    </div>
+  </div>
+  <div class="pl-3 pr-3 pt-2 w-100 d-flex justify-content-between pb-4">
+    <button name="crop3" (click)="bsModalRef.hide()" class="btn btn-default">
+      {{ "GENERAL.CANCEL" | translate }}
+    </button>
+    <button name="crop4" (click)="saveImage()" class="btn btn-primary">
+      {{ "GENERAL.SAVE" | translate }}
+    </button>
+  </div>
+</ng-container>
+<!--              <img [src]="croppedImage" />-->
+<ng-template #mock>
+  <div class="w-100 position-relative p-2 mock-wrapper d-flex">
+    <div class="avatar-fake">
+      <img appImgFallback [src]="croppedImage" alt="croppedImage" />
+    </div>
+    <div class="mock-title-placeholder pl-2 truncate">
+      {{ "PROFILE.HELLO" | translate }} {{ user?.name }} {{ user?.surname }}
+    </div>
+  </div>
+  <hr />
+</ng-template>
+
+<ng-template #loadingRef let-loading="loading">
+  <div
+    class="w-100 loading-wrap animate__animated animate__fadeIn"
+    *ngIf="loading == true"
+  >
+    <div class="in">
+      <img class="circle" src="/assets/loading.svg" alt="loading" />
+      <div>
+        <small>{{ "GENERAL.LOADING" | translate }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-100 error-wrap animate__animated animate__fadeIn"
+    *ngIf="loading?.status"
+  >
+    <div class="in">
+      <img
+        class="img"
+        src="/assets/extra/drawkit-grape-pack-illustration-7.svg"
+        alt="status loading"
+      />
+      <div>
+        <small>{{ "GENERAL.ERROR" | translate }}</small>
+      </div>
+    </div>
+  </div>
+</ng-template>

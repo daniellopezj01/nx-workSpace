@@ -1,0 +1,16 @@
+@import "./src/shared";
+
+.custom-chat {
+  cursor: pointer;
+  border-bottom: 1px solid $base-color;
+}
+
+.custom-chat:hover {
+  background-color: #ffeef1;
+}
+
+.style-date {
+  font-weight: 100;
+  font-size: $font-size-6;
+  white-space: nowrap;
+}

@@ -1,0 +1,96 @@
+<div class="main-section-contact">
+  <div class="main-container-info row p-0">
+    <div
+      class="col-4 custom-index"
+      *ngFor="let item of itemsHeader; let i = index"
+    >
+      <div class="container-info-template">
+        <ng-container
+          *ngTemplateOutlet="templateTitle; context: { title: item.title }"
+        ></ng-container>
+        <div *ngIf="item.template">
+          <ng-container *ngTemplateOutlet="item.template"></ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #templatePhone>
+  <ul class="ul-list">
+    <li
+      class="phone-item"
+      (click)="handlePhone(phone)"
+      *ngFor="let phone of service.numberPhones; let i = index"
+    >
+      <a href="tel:{{ phone.value }}" target="_blank">
+        <span class=" flag-icon flag-icon-{{ phone.code | lowercase }}"></span>
+        <span class="pl-2 phone-number">
+          {{ phone?.name | translate }}
+        </span>
+      </a>
+      <!-- <div>{{ language?.value }}</div> -->
+    </li>
+    <li role="menuitem" class="phone-item business-hours">
+      <i class="uil uil-headphones"></i>
+      <span> {{ "HEADER.CONTACT_MENU.HOURS_OF_ATTENTION" | translate }} </span>
+    </li>
+    <li role="menuitem" class="phone-item text-business-hours">
+      <span>
+        {{ "HEADER.CONTACT_MENU.TEXT_SCHEDULES" | translate }}
+      </span>
+    </li>
+  </ul>
+</ng-template>
+<ng-template #templateChat>
+  <ul class="ul-list">
+    <a
+      class="chat-item"
+      [ngStyle]="{ 'background-color': chatButton?.color }"
+      *ngFor="let chatButton of chatButtons; let i = index"
+      href="{{ chatButton.link }}"
+      target="_blank"
+    >
+      <div class="inside-button">
+        <i class="uil {{ chatButton?.icon }}"></i>
+        <span>
+          {{ chatButton?.text | translate }}
+        </span>
+      </div>
+    </a>
+    <li role="menuitem" class="phone-item business-hours">
+      <i class="uil uil-headphones"></i>
+      <span> {{ "HEADER.CONTACT_MENU.FOLLOW_US_NETWORKS" | translate }} </span>
+    </li>
+    <li role="menuitem" class="social-items">
+      <a
+        [ngStyle]="{ 'background-color': chatButton?.color }"
+        *ngFor="let chatButton of socialButtons; let i = index"
+        href="{{ chatButton.link }}"
+        target="_blank"
+        class="social-button"
+      >
+        <i class="uil {{ chatButton?.icon }}"></i>
+      </a>
+    </li>
+  </ul>
+</ng-template>
+<ng-template #templatePlace>
+  <div>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14931.282148675326!2d-101.344768!3d20.676879!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842c7fd66c34ab9d%3A0xb88ebb3df15bfc54!2sAv%20Revoluci%C3%B3n%20296%2C%20De%20San%20Jos%C3%A9%2C%20Barrio%20de%20San%20Jos%C3%A9%2C%2036513%20Irapuato%2C%20Gto.%2C%20Mexico!5e0!3m2!1sen!2sus!4v1631714843317!5m2!1sen!2sus"
+      width="280"
+      height="280"
+      style="border: 0"
+      allowfullscreen=""
+      loading="lazy"
+    ></iframe>
+  </div>
+</ng-template>
+
+<ng-template #templateTitle let-title="title">
+  <div class="container-title">
+    <span class="title">{{ title | translate }}</span>
+    <div class="line-decorator"></div>
+  </div>
+</ng-template>

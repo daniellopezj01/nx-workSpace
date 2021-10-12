@@ -1,0 +1,338 @@
+<ng-container
+  *ngTemplateOutlet="loadingRef; context: { loading: loading }"
+></ng-container>
+
+<div class="cont">
+  <app-header></app-header>
+  <div class="general-cont">
+    <div class="general">
+      <div
+        class="container col-sm-12 col-md-12 col-lg-12 col-xl-10 offset-xl-1 offset-sm-0 offset-lg-0 offset-md-0"
+      >
+        <div class="header-title pb-3">
+          <h2>{{ "PAYMENT.TITLE_FORM" | translate }}</h2>
+        </div>
+
+        <form [formGroup]="payForm" (submit)="beginProcess()">
+          <span class="pb-2" *ngIf="data?.status === 'progress'">
+            {{ "PAYMENT.PENDING" | translate }}
+            <span class="span-pay"
+              >{{
+                data?.pending - amountInNumber
+                  | number: "1.2-2"
+                  | currencyCurrent: "2:true":departure?.currencies
+              }}
+            </span>
+          </span>
+          <div
+            class="manager-forms animate__animated animate__fadeInDown animation-3"
+          >
+            <div class="col col-md-12">
+              <div class="form-group">
+                <div class="d-flex bd-highlight">
+                  <label class="flex-grow-1 text-muted pl-1 pr-1 pb-2"
+                    >{{ "PAYMENT.ADD_AMOUNT" | translate }}
+                  </label>
+                </div>
+                <div class="input-amount">
+                  <span class="signal">
+                    {{ "GENERAL.GLOBAL_CURRENCY" | translate }}
+                  </span>
+                  <input
+                    #inputAmount
+                    type="text"
+                    formControlName="amount"
+                    class="form-control"
+                    appFocusMe
+                    placeholder="0,00"
+                    value="amount"
+                    [allowNegativeNumbers]="false"
+                    maxlength="7"
+                    (ngModelChange)="onChangeAmount($event)"
+                    mask="separator.2"
+                    decimalMarker=","
+                  />
+                  <span class="currency"></span>
+                </div>
+                <ng-container
+                  *ngTemplateOutlet="
+                    messageAmount;
+                    context: { error: payForm.get('amount').errors }
+                  "
+                ></ng-container>
+              </div>
+            </div>
+            <div>
+              <ng-container
+                *ngTemplateOutlet="templatesInfoAndImages"
+              ></ng-container>
+              <div *ngIf="activeFormPayment">
+                <div class="col col-md-12">
+                  <div class="form-group">
+                    <div class="d-flex bd-highlight">
+                      <label class="flex-grow-1 small text-dark">{{
+                        "PAYMENT.CARD_NUMBER_TITLE" | translate
+                      }}</label>
+                    </div>
+                    <div
+                      id="card_number"
+                      #cardInfoNumber
+                      class="stripe-element"
+                    ></div>
+                    <div *ngIf="subPayment">
+                      <div class="message-error" *ngIf="cardNumber?._empty">
+                        {{ "PAYMENT.FIELD_REQUIRED" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="small text-dark">{{
+                        "PAYMENT.CARD_EXP_TITLE" | translate
+                      }}</label>
+                      <div
+                        id="card_exp"
+                        #cardInfoExp
+                        class="stripe-element"
+                      ></div>
+                      <div *ngIf="subPayment">
+                        <div class="message-error" *ngIf="cardExp?._empty">
+                          {{ "PAYMENT.FIELD_REQUIRED" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="small text-dark">{{
+                        "PAYMENT.CARD_CVC_TITLE" | translate
+                      }}</label>
+                      <div
+                        id="card_cvc"
+                        #cardInfoCvv
+                        class="stripe-element"
+                      ></div>
+                      <div *ngIf="subPayment">
+                        <div class="message-error" *ngIf="cardCvv?._empty">
+                          {{ "PAYMENT.FIELD_REQUIRED" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngTemplateOutlet="checkConditions"></ng-container>
+              <ng-container
+                *ngTemplateOutlet="templateAlertInfo"
+              ></ng-container>
+              <div
+                class="button-pay"
+                *ngIf="!['cancelled', 'completed'].includes(data?.status)"
+              >
+                <div class="col pay-button col-md-12">
+                  <button
+                    name="pay"
+                    [disabled]="
+                      activeFormPayment ? !payForm.valid : ActivePaymentWallet()
+                    "
+                    class="btn btn-primary btn-block btn-lg"
+                    ngxLoading
+                    [loadingFlag]="loading"
+                    [textInitial]="'GENERAL.SEND' | translate"
+                    [textLoading]="'GENERAL.SENDING' | translate"
+                  ></button>
+                </div>
+              </div>
+              <ng-container *ngTemplateOutlet="messageSecurity"></ng-container>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--    <app-footer></app-footer>-->
+  </div>
+</div>
+<ng-template #templatesInfoAndImages>
+  <div class="small">
+    <!-- Pay 100% -->
+    <div *ngIf="data?.status === 'progress' && activeFormPayment">
+      <div class="radio">
+        <p-checkbox
+          [style.lineHeight]="'.9'"
+          animation="smooth"
+          color="primary"
+          shape="curve"
+          (change)="checkPayAll($event)"
+        >
+          <span>
+            {{ "PAYMENT.EQUALS_TO_100" | translate }}
+          </span>
+        </p-checkbox>
+      </div>
+    </div>
+    <!-- Pay with WALLET% -->
+    <div *ngIf="pCheckWallet">
+      <div class="radio">
+        <p-checkbox
+          [style.lineHeight]="'.9'"
+          animation="smooth"
+          color="primary"
+          shape="curve"
+          (change)="paymentWIthWallet($event)"
+        >
+          <span> {{ "PAYMENT.PAYMENT_WITH_WALLET" | translate }}</span>
+        </p-checkbox>
+      </div>
+    </div>
+
+    <!-- INFO PENDING PAYMENT -->
+    <div class="result-data pl-1 pt-4 d-flex">
+      <div *ngIf="isReservation" class="balance-payment pb-3">
+        <span class="pb-2" *ngIf="amountInNumber">
+          {{ "PAYMENT.AMOUNT_TO_PAY" | translate }}
+          <span *ngIf="payPercentage >= 1">
+            {{ payPercentage | number: "1.0-0" }}%
+          </span>
+          :
+          <span class="span-pay"
+            >{{
+              amountInNumber
+                | number: "1.2-2"
+                | currencyCurrent: "2:true":departure?.currencies
+            }}
+          </span>
+        </span>
+        <!-- <span class="pb-2">
+          {{ "PAYMENT.TOTAL_AMOUNT_RESERVATION" | translate }}
+          <span class="span-pay"
+            >{{ data?.pending | number: "1.2-2" | currencyCurrent: "2:true" }}
+          </span>
+        </span> -->
+      </div>
+
+      <!--  Images credits Cards -->
+      <div class="d-flex justify-content-end pr-2">
+        <img
+          class="logo-payment pl-2"
+          src="../../../../../assets/payment/mastercard.svg"
+          alt="mastercard"
+        />
+        <img
+          class="logo-payment pl-2"
+          src="../../../../../assets/payment/amex.svg"
+          alt="amex"
+        />
+        <img
+          class="logo-payment pl-2"
+          src="../../../../../assets/payment/visa.svg"
+          alt="visa"
+        />
+      </div>
+    </div>
+  </div>
+  <hr />
+</ng-template>
+
+<ng-template #checkConditions>
+  <div class="cont-terms">
+    <div
+      class="col col-lg-12 terms-style truncate d-flex align-content-center align-items-center"
+    >
+      <p-checkbox
+        animation="smooth"
+        color="primary"
+        shape="curve"
+        (change)="check($event, 1)"
+      >
+      </p-checkbox>
+      <div class="small">
+        <a
+          class="text-dark"
+          [href]="'LINKS_EXTERNAL.PROGRAM_WALLET.LINK' | translate"
+          target="_blank"
+        >
+          {{ "PAYMENT.CHECK_ONE" | translate }}
+        </a>
+      </div>
+    </div>
+    <div
+      class="col col-lg-12 terms-style truncate d-flex align-content-center align-items-center"
+    >
+      <p-checkbox
+        animation="smooth"
+        color="primary"
+        shape="curve"
+        (change)="check($event, 2)"
+      >
+      </p-checkbox>
+      <div class="small">
+        <a
+          class="text-dark"
+          [href]="'LINKS_EXTERNAL.TERMS_AND_CONDITIONS.LINK' | translate"
+          target="_blank"
+        >
+          {{ "PAYMENT.CHECK_TWO" | translate }}
+        </a>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateAlertInfo>
+  <div class="alert alert-warning" role="alert">
+    {{ "PAYMENT.ALERT_INFO" | translate }}
+  </div>
+</ng-template>
+
+<ng-template #messageSecurity>
+  <div class="mns-security pt-3">
+    <div class="icon-style">
+      <img
+        src="../../../../../assets/payment/web-lock.svg"
+        class="lazyload img-fluid"
+        alt="ms-security"
+      />
+    </div>
+    <div class="small pt-1 pl-2">
+      {{ "PAYMENT.MNS_SECURITY" | translate }}
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #messageAmount let-error="error">
+  <div class="text-danger w-100 pl-2 pr-2" *ngIf="error?.max?.max">
+    <span>{{ "PAYMENT.ERRORS.MAX_AMOUNT" | translate }}</span>
+  </div>
+</ng-template>
+
+<ng-template #loadingRef let-loading="loading">
+  <div
+    class="w-100 loading-wrap animate__animated animate__fadeIn"
+    *ngIf="loading == true"
+  >
+    <div class="in">
+      <img class="circle" src="/assets/loading.svg" alt="loading" />
+      <div>
+        <small>{{ "GENERAL.LOADING" | translate }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-100 error-wrap animate__animated animate__fadeIn"
+    *ngIf="loading?.status"
+  >
+    <div class="in">
+      <img
+        class="img"
+        src="/assets/extra/drawkit-grape-pack-illustration-7.svg"
+        alt="loading status"
+      />
+      <div>
+        <small>{{ "GENERAL.ERROR" | translate }}</small>
+      </div>
+    </div>
+  </div>
+</ng-template>

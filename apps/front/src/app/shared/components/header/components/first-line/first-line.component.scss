@@ -1,0 +1,84 @@
+@import "./src/shared";
+
+.main {
+  background-color: #444;
+  z-index: 8;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  width: 100%;
+}
+
+.single-item {
+  cursor: pointer;
+  padding: 0 0.5rem;
+  span {
+    font-family: "Hind Siliguri", Sans-serif;
+    color: white;
+    text-transform: capitalize;
+    font-size: $font-size-5;
+    position: relative;
+    font-weight: 500;
+  }
+  i {
+    color: white !important;
+  }
+}
+
+.single-item:hover {
+  span {
+    color: #707070;
+  }
+}
+
+::ng-deep {
+  ul,
+  li {
+    list-style: none;
+  }
+}
+
+/************/
+
+nav {
+  display: block;
+  text-align: center;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav {
+  vertical-align: top;
+  display: inline-block;
+  border-radius: 6px;
+}
+
+.nav li {
+  position: relative;
+}
+
+.nav > li {
+  float: left;
+  margin-right: 1px;
+}
+
+/* submenu positioning*/
+.nav ul {
+  position: absolute;
+  z-index: 1;
+  left: -99999em;
+  box-shadow: 0px 35px 35px 0px rgb(0 0 0 / 10%);
+  // box-shadow: $shadow-header;
+}
+
+.nav > li:hover > ul {
+  left: auto;
+  width: calc(99vw - 1rem);
+  right: 10px;
+  padding-top: 5px;
+}

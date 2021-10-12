@@ -1,0 +1,72 @@
+@import "./src/shared.scss";
+
+.container-reviews {
+  width: 100%;
+}
+
+.title {
+  font-weight: bolder;
+  font-size: 1.7rem;
+  display: flex;
+  justify-content: left;
+}
+
+/**big*/
+
+.big {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
+
+.reviews-big {
+  width: 65%;
+  margin-right: 10%;
+}
+.container-big-stars {
+  width: 25%;
+}
+
+.text-all-reviews {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 2rem auto;
+}
+
+.text-all-reviews span {
+  color: $base-color;
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .big {
+    display: grid;
+  }
+  .container-big-stars {
+    width: 100%;
+    margin: 2rem 0;
+  }
+  .reviews-big {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .reviews-big {
+    width: 65%;
+    margin-right: 5%;
+  }
+  .container-big-stars {
+    width: 30%;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

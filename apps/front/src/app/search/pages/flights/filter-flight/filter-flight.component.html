@@ -1,0 +1,141 @@
+<ng-container
+  *ngIf="small; then smallTemplate; else bigTemplate"
+></ng-container>
+<ng-template #smallTemplate>
+  <div class="modal-body">
+    <div class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </div>
+    <ng-container *ngTemplateOutlet="filterTemplate"></ng-container>
+    <button (click)="closeFilters()" class="btn filter-small-result">
+      {{ "SEARCH.FLIGHTS.VIEW" | translate }}
+      {{ filterFlights.filterData?.length }}
+      {{ "SEARCH.FLIGHTS.RESULTS" | translate }}
+    </button>
+  </div>
+</ng-template>
+<ng-template #bigTemplate>
+  <ng-container *ngTemplateOutlet="filterTemplate"></ng-container>
+</ng-template>
+
+<ng-template #filterTemplate>
+  <div class="main">
+    <div class="main-header">
+      <span class="main-title">
+        {{ "SEARCH.FLIGHTS.FILTERS" | translate }}
+      </span>
+      <span
+        class="clear-filter"
+        (click)="clearFilters()"
+        *ngIf="activeClear || small"
+      >
+        {{ "SEARCH.FLIGHTS.CLEAR_ALL" | translate }}
+      </span>
+    </div>
+    <div class="section-filter">
+      <div class="title">
+        {{ "SEARCH.FLIGHTS.PRICE" | translate }}
+      </div>
+      <div class="body-price custom-slider">
+        <ng-container *appOnlyBrowser="true">
+          <ngx-slider
+            [(value)]="filterFlights.currentMinPrice"
+            [(highValue)]="filterFlights.currentMaxPrice"
+            (userChange)="
+              filterFlights.actionFilters(
+                [filterFlights.currentMinPrice, filterFlights.currentMaxPrice],
+                'price'
+              )
+            "
+            [options]="filterFlights.optionsPrice"
+          ></ngx-slider>
+        </ng-container>
+
+        <span class="font-price">
+          {{
+            filterFlights.currentMinPrice | number | currencyCurrent: "0:true"
+          }}
+          -
+          {{
+            filterFlights.currentMaxPrice | number | currencyCurrent: "0:true"
+          }}
+        </span>
+      </div>
+    </div>
+
+    <div class="section-filter">
+      <div class="title">
+        {{ "SEARCH.FLIGHTS.STOPS" | translate }}
+      </div>
+      <div class="body-stars custom-slider pt-3">
+        <div
+          class="col col-lg-12"
+          *ngFor="let item of filterFlights.stopsArray; let i = index"
+        >
+          <label class="stars-row-style">
+            <p-checkbox
+              color="primary"
+              (change)="filterFlights.actionFilters(item?.stops, 'stops')"
+              shape="curve"
+              stroke="thick"
+              bigger="true"
+            >
+              <span
+                >{{ item?.stops }}
+                {{ "SEARCH.FLIGHTS.STOPS" | translate }}</span
+              >
+            </p-checkbox>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="section-filter">
+      <div class="title">
+        {{ "SEARCH.FLIGHTS.TOTAL_DURATION" | translate }}
+      </div>
+      <div class="body-Duration custom-slider">
+        <ng-container *appOnlyBrowser="true">
+          <ngx-slider
+            [(value)]="filterFlights.maxDuration"
+            [options]="filterFlights.optionsDuration"
+            (userChange)="
+              filterFlights.actionFilters(filterFlights.maxDuration, 'duration')
+            "
+          >
+          </ngx-slider>
+        </ng-container>
+
+        <span class="font-price"
+          >{{ durationFlight(filterFlights.maxDuration) }}
+        </span>
+      </div>
+    </div>
+    <!-- <div class="section-filter">
+      <div class="title">
+        {{ "SEARCH.FLIGHTS.EXIT" | translate }}
+      </div>
+      <div class="body-stars">
+        <div
+          class="col col-lg-12"
+          *ngFor="let item of filterFlights.timeObject; let i = index"
+        >
+          <label class="stars-row-style">
+            <input
+              type="checkbox"
+              class="input-check-style"
+              name="check-range-star"
+              [(ngModel)]="item.active"
+              (change)="changeInputTime()"
+            />
+            <span class="font-empty-star"> {{ item?.type }}</span>
+          </label>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</ng-template>
+<!-- <div class="Horarios">
+  <button></button>
+  <button></button>
+
+</div> -->

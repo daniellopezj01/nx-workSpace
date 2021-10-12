@@ -1,0 +1,99 @@
+<app-loading [loading]="loading"></app-loading>
+<div class="sticky-top">
+  <app-header #m></app-header>
+</div>
+
+<div class="w-100 container-info" *ngIf="!loading">
+  <div class="main-title">
+    <h4>Detalle de reserva</h4>
+  </div>
+  <div class="main-container">
+    <div class="d-flex flex-column">
+      <div class="container-flight">
+        <div class="title-Step">
+          <h5>Vuelos</h5>
+        </div>
+        <app-flights-section
+          [mainFlight]="data"
+          [params]="params"
+        ></app-flights-section>
+      </div>
+      <div class="container-passengers">
+        <ng-container *ngTemplateOutlet="templatePassengers"></ng-container>
+      </div>
+      <div class="container-balance">
+        <div class="title-Step">
+          <h5>Balance</h5>
+        </div>
+        <div class="w-100 justify-content-center row m-0">
+          <div
+            class="d-flex flex-column p-1 col-sm-3 col-xs-12 col-md-12 col-lg-8 col-xl-8"
+          >
+            <app-flight-balance [mainFlight]="data"></app-flight-balance>
+            <button
+              (click)="generatePnr()"
+              class="mt-2 btn btn-primary hvr-shrink"
+              ngxLoading
+              [loadingFlag]="loadingButton"
+              [textInitial]="'GENERAL.RESERVE' | translate"
+              [textLoading]="'GENERAL.LOADING' | translate"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+
+<ng-template #templatePassengers>
+  <div class="title-Step">
+    <h5>Viajeros</h5>
+  </div>
+  <div class="container-passenger">
+    <div *ngFor="let passenger of passengers; let i = index">
+      <div class="row p-0">
+        <div class="col-xl-12 col-lg-12 col-md-12 small">
+          <h6 class="text-muted">
+            {{
+              i < numberAdults
+                ? ("SEARCH.FLIGHTS.ADULT" | translate)
+                : ("SEARCH.FLIGHTS.SINGLE_CHILDREN" | translate)
+            }}
+            {{ i < numberAdults ? i + 1 : i + 1 - numberAdults }}
+          </h6>
+          <div class="form-group mb-2">
+            <span class="text-muted">
+              {{ "CREATE_RESERVATION.NAME_PLACEHOLDER" | translate }}
+            </span>
+            <span> {{ passenger?.name }}{{ passenger?.surname }} </span>
+          </div>
+          <div class="form-group mb-2">
+            <span class="text-muted"
+              >{{ "CREATE_RESERVATION.DOCUMENT_PLACEHOLDER" | translate }}
+            </span>
+            <span>
+              {{ passenger?.passDocument }}
+            </span>
+          </div>
+          <div class="form-group mb-2">
+            <span class="text-muted"
+              >{{ "CREATE_RESERVATION.EMAIL_PLACEHOLDER" | translate }}
+            </span>
+            <span>
+              {{ passenger?.email }}
+            </span>
+          </div>
+          <div class="form-group mb-2">
+            <span class="text-muted"
+              >{{ "CREATE_RESERVATION.PHONE_PLACEHOLDER" | translate }}
+            </span>
+            <span> {{ passenger?.phone.number }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateDetailsFlight> </ng-template>

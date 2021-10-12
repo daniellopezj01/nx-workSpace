@@ -1,0 +1,156 @@
+<section #picture>
+  <!-- BIG SCREEN -->
+  <div *ngIf="tour?.attached?.length" class="d-none d-xl-block">
+    <div class="container-pictures mt-2">
+      <ng-container *ngTemplateOutlet="infoTemplate"></ng-container>
+    </div>
+  </div>
+  <!-- SMALL SCREEN -->
+  <div
+    *ngIf="tour?.attached?.length"
+    class="d-none d-block d-sm-block d-md-block d-lg-block d-xl-none"
+  >
+    <div class="container-pictures mt-2">
+      <ng-container *ngTemplateOutlet="templateSmallImages"></ng-container>
+    </div>
+  </div>
+  <div class="ks-modal-header-details">
+    <!-- [slideConfig]="{ infinite: false, sidePreviews: { show: false } }" sidePreviews: Ver imagenes en controles. -->
+    <ks-modal-gallery
+      [id]="10"
+      [modalImages]="images"
+      [enableCloseOutside]="false"
+      [slideConfig]="{ infinite: false, sidePreviews: { show: false } }"
+      [currentImageConfig]="{ description: customFullDescription }"
+      [previewConfig]="{
+        visible: true,
+        autoPlay: true,
+        size: { width: '40px', height: '40px' }
+      }"
+    ></ks-modal-gallery>
+  </div>
+</section>
+
+<ng-template #infoTemplate>
+  <div class="child-pictures">
+    <img
+      *ngIf="tour?.attached?.length"
+      appImgFallback
+      class="img-responsive w-100"
+      (click)="openCarousel(0)"
+      [src]="(tour?.attached | firstValue)?.source?.large"
+      alt="tour"
+    />
+  </div>
+  <div class="child-pictures container-section-details">
+    <div class="container-icons">
+      <i class="uil uil-calendar-alt"></i>
+    </div>
+    <span class="text-details small text-muted">
+      {{ "DETAILS_TOUR.DURATION" | translate }}</span
+    >
+    <span class="numbers">
+      {{ tour?.duration || 1 }} {{ "DETAILS_TOUR.DAY" | translate }}</span
+    >
+  </div>
+  <div class="child-pictures container-section-details">
+    <div class="container-icons">
+      <i class="uil uil-globe"></i>
+    </div>
+    <span class="text-details small text-muted">{{
+      "DETAILS_TOUR.COUNTRIES" | translate
+    }}</span>
+    <span class="numbers">
+      {{ tour?.countries }}
+      {{ "DETAILS_TOUR.COUNTRIES" | translate }}
+    </span>
+  </div>
+  <div class="child-pictures container-section-details">
+    <div class="container-icons">
+      <i class="uil uil-building"></i>
+    </div>
+    <span class="text-details small text-muted">{{
+      "DETAILS_TOUR.CITIES" | translate
+    }}</span>
+    <span class="numbers">
+      {{ tour?.cities }}
+      {{ "DETAILS_TOUR.CITIES" | translate }}
+    </span>
+  </div>
+  <div class="child-pictures container-section-details">
+    <div class="container-icons">
+      <i class="uil uil-letter-chinese-a"></i>
+    </div>
+    <span class="text-details small text-muted">{{
+      "DETAILS_TOUR.LANGUAGE" | translate
+    }}</span>
+    <span class="numbers">
+      <span *ngIf="!tour?.lenguages"> ES</span>
+      <span *ngFor="let lenguage of tour?.lenguages"> {{ lenguage }}</span>
+      <!--          {{ tour?.language }}-->
+      <!-- {{ "DETAILS_TOUR.CITIES" | translate }} -->
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #templateSmallImages>
+  <div class="child-pictures">
+    <img
+      *ngIf="tour?.attached?.length"
+      appImgFallback
+      class="img-responsive w-100"
+      (click)="openCarousel(0)"
+      [src]="(tour?.attached | firstValue)?.source?.large"
+      alt="tour"
+    />
+  </div>
+  <div class="child-pictures container-section-details">
+    <div class="container-icons">
+      <i class="uil uil-calendar-alt"></i>
+    </div>
+    <span class="text-details small text-muted">
+      {{ "DETAILS_TOUR.DURATION" | translate }}</span
+    >
+    <span class="numbers">
+      {{ tour?.duration || 1 }} {{ "DETAILS_TOUR.DAY" | translate }}</span
+    >
+  </div>
+  <div class="child-pictures container-section-details">
+    <div class="container-icons">
+      <i class="uil uil-globe"></i>
+    </div>
+    <span class="text-details small text-muted">{{
+      "DETAILS_TOUR.COUNTRIES" | translate
+    }}</span>
+    <span class="numbers">
+      {{ tour?.countries }}
+      {{ "DETAILS_TOUR.COUNTRIES" | translate }}
+    </span>
+  </div>
+  <div class="child-pictures container-section-details">
+    <div class="container-icons">
+      <i class="uil uil-building"></i>
+    </div>
+    <span class="text-details small text-muted">{{
+      "DETAILS_TOUR.CITIES" | translate
+    }}</span>
+    <span class="numbers">
+      {{ tour?.cities }}
+      {{ "DETAILS_TOUR.CITIES" | translate }}
+    </span>
+  </div>
+  <div class="child-pictures container-section-details">
+    <div class="container-icons">
+      <i class="uil uil-letter-chinese-a"></i>
+    </div>
+    <span class="text-details small text-muted">{{
+      "DETAILS_TOUR.LANGUAGE" | translate
+    }}</span>
+    <span class="numbers">
+      <span *ngIf="!tour?.lenguages"> ES</span>
+      <span *ngFor="let lenguage of tour?.lenguages"> {{ lenguage }}</span>
+      <!--          {{ tour?.language }}-->
+      <!-- {{ "DETAILS_TOUR.CITIES" | translate }} -->
+    </span>
+  </div>
+</ng-template>

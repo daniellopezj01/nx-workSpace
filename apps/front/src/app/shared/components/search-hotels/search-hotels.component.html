@@ -1,0 +1,145 @@
+<div class="">
+  <ng-container *ngTemplateOutlet="firstForm"></ng-container>
+</div>
+
+<ng-template #firstForm>
+  <form [formGroup]="formSearch" class="custom-row form-search">
+    <div class="cont-form rpadding div-input-search input-group-custom">
+      <input
+        formControlName="search"
+        spellcheck="false"
+        class="input-search"
+        (focus)="onFocus()"
+        (clickOutside)="onBlur()"
+        [(ngModel)]="searchValue"
+        (ngModelChange)="getPlaces($event)"
+        placeholder="{{ 'HOME.INPUT_SEARCH' | translate }}"
+      />
+      <div *ngIf="focusSearch">
+        <ng-container *ngTemplateOutlet="withData"></ng-container>
+      </div>
+    </div>
+    <div class="cont-form rpadding div-input-dates input-group-custom">
+      <input
+        #inputDates="bsDaterangepicker"
+        [minDate]="today"
+        bsDaterangepicker
+        readonly
+        [(ngModel)]="bsRangeValue"
+        [bsConfig]="bsOptions"
+        formControlName="dates"
+        class="input-checkIn form-control"
+        placeholder="CheckIn - checkOut"
+      />
+    </div>
+    <div
+      class="cont-form rpadding div-input-people input-group-custom"
+      (clickOutside)="focusPerson = false"
+    >
+      <input
+        #inputPerson
+        (focus)="focusPerson = true"
+        readonly
+        formControlName="people"
+        class="input-people"
+        value="{{ adultsCount }} {{ 'SEARCH.HOTELS.ADULTS' | translate }} {{
+          childrenCount
+            ? childrenCount + ' ' + ('SEARCH.HOTELS.CHILDREN' | translate)
+            : ''
+        }}"
+        placeholder="{{ adultsCount }} {{
+          'SEARCH.HOTELS.ADULTS' | translate
+        }} {{
+          childrenCount
+            ? childrenCount + ' ' + ('SEARCH.HOTELS.CHILDREN' | translate)
+            : ''
+        }}"
+      />
+      <div *ngIf="focusPerson" class="div-show-person">
+        <ng-container *ngTemplateOutlet="templatePerson"></ng-container>
+      </div>
+    </div>
+    <div class="cont-form p-0 div-button-search hvr-shrink">
+      <button
+        class="btn button-search"
+        (click)="search()"
+        ngxLoading
+        [disabled]="!formSearch.valid"
+        [loadingFlag]="loadingSearch"
+        [textInitial]="'SEARCH.HOTELS.SEARCH' | translate"
+        [textLoading]="'GENERAL.SENDING' | translate"
+      ></button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #withData>
+  <div class="cont-data">
+    <div class="body-list">
+      <div
+        class="item-data-list-place p-2 pl-3 pr-3 w-100"
+        (click)="selectedPlace(place)"
+        *ngFor="let place of dataPlaces$ | async"
+      >
+        <div class="cont-image">
+          <i class="uil uil-map-marker-alt"></i>
+        </div>
+        <div class="body-place">
+          <div class="cont-body-place">
+            <p class="title-place col-xm-12 col-xs-12">{{ place?.fullName }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templatePerson>
+  <div class="container-template-person">
+    <div class="custom-row item-list">
+      <div class="label-person">
+        <span>{{ "SEARCH.HOTELS.ADULTS" | translate }} </span>
+      </div>
+      <div
+        class="cont-values w-50 d-flex justify-content-around align-content-center align-items-center"
+      >
+        <button
+          [disabled]="adultsCount < 2"
+          class="btn btn-default text-primary"
+          (click)="changeValuesPerson('adults', -1)"
+        >
+          <fa-icon class="icon-value" [icon]="faMinus"></fa-icon>
+        </button>
+        <button
+          class="btn btn-default text-primary"
+          (click)="changeValuesPerson('adults', 1)"
+        >
+          <fa-icon class="icon-value" [icon]="faPlus"></fa-icon>
+        </button>
+      </div>
+    </div>
+    <div class="custom-row item-list">
+      <div class="label-person">
+        <span>{{ "SEARCH.HOTELS.CHILDREN" | translate }}</span>
+      </div>
+
+      <div
+        class="cont-values w-50 d-flex justify-content-around align-content-center align-items-center"
+      >
+        <button
+          [disabled]="childrenCount < 1"
+          class="btn btn-default text-primary"
+          (click)="changeValuesPerson('children', -1)"
+        >
+          <fa-icon class="icon-value" [icon]="faMinus"></fa-icon>
+        </button>
+        <button
+          class="btn btn-default text-primary"
+          (click)="changeValuesPerson('children', 1)"
+        >
+          <fa-icon class="icon-value" [icon]="faPlus"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

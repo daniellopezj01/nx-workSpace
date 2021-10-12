@@ -1,0 +1,22 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="general-cont" *ngIf="!loading">
+  <div class="general">
+    <app-bread-crumb></app-bread-crumb>
+    <div class="header-title pl-3">
+      <h3>{{ "USER.AGENCY.TITLE" | translate }}</h3>
+      <p class="mb-2">
+        {{ "USER.AGENCY.DESCRIPTION" | translate }}
+      </p>
+    </div>
+    <div class="w-100 empty-template text-center w-100">
+      <a
+        target="_blank"
+        href="{{ data?.url }}"
+        class="custom-button btn btn-primary p-3"
+      >
+        {{ "USER.AGENCY.AGENCY_LINK" | translate }}</a
+      >
+    </div>
+  </div>
+</div>

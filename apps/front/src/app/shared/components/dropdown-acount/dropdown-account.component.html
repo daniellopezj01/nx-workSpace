@@ -1,0 +1,61 @@
+<div class="menu-botton pl-1 pr-1 h-100" placement="bottom left">
+  <nav>
+    <ul class="nav">
+      <li
+        role="menuitem"
+        (click)="active = !active"
+        (clickOutside)="active = false"
+        *ngFor="let item of accountMenu; let i = index"
+      >
+        <div id="button-split" class="account">
+          <span
+            class="pr-2 w-100 pl-2 truncate d-none d-sm-none d-md-block style-name"
+            >{{ user?.name }}</span
+          >
+          <div class="icon-style">
+            <ngx-avatar
+              size="30"
+              [cornerRadius]="3"
+              [round]="true"
+              [src]="user?.avatar"
+              [name]="user?.name"
+            ></ngx-avatar>
+          </div>
+        </div>
+        <ul
+          *ngIf="item?.childs && active"
+          [ngClass]="{ 'space-right': item?.activeMargin }"
+        >
+          <li
+            role="menuitem"
+            *ngFor="let itemChild of item?.childs; let o = index"
+          >
+            <a
+              class="custom-a"
+              *ngIf="itemChild?.logginRequired ? checkSession() : true"
+              (click)="gotoTopLevel(itemChild)"
+            >
+              <i class="uil {{ itemChild?.icon }}"></i
+              >{{ itemChild?.title | translate }}</a
+            >
+            <ul *ngIf="itemChild?.keyResponse">
+              <li
+                role="menuitem"
+                *ngFor="
+                  let itemResponse of data[itemChild?.keyResponse];
+                  let i = index
+                "
+              >
+                <a
+                  class="custom-a"
+                  (click)="goToDeepLevel(item, itemChild, itemResponse)"
+                  >{{ itemResponse?.name | translate }}</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>

@@ -1,0 +1,22 @@
+<div class="begin-tour p-3" *ngIf="!simple">
+  <!-- <fa-icon class="icon-place" [icon]="faMapMarkerAlt"></fa-icon> -->
+  <div class="container-icons">
+    <i class="uil uil-map-marker-shield"></i>
+  </div>
+  <span class="text-details small text-muted">{{
+    "DETAILS_TOUR.BEGIN_TOUR" | translate
+  }}</span>
+  <span class="begin-place">{{ beginTour?.itineraryName }}</span>
+  <span class="text-details small text-muted">{{
+    beginTour?.stringLocation.city
+  }}</span>
+</div>
+<div class="container-section-details" *ngIf="simple">
+  <div class="container-icons">
+    <i class="uil uil-bus"></i>
+  </div>
+  <span class="text-details small text-muted"
+    >{{ "DETAILS_TOUR.BEGIN_IN" | translate }}
+  </span>
+  <span class="numbers">{{ beginTour?.stringLocation.city }}</span>
+</div>

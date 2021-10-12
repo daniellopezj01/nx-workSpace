@@ -1,0 +1,346 @@
+<ng-container
+  *ngTemplateOutlet="loadingRef; context: { loading: loading }"
+></ng-container>
+
+<div class="general-cont">
+  <div class="general">
+    <app-bread-crumb></app-bread-crumb>
+    <div class="header-title pl-3 p-2">
+      <h3>{{ 'RESERVATION.TITLE_EMERGENCY' | translate }}</h3>
+    </div>
+    <div class="row ml-0 mr-0">
+      <div
+        class="
+          col-xs-12
+          animate__animated animate__fadeInDown
+          animation-1
+          col-xl-8
+          container
+        "
+      >
+        <div class="manager-forms">
+          <div>
+            <div
+              class="item-style"
+              *ngFor="let item of showInfo; let i = index"
+            >
+              <div class="d-flex bd-highlight">
+                <div class="bd-highlight key-style text-capitalize">
+                  {{ item.key | translate }}
+                </div>
+                <div class="ml-auto bd-highlight">
+                  <button
+                    *ngIf="!checkActiveTemplate(i)"
+                    [disabled]="isItemActive(i)"
+                    class="action-item"
+                    (click)="activeTemplate(i)"
+                  >
+                    {{
+                      checkActiveTemplate(i)
+                        ? ('USER.PERSONAL_INFO.CANCEL' | translate)
+                        : !item.value
+                        ? ('USER.PERSONAL_INFO.ADD' | translate)
+                        : ('USER.PERSONAL_INFO.EDIT' | translate)
+                    }}
+                  </button>
+                  <button
+                    *ngIf="checkActiveTemplate(i)"
+                    [disabled]="isItemActive(i)"
+                    class="action-item"
+                    (click)="cancel()"
+                  >
+                    {{ 'USER.PERSONAL_INFO.CANCEL' | translate }}
+                  </button>
+                </div>
+              </div>
+              <!-- CHECK  -->
+              <div class="value-style">
+                <span *ngIf="!checkActiveTemplate(i)">
+                  <ng-container
+                    *ngTemplateOutlet="
+                      showSaveInfoTemplate;
+                      context: { item: item }
+                    "
+                  ></ng-container>
+                </span>
+                <span *ngIf="checkActiveTemplate(i)">
+                  <ng-container
+                    *ngTemplateOutlet="openTemplateForms; context: { i: i }"
+                  ></ng-container>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="animate__animated animate__fadeInDown col-xs-12 col-xl-4">
+        <div class="squeare">
+          <app-square [item]="squareItem"></app-square>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #showSaveInfoTemplate let-item="item">
+  <div *ngIf="item?.isPhone">
+    <span
+      *ngIf="item?.value?.number"
+      class="flag-icon flag-icon-{{ item?.value?.code | lowercase }}"
+    ></span
+    >{{
+      item?.value?.number
+        ? item?.value?.number
+        : ('GENERAL.NOT_PROPORTIONED' | translate)
+    }}
+  </div>
+
+  <p *ngIf="!item?.isPhone">
+    {{ item?.value ? item?.value : ('GENERAL.NOT_PROPORTIONED' | translate) }}
+  </p>
+</ng-template>
+
+<!-- TEMPLATES OF EACH  FORM  -->
+<ng-template #openTemplateForms let-i="i">
+  <span [ngSwitch]="i">
+    <p *ngSwitchCase="0">
+      <ng-container *ngTemplateOutlet="name"></ng-container>
+    </p>
+    <p *ngSwitchCase="1">
+      <ng-container
+        *ngTemplateOutlet="
+          phoneTemplate;
+          context: {
+            form: phoneForm,
+            control: 'emergencyPhone',
+            title: 'RESERVATION.EMERGENCY_FORM.PHONE'
+          }
+        "
+      ></ng-container>
+    </p>
+    <p *ngSwitchCase="2">
+      <ng-container
+        *ngTemplateOutlet="
+          phoneTemplate;
+          context: {
+            form: phoneOptionalForm,
+            control: 'emergencyPhoneOptional',
+            title: 'RESERVATION.EMERGENCY_FORM.PHONE'
+          }
+        "
+      ></ng-container>
+    </p>
+    <p *ngSwitchCase="3">
+      <ng-container
+        *ngTemplateOutlet="
+          generalTemplateForm;
+          context: {
+            form: relationShipForm,
+            control: 'emergencyRelationship',
+            title: 'RESERVATION.EMERGENCY_FORM.RELATIONSHIP'
+          }
+        "
+      ></ng-container>
+    </p>
+    <p *ngSwitchCase="4">
+      <ng-container
+        *ngTemplateOutlet="
+          generalTemplateForm;
+          context: {
+            form: medicalAllergiesForm,
+            control: 'medicalAllergies',
+            title: 'RESERVATION.EMERGENCY_FORM.MEDICAL_ALLERGIES'
+          }
+        "
+      ></ng-container>
+    </p>
+    <p *ngSwitchCase="5">
+      <ng-container
+        *ngTemplateOutlet="
+          generalTemplateForm;
+          context: {
+            form: existingDiseasesForm,
+            control: 'existingDiseases',
+            title: 'RESERVATION.EMERGENCY_FORM.MEDICAL_HISTORY'
+          }
+        "
+      ></ng-container>
+    </p>
+    <p *ngSwitchCase="6">
+      <ng-container
+        *ngTemplateOutlet="
+          generalTemplateForm;
+          context: {
+            form: bloodTypeForm,
+            control: 'bloodType',
+            title: 'RESERVATION.EMERGENCY_FORM.BLOOD_TYPE'
+          }
+        "
+      ></ng-container>
+    </p>
+  </span>
+</ng-template>
+
+<ng-template #name>
+  <div class="cont-templates">
+    <p class="title-template"></p>
+    <form autocomplete="nope" [formGroup]="nameForm">
+      <div class="row">
+        <div class="col-lg-6 inputs">
+          <div class="form-group">
+            <small class="text-muted">{{
+              'AUTH_LOGIN.ENTER_NAME' | translate
+            }}</small>
+            <input
+              autocomplete="nope"
+              type="text"
+              class="form-control"
+              [controlErrorsTpl]="tpl"
+              [(ngModel)]="auxData.emergencyName"
+              formControlName="emergencyName"
+              placeholder=""
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 inputs">
+          <div class="form-group">
+            <small class="text-muted">{{
+              'AUTH_LOGIN.ENTER_LAST_NAME' | translate
+            }}</small>
+            <input
+              autocomplete="nope"
+              type="text"
+              class="form-control"
+              [controlErrorsTpl]="tpl"
+              [(ngModel)]="auxData.emergencyLastName"
+              formControlName="emergencyLastName"
+              placeholder=""
+            />
+          </div>
+        </div>
+      </div>
+      <div class="pt-2">
+        <button
+          (click)="update(nameForm)"
+          class="btn btn-primary"
+          ngxLoading
+          [loadingFlag]="loading"
+          [disabled]="loading || nameForm.invalid"
+          [textInitial]="'GENERAL.SAVE' | translate"
+          [textLoading]="'GENERAL.SENDING' | translate"
+        ></button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template
+  #phoneTemplate
+  let-form="form"
+  let-control="control"
+  let-title="title"
+>
+  <div class="cont-templates">
+    <form autocomplete="nope" [formGroup]="form">
+      <div class="col-lg-12 rem-padding-width inputs">
+        <div class="form-group">
+          <small class="text-muted">{{ title | translate }}</small>
+          <ngx-intl-tel-input
+            class="form-control dp-dd"
+            [enableAutoCountrySelect]="true"
+            [enablePlaceholder]="false"
+            [(ngModel)]="auxData[control]"
+            [searchCountryField]="[
+              SearchCountryField.Iso2,
+              SearchCountryField.Name
+            ]"
+            [selectFirstCountry]="false"
+            [searchCountryFlag]="true"
+            [searchCountryPlaceholder]="''"
+            [selectedCountryISO]="CountryISO.Mexico"
+            [maxLength]="'15'"
+            [spellcheck]="false"
+            inputmode="search"
+            [controlErrorsTpl]="tpl"
+            [separateDialCode]="true"
+            formControlName="{{ control }}"
+          >
+          </ngx-intl-tel-input>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button
+          (click)="update(form)"
+          class="btn btn-primary"
+          ngxLoading
+          [loadingFlag]="loading"
+          [disabled]="loading || form.invalid"
+          [textInitial]="'GENERAL.SAVE' | translate"
+          [textLoading]="'GENERAL.SENDING' | translate"
+        ></button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template
+  #generalTemplateForm
+  let-form="form"
+  let-control="control"
+  let-title="title"
+>
+  <div class="cont-templates">
+    <p class="title-template"></p>
+    <form autocomplete="nope" [formGroup]="form">
+      <div class="inputs">
+        <div class="form-group">
+          <small class="text-muted">{{ title | translate }}</small>
+          <input
+            autocomplete="nope"
+            type="text"
+            [controlErrorsTpl]="tpl"
+            class="form-control"
+            [(ngModel)]="auxData[control]"
+            formControlName="{{ control }}"
+          />
+        </div>
+      </div>
+      <div class="pt-2">
+        <button
+          (click)="update(form)"
+          class="btn btn-primary"
+          ngxLoading
+          [loadingFlag]="loading"
+          [disabled]="loading || form.invalid"
+          [textInitial]="'GENERAL.SAVE' | translate"
+          [textLoading]="'GENERAL.SENDING' | translate"
+        ></button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template let-error let-text="text" #tpl>
+  <ng-container *ngIf="error">
+    {{ 'GENERAL.ERROR_FIELD_REQUIRED' | translate }}
+  </ng-container>
+</ng-template>
+
+<ng-template #loadingRef let-loading="loading">
+  <div
+    class="w-100 loading-wrap animate__animated animate__fadeIn"
+    *ngIf="loading"
+  >
+    <div class="in">
+      <img
+        class="circle"
+        src="../../../../../assets/loading.svg"
+        alt="loading"
+      />
+      <div>
+        <small>{{ 'GENERAL.LOADING' | translate }}</small>
+      </div>
+    </div>
+  </div>
+</ng-template>

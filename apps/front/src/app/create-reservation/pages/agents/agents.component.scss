@@ -1,0 +1,122 @@
+@import "./src/shared.scss";
+
+.go-to-profile {
+  color: $base-color;
+  cursor: pointer;
+}
+
+.general-cont {
+  width: 100%;
+  min-height: 60vh;
+}
+
+.cards-style {
+  width: 100%;
+}
+
+.main-container {
+  max-width: 800px;
+  margin: 3rem auto;
+}
+
+.cont-image {
+  width: 100%;
+}
+
+.icon-style {
+  height: 40px;
+  width: 40px;
+  margin-right: 5px;
+  img {
+    border-radius: 50%;
+  }
+}
+
+.description-card {
+  color: $text-color-1;
+  font-size: $font-size-3;
+}
+
+.agent-card {
+  cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  box-shadow: $shadow-custom;
+  padding: 1rem;
+  border-radius: $border-radius;
+  margin: 0px;
+  border-color: $border-color-1;
+  text-decoration: none;
+  height: 100%;
+}
+
+.name-section {
+  width: calc(100% - 45px);
+}
+.title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  span {
+    font-size: 1.5rem;
+  }
+}
+
+.container-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  button {
+    font-size: 1.2rem;
+    border-radius: 10px;
+  }
+}
+
+.agentActive {
+  box-shadow: 1px 0px 10px 0px rgb(0 0 0 / 25%);
+  position: relative;
+  background-color: white;
+}
+
+.icon-selected {
+  background-color: #d0a9ff;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  padding: 0 3px;
+  border-radius: 50%;
+  color: white;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .cont-card {
+    width: 50%;
+  }
+  .agent-card {
+    padding: 0.7rem;
+  }
+  .cards-containers {
+    padding: 0.5rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .cont-card {
+    width: 50%;
+  }
+  .agent-card {
+    padding: 1rem 1.5rem 1rem 1.5rem;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+  .cont-card {
+    width: 33.3%;
+  }
+}

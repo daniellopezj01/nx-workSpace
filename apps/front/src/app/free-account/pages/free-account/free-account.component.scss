@@ -1,0 +1,45 @@
+@import "./src/shared.scss";
+
+.go-to-profile {
+  //font-weight: bold;
+  color: $base-color;
+  cursor: pointer;
+}
+
+.general-cont {
+  width: 100%;
+  min-height: 60vh;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .cont-card {
+    width: 50%;
+  }
+  .title-card {
+    text-align: left !important;
+    font-size: $font-size-1;
+  }
+  .card {
+    padding: 0.7rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .cont-card {
+    width: 50%;
+  }
+  .card {
+    padding: 1rem 1.5rem 1rem 1.5rem;
+  }
+  .header-title p-3 {
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+  .cont-card {
+    width: 33.3%;
+  }
+}

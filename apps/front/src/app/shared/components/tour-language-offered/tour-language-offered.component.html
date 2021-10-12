@@ -1,0 +1,37 @@
+<span class="d-flex h-100" [ngSwitch]="type">
+  <div class="style-language" *ngSwitchCase="'simple'">
+    <ng-container *ngTemplateOutlet="simpleTemplate"></ng-container>
+  </div>
+  <div
+    class="container-details"
+    [ngClass]="{ 'text-center': centerText }"
+    *ngSwitchCase="'inDetails'"
+  >
+    <ng-container *ngTemplateOutlet="inDetailsTemplate"></ng-container>
+  </div>
+</span>
+
+<ng-template #simpleTemplate>
+  <div class="container-img-simple">
+    <img
+      [ngStyle]="{ 'max-width': sizeIcon + 'px' }"
+      [src]="currentLanguage?.icon"
+      alt="flag"
+    />
+  </div>
+  <span>{{ currentLanguage?.text | translate }}</span>
+</ng-template>
+
+<ng-template #inDetailsTemplate>
+  <div class="container-img">
+    <img
+      [ngStyle]="{ 'max-width': sizeIcon + 'px' }"
+      [src]="currentLanguage?.icon"
+      alt="flag"
+    />
+  </div>
+  <span class="text-details small text-muted">{{
+    "DETAILS_TOUR.LANGUAGE" | translate
+  }}</span>
+  <span>{{ currentLanguage?.text | translate }}</span>
+</ng-template>
