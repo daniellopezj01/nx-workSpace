@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/directive-selector */
 import {
   Directive,
   ElementRef,
@@ -13,11 +14,9 @@ import { SharedService } from '../../core/services/shared.service';
 })
 export class HighlightDirective {
   // tslint:disable-next-line:no-output-rename
-  @Output('clickOutside') clickOutside: EventEmitter<any> = new EventEmitter();
+  @Output() clickOutside: EventEmitter<any> = new EventEmitter();
 
-  @HostListener('document:click', ['$event.target']) onMouseEnter(
-    targetElement
-  ) {
+  @HostListener('document:click', ['$event.target']) onMouseEnter(targetElement: any) {
     const id = targetElement.id;
     const clickedInside = this.elementRef.nativeElement.contains(targetElement);
     if (!clickedInside) {

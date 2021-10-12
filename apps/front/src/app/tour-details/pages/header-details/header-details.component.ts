@@ -37,9 +37,9 @@ export class HeaderDetailsComponent implements OnInit {
     height: 515,
     width: '100%',
   };
-  public numberImage: number = 0;
+  public numberImage = 0;
   public numberSmallImage = 4;
-  public beginImages: number = 0;
+  public beginImages = 0;
   public amountSave = 0;
   public customFullDescription: Description = {
     strategy: DescriptionStrategy.HIDE_IF_EMPTY,
@@ -67,8 +67,8 @@ export class HeaderDetailsComponent implements OnInit {
     this.numberImage = this.tour?.video ? 4 : 5;
     this.beginImages = this.tour?.video ? 0 : 1;
     let index = 0;
-    _.map(this.tour.attached, (a, i) => {
-      const route = this.deviceService.isDesktop() ? a.source.medium : a.source.sm
+    _.map(this.tour.attached, (a: any, i) => {
+      const route = this.deviceService.isDesktop() ? a?.source?.medium : a?.source?.sm
       this.images.push(new Image(index, { img: route }));
       index++;
     });
@@ -102,7 +102,6 @@ export class HeaderDetailsComponent implements OnInit {
     this.visibleVideo = !this.visibleVideo;
   }
 
-
   ready($event: any) {
     this.player = $event.target;
   }
@@ -129,4 +128,10 @@ export class HeaderDetailsComponent implements OnInit {
       };
     }
   }
+}
+
+export class AttachedModel {
+  source?: any;
+  // creator?: string = '';
+  // dateCreate?: string = '';
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -11,7 +11,7 @@ import { RestService } from '../../../core/services/rest.service';
   templateUrl: './forgot.component.html',
   styleUrls: ['./forgot.component.scss'],
 })
-export class ForgotComponent implements OnInit {
+export class ForgotComponent {
   public subForget = false;
   public forgetForm: FormGroup;
   public loading = false;
@@ -23,13 +23,13 @@ export class ForgotComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private rest: RestService
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.forgetForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
     });
   }
+
+
 
   validateinput(control: any) {
     return (

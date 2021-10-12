@@ -1,12 +1,12 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { TripsServiceService } from './services/trips-service.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import * as _ from 'lodash';
-import * as moment from 'moment';
+import _ from 'lodash';
+import moment from 'moment';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { RestService } from '../../../core/services/rest.service';
 

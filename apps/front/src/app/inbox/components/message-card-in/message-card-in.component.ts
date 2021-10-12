@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -29,8 +30,8 @@ export class MessageCardInComponent implements OnInit {
     // tslint:disable-next-line:variable-name
     _id: '',
   };
-  private form: FormGroup;
-  private user: any;
+  public form: FormGroup;
+  public user: any;
   public listSubscribers: any = [];
   public config: PerfectScrollbarConfigInterface = {};
   @ViewChild(PerfectScrollbarDirective, { static: false })
@@ -107,21 +108,21 @@ export class MessageCardInComponent implements OnInit {
 }
 
 export class CardInbox {
-  createdAt: string = '';
+  createdAt?: string = '';
   firstMessage: any;
-  hash: string = '';
+  hash?: string = '';
   members: Array<any> = [];
   messages: Array<MessageModel> = [];
   list: Array<MessageModel> = [];
   toFrom: Array<any> = [];
-  type: string = '';
-  updatedAt: string = '';
+  type?: string = '';
+  updatedAt?: string = '';
   // tslint:disable-next-line:variable-name
-  _id: string = '';
+  _id?: string = '';
 }
 
 export class MessageModel {
-  message: string = '';
-  creator: string = '';
-  dateCreate: string = '';
+  message?: string = '';
+  creator?: string = '';
+  dateCreate?: string = '';
 }

@@ -1,19 +1,12 @@
 import {
   Component,
-  ElementRef,
-  EventEmitter,
   forwardRef,
-  HostBinding,
-  HostListener,
   Input,
   OnDestroy,
   OnInit,
-  Output,
-  Renderer2,
   ViewChild,
 } from '@angular/core';
 import {
-  faCamera,
   faPaperclip,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
@@ -36,24 +29,28 @@ import 'quill-mention';
 })
 export class TextRichComponent implements OnInit, OnDestroy {
   @ViewChild(QuillEditorComponent, { static: true })
-  editor: QuillEditorComponent;
-  faTimes = faTimes;
-  faPaperclip = faPaperclip;
-  modules: any;
+  public editor?: QuillEditorComponent;
+  public faTimes = faTimes;
+  public faPaperclip = faPaperclip;
+  public modules: any;
   @Input() mode = 'add';
-  @Input() isFull: boolean;
-  @Input() cancelBtn: boolean;
-  listSubscribers: Subscription[] = [];
+  @Input() isFull?: boolean;
+  @Input() cancelBtn?: boolean;
+  public listSubscribers: Subscription[] = [];
   // tslint:disable-next-line:variable-name
   public users_subscriptions: any = [];
-  public fullMode: boolean;
-  counter = 0;
-  value: string;
-  isDisabled: boolean;
-  onChange = (_: any) => {};
-  onTouch = () => {};
+  public fullMode?: boolean;
+  public counter = 0;
+  public value = '';
+  public isDisabled?: boolean;
+  onChange = (_: any) => {
+    console.log('onChange')
+  };
+  onTouch = () => {
+    console.log('onTouch')
+  };
 
-  constructor(public textRich: TextRichService) {}
+  constructor(public textRich: TextRichService) { }
 
   clickAction = (a = null) => {
     this.fullMode = false;
@@ -68,7 +65,7 @@ export class TextRichComponent implements OnInit, OnDestroy {
   /**
    * ReactForm
    */
-  onInput(value: string | any) {
+  onInput(value: any) {
     const { html } = value;
     this.counter = html ? html.length : 0;
     this.value = html;
@@ -115,21 +112,21 @@ export class TextRichComponent implements OnInit, OnDestroy {
     this.modules = {
       mention: {
         allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
-        onSelect: (item, insertItem) => {
+        onSelect: (item: any, insertItem: any) => {
           this.onSelectMention(item, insertItem);
-          const editor = this.editor.quillEditor;
+          const editor = this.editor?.quillEditor;
           insertItem(item);
           editor.insertText(editor.getLength() - 1, '', 'user');
         },
 
-        source: async (searchTerm, renderList) => {
+        source: async (searchTerm: any, renderList: any) => {
           const values = (await this.textRich.loadUser(searchTerm)) as any;
           if (searchTerm.length === 0) {
             renderList(values, searchTerm);
           } else {
-            const matches = [];
+            const matches: any = [];
 
-            values.forEach((entry) => {
+            values.forEach((entry: any) => {
               if (
                 entry.value.toLowerCase().indexOf(searchTerm.toLowerCase()) !==
                 -1
@@ -148,18 +145,19 @@ export class TextRichComponent implements OnInit, OnDestroy {
   removeMentionUser = (data: string) => {
     try {
       setTimeout(() => {
-        const containerEdit = this.editor.quillEditor.container;
+        const containerEdit = this.editor?.quillEditor.container;
         const listMentions = containerEdit.querySelectorAll(
           '.ql-editor .mention'
         );
-        const really = [];
-        listMentions.forEach((element) => {
+        const really: any = [];
+        listMentions.forEach((element: any) => {
           const { id } = element.dataset;
           really.push(id);
         });
 
         this.textRich.userRemoved.emit(really);
       }, 200);
+      return null
     } catch (e) {
       console.log(e);
       return null;

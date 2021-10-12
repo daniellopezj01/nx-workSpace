@@ -1,4 +1,4 @@
-<div class=" ">
+<div class="">
   <div class="container pt-5 pl-0 pr-0">
     <div class="d-flex row m-0 pb-4">
       <div
@@ -12,7 +12,7 @@
           <div class="">
             <div class="pb-1" *ngFor="let link of item?.data">
               <a
-                class="link link-d "
+                class="link link-d"
                 [href]="(link?.key | translate).LINK"
                 target="_blank"
               >
@@ -25,16 +25,27 @@
     </div>
     <div class="d-flex justify-content-between pt-3 pb-3">
       <div
-        class="small align-content-center align-items-center col-sm-12 col-md-12 col-lg-6 col-xl-6 d-flex"
+        class="
+          small
+          align-content-center align-items-center
+          col-sm-12 col-md-12 col-lg-6 col-xl-6
+          d-flex
+        "
       >
         <a [href]="item?.href" target="_blank" *ngFor="let item of iconsSocial">
-          <fa-icon class="icons" [icon]="item?.icon"></fa-icon>
+          <fa-icon class="icons" [icon]="item.icon"></fa-icon>
         </a>
       </div>
       <div
-        class="small align-content-center align-items-center col-sm-12 col-md-12 col-lg-6 col-xl-6 justify-content-end d-flex"
+        class="
+          small
+          align-content-center align-items-center
+          col-sm-12 col-md-12 col-lg-6 col-xl-6
+          justify-content-end
+          d-flex
+        "
       >
-        {{ "SHARED.ALL_RIGHTS_RESERVED" | translate }}
+        {{ 'SHARED.ALL_RIGHTS_RESERVED' | translate }}
       </div>
     </div>
   </div>

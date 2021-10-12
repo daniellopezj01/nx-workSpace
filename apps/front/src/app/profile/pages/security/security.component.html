@@ -96,7 +96,7 @@
           />
           <div class="message-error">
             <div *ngIf="validateInput(f.old)">
-              <div *ngIf="f.old.errors.required">
+              <div *ngIf="f.old.errors?.required">
                 <span>{{ 'AUTH_LOGIN.EMPTY_PASSWORD' | translate }}</span>
               </div>
               <div class="message-error-login" *ngIf="f.old.errors?.minlength">
@@ -147,7 +147,7 @@
           />
           <div class="message-error">
             <div *ngIf="validateInput(f.confirmpassword)">
-              <div *ngIf="f.confirmpassword.errors.required">
+              <div *ngIf="f.confirmpassword.errors?.required">
                 <span>{{ 'AUTH_LOGIN.EMPTY_PASSWORD' | translate }}</span>
               </div>
               <div

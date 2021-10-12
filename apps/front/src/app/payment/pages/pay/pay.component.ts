@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ErrorComponent } from '../error/error.component';
 import {
   Component,
@@ -28,21 +29,21 @@ import { ModalsService } from '../../../core/services/modals.service';
   templateUrl: './pay.component.html',
   styleUrls: ['./pay.component.scss'],
 })
-export class PayComponent implements OnInit, AfterViewInit {
-  @ViewChild('inputAmount') inputAmount: ElementRef;
-  @ViewChild('cardInfoNumber') cardInfoNumber: ElementRef;
-  @ViewChild('cardInfoCvv') cardInfoCvv: ElementRef;
-  @ViewChild('cardInfoExp') cardInfoExp: ElementRef;
+export class PayComponent implements OnInit {
+  @ViewChild('inputAmount') inputAmount?: ElementRef;
+  @ViewChild('cardInfoNumber') cardInfoNumber?: ElementRef;
+  @ViewChild('cardInfoCvv') cardInfoCvv?: ElementRef;
+  @ViewChild('cardInfoExp') cardInfoExp?: ElementRef;
   cardHandlerCard = this.onChangeCard.bind(this);
   cardHandlerCvv = this.onChangeCvv.bind(this);
   cardHandlerExp = this.onChangeExp.bind(this);
   public departure: any;
   public loading = false;
   public disabled = true;
-  private elementStripe: any = [];
-  private cardNumber: any = null;
-  private cardExp: any = null;
-  private cardCvv: any = null;
+  public elementStripe: any = [];
+  public cardNumber: any = null;
+  public cardExp: any = null;
+  public cardCvv: any = null;
   private STRIPE: any;
   private codeReservation: any;
   public isReservation = false;
@@ -73,10 +74,8 @@ export class PayComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2,
     public cookieService: CookieService,
     private modalService: ModalsService,
-    @Inject(PLATFORM_ID) private platformId
-  ) { }
-
-  ngOnInit(): void {
+    @Inject(PLATFORM_ID) private platformId: any
+  ) {
     this.payForm = this.formBuilder.group({
       amount: ['', [Validators.required, Validators.min(1)]],
       checkTerms: [false, [Validators.required, Validators.requiredTrue]],
@@ -85,18 +84,15 @@ export class PayComponent implements OnInit, AfterViewInit {
       cardCvv: [false, [Validators.required, Validators.requiredTrue]],
       cardExp: [false, [Validators.required, Validators.requiredTrue]],
     });
+  }
+
+  ngOnInit(): void {
     this.begin();
   }
 
-  ngAfterViewInit(): void {
-
-  }
-
-  validateAgain(data): any {
-    this.payForm
-      .get('amount')
-      .setValidators([Validators.required, Validators.max(data?.pending), Validators.min(1)]);
-    this.payForm.get('amount').updateValueAndValidity();
+  validateAgain(data: any): any {
+    this.payForm.get('amount')?.setValidators([Validators.required, Validators.max(data?.pending), Validators.min(1)]);
+    this.payForm.get('amount')?.updateValueAndValidity();
   }
 
   begin() {
@@ -115,7 +111,7 @@ export class PayComponent implements OnInit, AfterViewInit {
             this.data = _.head(data)
             this.payForm.patchValue({ amount: this.data?.price.totalPrice });
             this.renderer.setAttribute(
-              this.inputAmount.nativeElement,
+              this.inputAmount?.nativeElement,
               'readonly',
               'true'
             );
@@ -154,7 +150,7 @@ export class PayComponent implements OnInit, AfterViewInit {
               this.pCheckWallet = this.totalWallet >= totalPayment;
               this.payForm.patchValue({ amount: totalPayment });
               this.renderer.setAttribute(
-                this.inputAmount.nativeElement,
+                this.inputAmount?.nativeElement,
                 'readonly',
                 'true'
               );
@@ -178,22 +174,22 @@ export class PayComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onChangeCard({ error }) {
+  onChangeCard({ error }: any) {
     this.payForm.patchValue({ cardNumber: !error });
     this.cd.detectChanges();
   }
 
-  onChangeCvv({ error }) {
+  onChangeCvv({ error }: any) {
     this.payForm.patchValue({ cardCvv: !error });
     this.cd.detectChanges();
   }
 
-  onChangeExp({ error }) {
+  onChangeExp({ error }: any) {
     this.payForm.patchValue({ cardExp: !error });
     this.cd.detectChanges();
   }
 
-  check($event, i) {
+  check($event: any, i: any) {
     if (i === 1) {
       this.payForm.patchValue({ checkTerms: $event.checked });
     } else {
@@ -201,7 +197,7 @@ export class PayComponent implements OnInit, AfterViewInit {
     }
   }
 
-  checkPayAll({ checked }) {
+  checkPayAll({ checked }: any) {
     this.amount = checked ? this.data.pending : 0;
     this.payForm.patchValue({ amount: this.amount });
     if (this.data.status === 'progress' && this.totalWallet > 0) {
@@ -209,7 +205,7 @@ export class PayComponent implements OnInit, AfterViewInit {
     }
   }
 
-  paymentWIthWallet({ checked }) {
+  paymentWIthWallet({ checked }: any) {
     this.activeFormPayment = !checked;
     setTimeout(() => {
       if (!checked) {
@@ -224,14 +220,14 @@ export class PayComponent implements OnInit, AfterViewInit {
       }
       this.payForm.patchValue({ amount: this.amount });
       if (checked) {
-        this.renderer.setAttribute(this.inputAmount.nativeElement, 'readonly', 'true');
+        this.renderer.setAttribute(this.inputAmount?.nativeElement, 'readonly', 'true');
       } else {
-        this.renderer.removeAttribute(this.inputAmount.nativeElement, 'readonly');
+        this.renderer.removeAttribute(this.inputAmount?.nativeElement, 'readonly');
       }
     }
   }
 
-  onChangeAmount(event) {
+  onChangeAmount(event: any) {
     if (this.data) {
       this.amountInNumber = this.transformString(event);
       const { pending } = this.data;
@@ -250,7 +246,7 @@ export class PayComponent implements OnInit, AfterViewInit {
       .load('stripe')
       .then((data: any) => {
         if (data) {
-          data.map((a) => {
+          data.map((a: any) => {
             if (a.script === 'stripe') {
               if (isPlatformBrowser(this.platformId)) {
                 // @ts-ignore
@@ -315,14 +311,14 @@ export class PayComponent implements OnInit, AfterViewInit {
     this.loading = true;
     if (this.activeFormPayment) {
       this.STRIPE.createToken(this.cardNumber)
-        .then(async (res) => {
+        .then(async (res: any) => {
           if (res.error) {
             this.loading = false;
           } else {
             this.payIntent(res.token.id);
           }
         })
-        .catch((err) => {
+        .catch((err: any) => {
           console.log(err);
           this.loading = false;
         });
@@ -359,7 +355,7 @@ export class PayComponent implements OnInit, AfterViewInit {
     }
   }
 
-  payIntent = (token) => {
+  payIntent = (token: any) => {
     const { amount } = this.payForm.value;
     const object: any = {
       token,
@@ -420,14 +416,14 @@ export class PayComponent implements OnInit, AfterViewInit {
       this.STRIPE.handleCardPayment(pi, this.cardNumber, {
         payment_method_data: {},
       })
-        .then((a) => {
+        .then((a: any) => {
           if (a.error) {
             reject(a.error);
           } else {
             resolve(a);
           }
         })
-        .catch((err) => {
+        .catch((err: any) => {
           console.log(err.message);
           this.changeButton(false);
           reject(err);
@@ -435,7 +431,7 @@ export class PayComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openError(message) {
+  openError(message: any) {
     const data = { errorStripe: message };
     this.modalService.openComponent(
       data,
@@ -444,7 +440,7 @@ export class PayComponent implements OnInit, AfterViewInit {
     );
   }
 
-  changeButton(b) {
+  changeButton(b: any) {
     this.loading = b;
     this.disabled = b;
   }

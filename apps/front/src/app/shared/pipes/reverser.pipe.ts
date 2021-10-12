@@ -5,7 +5,7 @@ import * as _ from 'lodash';
   name: 'reverser',
 })
 export class ReverserPipe implements PipeTransform {
-  transform(value: any, ...args: unknown[]): unknown {
+  transform(value: any, ...args: unknown[]): any {
     try {
       return _.reverse(value);
     } catch (e) {

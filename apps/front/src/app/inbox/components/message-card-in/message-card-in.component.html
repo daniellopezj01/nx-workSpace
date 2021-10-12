@@ -8,7 +8,15 @@
   ></ng-container>
   <div
     *ngIf="data?.openBox"
-    class="d-flex w-100 align-content-center align-items-center justify-content-between pt-0 pb-1 border-message"
+    class="
+      d-flex
+      w-100
+      align-content-center align-items-center
+      justify-content-between
+      pt-0
+      pb-1
+      border-message
+    "
   >
     <form [formGroup]="form" class="w-100">
       <textarea
@@ -23,7 +31,16 @@
         rows="10"
       ></textarea>
       <div
-        class="w-100 d-flex justify-content-end pl-2 pr-2 pt-1 pb-1 bottom-bar-message"
+        class="
+          w-100
+          d-flex
+          justify-content-end
+          pl-2
+          pr-2
+          pt-1
+          pb-1
+          bottom-bar-message
+        "
       >
         <button
           name="sendMessage"
@@ -43,7 +60,15 @@
 <ng-template #header let-message="message" let-i="i">
   <div
     (click)="openBox(data)"
-    class="d-flex w-100 align-content-center header-chat align-items-center justify-content-between p-1"
+    class="
+      d-flex
+      w-100
+      align-content-center
+      header-chat
+      align-items-center
+      justify-content-between
+      p-1
+    "
   >
     <div class="d-flex align-content-center align-items-center truncate">
       <div
@@ -74,7 +99,7 @@
     class="w-100 pl-2 pr-2 pt-3 pb-3 text-center text-muted"
     *ngIf="message?.mock && open"
   >
-    {{ "INBOX.GREETING_USER" | translate }}
+    {{ 'INBOX.GREETING_USER' | translate }}
   </div>
   <div
     [perfectScrollbar]="config"
@@ -83,7 +108,7 @@
   >
     <div
       class="bubble-chat d-flex w-100"
-      [ngClass]="{ 'send-by-me': a?.creator === this.user?._id }"
+      [ngClass]="{ 'send-by-me': a?.creator === user?._id }"
       *ngFor="let a of message?.list"
     >
       <div class="pr-1 pt-1">
@@ -98,7 +123,7 @@
       <div>
         <p class="m-0 word-break" [innerHTML]="a?.message | linkify"></p>
         <span class="text-muted small">{{
-          a?.dateCreate | date: "short"
+          a?.dateCreate | date: 'short'
         }}</span>
       </div>
     </div>

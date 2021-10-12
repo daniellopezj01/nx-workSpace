@@ -8,15 +8,13 @@ import { ModalsService } from '../../../core/services/modals.service';
   templateUrl: './modal-media.component.html',
   styleUrls: ['./modal-media.component.scss'],
 })
-export class ModalMediaComponent implements OnInit {
-  public url: string = '';
+export class ModalMediaComponent {
+  public url?: string = '';
   public faTimes = faTimes;
   public modalRef: BsModalRef | undefined;
   constructor(private modals: ModalsService, private library: FaIconLibrary) {
     library.addIcons(faTimes);
   }
-
-  ngOnInit(): void { }
 
   public close() {
     this.modals.close();

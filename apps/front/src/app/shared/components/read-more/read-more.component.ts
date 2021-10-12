@@ -6,17 +6,15 @@ import { Component, Input, OnInit, EventEmitter } from '@angular/core';
   styleUrls: ['./read-more.component.scss'],
 })
 export class ReadMoreComponent implements OnInit {
-  @Input() content: string;
-  @Input() classText: string;
-  @Input() limit: number;
-  @Input() minLimit: number;
-  @Input() completeWords: boolean;
+  @Input() content = '';
+  @Input() classText?: string;
+  @Input() limit?: number;
+  @Input() minLimit = 0;
+  @Input() completeWords?: boolean;
   @Input() activeControls = true;
 
-  isContentToggled: boolean;
-  nonEditedContent: string;
-
-  constructor() {}
+  public isContentToggled?: boolean;
+  public nonEditedContent = '';
 
   ngOnInit() {
     if (this.activeControls) {
@@ -30,9 +28,7 @@ export class ReadMoreComponent implements OnInit {
 
   toggleContent() {
     this.isContentToggled = !this.isContentToggled;
-    this.content = this.isContentToggled
-      ? this.nonEditedContent
-      : this.formatContent(this.content);
+    this.content = this.isContentToggled ? this.nonEditedContent : this.formatContent(this.content);
   }
 
   formatContent(content: string) {

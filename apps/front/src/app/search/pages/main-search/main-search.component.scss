@@ -1,4 +1,4 @@
-@import "./src/shared";
+@import '../../../../shared';
 
 .cont-main-search {
   margin-left: auto;
@@ -70,7 +70,7 @@
   //border-color: $base-color $base-color white white !important;
 }
 .classActive:after {
-  content: "";
+  content: '';
   height: 2px;
   background: $base-color;
   position: absolute;

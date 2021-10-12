@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import * as _ from 'lodash';
-import {DepartureService} from '../../services/departure.service';
+import { DepartureService } from '../../services/departure.service';
 
 @Component({
   selector: 'app-card-departure',
@@ -11,10 +11,10 @@ import {DepartureService} from '../../services/departure.service';
 export class CardDepartureComponent implements OnInit {
   @Input() item: any;
   @Input() activeDepartures: any;
-  opacity = '0.5';
-  hover;
-  faArrowRight = faArrowRight;
-  fromPercentage = false;
+  public opacity = '0.5';
+  public hover: any;
+  public faArrowRight = faArrowRight;
+  public fromPercentage = false;
   constructor(private service: DepartureService) { }
 
   ngOnInit(): void {
@@ -25,9 +25,9 @@ export class CardDepartureComponent implements OnInit {
     );
   }
 
-  calcDiscount = (max, min) => Math.trunc(max - min);
+  calcDiscount = (max: any, min: any) => Math.trunc(max - min);
 
-  changeInputValue(item) {
+  changeInputValue(item: any) {
     if (['OK', 'visible', true].includes(item?.status)) {
       setTimeout(() => {
         if (!this.fromPercentage) {
@@ -39,7 +39,7 @@ export class CardDepartureComponent implements OnInit {
     }
   }
 
-  selectPercentage(index) {
+  selectPercentage(index: any) {
     this.fromPercentage = true;
     this.service.selectIndexPercentage = index;
   }

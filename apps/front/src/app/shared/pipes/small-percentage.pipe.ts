@@ -5,7 +5,7 @@ import * as _ from 'lodash';
   name: 'smallPercentage',
 })
 export class SmallPercentagePipe implements PipeTransform {
-  transform(value: any, ...args: unknown[]): unknown {
+  transform(value: any, ...args: unknown[]): any {
     if (value) {
       const { payAmount, normalPrice } = value;
       const min = _.minBy(payAmount, (i: any) => i.percentageAmount);

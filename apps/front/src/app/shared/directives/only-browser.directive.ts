@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/directive-selector */
 import {
   Directive,
   ElementRef,
@@ -14,7 +15,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class OnlyBrowserDirective {
   @Input()
-  set appOnlyBrowser(val) {
+  set appOnlyBrowser(val: any) {
     if (isPlatformBrowser(this.platformId)) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {
@@ -26,6 +27,6 @@ export class OnlyBrowserDirective {
     private element: ElementRef,
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    @Inject(PLATFORM_ID) private platformId
-  ) {}
+    @Inject(PLATFORM_ID) private platformId: any
+  ) { }
 }

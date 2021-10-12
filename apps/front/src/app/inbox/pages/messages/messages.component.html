@@ -36,7 +36,7 @@
               <div class="send combinate-style">
                 <div [innerHTML]="message.message | linkify"></div>
                 <span class="time small text-muted"
-                  >{{ message.dateCreate | date: "shortTime" }}
+                  >{{ message.dateCreate | date: 'shortTime' }}
                 </span>
               </div>
             </ng-template>
@@ -44,7 +44,7 @@
               <div class="receive combinate-style">
                 <div [innerHTML]="message.message | linkify"></div>
                 <span class="time small text-muted"
-                  >{{ message.dateCreate | date: "shortTime" }}
+                  >{{ message.dateCreate | date: 'shortTime' }}
                 </span>
               </div>
             </ng-template>
@@ -67,7 +67,14 @@
           [placeholder]="'INBOX.WRITE_MESSAGE' | translate"
         ></textarea>
         <div
-          class="group-btn-send d-flex align-items-center align-content-center justify-content-center pl-2 pr-2"
+          class="
+            group-btn-send
+            d-flex
+            align-items-center align-content-center
+            justify-content-center
+            pl-2
+            pr-2
+          "
         >
           <button
             name="message"
@@ -89,12 +96,12 @@
 <ng-template #loadingRef let-loading="loading">
   <div
     class="w-100 loading-wrap animate__animated animate__fadeIn"
-    *ngIf="loading == true"
+    *ngIf="loading"
   >
     <div class="in">
       <img class="circle" src="/assets/loading.svg" alt="loading" />
       <div>
-        <small>{{ "GENERAL.LOADING" | translate }}</small>
+        <small>{{ 'GENERAL.LOADING' | translate }}</small>
       </div>
     </div>
   </div>
@@ -110,7 +117,7 @@
         alt="err"
       />
       <div>
-        <small>{{ "GENERAL.ERROR" | translate }}</small>
+        <small>{{ 'GENERAL.ERROR' | translate }}</small>
       </div>
     </div>
   </div>

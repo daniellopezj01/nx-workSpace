@@ -13,8 +13,8 @@
               class="cont-card"
               [ngStyle]="{ 'background-color': item?.color }"
             >
-              <h3 class="title-blog">{{ item?.title | translate }}</h3>
-              <p class="content-blog">{{ item?.content | translate }}</p>
+              <h3 class="title-blog">{{ item.title | translate }}</h3>
+              <p class="content-blog">{{ item.content | translate }}</p>
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@
       <div class="w-100">
         <div class="destination">
           <div class="global-title-home">
-            <h2>{{ "HOME.TITLE_DESTINATION" | translate }}</h2>
+            <h2>{{ 'HOME.TITLE_DESTINATION' | translate }}</h2>
           </div>
           <div class="info-destination custom-row">
             <div
@@ -56,27 +56,43 @@
     <section *appVisibility="block3">
       <div class="general pb-4">
         <div class="global-title-home">
-          <h2 class="text-white">{{ "HOME.TITLE_GENERAL" | translate }}</h2>
+          <h2 class="text-white">{{ 'HOME.TITLE_GENERAL' | translate }}</h2>
         </div>
         <div class="cont-cards-generals custom-row">
           <div
-            class="card-general col-xs-12 col-md-6 pl-0 pr-0 col-lg-4 col-xl-4 position-relative"
+            class="
+              card-general
+              col-xs-12 col-md-6
+              pl-0
+              pr-0
+              col-lg-4 col-xl-4
+              position-relative
+            "
             [ngClass]="{ 'col-m-12': last, 'col-md-6': !last }"
             *ngFor="let item of generalData; let last = last"
           >
             <figure
-              class="imghvr-push-down general main-image-home content-general-card img-fluid lazyload"
+              class="
+                imghvr-push-down
+                general
+                main-image-home
+                content-general-card
+                img-fluid
+                lazyload
+              "
             >
               <div class="inside-general">
                 <div class="inside-general-title p-2">
-                  <h3 class="m-0 text-dark">{{ item?.title | translate }}</h3>
+                  <h3 class="m-0 text-dark">
+                    {{ item.title | translate }}
+                  </h3>
                 </div>
-                <p>{{ item?.subTitle | translate }}</p>
+                <p>{{ item.subTitle | translate }}</p>
               </div>
               <img
                 appImgFallback
                 class="w-100 image-block"
-                [src]="item?.img"
+                [src]="item.img"
                 alt="main"
               />
               <figcaption>
@@ -100,10 +116,10 @@
     <section *appVisibility="histories">
       <div class="w-100">
         <div class="global-title-home">
-          <h2>{{ "HOME.TITLE_HISTORIES" | translate }}</h2>
+          <h2>{{ 'HOME.TITLE_HISTORIES' | translate }}</h2>
         </div>
         <div class="global-subtitle-home">
-          <span>{{ "HOME.SUBTITLE_HISTORIES" | translate }}</span>
+          <span>{{ 'HOME.SUBTITLE_HISTORIES' | translate }}</span>
         </div>
         <div class="content-history custom-row">
           <ng-container *appOnlyBrowser="true">
@@ -144,7 +160,11 @@
                     </div>
                     <div class="content-card-history">
                       <div
-                        class="d-flex w-100 align-items-center align-content-center"
+                        class="
+                          d-flex
+                          w-100
+                          align-items-center align-content-center
+                        "
                       >
                         <ngx-avatar
                           [cornerRadius]="3"
@@ -172,16 +192,22 @@
       <div class="container-main position-relative">
         <div class="overlay-black"></div>
         <div
-          class="container-body-trips d-flex justify-content-center px-3 align-content-center align-items-center"
+          class="
+            container-body-trips
+            d-flex
+            justify-content-center
+            px-3
+            align-content-center align-items-center
+          "
         >
           <div class="text-center z-index-1">
             <div class="image-trips-first-div text-center">
               <h2 class="">
-                {{ "HOME.HOT_TRIPS" | translate }}
+                {{ 'HOME.HOT_TRIPS' | translate }}
               </h2>
             </div>
             <div class="text-white">
-              {{ "HOME.SECOND_HOT_TRIPS" | translate }}
+              {{ 'HOME.SECOND_HOT_TRIPS' | translate }}
             </div>
             <div class="pt-3">
               <button
@@ -189,7 +215,7 @@
                 class="btn btn-default btn-lg hvr-shrink"
                 [routerLink]="['/search']"
               >
-                {{ "HOME.SEE_TRIPS" | translate }}
+                {{ 'HOME.SEE_TRIPS' | translate }}
               </button>
             </div>
           </div>
@@ -204,7 +230,7 @@
       <div class="w-100">
         <div class="comunity">
           <div class="global-title-home">
-            <h2>{{ "HOME.TITLE_COMUNITY" | translate }}</h2>
+            <h2>{{ 'HOME.TITLE_COMUNITY' | translate }}</h2>
           </div>
           <div class="info-comunity custom-row">
             <div class="card-comunity" *ngFor="let item of communityData">
@@ -213,8 +239,8 @@
                   <img
                     appImgFallback
                     class="main-image-home img-card"
-                    [src]="item?.img"
-                    alt="{{ item?.img }}"
+                    [src]="item.img"
+                    alt="{{ item.img }}"
                   />
                 </a>
                 <div class="name-instagram">
@@ -236,19 +262,23 @@
         <div class="overlay-black"></div>
         <div class="container-body-about row m-0">
           <div
-            class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 offset-xl-2 align-content-center align-items-center"
+            class="
+              col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6
+              offset-xl-2
+              align-content-center align-items-center
+            "
           >
             <h2 class="inside-about-title text-white">
-              {{ "HOME.TITLE_US" | translate }}
+              {{ 'HOME.TITLE_US' | translate }}
             </h2>
-            <div class="text-white">{{ "HOME.CONTENT_US" | translate }}</div>
+            <div class="text-white">{{ 'HOME.CONTENT_US' | translate }}</div>
             <div class="pt-3">
               <button
                 name="aboutUs"
                 class="btn btn-default btn-lg hvr-shrink"
                 [routerLink]="['/search']"
               >
-                {{ "HOME.SEE_TRIPS" | translate }}
+                {{ 'HOME.SEE_TRIPS' | translate }}
               </button>
             </div>
           </div>

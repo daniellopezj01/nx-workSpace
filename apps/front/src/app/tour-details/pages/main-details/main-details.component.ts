@@ -2,7 +2,6 @@ import { ReviewsService } from '../reviews/reviews.service';
 import {
   ChangeDetectorRef,
   Component,
-  HostListener,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
@@ -34,7 +33,7 @@ export class MainDetailsComponent implements OnInit, OnDestroy {
   private raiseOrLowerScroll = false;
   public key: any;
   public loading = false;
-  public tour: any;
+  public tour: any = {};
   public showGlobalNavigation = true;
   public listSubscribers: any = [];
   public amountSave = 0;

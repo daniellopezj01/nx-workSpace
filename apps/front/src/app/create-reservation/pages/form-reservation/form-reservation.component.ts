@@ -1,3 +1,5 @@
+import genderJson from '../../../../assets/jsonFiles//gender.json';
+import countriesJson from '../../../../assets/jsonFiles/countries.json';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -13,20 +15,15 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import genderJson from '@assetsFiles/jsonFiles/gender.json';
 import {
   SearchCountryField,
-  TooltipLabel,
   CountryISO,
 } from 'ngx-intl-tel-input';
-import countriesJson from '@assetsFiles/jsonFiles/countries.json';
 import { isPlatformBrowser } from '@angular/common';
 import { QuestionsComponent } from '../questions/questions.component';
-import * as moment from 'moment';
-import { BsDatepickerDirective } from 'ngx-bootstrap/datepicker';
+import moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
-import * as _ from 'lodash';
-import { AgentsComponent } from '../agents/agents.component';
+import _ from 'lodash';
 import { ModalsService } from '../../../core/services/modals.service';
 import { SharedService } from '../../../core/services/shared.service';
 import { RestService } from '../../../core/services/rest.service';
@@ -39,13 +36,14 @@ import { ModalAlertComponent } from '../../../shared/components/modal-alert/moda
 })
 export class FormReservationComponent
   implements OnInit, AfterViewChecked, OnDestroy {
-  @ViewChild('dp') public datapicker: BsDatepickerDirective | undefined;
+  @ViewChild('dp') public datapicker?: any;
+  // @ViewChild('dp') public datapicker?: BsDatepickerDirective;
   @ViewChild('inputPhone') public inputPhone: ElementRef | undefined;
   @Input() public departure: any;
   @Input() public tour: any;
   @Input() public intention: any;
+
   public SearchCountryField = SearchCountryField;
-  public TooltipLabel = TooltipLabel;
   public CountryISO = CountryISO;
   public loading = false;
   public reservationForm: FormGroup;

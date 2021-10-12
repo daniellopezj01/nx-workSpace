@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import * as moment from 'moment';
-import * as _ from 'lodash';
+import moment from 'moment';
+import _ from 'lodash';
 
 @Injectable({
   providedIn: 'root',

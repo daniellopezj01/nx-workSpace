@@ -1,4 +1,4 @@
-@import "./src/shared";
+@import '../../../../../../shared';
 
 .main {
   background-color: #444;
@@ -14,7 +14,7 @@
   cursor: pointer;
   padding: 0 0.5rem;
   span {
-    font-family: "Hind Siliguri", Sans-serif;
+    font-family: 'Hind Siliguri', Sans-serif;
     color: white;
     text-transform: capitalize;
     font-size: $font-size-5;

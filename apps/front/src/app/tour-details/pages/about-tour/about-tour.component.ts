@@ -20,7 +20,7 @@ import { isPlatformBrowser } from '@angular/common';
   templateUrl: './about-tour.component.html',
   styleUrls: ['./about-tour.component.scss'],
 })
-export class AboutTourComponent implements OnInit, AfterViewInit {
+export class AboutTourComponent implements AfterViewInit {
   @Input() tour: any;
   public activeDegradient = true;
   public activeDefaultHeight = true;
@@ -47,15 +47,15 @@ export class AboutTourComponent implements OnInit, AfterViewInit {
       icon: faUserLock,
     },
   ];
-  constructor(@Inject(PLATFORM_ID) private platformId, private cdref: ChangeDetectorRef) { }
-
-  ngOnInit(): void { }
+  constructor(@Inject(PLATFORM_ID) private platformId: any, private cdref: ChangeDetectorRef) { }
 
   ngAfterViewInit(): void {
     this.activeDefaultHeight = false;
     if (isPlatformBrowser(this.platformId)) {
       const buy = document.getElementById('buyInformation');
-      this.height = window.innerWidth > 760 ? buy.offsetHeight : 0;
+      if (buy) {
+        this.height = window.innerWidth > 760 ? buy.offsetHeight : 0;
+      }
     }
     this.cdref.detectChanges();
   }

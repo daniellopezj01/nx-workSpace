@@ -1,4 +1,4 @@
-@import "./src/shared.scss";
+@import '../../../../../shared.scss';
 
 .container-categories {
   width: 100%;
@@ -64,8 +64,8 @@
   margin: auto;
   height: 250px;
   width: 100%;
-  &:before{
-    content: "";
+  &:before {
+    content: '';
     position: absolute;
     background-color: rgba(0, 0, 0, 0.2);
     width: 100%;

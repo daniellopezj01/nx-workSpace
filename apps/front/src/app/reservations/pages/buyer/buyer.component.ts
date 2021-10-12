@@ -2,7 +2,8 @@ import { ReservationService } from '../../reservation.service';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import genderJson from '@assetsFiles/jsonFiles/gender.json';
+// import genderJson from '@assetsFiles/jsonFiles/gender.json';
+import genderJson from '../../../../assets/jsonFiles/gender.json';
 import { DatePipe } from '@angular/common';
 import {
   SearchCountryField,

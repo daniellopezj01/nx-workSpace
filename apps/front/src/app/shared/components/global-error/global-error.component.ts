@@ -5,8 +5,8 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './global-error.component.html',
   styleUrls: ['./global-error.component.scss']
 })
-export class GlobalErrorComponent implements OnInit {
-  @Input() errorStripe: string;
+export class GlobalErrorComponent {
+  @Input() errorStripe?: string;
   errors = [
     {
       value: 'Error',
@@ -18,10 +18,6 @@ export class GlobalErrorComponent implements OnInit {
       value: 'Error',
     }
   ];
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   // ClosemodalError() {
   //   this.modalService.close();

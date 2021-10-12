@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 })
 export class NumberCountriesPipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): unknown {
+  transform(value: unknown, ...args: unknown[]): any {
     let key = null;
     const cities = _.head(args);
     if (value === 1) {

@@ -8,10 +8,10 @@ import { RestService } from '../../../core/services/rest.service';
   styleUrls: ['./agency-callback.component.scss']
 })
 export class AgencyCallbackComponent implements OnInit {
-  loading: boolean;
-  data: any;
-  code: any;
-  err: any;
+  public loading = false;
+  public data: any;
+  public code: any;
+  public err: any;
 
   constructor(private rest: RestService,
     private active: ActivatedRoute,

@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { AfterViewInit, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -21,7 +21,7 @@ export class DropdownAccountComponent implements OnInit, OnDestroy {
   public listSubscribers: any = [];
   public ngAvatar: any;
   public accountMenu: any = []
-  public active: boolean = false
+  public active = false
 
   constructor(
     public translate: TranslateService,

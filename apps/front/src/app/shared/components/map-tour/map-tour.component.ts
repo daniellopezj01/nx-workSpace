@@ -1,5 +1,5 @@
+/* eslint-disable no-inner-declarations */
 import {
-  AfterViewChecked,
   ChangeDetectorRef,
   Component,
   Input,
@@ -8,10 +8,10 @@ import {
   Inject,
   PLATFORM_ID,
 } from '@angular/core';
-import * as MapBox from 'mapbox-gl';
+import MapBox from 'mapbox-gl';
 
-import * as _ from 'lodash';
-import * as turf from '@turf/turf';
+import _ from 'lodash';
+import turf from '@turf/turf';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../../environments/environment';
 import { RestService } from '../../../core/services/rest.service';
@@ -22,14 +22,16 @@ import { RestService } from '../../../core/services/rest.service';
   styleUrls: ['./map-tour.component.scss'],
 })
 export class MapTourComponent implements OnInit, AfterViewInit {
-  map: MapBox.Map;
   @Input() tour: any;
   @Input() marker = true;
-  dataCoordinate: any = [];
-  markers: MapBox = [];
-  arc: any = [];
-  small: boolean = false;
-  activeFirstChange = false;
+  public map?: any;
+  // public map?: MapBox.Map;
+  public dataCoordinate: any = [];
+  public markers: any = [];
+  // markers: MapBox = [];
+  public arc: any = [];
+  public small = false;
+  public activeFirstChange = false;
 
   constructor(
     private rest: RestService,
@@ -41,9 +43,12 @@ export class MapTourComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     if (this.tour) {
       const { itinerary } = this.tour;
-      Object.getOwnPropertyDescriptor(MapBox, 'accessToken').set(
-        environment.mapBoxApi
-      );
+
+      if (MapBox) {
+        // Object.getOwnPropertyDescriptor(MapBox, 'accessToken').set(environment.mapBoxApi)
+        MapBox.accessToken = environment.mapBoxApi;
+        // Object.getOwnPropertyDescriptor(MapBox, 'accessToken').set(environment.mapBoxApi)
+      }
       _.forEach(itinerary, (a) => {
         const point = a.stringLocation.coordinates;
         if (a.includedInMap || a.includedInMap === undefined) {
@@ -116,7 +121,7 @@ export class MapTourComponent implements OnInit, AfterViewInit {
     });
 
     for (let i = 0; i < lineDistance; i += lineDistance / steps) {
-      const segment = turf.along(routers.features[0], i, {
+      const segment: any = turf.along(routers.features[0], i, {
         units: 'kilometers',
       });
       this.arc.push(segment.geometry.coordinates);
@@ -132,16 +137,16 @@ export class MapTourComponent implements OnInit, AfterViewInit {
 
     this.map.on('load', () => {
       if (isPlatformBrowser(this.platformId)) {
-        this.map.addSource('route', {
+        this.map?.addSource('route', {
           type: 'geojson',
           data: routers,
         });
-        this.map.addSource('point', {
+        this.map?.addSource('point', {
           type: 'geojson',
           data: point,
         });
         const mapa = this.map;
-        this.map.addLayer({
+        this.map?.addLayer({
           id: 'route',
           source: 'route',
           type: 'line',
@@ -150,7 +155,7 @@ export class MapTourComponent implements OnInit, AfterViewInit {
             'line-color': '#ef233c',
           },
         });
-        this.map.addLayer({
+        this.map?.addLayer({
           id: 'point',
           source: 'point',
           type: 'symbol',
@@ -177,7 +182,7 @@ export class MapTourComponent implements OnInit, AfterViewInit {
               turf.point(firstCoordinate),
               turf.point(secondCoordinate)
             );
-            mapa.getSource('point').setData(point);
+            mapa?.getSource('point').setData(point);
           }
           if (counter < steps) {
             requestAnimationFrame(animate);
@@ -189,7 +194,7 @@ export class MapTourComponent implements OnInit, AfterViewInit {
         if (mainElement) {
           mainElement.addEventListener('click', () => {
             point.features[0].geometry.coordinates = origin;
-            mapa.getSource('point').setData(point);
+            mapa?.getSource('point').setData(point);
             counter = 0;
             animate();
           });
@@ -205,7 +210,7 @@ export class MapTourComponent implements OnInit, AfterViewInit {
     this.map.scrollZoom.disable();
     this.map.resize();
     this.map.addControl(new MapBox.NavigationControl());
-    const bounds = this.dataCoordinate.reduce((bound, coordinate) => {
+    const bounds = this.dataCoordinate.reduce((bound: any, coordinate: any) => {
       return bound.extend(coordinate);
     }, new MapBox.LngLatBounds(this.dataCoordinate[0], this.dataCoordinate[0]));
     this.map.fitBounds(bounds, {
@@ -217,12 +222,14 @@ export class MapTourComponent implements OnInit, AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       const el = document.createElement('div');
       el.className = 'marker-custom';
-      const pointMarker = new MapBox.Marker({
-        draggable: false,
-      })
-        .setLngLat(coordinate)
-        .addTo(this.map);
-      this.markers.push(pointMarker);
+      if (this.map) {
+        const pointMarker = new MapBox.Marker({
+          draggable: false,
+        })
+          .setLngLat(coordinate)
+          .addTo(this.map);
+        this.markers.push(pointMarker);
+      }
     }
   }
 

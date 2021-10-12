@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'filterData',
 })
 export class FilterDataPipe implements PipeTransform {
-  transform(value: unknown, args: any): unknown {
+  transform(value: any, args: any): any {
     try {
       return value[args];
     } catch (e) {

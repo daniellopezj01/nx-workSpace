@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { CloneVisitor } from '@angular/compiler/src/i18n/i18n_ast';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -12,7 +11,7 @@ import { RestService } from '../../../core/services/rest.service';
   templateUrl: './reset.component.html',
   styleUrls: ['./reset.component.scss'],
 })
-export class ResetComponent implements OnInit {
+export class ResetComponent {
   private subReset = false;
   public data: any = {};
   public passwordForm: FormGroup;
@@ -33,6 +32,9 @@ export class ResetComponent implements OnInit {
     private library: FaIconLibrary
   ) {
     library.addIcons(faEye, faEyeSlash);
+    this.passwordForm = this.formBuilder.group({
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
     this.data.id = this.active.snapshot.params.id;
     if (this.cookies.check('emailChange')) {
       this.email = this.cookies.get('emailChange');
@@ -42,11 +44,6 @@ export class ResetComponent implements OnInit {
     // }
   }
 
-  ngOnInit(): void {
-    this.passwordForm = this.formBuilder.group({
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
-  }
 
   validateinput(control: any) {
     return (

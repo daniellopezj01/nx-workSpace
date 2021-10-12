@@ -1,7 +1,7 @@
 <div class="main-container">
   <div class="section-title">
     <span class="main-title">
-      {{ "CREATE_RESERVATION.TRIP_SUMARY" | translate }}</span
+      {{ 'CREATE_RESERVATION.TRIP_SUMARY' | translate }}</span
     >
     <div
       class="important-section"
@@ -9,7 +9,7 @@
       placement="bottom"
     >
       <span class="pr-1"><i class="uil uil-exclamation-octagon"></i></span>
-      <span>{{ "CREATE_RESERVATION.TRIPS_NOTES" | translate }}</span>
+      <span>{{ 'CREATE_RESERVATION.TRIPS_NOTES' | translate }}</span>
     </div>
   </div>
 
@@ -40,12 +40,12 @@
 </div>
 <div class="container-why-book">
   <span class="main-title">
-    {{ "CREATE_RESERVATION.WHY_BOOK_WITH_US" | translate }}
+    {{ 'CREATE_RESERVATION.WHY_BOOK_WITH_US' | translate }}
   </span>
   <div class="container-with-us">
     <div class="icons-details-book-us" *ngFor="let item of dataBookUs">
       <i class="uil uil-check"></i>
-      <span class="trip-text pl-2">{{ item?.name | translate }}</span>
+      <span class="trip-text pl-2">{{ item?.name || '' | translate }}</span>
     </div>
   </div>
 </div>
@@ -53,13 +53,13 @@
 <ng-template #sectionNormalPrice>
   <div class="div-price">
     <span class="normal-price-text text-dark">{{
-      "DEPARTURES.TRIP_PRICE" | translate
+      'DEPARTURES.TRIP_PRICE' | translate
     }}</span>
     <span class="normal-price-number">
       {{
         departure?.normalPrice
-          | number: "1.2-2"
-          | currencyCurrent: "2:true":departure?.currencies
+          | number: '1.2-2'
+          | currencyCurrent: '2:true':departure?.currencies
       }}</span
     >
   </div>
@@ -72,8 +72,8 @@
       <span class="save-of-number"
         >-{{
           contract?.priceDiscount
-            | number: "1.2-2"
-            | currencyCurrent: "2:true":departure?.currencies
+            | number: '1.2-2'
+            | currencyCurrent: '2:true':departure?.currencies
         }}
       </span>
     </div>
@@ -82,12 +82,12 @@
 
 <ng-template #sectionTotalPrice>
   <div class="div-price" *ngIf="intention">
-    <span class="total-text">{{ "DEPARTURES.TOTAL_PRICE" | translate }} </span>
+    <span class="total-text">{{ 'DEPARTURES.TOTAL_PRICE' | translate }} </span>
     <span class="total-number">
       {{
         intention?.total
-          | number: "1.2-2"
-          | currencyCurrent: "2:true":departure?.currencies
+          | number: '1.2-2'
+          | currencyCurrent: '2:true':departure?.currencies
       }}</span
     >
   </div>
@@ -101,13 +101,13 @@
     </div>
     <div class="container-date">
       <span class="title-date">
-        {{ "CREATE_RESERVATION.TRIP_" + type | translate }}</span
+        {{ 'CREATE_RESERVATION.TRIP_' + type | translate }}</span
       >
       <span class="body-date">{{
-        date | datesFormatDeparture | date: "E d LLLL yyyy"
+        date | datesFormatDeparture | date: 'E d LLLL yyyy'
       }}</span>
       <span class="body-location">{{
-        type === "START" ? startLocation : endLocation
+        type === 'START' ? startLocation : endLocation
       }}</span>
     </div>
   </div>

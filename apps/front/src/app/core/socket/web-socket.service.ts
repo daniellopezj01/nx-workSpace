@@ -28,6 +28,6 @@ export class SocketProviderConnect extends Socket {
         query: `token=${cookieService.get('session')}`,
       },
     });
-    this.ioSocket.on('push_message', (res) => this.outEven.emit(res));
+    this.ioSocket.on('push_message', (res: any) => this.outEven.emit(res));
   }
 }

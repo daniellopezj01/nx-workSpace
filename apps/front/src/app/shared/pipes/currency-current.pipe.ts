@@ -2,6 +2,7 @@ import { OnDestroy, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import * as _ from 'lodash';
 import { SharedService } from '../../core/services/shared.service';
+import { Subscription } from 'rxjs';
 
 @Pipe({
   name: 'currencyCurrent',
@@ -12,7 +13,7 @@ export class CurrencyCurrentPipe implements PipeTransform, OnDestroy {
   private args: any = {};
   private currenciesDeparture: any = {};
   public listSubscribers: any = [];
-  public currencies;
+  public currencies: any;
 
   constructor(
     private cookieService: CookieService,
@@ -22,7 +23,7 @@ export class CurrencyCurrentPipe implements PipeTransform, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.listSubscribers.forEach(a => a.unsubscribe());
+    this.listSubscribers.forEach((a: Subscription) => a.unsubscribe());
   }
 
   listObserver = () => {
@@ -41,7 +42,7 @@ export class CurrencyCurrentPipe implements PipeTransform, OnDestroy {
     }
   }
 
-  transform(value: any, args: any = {}, currenciesDeparture: object[] = []): unknown {
+  transform(value: any, args: any = {}, currenciesDeparture: any = []): unknown {
     try {
       this.value = value;
       this.args = args;

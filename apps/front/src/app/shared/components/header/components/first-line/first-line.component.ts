@@ -6,7 +6,7 @@ import { isPlatformBrowser } from '@angular/common';
   templateUrl: './first-line.component.html',
   styleUrls: ['./first-line.component.scss']
 })
-export class FirstLineComponent implements OnInit {
+export class FirstLineComponent {
 
   public structureHeader = [
     {
@@ -30,11 +30,7 @@ export class FirstLineComponent implements OnInit {
   ]
   constructor(@Inject(PLATFORM_ID) private platformId: any) { }
 
-
-  ngOnInit(): void {
-  }
-
-  goTo(link: string) {
+  goTo(link: any) {
     if (isPlatformBrowser(this.platformId)) {
       if (link) {
         window.open(link);

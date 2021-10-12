@@ -14,6 +14,6 @@ export function DateValidator(
   return null;
 }
 
-function changeFormatDate(date) {
+function changeFormatDate(date: any) {
   return formatDate(date, 'MM-dd-yyyy', 'en-US');
 }

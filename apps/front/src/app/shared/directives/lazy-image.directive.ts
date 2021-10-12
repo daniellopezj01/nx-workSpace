@@ -1,4 +1,5 @@
-import {AfterViewInit, Directive, ElementRef, HostBinding, Input, Renderer2} from '@angular/core';
+/* eslint-disable @angular-eslint/directive-selector */
+import { AfterViewInit, Directive, ElementRef, HostBinding, Input, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appLazyImage]'
@@ -20,7 +21,7 @@ export class LazyImageDirective implements AfterViewInit {
 
   private lazyLoadImage() {
     const obs = new IntersectionObserver(entries => {
-      entries.forEach(({isIntersecting}) => {
+      entries.forEach(({ isIntersecting }) => {
         if (isIntersecting) {
           this.loadImage();
           obs.unobserve(this.el.nativeElement);

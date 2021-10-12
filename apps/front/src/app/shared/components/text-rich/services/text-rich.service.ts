@@ -1,6 +1,7 @@
+import { RestService } from './../../../../core/services/rest.service';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { RestService } from 'apps/front/src/app/core/services/rest.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +12,12 @@ export class TextRichService {
   @Output() mentionUsers = new EventEmitter<any>();
   @Output() userRemoved = new EventEmitter<any>();
   public tmpNameMention = [];
-  public addAttachments = [];
+  public addAttachments: any = [];
 
   constructor(private rest: RestService,
     private sanitizer: DomSanitizer) { }
 
-  dataURItoBlob(dataURI) {
+  dataURItoBlob(dataURI: any) {
     let byteString;
     if (dataURI.split(',')[0].indexOf('base64') >= 0) {
       byteString = atob(dataURI.split(',')[1]);
@@ -39,12 +40,12 @@ export class TextRichService {
           true,
           { ignoreLoadingBar: '' }
         )
-        .subscribe((res) => resolve(this.parseUser(res)));
+        .subscribe((res: any) => resolve(this.parseUser(res)));
     })
 
   private parseUser = (data: any) => {
     try {
-      return data.docs.map((u) => {
+      return data.docs.map((u: any) => {
         return {
           ...u,
           ...{
@@ -94,14 +95,14 @@ export class TextRichService {
 
   public removeFile = (data: any) => {
     this.addAttachments = this.addAttachments.filter(
-      (a) => JSON.stringify(a) !== JSON.stringify(data)
+      (a: any) => JSON.stringify(a) !== JSON.stringify(data)
     );
   }
 
   public processFile = async (imageInput: any) => {
     await Promise.all(
-      Object.values(imageInput.files).map(($event: File) => {
-        const image = this.blobFile($event);
+      Object.values(imageInput.files).map(($event: any) => {
+        const image: any = this.blobFile($event);
         if (image) {
           this.addAttachments.push(image);
         }
@@ -120,7 +121,7 @@ export class TextRichService {
       console.log(item.type);
       if (item.type.indexOf('image') === 0) {
         blob = item.getAsFile();
-        const file = this.blobFile(blob);
+        const file: any = this.blobFile(blob);
         if (file) {
           this.addAttachments.push(file);
         }
@@ -131,11 +132,11 @@ export class TextRichService {
   uploadAttachments = (merge = false) =>
     new Promise((resolve, reject) => {
       try {
-        const alreadyUploaded = this.addAttachments.filter((a) => a.source);
-        if (this.addAttachments.filter((i) => i.blob).length) {
+        const alreadyUploaded = this.addAttachments.filter((a: any) => a.source);
+        if (this.addAttachments.filter((i: any) => i.blob).length) {
           const formData = new FormData();
-          this.addAttachments.forEach((item) =>
-            formData.append('file[]', item.blob)
+          this.addAttachments.forEach((item: any) =>
+            formData.append('file[]', item?.blob)
           );
           this.rest.post(`storage`, formData, true, {}).subscribe(
             (res) => {

@@ -47,6 +47,17 @@
       [id]="10"
       [modalImages]="images"
       [enableCloseOutside]="false"
+      [slideConfig]="{ infinite: false }"
+      [currentImageConfig]="{ description: customFullDescription }"
+      [previewConfig]="{
+        visible: true,
+        size: { width: '40px', height: '40px' }
+      }"
+    ></ks-modal-gallery>
+    <!-- <ks-modal-gallery
+      [id]="10"
+      [modalImages]="images"
+      [enableCloseOutside]="false"
       [slideConfig]="{ infinite: false, sidePreviews: { show: false } }"
       [currentImageConfig]="{ description: customFullDescription }"
       [previewConfig]="{
@@ -54,7 +65,7 @@
         autoPlay: true,
         size: { width: '40px', height: '40px' }
       }"
-    ></ks-modal-gallery>
+    ></ks-modal-gallery> -->
   </div>
 </section>
 
@@ -140,7 +151,11 @@
       appImgFallback
       class=""
       (click)="openCarousel(0)"
-      [src]="i === 0 ? a?.source?.medium : a?.source?.sm || a?.source?.medium"
+      [src]="
+        i === 0
+          ? (a | toAny).source?.medium
+          : (a | toAny)?.source?.sm || (a | toAny).source?.medium
+      "
       alt="tour"
     />
   </div>
@@ -170,7 +185,7 @@
       appImgFallback
       class=""
       (click)="openCarousel(0)"
-      [src]="a?.source?.small"
+      [src]="(a | toAny).source?.small"
       alt="tour"
     />
   </div>

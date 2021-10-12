@@ -1,4 +1,4 @@
-@import "./src/shared";
+@import '../../../../shared';
 
 /********BIG********/
 ::ng-deep {
@@ -59,7 +59,7 @@
   cursor: pointer;
   height: $height-menu;
   width: 6rem;
-  background-image: url("../../../../assets/logo.svg");
+  background-image: url('../../../../assets/logo.svg');
   background-repeat: no-repeat;
   background-color: transparent;
   background-position: center;
@@ -207,7 +207,7 @@ Esto debemos haceru un componente
 }
 
 .custom-a {
-  font-family: "Hind Siliguri", Sans-serif;
+  font-family: 'Hind Siliguri', Sans-serif;
   font-size: 10px;
   font-weight: 500;
   color: #525252;
@@ -227,7 +227,7 @@ nav ul {
 
 .nav a,
 .text-not-login {
-  font-family: "Hind Siliguri", Sans-serif;
+  font-family: 'Hind Siliguri', Sans-serif;
   color: $text-color-header;
   display: block;
   background: white;
@@ -295,7 +295,7 @@ nav ul {
 }
 
 .nav li a:first-child:nth-last-child(2):before {
-  content: "";
+  content: '';
   position: absolute;
   height: 0;
   width: 0;

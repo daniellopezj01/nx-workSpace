@@ -46,7 +46,19 @@
 </div>
 <div class="ks-modal-header-details" *ngIf="review?.attachment?.source">
   <!-- [slideConfig]="{ infinite: false, sidePreviews: { show: false } }" sidePreviews: Ver imagenes en controles. -->
+
   <ks-modal-gallery
+    [id]="index"
+    [modalImages]="image"
+    [enableCloseOutside]="false"
+    [slideConfig]="{ infinite: false }"
+    [currentImageConfig]="{ description: customFullDescription }"
+    [previewConfig]="{
+      visible: true,
+      size: { width: '40px', height: '40px' }
+    }"
+  ></ks-modal-gallery>
+  <!-- <ks-modal-gallery
     [id]="index"
     [modalImages]="image"
     [enableCloseOutside]="false"
@@ -57,5 +69,5 @@
       autoPlay: false,
       size: { width: '40px', height: '40px' }
     }"
-  ></ks-modal-gallery>
+  ></ks-modal-gallery> -->
 </div>

@@ -7,12 +7,12 @@ import * as _ from 'lodash'
   styleUrls: ['./tour-language-offered.component.scss']
 })
 export class TourLanguageOfferedComponent implements OnInit {
-  @Input() tour;
+  @Input() tour: any;
   @Input() type = 'simple';
   @Input() sizeIcon = 25;
   @Input() centerText = false;
 
-  currentLanguage
+  public currentLanguage: any
   private route = '../../../../assets/extra/flag'
   public languages = [
     {
@@ -26,7 +26,6 @@ export class TourLanguageOfferedComponent implements OnInit {
       text: 'GENERAL.IN_ES'
     }
   ]
-  constructor() { }
 
   ngOnInit(): void {
     const { lenguages } = this.tour

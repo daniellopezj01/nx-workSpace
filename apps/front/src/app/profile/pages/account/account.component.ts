@@ -77,8 +77,8 @@ export class AccountComponent implements OnInit {
     // },
   ];
 
-  user: any;
-  loading: boolean;
+  public user: any;
+  public loading = false;
 
   constructor(
     private router: Router,

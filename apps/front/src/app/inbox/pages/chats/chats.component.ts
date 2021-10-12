@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {ManagerService} from '../../services/manager.service';
+import { Subscription } from 'rxjs';
+import { ManagerService } from '../../services/manager.service';
 
 @Component({
   selector: 'app-chats',
@@ -11,11 +12,11 @@ export class ChatsComponent implements OnInit, OnDestroy {
   constructor(
     private active: ActivatedRoute,
     public manager: ManagerService
-  ) {}
+  ) { }
   public listSubscribers: any = [];
   public hash = '';
-  loading: boolean;
-  openConversation: boolean;
+  public loading = false;
+  public openConversation = false;
 
   ngOnInit(): void {
     this.listObserver();
@@ -30,11 +31,11 @@ export class ChatsComponent implements OnInit, OnDestroy {
     this.listSubscribers.push(observer1$);
   }
 
-  goChat($event) {
+  goChat($event: any) {
     // this.getMessages($event);
   }
 
   ngOnDestroy() {
-    this.listSubscribers.forEach((a) => a.unsubscribe());
+    this.listSubscribers.forEach((a: Subscription) => a.unsubscribe());
   }
 }

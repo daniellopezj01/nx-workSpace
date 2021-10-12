@@ -11,17 +11,17 @@ export class OAuthService {
 
   constructor(public http: HttpClient) { }
 
-  public login({ email, password }): Observable<any> {
+  public login({ email, password }: any): Observable<any> {
     return this.http.post(`${this.url}/login`, {
       email,
       password,
     });
   }
-  public register(body): Observable<any> {
+  public register(body: any): Observable<any> {
     return this.http.post(`${this.url}/register`, body);
   }
 
-  public exchange({ accessToken }): Observable<any> {
+  public exchange({ accessToken }: any): Observable<any> {
     return this.http.post(`${this.url}/exchange`, { accessToken });
   }
 }

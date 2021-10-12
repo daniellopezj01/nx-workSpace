@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { AfterContentChecked, Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component } from '@angular/core';
 import { TemplatesHeadersService } from '../templates-headers.service';
 import * as _ from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
@@ -9,19 +9,17 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './template-destinations.component.html',
   styleUrls: ['./template-destinations.component.scss'],
 })
-export class TemplateDestinationsComponent
-  implements OnInit, AfterContentChecked {
+export class TemplateDestinationsComponent implements AfterContentChecked {
   tours: any = [];
 
   constructor(
     public service: TemplatesHeadersService,
     private router: Router,
     public translate: TranslateService
-  ) {}
+  ) { }
 
   continents: any = [];
 
-  ngOnInit(): void {}
 
   ngAfterContentChecked(): void {
     if (!this.service.loading) {
@@ -33,7 +31,7 @@ export class TemplateDestinationsComponent
     }
   }
 
-  gotoDetails(tour) {
+  gotoDetails(tour: any) {
     this.router.navigate([`/destination/${tour.slug}`]);
   }
 }

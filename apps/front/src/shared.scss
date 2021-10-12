@@ -1,6 +1,6 @@
-@use "sass:math";
+@use 'sass:math';
 
-$asset-path: "src/assets";
+$asset-path: 'src/assets';
 $base-color: #ef233c;
 $base-color-1: #a8dadc;
 $base-color-2: #2d728f;
@@ -35,8 +35,8 @@ $font-size-4: 0.85rem;
 $font-size-5: 0.8rem;
 $font-size-6: 0.75rem;
 $footer-height: 2.5rem;
-$font-family: "Alata", sans-serif;
-$font-family-1: "Hind Siliguri", sans-serif;
+$font-family: 'Alata', sans-serif;
+$font-family-1: 'Hind Siliguri', sans-serif;
 $text-shadow: 1px 1px 10px rgb(0 0 0 / 88%);
 $shadow-header: 13px 0px 10px 0px rgb(0 0 0 / 25%);
 $shadow-custom: 0 0px 10px rgba(0, 0, 0, 0.035), 0 0px 80px rgba(0, 0, 0, 0.1);
@@ -70,7 +70,6 @@ $filter-shadow-sm: drop-shadow(0px 9px 20px rgba(0, 0, 0, 0.05));
     overflow: hidden;
   }
 }
-
 .truncate {
   white-space: nowrap;
   overflow: hidden;

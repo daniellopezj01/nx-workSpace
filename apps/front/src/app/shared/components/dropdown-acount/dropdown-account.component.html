@@ -9,7 +9,14 @@
       >
         <div id="button-split" class="account">
           <span
-            class="pr-2 w-100 pl-2 truncate d-none d-sm-none d-md-block style-name"
+            class="
+              pr-2
+              w-100
+              pl-2
+              truncate
+              d-none d-sm-none d-md-block
+              style-name
+            "
             >{{ user?.name }}</span
           >
           <div class="icon-style">
@@ -39,7 +46,7 @@
               >{{ itemChild?.title | translate }}</a
             >
             <ul *ngIf="itemChild?.keyResponse">
-              <li
+              <!-- <li
                 role="menuitem"
                 *ngFor="
                   let itemResponse of data[itemChild?.keyResponse];
@@ -51,7 +58,7 @@
                   (click)="goToDeepLevel(item, itemChild, itemResponse)"
                   >{{ itemResponse?.name | translate }}</a
                 >
-              </li>
+              </li> -->
             </ul>
           </li>
         </ul>

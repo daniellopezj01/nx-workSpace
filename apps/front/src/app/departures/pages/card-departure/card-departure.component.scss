@@ -1,4 +1,4 @@
-@import "./src/shared.scss";
+@import '../../../../shared.scss';
 
 label {
   border-bottom: 1px solid #adadad;
@@ -43,7 +43,7 @@ label {
 }
 
 .calendar:before {
-  content: "";
+  content: '';
   border-color: transparent;
   border-style: solid;
   border-width: 6px 6px 0 0;

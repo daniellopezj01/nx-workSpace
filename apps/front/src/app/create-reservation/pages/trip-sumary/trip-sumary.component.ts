@@ -7,9 +7,9 @@ import * as _ from 'lodash';
   styleUrls: ['./trip-sumary.component.scss'],
 })
 export class TripSumaryComponent implements OnInit {
-  @Input() departure;
-  @Input() tour;
-  @Input() intention;
+  @Input() departure: any;
+  @Input() tour: any;
+  @Input() intention: any;
   public startLocation = '';
   public endLocation = '';
   dataBookUs = [
@@ -28,7 +28,6 @@ export class TripSumaryComponent implements OnInit {
   ];
   importantNotes = 'CREATE_RESERVATION.IMPORTANT_NOTES';
 
-  constructor() {}
 
   ngOnInit(): void {
     this.laodLocations();

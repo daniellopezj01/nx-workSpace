@@ -6,8 +6,8 @@ import { ModalsService } from '../../../core/services/modals.service';
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.scss']
 })
-export class ErrorComponent implements OnInit {
-  @Input() errorStripe: string;
+export class ErrorComponent {
+  @Input() errorStripe?: string;
   errors = [
     {
       value: 'Error',
@@ -21,8 +21,6 @@ export class ErrorComponent implements OnInit {
   ];
   constructor(private modalService: ModalsService) { }
 
-  ngOnInit(): void {
-  }
 
   ClosemodalError() {
     this.modalService.close();

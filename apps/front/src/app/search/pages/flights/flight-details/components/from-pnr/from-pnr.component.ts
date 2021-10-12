@@ -9,9 +9,9 @@ import {
 } from 'ngx-intl-tel-input';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
-import genderJson from '@assetsFiles/jsonFiles/gender.json';
-import *  as moment from 'moment'
-import *  as _ from 'lodash'
+import genderJson from '../../../../../../../assets/jsonFiles/gender.json'
+import moment from 'moment'
+import _ from 'lodash'
 import { Subscription } from 'rxjs';
 // import *  as faker from 'faker'
 
@@ -29,7 +29,7 @@ export class FromPnrComponent implements OnInit, OnDestroy, AfterViewChecked {
   public numberForms?: number = 1;
   public SearchCountryField = SearchCountryField;
   public CountryISO = CountryISO;
-  public loadingButton?: boolean = false;
+  public loadingButton = false;
   public genders: Array<any> = [];
   public pnrForm: FormGroup;
   public emergencyForm: FormGroup;

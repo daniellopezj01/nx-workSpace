@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -16,7 +17,7 @@ export const ScriptStore: Scripts[] = [
 export class StripeService {
   private scripts: any = {};
 
-  constructor(@Inject(PLATFORM_ID) private platformId) {
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {
     ScriptStore.forEach((script: any) => {
       this.scripts[script.name] = {
         loaded: false,

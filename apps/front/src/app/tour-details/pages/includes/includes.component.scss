@@ -1,4 +1,4 @@
-@import "src/shared.scss";
+@import '../../../../shared.scss';
 
 ::ng-deep {
   .custom-col-6 {
@@ -77,7 +77,7 @@
 
     &:after {
       position: absolute;
-      content: "";
+      content: '';
       top: 0;
       right: 0;
       background-color: $border-color-3;

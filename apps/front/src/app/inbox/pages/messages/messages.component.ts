@@ -13,8 +13,8 @@ import {
   faArrowLeft,
   faLongArrowAltLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import * as moment from 'moment';
-import * as _ from 'lodash';
+import moment from 'moment';
+import _ from 'lodash';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, finalize, map, tap } from 'rxjs/operators';
@@ -31,15 +31,15 @@ import { RestService } from '../../../core/services/rest.service';
 export class MessagesComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('scrollMe', { static: false })
   componentRef?: PerfectScrollbarComponent | undefined;
-  loading: boolean = false;
+  public loading = false;
   public listSubscribers: any = [];
   private currentData: Date = new Date();
-  user: any;
-  message: any;
-  dataMessages: any;
-  sendForm: FormGroup;
-  disabled = false;
-  hash: string = '';
+  public user: any;
+  public message: any;
+  public dataMessages: any;
+  public sendForm: FormGroup;
+  public disabled = false;
+  public hash?: string = '';
   private dataRaw: any;
 
   constructor(

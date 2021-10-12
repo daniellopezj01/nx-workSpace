@@ -13,8 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { tap } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
-import * as _ from 'lodash';
-import * as moment from 'moment';
+import _ from 'lodash';
+import moment from 'moment';
 import { MainSearchService } from '../../../search/pages/main-search.service';
 import { FlightsService } from '../../../search/pages/flights/services/flights.service';
 import { SharedService } from '../../../core/services/shared.service';
@@ -35,8 +35,8 @@ export class SearchFligthsComponent implements OnInit, OnDestroy {
   public today = new Date();
   public focusSearch: any;
   public focusPerson = false;
-  public searchFrom: string = '';
-  public searchTo: string = '';
+  public searchFrom = '';
+  public searchTo = '';
   public dataPlaces: any;
   public faMinus = faMinus;
   public faPlus = faPlus;
@@ -54,8 +54,8 @@ export class SearchFligthsComponent implements OnInit, OnDestroy {
     isAnimated: false,
     rangeInputFormat: 'DD-MMM-YYYY',
   };
-  public bsRangeValue: Date[];
-  public inputFrom: boolean = false;
+  public bsRangeValue: any;
+  public inputFrom?: boolean = false;
   public typeFlight = '';
 
   constructor(
@@ -132,7 +132,8 @@ export class SearchFligthsComponent implements OnInit, OnDestroy {
   }
 
   getPlaces(event: any) {
-    event = event ? event.replace(/[\[\]\(\)']+/g, '') : '';
+    // event = event ? event.replace(/[\[\]\(\)']+/g, '') : '';
+    event = event ? event.replace(/[[\]()']+/g, '') : '';
     const body = { params: { lang: 'es', term: event, limit: 6 } };
     if (event.length) {
       this.dataPlaces$ = this.rest

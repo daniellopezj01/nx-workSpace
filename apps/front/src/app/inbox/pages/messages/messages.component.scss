@@ -1,4 +1,4 @@
-@import "./src/shared.scss";
+@import '../../../../shared.scss';
 
 :host {
   height: 100%;
@@ -101,7 +101,7 @@
 }
 
 .button-send button:focus {
-  background-image: url("~assets/inbox/icon-send.svg");
+  background-image: url('../../../../assets/inbox/icon-send.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 1.7rem;
@@ -121,7 +121,7 @@
   margin-left: 0.7em;
   height: 2.5rem;
   width: 2.5rem;
-  background-image: url("~assets/inbox/icon-send.svg");
+  background-image: url('../../../../assets/inbox/icon-send.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 1.7rem;
@@ -165,9 +165,6 @@
 
 //phone
 @media print, screen and (max-width: 740px) {
-  .cont-messages {
-    //height: calc(80vh - .5rem);
-  }
   .structure-messages {
     margin-left: 0;
     margin-right: 0;

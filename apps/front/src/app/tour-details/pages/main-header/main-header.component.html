@@ -19,7 +19,7 @@
             target="_blank"
             href="https://destinos.mochileros.com.mx/contacto/"
           >
-            {{ "DETAILS_TOUR.MORE_INFO" | translate }}
+            {{ 'DETAILS_TOUR.MORE_INFO' | translate }}
           </a>
         </button>
         <button
@@ -27,7 +27,7 @@
           class="btn btn-primary ml-3 text-capitalize"
           [routerLink]="['/departures/' + tour?.slug]"
         >
-          {{ "DETAILS_TOUR.VIEW_DATES" | translate }}
+          {{ 'DETAILS_TOUR.VIEW_DATES' | translate }}
         </button>
       </div>
     </div>
@@ -40,7 +40,7 @@
     *ngIf="(tour?.bestDeparture | smallPercentage)?.amount"
   >
     <span>
-      {{ "DETAILS_TOUR.RESERVE_WITH" | translate }}
+      {{ 'DETAILS_TOUR.RESERVE_WITH' | translate }}
       <span
         class="pink-color"
         *ngIf="!(tour?.bestDeparture | smallPercentage)?.specialPayment"
@@ -51,8 +51,8 @@
     <span class="pink-color pl-2">
       {{
         (tour?.bestDeparture | smallPercentage)?.amount
-          | number: "1.2-2"
-          | currencyCurrent: "0:true":tour?.bestDeparture?.currencies
+          | number: '1.2-2'
+          | currencyCurrent: '0:true':tour?.bestDeparture?.currencies
       }}</span
     >
   </div>
@@ -63,16 +63,16 @@
     <small class="normal-price" *ngIf="checkDiscount">
       {{
         tour?.bestDeparture?.normalPrice
-          | number: "1.2-2"
-          | currencyCurrent: "0:true":tour?.bestDeparture?.currencies
+          | number: '1.2-2'
+          | currencyCurrent: '0:true':tour?.bestDeparture?.currencies
       }}
     </small>
     <span class="discount">
       {{
         tour?.bestDeparture
           | discountPrice
-          | number: "1.2-2"
-          | currencyCurrent: "0:true":tour?.bestDeparture?.currencies
+          | number: '1.2-2'
+          | currencyCurrent: '0:true':tour?.bestDeparture?.currencies
       }}
     </span>
   </div>

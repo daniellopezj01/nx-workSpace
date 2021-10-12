@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 import { FilePickerAdapter } from 'ngx-awesome-uploader';
 import { environment } from '../../../../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
-import {UpdateService} from './update.service';
+import { UpdateService } from './update.service';
 
 export class DemoFilePickerAdapter extends FilePickerAdapter {
   public readonly url: string = environment.api;
@@ -53,7 +53,7 @@ export class DemoFilePickerAdapter extends FilePickerAdapter {
     );
   }
 
-  public removeFile(fileItem): Observable<any> {
+  public removeFile(fileItem: any): Observable<any> {
     const removeApi = '';
     return this.http.post(removeApi, {});
   }

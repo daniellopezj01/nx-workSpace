@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { SettingsGuardGuard } from './guards/settings-guard.guard';
 import { CheckReferredGuard } from './guards/check-referred.guard';
-import { NotFoundComponent } from '@shared/components/not-found/not-found.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 const routes: Routes = [
   {

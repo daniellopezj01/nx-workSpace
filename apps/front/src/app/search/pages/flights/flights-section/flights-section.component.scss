@@ -1,4 +1,4 @@
-@import "./src/shared";
+@import '../../../../../shared';
 
 .square {
   border-radius: $border-radius;
@@ -86,7 +86,7 @@
   &:before {
     background-color: white;
     border: solid 1px $text-color-1;
-    content: "";
+    content: '';
     width: 8px;
     height: 8px;
     position: absolute;
@@ -98,7 +98,7 @@
   &:after {
     background-color: white;
     border: solid 1px $text-color-1;
-    content: "";
+    content: '';
     width: 8px;
     height: 8px;
     position: absolute;
@@ -176,7 +176,7 @@
 .view::after {
   border-right: 1px solid $base-color;
   border-top: 1px solid $base-color;
-  content: "";
+  content: '';
   display: inline-block;
   height: 5px;
   margin-left: 4px;

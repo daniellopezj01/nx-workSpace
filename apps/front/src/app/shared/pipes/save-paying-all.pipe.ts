@@ -5,7 +5,7 @@ import * as _ from 'lodash';
   name: 'savePayingAll',
 })
 export class SavePayingAllPipe implements PipeTransform {
-  transform(value: any, ...args: unknown[]): unknown {
+  transform(value: any, ...args: unknown[]): any {
     if (value) {
       const globalDiscount = args.length ? _.head(args) : 100;
       const { payAmount, normalPrice } = value;

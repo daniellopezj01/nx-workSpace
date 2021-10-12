@@ -90,10 +90,12 @@ export class ReservationService {
 
   callData = (url: any, method: string = 'get', object = {}) =>
     new Promise((resolve, reject) => {
-      const request: Observable<any> = this.rest[method](
-        url,
-        method !== 'get' ? object : null
-      );
+      let request: Observable<any> = new Observable
+      if (method === 'get') {
+        request = this.rest.get(url);
+      } else if (method === 'post') {
+        request = this.rest.post(url, object);
+      }
       request.subscribe(
         (res) => {
           resolve(res);

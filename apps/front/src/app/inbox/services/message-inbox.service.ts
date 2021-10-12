@@ -28,7 +28,7 @@ export class MessageInboxService {
     this.newTap.emit(to);
   }
 
-  saveNewChat = ({ message, to, _id }) =>
+  saveNewChat = ({ message, to, _id }: any) =>
     new Promise((resolve, reject) => {
       this.rest
         .post(`messages`, { message, to }, true, { ignoreLoadingBar: '' })
@@ -41,19 +41,20 @@ export class MessageInboxService {
         );
     })
 
-  firstConversation(data, user): any {
-    return {
+  firstConversation(data: any, user: any): any {
+    const object: any = {
       createdAt: '',
       firstMessage: data?.message,
       hash: data?.hash,
-      list: [].concat([data?.message]),
-      messages: [].concat([data?.message]),
-      members: [].concat([data?.fromUserObj, data?.userMergeObj]),
-      membersOmit: [].concat([data?.fromUserObj]),
+      list: ([] as any[]).concat([data?.message]),
+      messages: ([] as any[]).concat([data?.message]),
+      members: ([] as any[]).concat([data?.fromUserObj, data?.userMergeObj]),
+      membersOmit: ([] as any[]).concat([data?.fromUserObj]),
       openBox: true,
       toFrom: {},
       type: 'single',
       _id: '',
     };
+    return object
   }
 }

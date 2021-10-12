@@ -4,7 +4,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   providedIn: 'root',
 })
 export class ModalsService {
-  modalRef: BsModalRef;
+  public modalRef: any;
   constructor(private modalService: BsModalService) { }
 
   openVideo(data: string, componet: any) {

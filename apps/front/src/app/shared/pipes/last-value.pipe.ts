@@ -5,7 +5,7 @@ import * as _ from 'lodash';
   name: 'lastValue',
 })
 export class LastValuePipe implements PipeTransform {
-  transform(value: any, ...args: unknown[]): unknown {
+  transform(value: any, ...args: unknown[]): any {
     return _.last(value);
   }
 }

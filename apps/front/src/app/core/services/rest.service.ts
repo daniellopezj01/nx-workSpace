@@ -82,7 +82,7 @@ export class RestService {
     );
   }
 
-  checkSession = (verify = true, disabledGo = false, changeRedirect = undefined) => {
+  checkSession = (verify: any = true, disabledGo: any = false, changeRedirect: any = undefined) => {
     return new Promise((resolve, reject) => {
       if (verify) {
         this.get('token').subscribe(
@@ -143,6 +143,7 @@ export class RestService {
           });
         }
       });
+      return null
     } catch (e) {
       return 422;
     }
@@ -176,18 +177,32 @@ export class RestService {
     }
   }
 
-  checkEmail(): AsyncValidatorFn {
-    return (
-      control: AbstractControl
-    ): Observable<{ [key: string]: any } | null> => {
-      return this.searchEmailExist(control.value).pipe(
-        map((res) => {
-          if (res) {
-            return { email: true };
-          }
-        })
-      )
-    };
+  // checkEmail(): AsyncValidatorFn {
+  //   return (
+  //     control: AbstractControl
+  //   ): Observable<{ [key: string]: any } | null> => {
+  //     return this.searchEmailExist(control.value).pipe(
+  //       map((res) => {
+  //         if (res) {
+  //           return { email: true };
+  //         }
+  //       })
+  //     )
+  //   };
+  // }
+  checkEmail(): any {
+    // return (
+    //   control: AbstractControl
+    // ): Observable<{ [key: string]: any } | null> => {
+    //   return this.searchEmailExist(control.value).pipe(
+    //     map((res) => {
+    //       if (res) {
+    //         return { email: true };
+    //       }
+    //     })
+    //   )
+    // };
+    return null;
   }
 
   post(
@@ -231,7 +246,7 @@ export class RestService {
       );
   }
 
-  get(path = '', toast = true, headers = null): Observable<any> {
+  get(path = '', toast = true, headers: any = null): Observable<any> {
     return this.http
       .get(`${this.url}/${path}`, { headers: this.parseHeader(headers) })
       .pipe(

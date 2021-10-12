@@ -15,7 +15,7 @@ export class ManagerService {
 
   constructor(
     private rest: RestService,
-    @Inject(PLATFORM_ID) private platformId
+    @Inject(PLATFORM_ID) private platformId: any
   ) {
     this.user = this.rest.getCurrentUser();
     if (isPlatformBrowser(this.platformId)) {
@@ -32,7 +32,7 @@ export class ManagerService {
     }
   }
 
-  setWidth(value) {
+  setWidth(value: any) {
     this.widthScreen = value;
   }
 
@@ -40,7 +40,7 @@ export class ManagerService {
     return this.widthScreen;
   }
 
-  setCurrentChat(chat) {
+  setCurrentChat(chat: any) {
     this.currentChat = chat;
   }
 

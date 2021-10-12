@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import {RestService} from './rest.service';
+import { reject } from 'lodash';
+import { RestService } from './rest.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,14 +9,13 @@ import {RestService} from './rest.service';
 export class MediaService {
   @Output() deleteImage = new EventEmitter<any>();
   public files: any = [];
-
   public items: any = [];
 
-  constructor(private rest: RestService, private sanitizer: DomSanitizer) {}
+  constructor(private rest: RestService, private sanitizer: DomSanitizer) { }
 
   public processFile = async (imageInput: any) => {
     await Promise.all(
-      Object.values(imageInput.files).map(async ($event: File) => {
+      Object.values(imageInput.files).map(async ($event: any) => {
         const image = await this.blobFile($event);
         if (image) {
           this.files.push(image);
@@ -26,7 +26,7 @@ export class MediaService {
       .catch((e) => console.log(e));
   }
 
-  public toBase64 = (file) =>
+  public toBase64 = (file: any) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -35,7 +35,7 @@ export class MediaService {
     })
 
   blobFile = async ($event: any) =>
-    new Promise((resolve) => {
+    new Promise((resolve, reject) => {
       try {
         const unsafeImg = window.URL.createObjectURL($event);
         const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
@@ -56,13 +56,14 @@ export class MediaService {
             base: null,
           });
         };
+        reject({})
       } catch (e) {
         console.log(e);
-        return null;
+        reject({})
       }
     })
 
-  dataURItoBlob(dataURI) {
+  dataURItoBlob(dataURI: any) {
     let byteString;
     if (dataURI.split(',')[0].indexOf('base64') >= 0) {
       byteString = atob(dataURI.split(',')[1]);
@@ -77,11 +78,11 @@ export class MediaService {
     return new Blob([ia], { type: mimeString });
   }
 
-  loadImages = (arrayImages) =>
+  loadImages = (arrayImages: any) =>
     new Promise((resolve, reject) => {
       try {
         const formData = new FormData();
-        arrayImages.forEach((item) => {
+        arrayImages.forEach((item: any) => {
           formData.append('file[]', item);
         });
         this.rest.post(`storage`, formData, true, {}).subscribe(

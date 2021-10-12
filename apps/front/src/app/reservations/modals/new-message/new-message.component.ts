@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { ReservationService } from '../../reservation.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalsService } from '../../../core/services/modals.service';
 import { RestService } from '../../../core/services/rest.service';
@@ -11,21 +11,19 @@ import { RestService } from '../../../core/services/rest.service';
   templateUrl: './new-message.component.html',
   styleUrls: ['./new-message.component.scss'],
 })
-export class NewMessageComponent implements OnInit {
+export class NewMessageComponent {
   @Input() idReservation: any;
   @Input() code: any;
   public loading = false;
-
   public form: FormGroup;
+
   constructor(
     private modalService: ModalsService,
     private formBuilder: FormBuilder,
     private rest: RestService,
     private service: ReservationService,
     private router: Router
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.form = this.formBuilder.group({
       message: ['', Validators.required],
     });

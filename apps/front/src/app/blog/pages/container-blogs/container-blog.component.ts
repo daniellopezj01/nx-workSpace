@@ -13,7 +13,7 @@ import { RestService } from '../../../core/services/rest.service';
 })
 export class ContainerBlogComponent implements OnInit {
   public data: any;
-  loading: boolean;
+  public loading?: boolean;
 
   constructor(
     private rest: RestService,
@@ -27,7 +27,7 @@ export class ContainerBlogComponent implements OnInit {
     this.loadData(blog);
   }
 
-  loadData(blog): any {
+  loadData(blog: any): any {
     this.loading = true;
     this.rest
       .get(`blogs/${blog}`)

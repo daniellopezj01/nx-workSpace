@@ -13,7 +13,7 @@ export class QuestionsComponent implements OnInit {
   @ViewChild('checkAccepted') checkAccepted: any;
   @Input() questions: any;
   @Input() agents: any;
-  public currenQuestion = null;
+  public currenQuestion: any;
   public position = 0;
   public loading = false;
   public value = false;

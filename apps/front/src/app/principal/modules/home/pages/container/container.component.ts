@@ -1,3 +1,5 @@
+import { RestService } from './../../../../../core/services/rest.service';
+import { SharedService } from './../../../../../core/services/shared.service';
 import {
   Component,
   OnInit,
@@ -17,8 +19,6 @@ import { isPlatformBrowser } from '@angular/common';
 import { filter, map, take, tap } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
-import { SharedService } from 'apps/front/src/app/core/services/shared.service';
-import { RestService } from 'apps/front/src/app/core/services/rest.service';
 
 
 @Component({
@@ -28,8 +28,8 @@ import { RestService } from 'apps/front/src/app/core/services/rest.service';
 })
 export class ContainerComponent implements OnInit {
   public config: PerfectScrollbarConfigInterface = {};
-  @ViewChild('histories') histories: ElementRef;
-  createComponentBlog: Observable<boolean>;
+  @ViewChild('histories') histories?: ElementRef;
+  createComponentBlog?: Observable<boolean>;
   isBrowser: boolean;
   faInstagram = faInstagram;
   blogsInfo = [
@@ -44,9 +44,9 @@ export class ContainerComponent implements OnInit {
       color: '#FFFFFF',
     },
   ];
-  communityData = [];
-  historiesData = [];
-  destinationData = [
+  communityData: any = [];
+  historiesData: any = [];
+  destinationData: any = [
     {
       name: 'Budapest',
       img: 'https://dssvuzr9zfb17.cloudfront.net/destine_budapest.webp',
@@ -120,7 +120,7 @@ export class ContainerComponent implements OnInit {
       },
     },
   ];
-  generalData = [
+  generalData: any = [
     {
       title: 'MAIN.BLOCK_ONE.TITLE',
       subTitle: 'MAIN.BLOCK_ONE.DESCRIPTION',
@@ -143,7 +143,7 @@ export class ContainerComponent implements OnInit {
     public translate: TranslateService,
     private router: Router,
     private shared: SharedService,
-    @Inject(PLATFORM_ID) private platformId,
+    @Inject(PLATFORM_ID) private platformId: any,
     private rest: RestService,
   ) {
     library.addIcons(faInstagram);
@@ -197,7 +197,7 @@ export class ContainerComponent implements OnInit {
     //   });
   }
 
-  searchCity(item) {
+  searchCity(item: any) {
     const { id, cityName } = item.city;
     this.router.navigate(['search/'], {
       queryParams: {

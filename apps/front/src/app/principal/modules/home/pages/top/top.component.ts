@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './top.component.html',
   styleUrls: ['./top.component.scss'],
 })
-export class TopComponent implements OnInit {
+export class TopComponent {
   active = 0;
   mainActions = [
     {
@@ -31,9 +31,8 @@ export class TopComponent implements OnInit {
 
   constructor(public translate: TranslateService) { }
 
-  changeItem(value: number) {
+  changeItem(value: number = 0) {
     this.active = value;
   }
 
-  ngOnInit(): void { }
 }

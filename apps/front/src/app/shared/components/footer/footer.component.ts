@@ -15,7 +15,7 @@ import { SharedService } from '../../../core/services/shared.service';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
   // @Input()
   iconsSocial = [
     { icon: faInstagram, href: 'https://www.instagram.com/mochileros.mex' },
@@ -66,8 +66,5 @@ export class FooterComponent implements OnInit {
       faTwitter,
       faPinterest
     );
-  }
-
-  ngOnInit(): void {
   }
 }

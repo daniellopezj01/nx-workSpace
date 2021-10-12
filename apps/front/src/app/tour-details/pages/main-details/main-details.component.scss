@@ -1,8 +1,8 @@
-@import "./src/shared.scss";
+@import '../../../../shared.scss';
 
 ::ng-deep ks-loading-spinner {
   .cssload-loader {
-    background-image: url("../../../../assets/loading.svg");
+    background-image: url('../../../../assets/loading.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -16,7 +16,7 @@
 ::ng-deep ks-upper-buttons {
   .close-image {
     background-color: white;
-    background-image: url("../../../../assets/times.svg") !important;
+    background-image: url('../../../../assets/times.svg') !important;
   }
 }
 
@@ -29,12 +29,12 @@
 ::ng-deep ks-current-image {
   .right-arrow-image {
     background-color: white;
-    background-image: url("../../../../assets/angle-right-b.svg") !important;
+    background-image: url('../../../../assets/angle-right-b.svg') !important;
   }
 
   .left-arrow-image {
     background-color: white;
-    background-image: url("../../../../assets/angle-left-b.svg") !important;
+    background-image: url('../../../../assets/angle-left-b.svg') !important;
   }
 
   img {

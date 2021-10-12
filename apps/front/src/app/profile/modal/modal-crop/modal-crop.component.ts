@@ -40,7 +40,7 @@ export class ModalCropComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.listSubscribers.forEach((a) => a.unsubscribe());
+    this.listSubscribers.forEach((a: any) => a.unsubscribe());
   }
 
   listObserver = () => {
@@ -91,7 +91,7 @@ export class ModalCropComponent implements OnInit, OnDestroy {
     // show message
   }
 
-  changeZoom(event) {
+  changeZoom(event: any) {
     this.scale = event?.value;
     this.transform = {
       ...this.transform,

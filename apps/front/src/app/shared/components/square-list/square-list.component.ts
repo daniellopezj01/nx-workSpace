@@ -7,9 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SquareListComponent implements OnInit {
   @Input() data: any = []
-  constructor() { }
 
   ngOnInit(): void {
+    console.log('SquareListComponent')
   }
 
 }

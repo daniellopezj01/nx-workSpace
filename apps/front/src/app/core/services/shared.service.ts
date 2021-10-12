@@ -76,8 +76,8 @@ export class SharedService {
       },
     ]
   }]
-  public currencies$: Observable<any>;
-  public languages$: Observable<any>;
+  public currencies$?: Observable<any>;
+  public languages$?: Observable<any>;
   public numberPhones: any = [
     { name: '+52 55 4166 5533', code: 'mx', value: '+525541665533' },
     { name: '+57 1 5086785', code: 'co', value: '+3715086785' },
@@ -86,15 +86,15 @@ export class SharedService {
   public continents: any = [];
   public categories: any = [];
   public toursFilters: any = [];
-  public loadCategories: boolean;
-  public loadContinents: boolean;
-  public loadFilters: boolean;
+  public loadCategories?: boolean;
+  public loadContinents?: boolean;
+  public loadFilters?: boolean;
   private currentNumber = _.head(this.numberPhones);
 
   constructor(
     private translate: TranslateService,
     private cookieService: CookieService,
-    @Inject(PLATFORM_ID) private platformId,
+    @Inject(PLATFORM_ID) private platformId: any,
     private rest: RestService
   ) {
     this.preload();
@@ -164,7 +164,7 @@ export class SharedService {
     }
   }
 
-  setCurrency(value): any {
+  setCurrency(value: any): any {
     this.cookieService.set(
       'currencySelect',
       JSON.stringify(value),
@@ -179,7 +179,7 @@ export class SharedService {
       if (isPlatformBrowser(this.platformId)) {
         let currency: any = this.cookieService.get('currencySelect');
         if (!currency) {
-          this.currencies$.subscribe((res) => {
+          this.currencies$?.subscribe((res) => {
             this.setCurrency(_.head(res));
           });
         }
@@ -212,7 +212,7 @@ export class SharedService {
       if (isPlatformBrowser(this.platformId)) {
         let lenguage: any = this.cookieService.get('languageSelect');
         if (!lenguage) {
-          this.languages$.subscribe((res) => {
+          this.languages$?.subscribe((res) => {
             this.setLanguage(_.head(res));
 
           });

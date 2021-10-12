@@ -15,8 +15,14 @@ import {
 export class CardReviewComponent implements OnInit {
   @Input() review: any;
   @Input() index: any = 1;
-  @Input() allComments: boolean = false;
+  @Input() allComments?: boolean = false;
   creator: any;
+  public preConfig = {
+    visible: true,
+    autoPlay: false,
+    size: { width: '40px', height: '40px' }
+  }
+  public slideConfig = { infinite: false, sidePreviews: { show: false } }
   public image: Image[] = [];
   public customFullDescription: Description = {
     strategy: DescriptionStrategy.HIDE_IF_EMPTY,

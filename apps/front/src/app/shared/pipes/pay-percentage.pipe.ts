@@ -4,7 +4,7 @@ import * as _ from 'lodash';
   name: 'payPercentage',
 })
 export class PayPercentagePipe implements PipeTransform {
-  transform(value: any, ...args: unknown[]): unknown {
+  transform(value: any, ...args: unknown[]): any {
     return null;
   }
 }

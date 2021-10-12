@@ -1,12 +1,12 @@
+import { SharedService } from './../../../../../core/services/shared.service';
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { SharedService } from 'apps/front/src/app/core/services/shared.service';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
-export class ContactComponent implements OnInit, AfterViewInit {
+export class ContactComponent implements AfterViewInit {
   @ViewChild('templatePhone') templatePhone: ElementRef | undefined;
   @ViewChild('templateChat') templateChat: ElementRef | undefined;
   @ViewChild('templatePlace') templatePlace: ElementRef | undefined;
@@ -51,8 +51,6 @@ export class ContactComponent implements OnInit, AfterViewInit {
 
   constructor(public service: SharedService) { }
 
-  ngOnInit(): void {
-  }
   ngAfterViewInit(): void {
     this.itemsHeader = [
       {

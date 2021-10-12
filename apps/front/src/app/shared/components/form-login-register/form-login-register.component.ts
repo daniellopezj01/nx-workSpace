@@ -1,10 +1,7 @@
 import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { finalize } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { RestService } from '../../../core/services/rest.service';

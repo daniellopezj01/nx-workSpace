@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { AvatarModule } from 'ngx-avatar';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,7 +14,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SuccessChangeComponent } from './pages/success-change/success-change.component';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { CallbackComponent } from './pages/callback/callback.component';
-import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,6 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    PasswordStrengthMeterModule,
     ErrorTailorModule,
     AvatarModule
   ],

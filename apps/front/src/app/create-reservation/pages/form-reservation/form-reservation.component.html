@@ -1,14 +1,14 @@
 <div class="main-container-form" *ngIf="!loading">
   <div class="text-center truncate">
     <h5>
-      {{ "CREATE_RESERVATION.LAST_STEP" | translate }}
+      {{ 'CREATE_RESERVATION.LAST_STEP' | translate }}
       <div class="text-primary truncate">"{{ tour?.title }}"</div>
     </h5>
   </div>
   <hr />
   <div class="container-form pt-2 pb-2">
     <div class="title-section pb-2">
-      {{ "CREATE_RESERVATION.PERSONAL_INFO" | translate }}
+      {{ 'CREATE_RESERVATION.PERSONAL_INFO' | translate }}
     </div>
     <div class="">
       <form [formGroup]="reservationForm">
@@ -16,7 +16,7 @@
           <div class="col-lg-6 col-md-6 input-container">
             <div class="form-group">
               <small class="text-muted">{{
-                "CREATE_RESERVATION.NAME_PLACEHOLDER" | translate
+                'CREATE_RESERVATION.NAME_PLACEHOLDER' | translate
               }}</small>
               <input
                 type="text"
@@ -31,7 +31,7 @@
           <div class="col-lg-6 col-md-6 input-container">
             <div class="form-group">
               <small class="text-muted">{{
-                "CREATE_RESERVATION.SURNAME_PLACEHOLDER" | translate
+                'CREATE_RESERVATION.SURNAME_PLACEHOLDER' | translate
               }}</small>
               <input
                 type="text"
@@ -49,7 +49,7 @@
             <div class="form-group">
               <div class="d-flex align-items-center">
                 <small class="text-muted">{{
-                  "CREATE_RESERVATION.DOCUMENT_PLACEHOLDER" | translate
+                  'CREATE_RESERVATION.DOCUMENT_PLACEHOLDER' | translate
                 }}</small>
                 <i
                   class="pl-2 uil uil-question-circle"
@@ -71,7 +71,7 @@
           <div class="col-lg-4 col-md-6 input-container">
             <div class="form-group">
               <small class="text-muted">{{
-                "CREATE_RESERVATION.BIRTH_DATE_PLACEHOLDER" | translate
+                'CREATE_RESERVATION.BIRTH_DATE_PLACEHOLDER' | translate
               }}</small>
               <input
                 #dp="bsDatepicker"
@@ -95,7 +95,7 @@
           <div class="col-lg-4 col-md-12 input-container">
             <div class="form-group position-relative w-100">
               <small class="text-muted">{{
-                "CREATE_RESERVATION.GENDER_PLACEHOLDER" | translate
+                'CREATE_RESERVATION.GENDER_PLACEHOLDER' | translate
               }}</small>
               <ng-select
                 [items]="genders"
@@ -121,7 +121,7 @@
           <div class="col-lg-6 col-md-6 input-container">
             <div class="form-group">
               <small class="text-muted">{{
-                "CREATE_RESERVATION.EMAIL_PLACEHOLDER" | translate
+                'CREATE_RESERVATION.EMAIL_PLACEHOLDER' | translate
               }}</small>
               <input
                 type="text"
@@ -129,7 +129,7 @@
                 pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
                 formControlName="travelerEmail"
                 placeholder=""
-                disabled="true"
+                [disabled]="true"
                 controlErrorsClass="error-class-tailor"
               />
             </div>
@@ -138,7 +138,7 @@
           <div class="col-lg-6 col-md-6 input-container phone-reservation">
             <div class="form-group">
               <small class="text-muted">{{
-                "CREATE_RESERVATION.PHONE_PLACEHOLDER" | translate
+                'CREATE_RESERVATION.PHONE_PLACEHOLDER' | translate
               }}</small>
               <ngx-intl-tel-input
                 class="form-control"
@@ -152,8 +152,7 @@
                 [searchCountryFlag]="true"
                 [searchCountryPlaceholder]="'Buscar Pais'"
                 [selectedCountryISO]="CountryISO.Mexico"
-                [maxLength]="15"
-                [tooltipField]="TooltipLabel.Name"
+                [maxLength]="'15'"
                 [spellcheck]="false"
                 #inputPhone
                 inputmode="search"
@@ -171,7 +170,7 @@
   <hr />
   <div class="container-form">
     <div class="title-section pb-2 truncate">
-      {{ "CREATE_RESERVATION.LOCATION_INFO" | translate }}
+      {{ 'CREATE_RESERVATION.LOCATION_INFO' | translate }}
     </div>
 
     <form [formGroup]="locationForm">
@@ -179,7 +178,7 @@
         <div class="col-lg-6 col-md-6 input-container">
           <div class="form-group">
             <small class="text-muted">{{
-              "CREATE_RESERVATION.COUNTRY_PLACEHOLDER" | translate
+              'CREATE_RESERVATION.COUNTRY_PLACEHOLDER' | translate
             }}</small>
             <input
               autocomplete="nope"
@@ -195,7 +194,7 @@
         <div class="col-lg-6 col-md-6 input-container">
           <div class="form-group">
             <small class="text-muted">{{
-              "CREATE_RESERVATION.CITY_PLACEHOLDER" | translate
+              'CREATE_RESERVATION.CITY_PLACEHOLDER' | translate
             }}</small>
             <input
               type="text"
@@ -212,7 +211,7 @@
         <div class="col-lg-12 input-container">
           <div class="form-group">
             <small class="text-muted">{{
-              "CREATE_RESERVATION.ADDRESS_PLACEHOLDER" | translate
+              'CREATE_RESERVATION.ADDRESS_PLACEHOLDER' | translate
             }}</small>
 
             <input

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Subscription } from 'rxjs';
 import { Component, OnInit, HostBinding, HostListener, Inject, PLATFORM_ID, OnDestroy, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -26,20 +27,10 @@ interface ItemSidebar {
 export class SidebarComponent implements OnInit, OnDestroy, AfterContentChecked {
 
 
-  @HostListener('click', ['$event']) click(e: any) {
-    e.stopPropagation();
-  }
 
-  @HostListener('click', ['$event', '$event.target']) resetToggle(
-    event: MouseEvent,
-    targetElement: HTMLElement
-  ) {
-    // this.isMenuOpen = false;
-  }
-  @HostBinding('class.active') isMenuOpen = false;
   public listSubscribers: any = [];
   public data: any;
-  public structureSidebar = [
+  public structureSidebar: any = [
     {
       title: 'HEADER.PROFILE',
       icon: 'uil-user',
@@ -226,8 +217,21 @@ export class SidebarComponent implements OnInit, OnDestroy, AfterContentChecked 
   public faMapMarkerAlt = faMapMarkerAlt;
   public faTimes = faTimes;
   public loading = true;
+  public checkAction = false;
 
-  checkAction: boolean = false;
+
+  @HostListener('click', ['$event']) click(e: any) {
+    e.stopPropagation();
+  }
+
+  @HostListener('click', ['$event', '$event.target']) resetToggle(
+    event: MouseEvent,
+    targetElement: HTMLElement
+  ) {
+    // this.isMenuOpen = false;
+  }
+  @HostBinding('class.active') isMenuOpen = false
+
 
   toggle(e: any) {
     e.stopPropagation();

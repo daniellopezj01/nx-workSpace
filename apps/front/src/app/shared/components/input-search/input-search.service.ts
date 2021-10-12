@@ -4,11 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class InputSearchService {
-  globalFocusSearch: boolean;
-  activeSmallTemplate: boolean;
+  public globalFocusSearch = false;
+  public activeSmallTemplate = false;
 
 
-  constructor() { }
 
   public setGlobalFocusSearch(value: boolean) {
     this.globalFocusSearch = value

@@ -5,7 +5,7 @@ import * as _ from 'lodash';
   name: 'userChat',
 })
 export class UserChatPipe implements PipeTransform {
-  transform(value: any, args: any): unknown {
+  transform(value: any, args: any): any {
     try {
       return _.find(value, { _id: args });
     } catch (e) {

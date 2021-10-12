@@ -56,7 +56,9 @@ export class MainDeparturesComponent implements OnInit, OnDestroy {
           const el: HTMLElement | null = document.getElementById(
             this.isLogged ? 'stepTwo' : 'Login'
           );
-          window.scrollTo({ top: el.offsetTop - 30, behavior: 'smooth' });
+          if (el) {
+            window.scrollTo({ top: el.offsetTop - 30, behavior: 'smooth' });
+          }
         }, 20);
       }
       if (this.isLogged) {

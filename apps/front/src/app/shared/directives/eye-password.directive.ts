@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/directive-selector */
 import {
   Directive,
   ElementRef,
@@ -15,7 +16,7 @@ export class EyePasswordDirective {
   constructor(
     private el: ElementRef,
     private render: Renderer2,
-    @Inject(PLATFORM_ID) private platformId
+    @Inject(PLATFORM_ID) private platformId: any
   ) {
     this.setup();
   }

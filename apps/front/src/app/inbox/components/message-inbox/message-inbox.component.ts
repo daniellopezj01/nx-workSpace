@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { finalize, map } from 'rxjs/operators';
-import * as moment from 'moment';
-import * as _ from 'lodash';
+import moment from 'moment';
+import _ from 'lodash';
 import {
   PerfectScrollbarConfigInterface,
   PerfectScrollbarDirective,
@@ -23,7 +23,7 @@ export class MessageInboxComponent implements OnInit, OnDestroy {
     private webSocketService: SocketProviderConnect
   ) { }
 
-  public loading: boolean = false;
+  public loading = false;
   public user: any;
   public listSubscribers: any = [];
 

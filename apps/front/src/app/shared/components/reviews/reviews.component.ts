@@ -17,16 +17,18 @@ export class ReviewsComponent implements OnInit {
   @Input() numberItems: any;
   user: any;
   form: FormGroup;
-  value: Observable<number>;
+  value?: Observable<number>;
 
   constructor(
     private cookies: CookieService,
     private formBuilder: FormBuilder,
     private rest: RestService
-  ) { }
+  ) {
+
+    this.form = this.formBuilder.group({});
+  }
 
   ngOnInit() {
     this.user = this.rest.getCurrentUser();
-    this.form = this.formBuilder.group({});
   }
 }

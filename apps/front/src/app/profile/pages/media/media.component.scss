@@ -1,4 +1,4 @@
-@import "./src/shared.scss";
+@import '../../../../shared.scss';
 
 ::ng-deep .file-drop-wrapper {
   background-color: white !important;
@@ -36,7 +36,7 @@
   cursor: pointer;
 }
 .custom-file-input-ex::before {
-  content: "";
+  content: '';
   display: inline-block;
   background: transparent;
   border: 1px solid #999;

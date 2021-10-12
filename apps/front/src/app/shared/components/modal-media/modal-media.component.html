@@ -1,6 +1,6 @@
 <div class="close-button">
   <div (click)="close()" class="btn custom-button">
-    {{ "GENERAL.CLOSE" | translate }}
+    {{ 'GENERAL.CLOSE' | translate }}
     <fa-icon class="icon-style" [icon]="faTimes"></fa-icon>
   </div>
 </div>
@@ -8,7 +8,10 @@
   <div class="modal-body">
     <div class="">
       <vg-player>
-        <video
+        <video #media preload="auto" loop="true" autoplay="true">
+          <source src="{{ url }}" type="video/mp4" />
+        </video>
+        <!-- <video
           [vgMedia]="media"
           #media
           preload="auto"
@@ -16,7 +19,7 @@
           autoplay="true"
         >
           <source src="{{ url }}" type="video/mp4" />
-        </video>
+        </video> -->
       </vg-player>
     </div>
   </div>

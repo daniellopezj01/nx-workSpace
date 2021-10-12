@@ -1,17 +1,16 @@
+import { SharedService } from './../../../../core/services/shared.service';
+import { RestService } from './../../../../core/services/rest.service';
 import { Subscription } from 'rxjs';
 import { ToursService } from './../services/tours.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { AfterContentChecked, ChangeDetectorRef, Inject, Input, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Inject, Input, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import * as _ from 'lodash';
-import * as moment from 'moment';
+import _ from 'lodash';
+import moment from 'moment';
 import { isPlatformBrowser } from '@angular/common';
 import { MainSearchService } from '../../main-search.service';
 import { Options } from '@angular-slider/ngx-slider';
-import { RestService } from 'apps/front/src/app/core/services/rest.service';
-import { SharedService } from 'apps/front/src/app/core/services/shared.service';
-
 
 @Component({
   selector: 'app-filter',
@@ -19,22 +18,19 @@ import { SharedService } from 'apps/front/src/app/core/services/shared.service';
   styleUrls: ['./filter.component.scss'],
 })
 
-
-
-
-export class FilterComponent implements OnInit, OnDestroy, AfterContentChecked {
+export class FilterComponent implements OnInit, OnDestroy {
   @Input() small = true;
   @Input() tripsNumber = 0;
 
   isBrowser: any;
   public routeContinents = '../../../../../assets/insearch/'
-  public loading: boolean = true;
+  public loading?: boolean = true;
   public ngSelectAge: any;
   public ngSelectCategory: any = 'empty';
   public ngSelectLanguages: any = 'empty';
   public listSubscribers: any = [];
   public today = new Date();
-  public bsRangeValue: Date[];
+  public bsRangeValue: any = [];
   public bsOptions = {
     showWeekNumbers: false,
     isAnimated: false,
@@ -188,10 +184,6 @@ export class FilterComponent implements OnInit, OnDestroy, AfterContentChecked {
     this.listSubscribers = [observerOne$];
   }
 
-  ngAfterContentChecked() {
-    // this.cdref.detectChanges();
-  }
-
   public get currentParams() {
     return this.mainSearchService.getGlobalParams
   }
@@ -335,7 +327,7 @@ export class priceModel {
 }
 
 export class durationModel {
-  name: string = ''
+  name: string = '' as string;
   min: any;
   max?: any
 }

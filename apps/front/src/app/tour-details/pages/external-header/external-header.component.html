@@ -20,6 +20,18 @@
       [id]="10"
       [modalImages]="images"
       [enableCloseOutside]="false"
+      [slideConfig]="{ infinite: false }"
+      [currentImageConfig]="{ description: customFullDescription }"
+      [previewConfig]="{
+        visible: true,
+
+        size: { width: '40px', height: '40px' }
+      }"
+    ></ks-modal-gallery>
+    <!-- <ks-modal-gallery
+      [id]="10"
+      [modalImages]="images"
+      [enableCloseOutside]="false"
       [slideConfig]="{ infinite: false, sidePreviews: { show: false } }"
       [currentImageConfig]="{ description: customFullDescription }"
       [previewConfig]="{
@@ -27,7 +39,7 @@
         autoPlay: true,
         size: { width: '40px', height: '40px' }
       }"
-    ></ks-modal-gallery>
+    ></ks-modal-gallery> -->
   </div>
 </section>
 
@@ -47,10 +59,10 @@
       <i class="uil uil-calendar-alt"></i>
     </div>
     <span class="text-details small text-muted">
-      {{ "DETAILS_TOUR.DURATION" | translate }}</span
+      {{ 'DETAILS_TOUR.DURATION' | translate }}</span
     >
     <span class="numbers">
-      {{ tour?.duration || 1 }} {{ "DETAILS_TOUR.DAY" | translate }}</span
+      {{ tour?.duration || 1 }} {{ 'DETAILS_TOUR.DAY' | translate }}</span
     >
   </div>
   <div class="child-pictures container-section-details">
@@ -58,11 +70,11 @@
       <i class="uil uil-globe"></i>
     </div>
     <span class="text-details small text-muted">{{
-      "DETAILS_TOUR.COUNTRIES" | translate
+      'DETAILS_TOUR.COUNTRIES' | translate
     }}</span>
     <span class="numbers">
       {{ tour?.countries }}
-      {{ "DETAILS_TOUR.COUNTRIES" | translate }}
+      {{ 'DETAILS_TOUR.COUNTRIES' | translate }}
     </span>
   </div>
   <div class="child-pictures container-section-details">
@@ -70,11 +82,11 @@
       <i class="uil uil-building"></i>
     </div>
     <span class="text-details small text-muted">{{
-      "DETAILS_TOUR.CITIES" | translate
+      'DETAILS_TOUR.CITIES' | translate
     }}</span>
     <span class="numbers">
       {{ tour?.cities }}
-      {{ "DETAILS_TOUR.CITIES" | translate }}
+      {{ 'DETAILS_TOUR.CITIES' | translate }}
     </span>
   </div>
   <!-- <div class="child-pictures container-section-details">
@@ -114,10 +126,10 @@
       <i class="uil uil-calendar-alt"></i>
     </div>
     <span class="text-details small text-muted">
-      {{ "DETAILS_TOUR.DURATION" | translate }}</span
+      {{ 'DETAILS_TOUR.DURATION' | translate }}</span
     >
     <span class="numbers">
-      {{ tour?.duration || 1 }} {{ "DETAILS_TOUR.DAY" | translate }}</span
+      {{ tour?.duration || 1 }} {{ 'DETAILS_TOUR.DAY' | translate }}</span
     >
   </div>
   <div class="child-pictures container-section-details">
@@ -125,11 +137,11 @@
       <i class="uil uil-globe"></i>
     </div>
     <span class="text-details small text-muted">{{
-      "DETAILS_TOUR.COUNTRIES" | translate
+      'DETAILS_TOUR.COUNTRIES' | translate
     }}</span>
     <span class="numbers">
       {{ tour?.countries }}
-      {{ "DETAILS_TOUR.COUNTRIES" | translate }}
+      {{ 'DETAILS_TOUR.COUNTRIES' | translate }}
     </span>
   </div>
   <div class="child-pictures container-section-details">
@@ -137,11 +149,11 @@
       <i class="uil uil-building"></i>
     </div>
     <span class="text-details small text-muted">{{
-      "DETAILS_TOUR.CITIES" | translate
+      'DETAILS_TOUR.CITIES' | translate
     }}</span>
     <span class="numbers">
       {{ tour?.cities }}
-      {{ "DETAILS_TOUR.CITIES" | translate }}
+      {{ 'DETAILS_TOUR.CITIES' | translate }}
     </span>
   </div>
   <div class="child-pictures container-section-details">

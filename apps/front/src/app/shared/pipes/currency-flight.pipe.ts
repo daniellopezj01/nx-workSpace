@@ -5,7 +5,7 @@ import * as _ from 'lodash';
   name: 'currencyFlight',
 })
 export class CurrencyFlightPipe implements PipeTransform {
-  transform(value: any, ...args: any[]): unknown {
+  transform(value: any, ...args: any[]): any {
     try {
       const currency = _.get(args[0], args[1].toLowerCase());
       if (!currency) {

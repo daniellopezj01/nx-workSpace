@@ -26,7 +26,7 @@ export class StepTwoComponent implements OnInit, OnDestroy {
   public activePercentage: any = 0;
   public loading = false;
   public contracts: any;
-  public selectPayAmount = null;
+  public selectPayAmount: any;
   public listSubscribers: any = [];
   public itemDescription = [
     {
@@ -45,7 +45,7 @@ export class StepTwoComponent implements OnInit, OnDestroy {
 
   constructor(
     public datePipe: DatePipe,
-    private service: DepartureService,
+    public service: DepartureService,
     private rest: RestService,
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: any

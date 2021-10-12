@@ -2,8 +2,10 @@ import { ReservationService } from '../../reservation.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import countriesJson from '@assetsFiles/jsonFiles/countries.json';
-import genderJson from '@assetsFiles/jsonFiles/gender.json';
+// import countriesJson from '@assetsFiles/jsonFiles/countries.json';
+// import genderJson from '@assetsFiles/jsonFiles/gender.json';
+import genderJson from '../../../../assets/jsonFiles/gender.json';
+import countriesJson from '../../../../assets/jsonFiles/countries.json';
 import { DatePipe } from '@angular/common';
 import {
   CountryISO,
@@ -12,8 +14,8 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 import { Subscription, throwError } from 'rxjs';
-import * as _ from 'lodash';
-import * as moment from 'moment';
+import _ from 'lodash';
+import moment from 'moment';
 import { RestService } from '../../../core/services/rest.service';
 import { DateValidator } from '../../../core/validations/date.validator';
 

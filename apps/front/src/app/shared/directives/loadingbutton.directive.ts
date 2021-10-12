@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/directive-selector */
 import {
   Directive,
   ElementRef,
@@ -11,17 +12,16 @@ import {
   // tslint:disable-next-line:directive-selector
   selector: '[ngxLoading]',
 })
-export class LoadingBtnDirective implements OnInit, OnChanges {
-  @Input() textLoading: string;
-  @Input() textInitial: string;
-  @Input() disabled: boolean;
-  @Input() loadingFlag: boolean | undefined = undefined;
+export class LoadingBtnDirective implements OnChanges {
+  @Input() textLoading?: string;
+  @Input() textInitial?: string;
+  @Input() disabled?: boolean;
+  @Input() loadingFlag = false;
 
   constructor(private elem: ElementRef) { }
 
-  ngOnInit(): void { }
 
-  ngOnChanges(changes): void {
+  ngOnChanges(changes: any): void {
     if (changes?.condition && changes?.condition?.currentValue) {
       const { currentValue } = changes.condition;
       this.loadingFlag = currentValue;
@@ -29,7 +29,7 @@ export class LoadingBtnDirective implements OnInit, OnChanges {
     this.elem.nativeElement.innerText = this.loadingFlag
       ? this.textLoading
       : this.textInitial;
-    if (![undefined].includes(this.loadingFlag)) {
+    if (![!!undefined].includes(this.loadingFlag)) {
       this.elem.nativeElement.disabled = !!this.disabled;
     }
   }

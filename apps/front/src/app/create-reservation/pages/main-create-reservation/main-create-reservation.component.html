@@ -6,12 +6,12 @@
 <div class="w-100 container-info">
   <div class="section-header">
     <div class="">
-      <h2>{{ "CREATE_RESERVATION.OVERVIEW" | translate }}</h2>
+      <h2>{{ 'CREATE_RESERVATION.OVERVIEW' | translate }}</h2>
     </div>
     <div class="faqs">
       <button class="btn btn-outline-primary" name="createReservation">
         <i class="uil uil-question-circle"></i>
-        <span class="pl-1">{{ "CREATE_RESERVATION.FAQ" | translate }}</span>
+        <span class="pl-1">{{ 'CREATE_RESERVATION.FAQ' | translate }}</span>
       </button>
     </div>
   </div>
@@ -54,7 +54,14 @@
 <ng-template #sectionTour>
   <div
     *ngIf="tour"
-    class="main-container-tour animate__animated animate__fadeInDown animation-2 row ml-0 mr-0"
+    class="
+      main-container-tour
+      animate__animated animate__fadeInDown
+      animation-2
+      row
+      ml-0
+      mr-0
+    "
   >
     <img
       class="section-image-tour col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 p-0"
@@ -65,10 +72,15 @@
           : (tour?.attached | firstValue)?.source?.sm ||
             (tour?.attached | firstValue)?.source?.medium
       "
-      alt="{{ featured?.title }}"
+      alt="{{ (tour?.attached | firstValue)?.fileName }}"
     />
     <div
-      class="section-information-tour truncate p-3 col-12 col-sm-12 col-md-6 col-lg-9 col-xl-9"
+      class="
+        section-information-tour
+        truncate
+        p-3
+        col-12 col-sm-12 col-md-6 col-lg-9 col-xl-9
+      "
     >
       <div>
         <h4 class="tour-title mb-0">{{ tour?.title }}</h4>
@@ -95,7 +107,7 @@
             {{ tour?.countries
             }}{{ tour?.countries | numberCountries | translate }} ,
             {{ tour?.cities
-            }}{{ tour?.countries | numberCountries: "cities" | translate }}
+            }}{{ tour?.countries | numberCountries: 'cities' | translate }}
           </span>
         </div>
       </div>
@@ -104,9 +116,9 @@
           <i class="uil uil-schedule"></i>
           <span class="night pr-2">
             {{ tour?.duration }}
-            {{ "CREATE_RESERVATION.DAYS" | translate }} ,
+            {{ 'CREATE_RESERVATION.DAYS' | translate }} ,
             {{ tour?.nights - 1 }}
-            {{ "CREATE_RESERVATION.NIGHTS" | translate }}
+            {{ 'CREATE_RESERVATION.NIGHTS' | translate }}
           </span>
           <div>
             <app-tour-language-offered
@@ -115,7 +127,7 @@
           </div>
         </div>
         <div class="itinerary-map" (click)="openModal()">
-          <span>{{ "CREATE_RESERVATION.ITINERARY_MAP" | translate }}</span>
+          <span>{{ 'CREATE_RESERVATION.ITINERARY_MAP' | translate }}</span>
           <span class="pl-1"><i class="uil uil-expand-arrows"></i></span>
         </div>
       </div>

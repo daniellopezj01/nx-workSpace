@@ -15,8 +15,8 @@ import {
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import * as _ from 'lodash';
-import * as moment from 'moment';
+import _ from 'lodash';
+import moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -32,31 +32,31 @@ import { RestService } from '../../../core/services/rest.service';
 export class SearchHotelsComponent implements OnInit, OnDestroy {
   @ViewChild('inputDates') private inputDates: any;
   @Input() fromHome = false;
-  faMinus = faMinus;
-  faPlus = faPlus;
-  loadingSearch = false;
-  globalParams: any;
-  formSearch: FormGroup;
-  today = new Date();
-  focusSearch = false;
-  focusPerson = false;
-  searchValue = '';
-  dataPlaces: any;
-  dataPlaces$: Observable<any> | undefined;
-  minLetterSearch = 1;
+  public faMinus = faMinus;
+  public faPlus = faPlus;
+  public loadingSearch = false;
+  public globalParams: any;
+  public formSearch: FormGroup;
+  public today = new Date();
+  public focusSearch = false;
+  public focusPerson = false;
+  public searchValue = '';
+  public dataPlaces: any;
+  public dataPlaces$: Observable<any> | undefined;
+  public minLetterSearch = 1;
 
-  loadingPlaces = false;
-  notFound = false;
-  request: any;
-  chadArray: Array<any> = [];
-  adultsCount = 1;
-  childrenCount = 0;
-  cityId: any = 0;
-  bsRangeValue: Date[];
-  listSubscribers: any = [];
-  currentParams: any = {}
+  public loadingPlaces = false;
+  public notFound = false;
+  public request: any;
+  public chadArray: Array<any> = [];
+  public adultsCount = 1;
+  public childrenCount = 0;
+  public cityId: any = 0;
+  public bsRangeValue: any;
+  public listSubscribers: any = [];
+  public currentParams: any = {}
 
-  bsOptions = {
+  public bsOptions = {
     showWeekNumbers: false,
     isAnimated: false,
     rangeInputFormat: 'DD-MMM-YYYY',

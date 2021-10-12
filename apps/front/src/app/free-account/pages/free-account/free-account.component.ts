@@ -77,8 +77,8 @@ export class FreeAccountComponent implements OnInit {
     // },
   ];
 
-  user: any;
-  loading: boolean = true;
+  public user: any;
+  public loading?: boolean = true;
 
   constructor(
     private router: Router,

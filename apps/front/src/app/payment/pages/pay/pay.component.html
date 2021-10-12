@@ -7,36 +7,44 @@
   <div class="general-cont">
     <div class="general">
       <div
-        class="container col-sm-12 col-md-12 col-lg-12 col-xl-10 offset-xl-1 offset-sm-0 offset-lg-0 offset-md-0"
+        class="
+          container
+          col-sm-12 col-md-12 col-lg-12 col-xl-10
+          offset-xl-1 offset-sm-0 offset-lg-0 offset-md-0
+        "
       >
         <div class="header-title pb-3">
-          <h2>{{ "PAYMENT.TITLE_FORM" | translate }}</h2>
+          <h2>{{ 'PAYMENT.TITLE_FORM' | translate }}</h2>
         </div>
 
         <form [formGroup]="payForm" (submit)="beginProcess()">
           <span class="pb-2" *ngIf="data?.status === 'progress'">
-            {{ "PAYMENT.PENDING" | translate }}
+            {{ 'PAYMENT.PENDING' | translate }}
             <span class="span-pay"
               >{{
                 data?.pending - amountInNumber
-                  | number: "1.2-2"
-                  | currencyCurrent: "2:true":departure?.currencies
+                  | number: '1.2-2'
+                  | currencyCurrent: '2:true':departure?.currencies
               }}
             </span>
           </span>
           <div
-            class="manager-forms animate__animated animate__fadeInDown animation-3"
+            class="
+              manager-forms
+              animate__animated animate__fadeInDown
+              animation-3
+            "
           >
             <div class="col col-md-12">
               <div class="form-group">
                 <div class="d-flex bd-highlight">
                   <label class="flex-grow-1 text-muted pl-1 pr-1 pb-2"
-                    >{{ "PAYMENT.ADD_AMOUNT" | translate }}
+                    >{{ 'PAYMENT.ADD_AMOUNT' | translate }}
                   </label>
                 </div>
                 <div class="input-amount">
                   <span class="signal">
-                    {{ "GENERAL.GLOBAL_CURRENCY" | translate }}
+                    {{ 'GENERAL.GLOBAL_CURRENCY' | translate }}
                   </span>
                   <input
                     #inputAmount
@@ -57,7 +65,7 @@
                 <ng-container
                   *ngTemplateOutlet="
                     messageAmount;
-                    context: { error: payForm.get('amount').errors }
+                    context: { error: payForm.get('amount')?.errors }
                   "
                 ></ng-container>
               </div>
@@ -71,7 +79,7 @@
                   <div class="form-group">
                     <div class="d-flex bd-highlight">
                       <label class="flex-grow-1 small text-dark">{{
-                        "PAYMENT.CARD_NUMBER_TITLE" | translate
+                        'PAYMENT.CARD_NUMBER_TITLE' | translate
                       }}</label>
                     </div>
                     <div
@@ -81,7 +89,7 @@
                     ></div>
                     <div *ngIf="subPayment">
                       <div class="message-error" *ngIf="cardNumber?._empty">
-                        {{ "PAYMENT.FIELD_REQUIRED" | translate }}
+                        {{ 'PAYMENT.FIELD_REQUIRED' | translate }}
                       </div>
                     </div>
                   </div>
@@ -90,7 +98,7 @@
                   <div class="col-6">
                     <div class="form-group">
                       <label class="small text-dark">{{
-                        "PAYMENT.CARD_EXP_TITLE" | translate
+                        'PAYMENT.CARD_EXP_TITLE' | translate
                       }}</label>
                       <div
                         id="card_exp"
@@ -99,7 +107,7 @@
                       ></div>
                       <div *ngIf="subPayment">
                         <div class="message-error" *ngIf="cardExp?._empty">
-                          {{ "PAYMENT.FIELD_REQUIRED" | translate }}
+                          {{ 'PAYMENT.FIELD_REQUIRED' | translate }}
                         </div>
                       </div>
                     </div>
@@ -107,7 +115,7 @@
                   <div class="col-6">
                     <div class="form-group">
                       <label class="small text-dark">{{
-                        "PAYMENT.CARD_CVC_TITLE" | translate
+                        'PAYMENT.CARD_CVC_TITLE' | translate
                       }}</label>
                       <div
                         id="card_cvc"
@@ -116,7 +124,7 @@
                       ></div>
                       <div *ngIf="subPayment">
                         <div class="message-error" *ngIf="cardCvv?._empty">
-                          {{ "PAYMENT.FIELD_REQUIRED" | translate }}
+                          {{ 'PAYMENT.FIELD_REQUIRED' | translate }}
                         </div>
                       </div>
                     </div>
@@ -167,7 +175,7 @@
           (change)="checkPayAll($event)"
         >
           <span>
-            {{ "PAYMENT.EQUALS_TO_100" | translate }}
+            {{ 'PAYMENT.EQUALS_TO_100' | translate }}
           </span>
         </p-checkbox>
       </div>
@@ -182,7 +190,7 @@
           shape="curve"
           (change)="paymentWIthWallet($event)"
         >
-          <span> {{ "PAYMENT.PAYMENT_WITH_WALLET" | translate }}</span>
+          <span> {{ 'PAYMENT.PAYMENT_WITH_WALLET' | translate }}</span>
         </p-checkbox>
       </div>
     </div>
@@ -191,16 +199,16 @@
     <div class="result-data pl-1 pt-4 d-flex">
       <div *ngIf="isReservation" class="balance-payment pb-3">
         <span class="pb-2" *ngIf="amountInNumber">
-          {{ "PAYMENT.AMOUNT_TO_PAY" | translate }}
+          {{ 'PAYMENT.AMOUNT_TO_PAY' | translate }}
           <span *ngIf="payPercentage >= 1">
-            {{ payPercentage | number: "1.0-0" }}%
+            {{ payPercentage | number: '1.0-0' }}%
           </span>
           :
           <span class="span-pay"
             >{{
               amountInNumber
-                | number: "1.2-2"
-                | currencyCurrent: "2:true":departure?.currencies
+                | number: '1.2-2'
+                | currencyCurrent: '2:true':departure?.currencies
             }}
           </span>
         </span>
@@ -238,7 +246,13 @@
 <ng-template #checkConditions>
   <div class="cont-terms">
     <div
-      class="col col-lg-12 terms-style truncate d-flex align-content-center align-items-center"
+      class="
+        col col-lg-12
+        terms-style
+        truncate
+        d-flex
+        align-content-center align-items-center
+      "
     >
       <p-checkbox
         animation="smooth"
@@ -253,12 +267,18 @@
           [href]="'LINKS_EXTERNAL.PROGRAM_WALLET.LINK' | translate"
           target="_blank"
         >
-          {{ "PAYMENT.CHECK_ONE" | translate }}
+          {{ 'PAYMENT.CHECK_ONE' | translate }}
         </a>
       </div>
     </div>
     <div
-      class="col col-lg-12 terms-style truncate d-flex align-content-center align-items-center"
+      class="
+        col col-lg-12
+        terms-style
+        truncate
+        d-flex
+        align-content-center align-items-center
+      "
     >
       <p-checkbox
         animation="smooth"
@@ -273,7 +293,7 @@
           [href]="'LINKS_EXTERNAL.TERMS_AND_CONDITIONS.LINK' | translate"
           target="_blank"
         >
-          {{ "PAYMENT.CHECK_TWO" | translate }}
+          {{ 'PAYMENT.CHECK_TWO' | translate }}
         </a>
       </div>
     </div>
@@ -282,7 +302,7 @@
 
 <ng-template #templateAlertInfo>
   <div class="alert alert-warning" role="alert">
-    {{ "PAYMENT.ALERT_INFO" | translate }}
+    {{ 'PAYMENT.ALERT_INFO' | translate }}
   </div>
 </ng-template>
 
@@ -296,26 +316,26 @@
       />
     </div>
     <div class="small pt-1 pl-2">
-      {{ "PAYMENT.MNS_SECURITY" | translate }}
+      {{ 'PAYMENT.MNS_SECURITY' | translate }}
     </div>
   </div>
 </ng-template>
 
 <ng-template #messageAmount let-error="error">
   <div class="text-danger w-100 pl-2 pr-2" *ngIf="error?.max?.max">
-    <span>{{ "PAYMENT.ERRORS.MAX_AMOUNT" | translate }}</span>
+    <span>{{ 'PAYMENT.ERRORS.MAX_AMOUNT' | translate }}</span>
   </div>
 </ng-template>
 
 <ng-template #loadingRef let-loading="loading">
   <div
     class="w-100 loading-wrap animate__animated animate__fadeIn"
-    *ngIf="loading == true"
+    *ngIf="loading"
   >
     <div class="in">
       <img class="circle" src="/assets/loading.svg" alt="loading" />
       <div>
-        <small>{{ "GENERAL.LOADING" | translate }}</small>
+        <small>{{ 'GENERAL.LOADING' | translate }}</small>
       </div>
     </div>
   </div>
@@ -331,7 +351,7 @@
         alt="loading status"
       />
       <div>
-        <small>{{ "GENERAL.ERROR" | translate }}</small>
+        <small>{{ 'GENERAL.ERROR' | translate }}</small>
       </div>
     </div>
   </div>

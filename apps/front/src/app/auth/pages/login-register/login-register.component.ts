@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { RestService } from '../../../core/services/rest.service';
@@ -12,7 +12,7 @@ import { RestService } from '../../../core/services/rest.service';
 export class LoginRegisterComponent implements OnInit {
   formAction = false;
   public loading = false;
-  public userReferred;
+  public userReferred: any;
   constructor(
     private rest: RestService,
     private router: Router,
@@ -22,7 +22,9 @@ export class LoginRegisterComponent implements OnInit {
     this.formAction = this.router.url === '/auth/login';
   }
 
-  change(key: boolean) { }
+  change(key: boolean) {
+    console.log(key)
+  }
 
   ngOnInit(): void {
     this.checkRefferer();
@@ -42,16 +44,16 @@ export class LoginRegisterComponent implements OnInit {
 
   }
 
-  changeActiveRoute(event) {
+  changeActiveRoute(event: any) {
     // this.location.replaceState(`/auth/${event ? 'login' : 'register'}`);
   }
 
-  register(event) {
+  register(event: any) {
     this.rest.redirectAfterLogin();
     // this.router.navigate(['/']);
   }
 
-  login(event) {
+  login(event: any) {
     // this.router.navigate(['/']);
     this.rest.redirectAfterLogin();
   }

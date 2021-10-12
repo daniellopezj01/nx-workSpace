@@ -1,10 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'countDownTime',
+  name: 'toAny'
 })
-export class CountDownTimePipe implements PipeTransform {
+export class ToAnyPipe implements PipeTransform {
+
   transform(value: unknown, ...args: unknown[]): any {
-    return null;
+    return value;
   }
+
 }

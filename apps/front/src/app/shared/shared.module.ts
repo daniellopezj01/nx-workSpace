@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { QuillModule } from 'ngx-quill';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   CommonModule,
   CurrencyPipe,
@@ -92,6 +93,9 @@ import { FirstLineComponent } from './components/header/components/first-line/fi
 import { ContactComponent } from './components/header/components/contact/contact.component';
 import { RoundUpPipe } from './pipes/round-up.pipe';
 import { SquareListComponent } from './components/square-list/square-list.component';
+import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
+import { ToAnyPipe } from './pipes/to-any.pipe';
+
 
 // import { NgxLocalStorageModule } from 'ngx-localstorage';
 
@@ -162,6 +166,7 @@ import { SquareListComponent } from './components/square-list/square-list.compon
     ContactComponent,
     RoundUpPipe,
     SquareListComponent,
+    ToAnyPipe,
   ],
   imports: [
     CommonModule,
@@ -187,7 +192,8 @@ import { SquareListComponent } from './components/square-list/square-list.compon
     CarouselModule,
     PerfectScrollbarModule,
     BsDatepickerModule.forRoot(),
-    NgxLinkifyjsModule
+    NgxLinkifyjsModule,
+    PasswordStrengthMeterModule,
   ],
   exports: [
     HeaderComponent,
@@ -236,8 +242,10 @@ import { SquareListComponent } from './components/square-list/square-list.compon
     BeginTourComponent,
     ScoreComponent,
     TourLanguageOfferedComponent,
-    SquareListComponent
+    SquareListComponent,
+    ToAnyPipe
   ],
+  // schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [DecimalPipe, CurrencyPipe, DatePipe],
 })
 

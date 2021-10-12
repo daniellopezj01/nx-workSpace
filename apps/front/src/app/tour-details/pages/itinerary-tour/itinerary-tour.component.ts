@@ -13,6 +13,7 @@ import { DetailsItineraryService } from '../details-itinerary/services/details-i
 import { DetailsItineraryComponent } from '../details-itinerary/details-itinerary.component';
 import { isPlatformBrowser } from '@angular/common';
 import { ModalsService } from '../../../core/services/modals.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-itinerary-tour',
@@ -25,13 +26,13 @@ export class ItineraryTourComponent implements OnInit, OnDestroy {
   private raiseOrLowerScroll = false;
   private actionButtonNavigation = false;
   activePosition = 0;
-  small: boolean;
+  public small?: boolean;
   public listSubscribers: any = [];
   config: any;
   constructor(
     private serviceModal: ModalsService,
     private detailsService: DetailsItineraryService,
-    @Inject(PLATFORM_ID) private platformId
+    @Inject(PLATFORM_ID) private platformId: any
   ) {
     if (isPlatformBrowser(this.platformId)) {
       this.small = window.innerWidth < 760;
@@ -65,7 +66,7 @@ export class ItineraryTourComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.listSubscribers.forEach((a) => a.unsubscribe());
+    this.listSubscribers.forEach((a: Subscription) => a.unsubscribe());
   }
 
   countNight() {
@@ -77,7 +78,7 @@ export class ItineraryTourComponent implements OnInit, OnDestroy {
     });
   }
 
-  activeItem(position) {
+  activeItem(position: any) {
     this.actionButtonNavigation = true;
     if (this.small) {
       this.serviceModal.openComponent(
@@ -94,7 +95,7 @@ export class ItineraryTourComponent implements OnInit, OnDestroy {
     }, 2000);
   }
 
-  onScroll(event) {
+  onScroll(event: any) {
     this.raiseOrLowerScroll = this.beginValueScroll > event.target.scrollTop;
     this.beginValueScroll = event.target.scrollTop;
   }
