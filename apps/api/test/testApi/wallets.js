@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint handle-callback-err: "off"*/
 
 process.env.NODE_ENV = 'test'
@@ -9,7 +8,6 @@ const chaiHttp = require('chai-http')
 const collectionPayOrder = require('../../app/models/payOrder')
 const server = require('../../server')
 // eslint-disable-next-line no-unused-vars
-const should = chai.should()
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'

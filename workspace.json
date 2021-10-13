@@ -39,7 +39,14 @@
           "executor": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": ["apps/api/**/*.ts", "apps/api/**/*.js"]
+            "lintFilePatterns": [
+              "apps/api/app/**/*.js",
+              "apps/api/config/**/*.js",
+              "apps/api/data/*.js",
+              "apps/api/initialization/*.js",
+              "apps/api/test/**/*.js",
+              "apps/api/*.js"
+            ]
           }
         },
 

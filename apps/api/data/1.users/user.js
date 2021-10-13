@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const { ObjectID } = require('mongodb')
 const faker = require('faker')
 
