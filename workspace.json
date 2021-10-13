@@ -68,8 +68,35 @@
             "polyfills": "apps/front/src/polyfills.ts",
             "tsConfig": "apps/front/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "allowedCommonJsDependencies": [
+              "videogular2/compiled/controls",
+              "lottie-web",
+              "lodash",
+              "rxjs/operators",
+              "rxjs/Subject",
+              "mousetrap",
+              "hammerjs",
+              "ngx-linkifyjs",
+              "rxjs/Subscription",
+              "zxcvbn",
+              "@ks89/angular-modal-gallery"
+            ],
             "assets": ["apps/front/src/favicon.ico", "apps/front/src/assets"],
-            "styles": ["apps/front/src/styles.scss"],
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "./node_modules/animate.css/animate.min.css",
+              "./node_modules/intl-tel-input/build/css/intlTelInput.css",
+              "./node_modules/videogular2/fonts/videogular.css",
+              "./node_modules/pretty-checkbox/src/pretty-checkbox.scss",
+              "./node_modules/flag-icon-css/css/flag-icon.min.css",
+              "./node_modules/hover.css/css/hover-min.css",
+              "./node_modules/imagehover.css/css/imagehover.css",
+              "./node_modules/@iconscout/unicons/css/line.css",
+              "./node_modules/ngx-copilot/src/lib/ngx-copilot.css",
+              "apps/front/src/scrollbars.as.css",
+              "apps/front/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
