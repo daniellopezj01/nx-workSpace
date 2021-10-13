@@ -1,0 +1,27 @@
+<div
+  class="main-container-tour animate__animated animate__fadeInDown animation-2 row ml-0 mr-0"
+>
+  <img
+    *ngIf="featured?.image?.source?.medium"
+    class="section-image-tour col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0"
+    appImgFallback
+    [src]="
+      device.isDesktop()
+        ? featured?.image?.source?.small
+        : featured?.image?.source?.sm || featured?.image?.source?.medium
+    "
+    alt="{{ featured?.title }}"
+  />
+  <div
+    class="p-2 -sm-12 col-md-8 col-lg-8 col-xl-8 position-relative section-two"
+  >
+    <div class="degradient" (click)="openModal()"></div>
+    <span class="truncate">
+      {{ featured?.title }}
+    </span>
+    <div
+      class="mb-0 text-left description-card line-clamp-6 text-muted small"
+      [innerHTML]="featured?.description"
+    ></div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<ng-container
+  *ngIf="small; then smallTemplate; else bigTemplate"
+></ng-container>
+<ng-template #smallTemplate>
+  <div class="modal-header">
+    <span class="style-title-modal">{{
+      "DETAILS_TOUR.FULL_TRIP_ITINERARY" | translate
+    }}</span>
+    <div class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </div>
+  </div>
+  <div class="modal-body">
+    <ng-container *ngTemplateOutlet="detailsTemplate"></ng-container>
+  </div>
+</ng-template>
+<ng-template #bigTemplate>
+  <ng-container *ngTemplateOutlet="detailsTemplate"></ng-container>
+</ng-template>
+
+<ng-template #detailsTemplate>
+  <div id="containerItinerarySmall" class="itineraries">
+    <div
+      [id]="'__itinerary' + i"
+      inViewport
+      (inViewportAction)="callViewPort($event)"
+      class="container-itineraries"
+      *ngFor="let itinerary of tour?.itinerary; let i = index"
+    >
+      <p class="title-itinerary">{{ itinerary?.itineraryName }}</p>
+      <div class="container-details">
+        <fa-icon class="icon-place" [icon]="faMapMarkerAlt"></fa-icon>
+        <div
+          class="details"
+          *ngFor="let activity of itinerary.details; let i = index"
+        >
+          <span class="activity-title">{{ activity.title }} </span>
+          <span class="activity-description" [innerHTML]="activity.description">
+          </span>
+        </div>
+        <span class="line-activity"></span>
+        <fa-icon class="icon-place-second" [icon]="faMapMarkerAlt"></fa-icon>
+      </div>
+    </div>
+  </div>
+</ng-template>

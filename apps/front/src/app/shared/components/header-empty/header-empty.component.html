@@ -1,0 +1,12 @@
+<div class="w-100 main sticky-top">
+  <div class="grid d-flex bd-highlight">
+    <div class="bd-highlight first-cont">
+      <div class="container-logo" (click)="goTo()">
+        <div class="logo"></div>
+      </div>
+    </div>
+    <div *ngIf="withUser" class="item-user ml-auto bd-highlight">
+      <app-dropdown-acount></app-dropdown-acount>
+    </div>
+  </div>
+</div>

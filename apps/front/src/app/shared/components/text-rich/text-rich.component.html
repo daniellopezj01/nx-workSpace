@@ -1,0 +1,68 @@
+<div (paste)="onPaste($event)">
+  <input type="file" />
+  <quill-editor
+    [placeholder]="'GENERAL.LEAVE_US_COMMENT' | translate"
+    [(ngModel)]="value"
+    [modules]="modules"
+    [styles]="{ height: textRich?.addAttachments?.length ? '160px' : '215px' }"
+    class="description-card"
+    (onContentChanged)="onInput($event)"
+    spellcheck="false"
+    customToolbarPosition="bottom"
+  >
+    <div quill-editor-toolbar>
+      <span class="ql-formats">
+        <button class="ql-bold" [title]="'Bold'"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-list" type="button" value="ordered"></button>
+        <button class="ql-list" type="button" value="bullet"></button>
+      </span>
+      <span class="ql-formats">
+        <button type="button" class="m-0 p-0">
+          <label class="m-0 pt-1 pb-1 pl-2 pr-2 pointer" for="file-upload">
+            <fa-icon [icon]="faPaperclip"></fa-icon>
+          </label>
+          <input
+            id="file-upload"
+            #imageInput
+            multiple
+            type="file"
+            accept="image/*"
+            (change)="textRich.processFile(imageInput)"
+          />
+        </button>
+      </span>
+    </div>
+  </quill-editor>
+  <!-- <div class="gallery-attachment" *ngIf="textRich?.addAttachments?.length">
+    <div class="d-flex flex-wrap overflow-x w-100">
+      <div
+        *ngFor="let image of textRich?.addAttachments"
+        class="position-relative other mt-2 mr-2 wrapper-file animate__animated animate__fadeIn"
+      >
+        <span
+          (click)="textRich.removeFile(image)"
+          class="position-absolute close-image"
+        >
+          <fa-icon [icon]="faTimes" size="sm"></fa-icon>
+        </span>
+        <ng-container *ngIf="image?.image">
+          <img [src]="image?.image" alt="image description" />
+        </ng-container>
+        <ng-container *ngIf="image?.source">
+          <img
+            *ngIf="image?.source?.small"
+            [src]="image?.source?.small"
+            alt="{{ image?.source?.small }}"
+          />
+          <img
+            *ngIf="!image?.source?.small"
+            [src]="image?.source?.original"
+            alt="{{ image?.source?.original }}"
+          />
+        </ng-container>
+      </div>
+    </div>
+  </div> -->
+</div>

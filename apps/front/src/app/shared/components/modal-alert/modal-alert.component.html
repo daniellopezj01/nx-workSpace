@@ -1,0 +1,25 @@
+<div class="main-container-modal">
+  <div
+    class="modal-header d-flex w-100 justify-content-between custom-container-header"
+  >
+    <span class="text-uppercase"> {{ "GENERAL.TITLE_ALERT" | translate }}</span>
+  </div>
+  <div class="main-container">
+    <span class="d-flex w-100">
+      <img
+        src="../../../../assets/logo-squared-mochileros.svg"
+        alt="logo sad"
+      />
+    </span>
+    <span> {{ message }}</span>
+    <div class="container-button">
+      <button
+        name="closeAlert"
+        (click)="closeModal()"
+        class="btn btn-primary"
+        ngxLoading
+        [textInitial]="'GENERAL.CLOSE' | translate"
+      ></button>
+    </div>
+  </div>
+</div>

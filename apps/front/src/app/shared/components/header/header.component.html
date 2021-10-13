@@ -1,0 +1,223 @@
+<ng-container>
+  <!--- DESKTOP -->
+  <div class="cont d-none d-lg-block d-xl-block">
+    <app-first-line></app-first-line>
+    <div class="w-100 main sticky-top" [ngClass]="{ 'shadow-effect': shadow }">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="first flex-shrink-1" [routerLink]="['/']">
+          <div class="container-logo">
+            <div class="logo"></div>
+          </div>
+        </div>
+        <div class="second justify-content-between">
+          <nav>
+            <ul class="nav">
+              <li
+                role="menuitem"
+                *ngFor="let item of structureHeader; let i = index"
+              >
+                <ng-container
+                  *ngTemplateOutlet="
+                    generalTemplateHeader;
+                    context: { item: item }
+                  "
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="templateLanguage; context: { item: item }"
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="templateCurrency; context: { item: item }"
+                ></ng-container>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <!-- <div class=" simple-truncate"> -->
+        <div class="flex-shrink-1">
+          <ng-container
+            *ngIf="checkSession(); then logged; else notLogged"
+          ></ng-container>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="alert-tap">
+      ¡Nuestros tours 2021 están abiertos!
+      <b class="font-weight-bold ml-1 mr-1">#backtotravel</b> Conoce más sobre
+      la apertura de tours
+      <a
+        href="//info.mochileros.com.mx/backtotravel?o=﻿"
+        class="text-primary ml-2"
+        target="_blank"
+        >aquí</a
+      >
+    </div> -->
+  </div>
+  <!-- <div class="alert-tap" *ngIf="!focusSearch">
+    <div>
+      ¡Nuestra gran venta roja esta aquí! Aprovecha los descuentos del año del
+      20 de Septiembre al 4 de Octubre 2021!
+      <a
+        style="color: yellow"
+        class="ml-2"
+        href="https://destinos.mochileros.com.mx/la-gran-venta-roja/"
+      >
+        Conócelos aquí</a
+      >
+    </div>
+  </div> -->
+  <!--- MOBILE --->
+  <div class="cont d-block d-lg-none d-xl-none">
+    <div class="w-100 main sticky-top">
+      <div class="" *ngIf="!focusSearch">
+        <div class="first flex-shrink-1" [routerLink]="['/']">
+          <div class="container-logo">
+            <div class="logo"></div>
+          </div>
+        </div>
+      </div>
+      <div class="cont-small-form">
+        <div
+          class="small-form w-100"
+          [ngStyle]="{ 'margin-left': !focusSearch ? '.3rem' : '0rem' }"
+        >
+          <app-input-search
+            (focusIn)="listenFocus($event)"
+            [type]="'Header'"
+          ></app-input-search>
+        </div>
+        <div
+          class="
+            flex-shrink-1
+            d-flex
+            justify-content-center
+            align-content-center align-items-center
+          "
+          *ngIf="!focusSearch"
+        >
+          <ng-container
+            *ngIf="checkSession(); then logged; else notLogged"
+          ></ng-container>
+          <button
+            name="managerToggle"
+            #button
+            (click)="m.toggle($event)"
+            aria-label="search"
+            class="btn animated"
+          >
+            <i [style.fontSize]="'1.4rem'" class="uil uil-bars"></i>
+          </button>
+          <app-sidebar #m></app-sidebar>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #notLogged>
+  <nav>
+    <ul id="notLoggin" class="nav not-logged" (clickOutside)="hideList($event)">
+      <li
+        role="menuitem"
+        (click)="accountMenuActive = !accountMenuActive"
+        *ngFor="let item of accountMenu; let i = index"
+      >
+        <ng-container
+          *ngTemplateOutlet="generalTemplateHeader; context: { item: item }"
+        ></ng-container>
+      </li>
+    </ul>
+  </nav>
+</ng-template>
+
+<ng-template #generalTemplateHeader let-item="item">
+  <a
+    class="custom-a"
+    [ngClass]="{ 'text-active': item?.defaultActive }"
+    *ngIf="!item?.specialElement"
+    (click)="gotoTopLevel(item)"
+  >
+    <i class="p-0 uil {{ item?.icon }}"></i>
+    <span [ngClass]="{ 'small-none': item?.hideTextInSmall }">
+      {{ item?.title | translate }}
+    </span>
+  </a>
+  <ul
+    *ngIf="item?.childs && data && !item.specialElement"
+    [ngClass]="{
+      'space-right': item?.activeMargin,
+      'd-none': item?.key === 'account' && !accountMenuActive
+    }"
+  >
+    <li role="menuitem" *ngFor="let itemChild of item?.childs; let o = index">
+      <a
+        class="custom-a"
+        *ngIf="itemChild?.logginRequired ? checkSession() : true"
+        (click)="gotoTopLevel(itemChild)"
+      >
+        <i class="uil {{ itemChild?.icon }}"></i
+        >{{ itemChild?.title | translate }}</a
+      >
+      <ul *ngIf="itemChild?.keyResponse">
+        <li
+          role="menuitem"
+          *ngFor="
+            let itemResponse of data[itemChild?.keyResponse];
+            let i = index
+          "
+        >
+          <a
+            class="custom-a"
+            (click)="goToDeepLevel(item, itemChild, itemResponse)"
+            >{{ itemResponse?.name | translate }}</a
+          >
+        </li>
+      </ul>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #templateLanguage let-item="item">
+  <a *ngIf="item.specialElement === 'language'" class="custom-a">
+    <span
+      class="flag-icon flag-icon-{{
+        service.getLanguageSelect()?.country | lowercase
+      }}"
+    ></span>
+    {{ service.getLanguageSelect()?.name | translate }}
+  </a>
+  <ul *ngIf="item.specialElement === 'language'">
+    <li
+      role="menuitem"
+      (click)="service.setLanguage(language)"
+      *ngFor="let language of service.languages$ | async; let i = index"
+    >
+      <a>
+        {{ language?.name | translate }}
+      </a>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #templateCurrency let-item="item">
+  <a *ngIf="item.specialElement === 'currency'" class="custom-a">
+    $ {{ service.getCurrencySelect()?.name }}
+    <span class="caret"></span>
+  </a>
+  <ul *ngIf="item.specialElement === 'currency'">
+    <li
+      role="menuitem"
+      (click)="service.setCurrency(currency)"
+      *ngFor="let currency of service.currencies$ | async; let i = index"
+    >
+      <a>
+        {{ currency?.name }}
+        {{ currency?.value | number: '1.2-2' }}
+      </a>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #logged>
+  <app-dropdown-acount></app-dropdown-acount>
+</ng-template>

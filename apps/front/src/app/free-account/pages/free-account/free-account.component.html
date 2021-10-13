@@ -1,0 +1,23 @@
+<div class="sticky-top">
+  <app-header></app-header>
+</div>
+
+<div class="cont">
+  <div class="general-cont">
+    <div class="general" *ngIf="!loading">
+      <div class="header-title p-3 p-2">
+        <h3>Bienvenido</h3>
+        <span>
+          Puedes iniciar una gran aventura
+          <span class="go-to-profile pl-2" (click)="goToLogin()">
+            Iniciar sesión
+          </span>
+        </span>
+      </div>
+      <app-square-list [data]="cards"></app-square-list>
+    </div>
+  </div>
+</div>
+
+<app-message-inbox *appOnlyBrowser="true"></app-message-inbox>
+<app-footer></app-footer>

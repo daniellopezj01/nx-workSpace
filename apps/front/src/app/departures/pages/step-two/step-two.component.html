@@ -1,0 +1,238 @@
+<ng-container
+  *ngTemplateOutlet="loadingRef; context: { loading: loading }"
+></ng-container>
+
+<div id="stepTwo">
+  <div class="container-step-two" *ngIf="activeDepartures?._id && isLogged">
+    <div class="title-Step">
+      <h6 class="text-muted">{{ "DEPARTURES.STEP" | translate }} 2</h6>
+      <h4>{{ "DEPARTURES.TRIP_SUMMARY" | translate }}</h4>
+    </div>
+    <div class="main-step-two">
+      <div class="d-grid-items p-3">
+        <h4 class="mb-0 truncate">{{ tour?.title }}</h4>
+        <div class="d-flex">
+          <div class="mr-3">
+            <i class="uil uil-calendar-alt"></i>
+            <span class="text-icon pl-1">
+              {{ tour?.duration }} {{ "DEPARTURES.DAYS" | translate }}</span
+            >
+          </div>
+          <div class="mr-3">
+            <i class="uil uil-globe"></i>
+            <span class="text-icon pl-1"
+              >{{ tour?.countries }}
+              {{ tour?.countries | numberCountries | translate }}</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="info-trip" *ngIf="activeDepartures?._id">
+        <span
+          >{{ "DEPARTURES.IMPORTANT" | translate }}
+          {{ "DEPARTURES.TEXT_IMPORTANT" | translate }}
+        </span>
+      </div>
+      <span class="pay-amounts">
+        <ng-container *ngTemplateOutlet="sectionPercentages"></ng-container>
+      </span>
+      <ng-container *ngTemplateOutlet="sectionInformation"></ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #sectionPercentages>
+  <div *ngIf="activeDepartures?.ordersAmounts && !loading">
+    <span>{{ "DEPARTURES.RESERVE_WITH" | translate }}</span>
+    <mat-tab-group
+      (selectedIndexChange)="getContracts($event)"
+      [selectedIndex]="service.selectIndexPercentage"
+      animationDuration="350ms"
+      color="accent"
+      disableRipple
+      class="w-100 tabs-percentage pt-2"
+    >
+      <mat-tab
+        *ngFor="let tab of activeDepartures?.payAmount; let i = index"
+        class="custom-label-group"
+        [label]="
+          !tab.specialPayment
+            ? tab?.percentageAmount + '%'
+            : ('descuento especial' | translate)
+        "
+      >
+        <ng-container *ngTemplateOutlet="sectionBody"></ng-container>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</ng-template>
+
+<ng-template #sectionBody>
+  <div class="body-step-two" *ngIf="activeDepartures?._id">
+    <div class="date-step-2">
+      <ng-container
+        [ngTemplateOutlet]="dateStepTwo"
+        [ngTemplateOutletContext]="{
+          date: activeDepartures?.startDateDeparture,
+          type: 'Start'
+        }"
+      >
+      </ng-container>
+      <ng-container
+        [ngTemplateOutlet]="dateStepTwo"
+        [ngTemplateOutletContext]="{
+          date: activeDepartures?.endDateDeparture,
+          type: 'end'
+        }"
+      >
+      </ng-container>
+    </div>
+    <div class="info-price-step-2">
+      <div class="containers-section-price">
+        <ng-container *ngTemplateOutlet="sectionNormalPrice"></ng-container>
+        <ng-container *ngTemplateOutlet="sectionDiscounts"></ng-container>
+        <ng-container *ngTemplateOutlet="sectionTotalPrice"></ng-container>
+        <ng-container *ngTemplateOutlet="sectionDate_MinReserve"></ng-container>
+        <!-- MIN RESERVATION AND LIMIT DATE -->
+      </div>
+    </div>
+  </div>
+  <div class="info-trip p-2 mb-3 mt-3" *ngIf="activeDepartures?.description">
+    <p [innerHTML]="activeDepartures?.description"></p>
+  </div>
+  <div class="d-flex mt-2" *ngIf="activeDepartures?._id">
+    <div class="text-right w-100 d-lg-block d-xl-block custom-small">
+      <button
+        name="goToReservation2"
+        type="button"
+        (click)="gotoReservation()"
+        class="btn btn-primary text-capitalize btn-block btn-lg"
+      >
+        {{ "DEPARTURES.BOOK_TRIP" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #sectionNormalPrice>
+  <div class="div-price">
+    <span class="normal-price-text text-dark">{{
+      "DEPARTURES.TOTAL_PRICE" | translate
+    }}</span>
+    <span class="normal-price-number">
+      {{
+        activeDepartures?.normalPrice
+          | number: "1.2-2"
+          | currencyCurrent: "2:true":activeDepartures?.currencies
+      }}</span
+    >
+  </div>
+</ng-template>
+
+<ng-template #sectionDiscounts>
+  <div *ngIf="contracts">
+    <div class="div-price" *ngFor="let contract of contracts?.resume.history">
+      <span class="save-of-text truncate pr-3">{{ contract?.name }} </span>
+      <span class="save-of-number"
+        >-{{
+          contract?.priceDiscount
+            | number: "1.2-2"
+            | currencyCurrent: "2:true":activeDepartures?.currencies
+        }}
+      </span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #sectionTotalPrice>
+  <div class="div-main-price" *ngIf="contracts">
+    <span class="total-text"
+      >{{ "DEPARTURES.PAY_NOW" | translate }}
+      <span class="" *ngIf="!selectPayAmount?.specialPayment">
+        ( {{ contracts?.percentage }}%)</span
+      ></span
+    >
+    <span class="total-number">
+      {{
+        contracts?.totalAmountPercentage
+          | number: "1.2-2"
+          | currencyCurrent: "2:true":activeDepartures?.currencies
+      }}</span
+    >
+  </div>
+</ng-template>
+
+<ng-template #sectionDate_MinReserve>
+  <span class="book-before" *ngIf="activeDepartures?.closeDateDeparture"
+    >{{ "DEPARTURES.BOOK_BEFORE" | translate }}
+    {{
+      activeDepartures?.closeDateDeparture
+        | datesFormatDeparture
+        | date: "MMM d, yyyy"
+    }}</span
+  >
+</ng-template>
+
+<ng-template #sectionInformation>
+  <div class="style-container-info col-12 row m-0">
+    <div
+      class="d-flex col-xl-6 col-md-6 col-sm-12 mt-2 mb-2 p-0"
+      *ngFor="let item of itemDescription"
+    >
+      <i class="uil uil-check"></i>
+      <span class="text-item-general small pl-1 pr-1">{{
+        item.name | translate
+      }}</span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #dateStepTwo let-date="date" let-type="type">
+  <span class="title-inside-step2 mt-3"
+    >{{ "DEPARTURES.TRIP" | translate }} {{ type }}</span
+  >
+  <div class="container-date pt-2">
+    <div class="calendar">
+      <span class="month-calendar">{{
+        date | datesFormatDeparture | date: "MMM"
+      }}</span>
+      <span class="day-calendar">{{
+        date | datesFormatDeparture | date: "d"
+      }}</span>
+    </div>
+    <div class="body-date">
+      <span>{{ selectCity(type) }}</span>
+      <span>{{ date | datesFormatDeparture | date: "EEEE d, yyyy" }}</span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loadingRef let-loading="loading">
+  <div
+    class="w-100 loading-wrap animate__animated animate__fadeIn"
+    *ngIf="loading "
+  >
+    <div class="in">
+      <img class="circle" src="/assets/loading.svg" alt="loading" />
+      <div>
+        <small>{{ "GENERAL.LOADING" | translate }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-100 error-wrap animate__animated animate__fadeIn"
+    *ngIf="loading?.status"
+  >
+    <div class="in">
+      <img
+        class="img"
+        src="/assets/extra/drawkit-grape-pack-illustration-7.svg"
+        alt="loading status"
+      />
+      <div>
+        <small>{{ "GENERAL.ERROR" | translate }}</small>
+      </div>
+    </div>
+  </div>
+</ng-template>

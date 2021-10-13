@@ -1,0 +1,26 @@
+<div class="container-component" *ngIf="barScores.length">
+  <div class="container-score" [ngClass]="{ transform: small }">
+    <div class="section-one" [ngClass]="{ 'new-padding': inReviews }">
+      <h1 class="score m-0">{{ score }}</h1>
+      <ngx-stars
+        *ngIf="score"
+        [readonly]="true"
+        [size]="small ? 1 : 2"
+        [color]="'#f9c74f'"
+        [initialStars]="score"
+      >
+      </ngx-stars>
+    </div>
+    <div class="main-container-bars">
+      <div class="container-bars" *ngFor="let item of barScores; let i = index">
+        <span class="number-star">{{ item?.star }}</span>
+        <div class="mark-reviews">
+          <div
+            class="draw-score"
+            [style.width.%]="calcProgress(item?.numberItems)"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

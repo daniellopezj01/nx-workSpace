@@ -1,0 +1,120 @@
+<ng-container
+  *ngTemplateOutlet="loadingRef; context: { loading: loading }"
+></ng-container>
+<div class="general-cont">
+  <div class="general">
+    <app-bread-crumb></app-bread-crumb>
+    <div>
+      <div class="header-title pl-3">
+        <h3
+          class="
+            text-capitalize
+            d-flex
+            align-items-center align-content-center
+            truncate
+          "
+        >
+          <span
+            class="badge mr-2 mt-1 text-uppercase"
+            [ngClass]="{
+              'badge-success': data?.status === 'completed',
+              'badge-warning': data?.status === 'progress',
+              'badge-info': data?.status === 'pending',
+              'badge-danger': data?.status === 'cancelled'
+            }"
+            >{{ data?.status }}</span
+          >
+          {{ data?.tour?.title }}
+        </h3>
+        <div class="text-capitalize small pl-1 pr-1">
+          {{ 'USER.TRIPS.CODE_RESERVATION' | translate }}
+          <span class="text-primary">{{ data?.code }}</span>
+        </div>
+      </div>
+      <div class="cards-style row ml-0 mr-0">
+        <div
+          class="col-4 p-2 animate__animated animate__fadeInDown animation-{{
+            i
+          }}"
+          *ngFor="let item of cards; let i = index"
+        >
+          <div
+            class="card"
+            [ngClass]="{ 'hvr-shrink': item?.status?.includes(data?.status) }"
+            [style.opacity]="
+              !item?.status?.includes(data?.status) ? '.35' : '1'
+            "
+            (click)="goto(item.route, item?.status?.includes(data?.status))"
+          >
+            <div class="icon-style">
+              <img
+                [src]="'../../../../../assets/' + item?.icon"
+                class="lazyload img-fluid"
+                alt="{{ item?.icon }}"
+              />
+            </div>
+            <div class="cont-title d-flex">
+              <div class="w-100">
+                <div class="title-card text-capitalize truncate">
+                  {{ item.title | translate }}
+                </div>
+              </div>
+              <div class="d-none d-lg-block d-xl-block">
+                <i
+                  [style.fontSize]="'1.2rem'"
+                  class="uil uil-angle-right-b"
+                ></i>
+              </div>
+            </div>
+            <div class="description-card">
+              {{ item.description | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--      <div *ngIf="false" class="cards-style  custom-row">-->
+      <!--        <div class="cont-card" [ngClass]="{'disableDiv': (item?.id===0 && data?.status ==='pending')}"-->
+      <!--             *ngFor="let item of cards; let i=index">-->
+      <!--          <div class="card" (click)="goto(item?.route)" *ngIf="!(item?.id===0 && data?.status ==='pending')">-->
+      <!--            <div class="icon-style">-->
+      <!--              <img data-src="{{item?.icon}}" class=" lazyload img-fluid ">-->
+      <!--            </div>-->
+      <!--            <div class="cont-title">-->
+      <!--              <div>-->
+      <!--                <p class="title-card">{{item?.title  | translate }}</p>-->
+      <!--              </div>-->
+      <!--              <div class="arow">-->
+      <!--                <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false">-->
+      <!--                  <path d="m4.29 1.71a1 1 0 1 1 1.42-1.41l8 8a1 1 0 0 1 0 1.41l-8 8a1 1 0 1 1 -1.42-1.41l7.29-7.29z"-->
+      <!--                        fill-rule="evenodd"></path>-->
+      <!--                </svg>-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--            <p class="description-card">{{item.description| translate}}</p>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
+    </div>
+  </div>
+</div>
+
+<!--- ********** ZONE TEMPLATES **************** -->
+
+<ng-template #loadingRef let-loading="loading">
+  <div
+    class="w-100 loading-wrap animate__animated animate__fadeIn"
+    *ngIf="loading"
+  >
+    <div class="in">
+      <img
+        class="circle"
+        src="../../../../../assets/loading.svg"
+        alt="loading"
+      />
+      <div>
+        <small>{{ 'GENERAL.LOADING' | translate }}</small>
+      </div>
+    </div>
+  </div>
+</ng-template>

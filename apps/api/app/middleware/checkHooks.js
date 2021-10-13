@@ -1,3 +1,4 @@
+/* eslint-disable callback-return */
 const utils = require('./utils')
 
 const checkHooks = async (req, res, next) => {

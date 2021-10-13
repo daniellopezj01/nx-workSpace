@@ -1,6 +1,7 @@
 const fs = require('fs')
 
-const modelsPath = `${__dirname}/`
+const modelsPath = `./apps/api/app/models`
+// const modelsPath = `${__dirname}/`
 const { removeExtensionFromFile } = require('../middleware/utils')
 
 module.exports = () => {

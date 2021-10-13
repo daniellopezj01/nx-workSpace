@@ -1,0 +1,28 @@
+@import '../../../../shared.scss';
+
+::ng-deep {
+  .ngx-slider {
+    margin: 18px 0 15px !important;
+  }
+
+  .source-image {
+    max-width: 25rem !important;
+    max-height: 25rem !important;
+    //object-fit: cover;
+  }
+
+  .ngx-slider-ceil,
+  .ngx-slider-floor,
+  .ngx-slider-model-value {
+    display: none !important;
+  }
+  .avatar-fake img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.mock-wrapper {
+  box-shadow: $shadow-custom-sm;
+  //background-color: $border-color-3;
+}

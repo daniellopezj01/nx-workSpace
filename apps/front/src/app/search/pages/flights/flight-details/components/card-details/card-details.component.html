@@ -1,0 +1,31 @@
+<div class="square">
+  <div class="title-Step">
+    <h4>{{ "SEARCH.FLIGHTS.RESERVATION_FLIGHT" | translate }}</h4>
+  </div>
+  <div class="d-flex flex-column col-12 p-0">
+    <app-flights-section
+      [mainFlight]="mainFlight"
+      [params]="params"
+    ></app-flights-section>
+    <div>
+      <span class="text-muted small"
+        >{{ "SEARCH.FLIGHTS.BALANCE" | translate }}
+      </span>
+      <div class="w-100 justify-content-center row m-0">
+        <div
+          class="d-flex flex-column p-1 col-sm-3 col-xs-12 col-md-12 col-lg-8 col-xl-8"
+        >
+          <app-flight-balance [mainFlight]="mainFlight"></app-flight-balance>
+          <button
+            (click)="goToFormPnr()"
+            class="mt-2 btn btn-primary hvr-shrink"
+            ngxLoading
+            [loadingFlag]="loadingButton"
+            [textInitial]="'GENERAL.CONTINUE' | translate"
+            [textLoading]="'GENERAL.LOADING' | translate"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

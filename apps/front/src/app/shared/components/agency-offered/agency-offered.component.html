@@ -1,0 +1,27 @@
+<div class="d-flex container-agency pt-3 pb-3" *ngIf="agency">
+  <div
+    class="container-style-agency d-flex justify-content-center pr-2"
+    (click)="goToProfile()"
+  >
+    <ngx-avatar
+      size="50"
+      [round]="true"
+      [src]="agency?.avatar"
+      [name]="agency?.name"
+    ></ngx-avatar>
+  </div>
+  <div class="d-flex flex-column custom-agency" (click)="goToProfile()">
+    <span class="offered">{{ "DETAILS_TOUR.TRIP_OPERATED" | translate }} </span>
+    <span class="name">{{ agency?.name }}</span>
+    <div class="d-flex aling-items-center">
+      <span class="text-muted small font-weight-bold mr-2"> 4.5</span>
+      <ngx-stars
+        [readonly]="true"
+        [size]="1"
+        [color]="'#f9c74f'"
+        [initialStars]="4.5"
+      >
+      </ngx-stars>
+    </div>
+  </div>
+</div>

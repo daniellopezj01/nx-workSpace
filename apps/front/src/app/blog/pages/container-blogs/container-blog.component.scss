@@ -1,0 +1,46 @@
+@import '../../../../shared.scss';
+
+.container {
+  background-color: white;
+}
+
+.general-cont {
+  width: 100%;
+}
+
+.text-blog {
+  line-height: 1.8;
+  font-family: $font-family-1;
+}
+
+.title {
+}
+
+.date {
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .title {
+    font-size: 1.4rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+  .custom-personal-info {
+    display: none;
+  }
+
+  .personal-info {
+    width: 31%;
+  }
+  .section-two {
+    padding-left: 10%;
+    width: 69%;
+  }
+}

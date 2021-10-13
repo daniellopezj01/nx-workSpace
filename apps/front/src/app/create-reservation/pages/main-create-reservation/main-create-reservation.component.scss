@@ -1,0 +1,237 @@
+@import '../../../../shared.scss';
+
+.container-info {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
+  padding: 0.5rem;
+  height: 100%;
+  min-height: 60vh;
+}
+
+.section-header {
+  display: flex;
+  margin: 3rem 0;
+  justify-content: space-between;
+}
+
+.trip-overview span {
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+.faq-button {
+  padding: 10px 21px;
+  font-family: 'Proxima Nova Bold', arial, sans-serif;
+  padding: 7px 17px;
+  border: 2px solid #005c89;
+  color: #005c89;
+  font-weight: bolder;
+  border-radius: 2px;
+  background: none;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.faq-button fa-icon {
+  color: #005c89;
+}
+
+.faq-button:before {
+  line-height: 1;
+  margin-right: 6px;
+}
+
+.main-section {
+  display: flex;
+}
+
+/**Section tour**/
+.main-container-tour {
+  box-shadow: $shadow-custom;
+  display: flex;
+  border-radius: $border-radius;
+  min-height: 13rem;
+  background-color: white;
+
+  &:hover {
+    box-shadow: $shadow-custom-lg;
+  }
+}
+
+.section-image-tour {
+  display: block;
+  background-size: cover;
+  background-position: center;
+  flex: 2;
+  // height: 10rem;
+  border-radius: $border-radius 0 0 $border-radius;
+}
+
+.section-information-tour {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.section-countries-score {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.new-tour {
+  border: 1px solid #20c29a;
+  border-radius: 10px;
+  color: #20c29a;
+  font-size: 8px;
+  padding: 4px;
+  text-transform: uppercase;
+}
+
+.new-tour font {
+  font-weight: bolder;
+  font-size: inherit !important;
+}
+
+.score {
+  display: flex;
+}
+
+.countries {
+  display: flex;
+  color: $text-color-1;
+  margin-bottom: 0.5rem;
+  span {
+    margin: auto 0;
+    flex-basis: 100%;
+  }
+  fa-icon {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+  }
+}
+
+.night-itinerary {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.itinerary-map {
+  color: $base-color;
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: underline;
+}
+
+.itinerary-map span {
+  cursor: pointer;
+  margin: auto auto auto 0.5rem;
+}
+
+.itinerary-map fa-icon {
+  cursor: pointer;
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.form-container {
+  position: relative;
+}
+
+.small-trips {
+  display: none;
+  margin-top: 3rem;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .section-header {
+    margin: 1.5rem 0;
+  }
+  .trip-overview span {
+    font-size: 1.5rem;
+  }
+
+  .faq-button {
+    padding: 5px 12px;
+    border: 1px solid #005c89;
+    font-size: 0.9rem;
+  }
+  .main-section {
+    display: grid;
+  }
+  .small-trips {
+    display: initial;
+  }
+  .section-payment {
+    display: none;
+  }
+  .main-container-tour {
+    min-height: 12rem;
+  }
+  .section-information-tour {
+    padding: 0.5rem;
+  }
+  .night-itinerary {
+    display: grid;
+    justify-content: initial;
+  }
+  .itinerary-map {
+    display: initial;
+  }
+  .itinerary-map span {
+    margin-left: 0;
+  }
+  .section-image-tour {
+    flex: initial;
+    //width: 50%;
+    min-height: 10rem;
+  }
+  .tour-title {
+    font-size: 1.2rem;
+  }
+  .countries {
+    margin-bottom: 0;
+  }
+  .small-padding {
+    padding: 0.25rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .container-info {
+    padding: 1rem;
+  }
+  .night-itinerary {
+    display: grid;
+    justify-content: initial;
+  }
+  .itinerary-map span {
+    margin-left: 0;
+  }
+  .itinerary-map {
+    display: initial;
+  }
+  .section-payment {
+    display: none;
+  }
+  .small-trips {
+    margin: 1rem 0;
+    display: initial;
+  }
+
+  .section-image-tour {
+    flex: initial;
+    //width: 50%;
+  }
+  .section-information-tour {
+    padding: 0.5rem;
+  }
+}
+
+@media print, screen and (min-width: 1140px) {
+}

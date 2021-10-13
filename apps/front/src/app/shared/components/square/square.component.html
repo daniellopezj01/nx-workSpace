@@ -1,0 +1,8 @@
+<div class="card p-2">
+  <div class="cont-title d-flex">
+    <div class="w-100">
+      <h5 class="title-card truncate">{{ item?.title | translate }}</h5>
+    </div>
+  </div>
+  <p class="description-card" [innerHTML]="item?.description | translate"></p>
+</div>

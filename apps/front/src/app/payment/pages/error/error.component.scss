@@ -1,0 +1,37 @@
+@import '../../../../shared';
+
+.style-header {
+  margin-top: 2rem;
+  align-items: center;
+}
+
+.logo {
+  border-radius: 50px;
+  background-image: url('../../../../assets/payment/error.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 30px;
+  width: 30px;
+}
+
+.message {
+  margin: 2rem auto;
+}
+
+.text-error-modal {
+  //arriba derecha
+  color: #a8b6c8;
+  padding: 5% 5% 5% 10%;
+}
+
+.button-error-modal button {
+  width: 50%;
+}
+
+.modal-title-Error {
+  color: #f16967;
+  margin-left: 0.5rem;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+}

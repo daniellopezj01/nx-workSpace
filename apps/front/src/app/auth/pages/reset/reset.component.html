@@ -1,0 +1,60 @@
+<div class="cont">
+  <app-header-empty></app-header-empty>
+  <div class="o-mainContent">
+    <p *ngIf="email">
+      {{ "AUTH_LOGIN.RESET_FOR" | translate }} <strong> {{ email }} </strong>
+    </p>
+    <p *ngIf="!email">
+      {{ "AUTH_LOGIN.RESET_EMPTY" | translate }}
+    </p>
+    <form [formGroup]="passwordForm">
+      <div class="cont-input">
+        <input
+          class="style-input"
+          [type]="showPass ? 'text' : 'password'"
+          formControlName="password"
+          [(ngModel)]="data.password"
+          placeholder="{{ 'AUTH_LOGIN.ENTER_PASSWORD' | translate }}"
+        />
+        <div class="error-login">
+          <div *ngIf="validateinput(f.password)">
+            <div
+              class="message-error-login"
+              *ngIf="f.password.errors?.required"
+            >
+              <p>{{ "AUTH_LOGIN.EMPTY_PASSWORD" | translate }}</p>
+            </div>
+            <div
+              class="message-error-login"
+              *ngIf="f.password.errors?.minlength"
+            >
+              <p>{{ "AUTH_LOGIN.MIN_PASSWORD" | translate }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="show-hide">
+          <fa-icon
+            (click)="showPass = !showPass"
+            [style.color]="'darkgray'"
+            [icon]="showPass ? faEye : faEyeSlash"
+          ></fa-icon>
+        </div>
+      </div>
+      <div class="btn-forget">
+        <button
+          name="setPass"
+          class="btn btn-primary btn-sm"
+          (click)="changePassword()"
+          ngxLoading
+          [disabled]="!passwordForm.valid"
+          [loadingFlag]="loading"
+          [textInitial]="'AUTH_LOGIN.SET_PASSWORD' | translate"
+          [textLoading]="'GENERAL.SENDING' | translate"
+        ></button>
+      </div>
+    </form>
+    <div *ngIf="showError" class="show-error">
+      <p>{{ "AUTH_LOGIN.ERROR_RESET" | translate }}</p>
+    </div>
+  </div>
+</div>

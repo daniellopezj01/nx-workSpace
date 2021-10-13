@@ -1,0 +1,111 @@
+<ng-container
+  *ngTemplateOutlet="loadingRef; context: { loading: loading }"
+></ng-container>
+
+<div class="w-100 pt-4">
+  <h2 class="main-title mb-4 mt-2 text-center">
+    {{ "SEARCH.HOTELS.LOWEST_PRICE" | translate }}
+  </h2>
+  <div class="container-search">
+    <app-search-hotels></app-search-hotels>
+  </div>
+  <div class="container-body">
+    <ng-container *ngTemplateOutlet="withData"></ng-container>
+  </div>
+</div>
+<button
+  (click)="openFilters()"
+  class="btn btn-default filter-small-result d-md-block d-md-block d-lg-none"
+>
+  <i class="uil uil-filter"></i> {{ "SEARCH.FILTERS.VIEW_FILTER" | translate }}
+</button>
+<section>
+  <ng-template #withData>
+    <div
+      class="w-100 d-flex data-style"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="moreData()"
+    >
+      <div
+        class="filter col-xl-2 col-sm-4 d-none d-sm-none d-md-none d-lg-block"
+      >
+        <app-filter-hotel [small]="false"></app-filter-hotel>
+      </div>
+      <div class="w-100 global-style">
+        <div class="header">
+          <div class="tours-found" *ngIf="true">
+            <span class="main-title">
+              {{ "SEARCH.HOTELS.WE_HAVE_FOUND" | translate }}
+              {{ "SEARCH.HOTELS.HOTELS_OF" | translate
+              }}<span class="value-search">"{{ params?.cityName }}"</span>
+            </span>
+          </div>
+        </div>
+        <div *ngIf="!loadingFilters" class="w-100 row ml-0 mr-0">
+          <app-card-hotels
+            class="col-xl-4 col-lg-4 col-md-12 col-sm-6 col-xs-12 p-1 animate__animated animate__fadeIn"
+            [hotel]="hotel"
+            *ngFor="let hotel of data"
+          >
+          </app-card-hotels>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</section>
+
+<!--- ********** ZONE TEMPLATES **************** -->
+
+<ng-template #empty let-data="data" let-loading="loading">
+  <!--  -&ndash;&gt; {{data?.length}}-->
+  <div
+    *ngIf="!data?.length && !loading"
+    class="w-100 empty-template text-center"
+  >
+    <img
+      class="img"
+      src="../../../../../../assets/extra/031.png"
+      alt="empty hotel"
+    />
+    <p
+      class="p-3 text-muted"
+      [innerHTML]="'SEARCH.TOURS.SORRY_NOT_FOUND' | translate"
+    ></p>
+  </div>
+</ng-template>
+
+<ng-template #loadingRef let-loading="loading">
+  <div
+    class="w-100 loading-wrap animate__animated animate__fadeIn"
+    *ngIf="loading == true"
+  >
+    <div class="in">
+      <img
+        class="circle"
+        src="../../../../../../assets/loading.svg"
+        alt="loading"
+      />
+      <div>
+        <small>{{ "GENERAL.LOADING" | translate }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-100 error-wrap animate__animated animate__fadeIn"
+    *ngIf="loading?.status"
+  >
+    <div class="in">
+      <img
+        class="img"
+        src="../../../../../../assets/extra/drawkit-grape-pack-illustration-7.svg"
+        alt="loading"
+      />
+      <div>
+        <small>{{ "GENERAL.ERROR" | translate }}</small>
+      </div>
+    </div>
+  </div>
+</ng-template>

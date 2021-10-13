@@ -1,0 +1,150 @@
+<!--- TODO ESTO SE TIENE QUE REDISEÑAR ------->
+
+<div [ngClass]="{ slide: isMenuOpen }" *ngIf="isMenuOpen">
+  <div class="header-sidebar">
+    <div class="close-button">
+      <div (click)="closeSidebar()" class="btn custom-button">
+        <i class="uil uil-multiply"></i>
+      </div>
+    </div>
+    <div class="container-logo" [routerLink]="['/']">
+      <div class="logo"></div>
+    </div>
+  </div>
+  <div class="section-links" *ngIf="!loading">
+    <div class="flex-shrink">
+      <ul class="list-unstyled ps-0" id="sidebar1">
+        <li
+          class="mb-1"
+          (click)="mainLevel(item, i + 1)"
+          *ngFor="let item of structureSidebar; let i = index"
+        >
+          <button
+            class="btn btn-link btn-block"
+            data-bs-toggle="collapse"
+            [attr.data-bs-target]="'#' + item?.key"
+          >
+            <div class="info-in-line">
+              <div class="icon-and-text">
+                <i class="uil {{ item?.icon }}"></i>
+                <span>
+                  {{ item?.title | translate }}
+                </span>
+              </div>
+              <span class="angle" *ngIf="item?.childs">
+                <i *ngIf="activeItem !== i + 1" class="uil uil-angle-down"></i>
+                <i *ngIf="activeItem === i + 1" class="uil uil-angle-up"></i>
+              </span>
+            </div>
+          </button>
+          <ng-container
+            [ngTemplateOutlet]="childTemplate"
+            [ngTemplateOutletContext]="{ list: item?.childs, key: item?.key }"
+          >
+          </ng-container>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<ng-template #childTemplate let-list="list" let-key="key">
+  <div class="collapse" [id]="key" data-bs-parent="#sidebar1">
+    <ul class="two-level">
+      <li
+        (click)="gotoTopLevel(child, child?.keyResponse)"
+        *ngFor="let child of list; let i = index"
+        [attr.data-bs-target]="
+          child?.keyResponse ? '#' + child?.keyResponse : ''
+        "
+        class="child-li sidebar2"
+        data-bs-toggle="collapse"
+        [ngClass]="{
+          'bg-white': currentId === child?.keyResponse && openItem
+        }"
+      >
+        <button target="_blank" class="btn tag-child w-100">
+          <div class="info-in-line">
+            <div class="icon-and-text-child">
+              <span>
+                {{ child?.title | translate }}
+              </span>
+            </div>
+            <span class="angle-child" *ngIf="child?.keyResponse">
+              <i
+                *ngIf="activeItemChild !== i + 1"
+                class="uil uil-angle-down"
+              ></i>
+              <i *ngIf="activeItemChild === i + 1" class="uil uil-angle-up"></i>
+            </span>
+          </div>
+        </button>
+        <div class="collapse" [id]="child?.keyResponse || ''">
+          <ul>
+            <li
+              (click)="goToDeepLevel(child, itemResponse)"
+              class="icon-and-text-child"
+              role="menuitem"
+              *ngFor="
+                let itemResponse of data[child?.keyResponse];
+                let i = index
+              "
+            >
+              <span class="deep-level">{{
+                itemResponse?.name | translate
+              }}</span>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+
+<!-- <ng-template #containerTemplates let-item="item" let-index="index">
+  <span [ngSwitch]="index">
+    <p *ngSwitchCase="0">
+      <ng-container *ngTemplateOutlet="templateDeals"></ng-container>
+    </p>
+    <p *ngSwitchCase="1">
+      <ng-container *ngTemplateOutlet="templateWaysTravel"></ng-container>
+    </p>
+    <p *ngSwitchCase="2">
+      <ng-container *ngTemplateOutlet="templateDestinations"></ng-container>
+    </p>
+    <p *ngSwitchCase="3">
+      <ng-container *ngTemplateOutlet="templateAbout"></ng-container>
+    </p>
+  </span>
+</ng-template> -->
+<!-- 
+<ng-template #templateAbout>
+  <div class="pt-1 pb-1">
+    <a
+      [href]="'LINKS_EXTERNAL.ABOUT_US.LINK' | translate"
+      target="_blank"
+      class="text-dark text-decoration-none"
+    >
+      {{ "LINKS_EXTERNAL.ABOUT_US.NAME" | translate }}
+    </a>
+  </div>
+  <div class="pt-1 pb-1">
+    <a
+      [href]="'LINKS_EXTERNAL.PHOTOS_AND_VIDEO.LINK' | translate"
+      target="_blank"
+      class="text-dark text-decoration-none"
+    >
+      {{ "LINKS_EXTERNAL.PHOTOS_AND_VIDEO.NAME" | translate }}
+    </a>
+  </div>
+</ng-template> -->
+
+<!-- <ng-template #templateDestinations>
+  <app-template-destinations></app-template-destinations>
+</ng-template>
+<ng-template #templateDeals>
+  <app-template-deals></app-template-deals>
+</ng-template>
+<ng-template #templateWaysTravel>
+  <app-template-way-travel></app-template-way-travel>
+</ng-template> -->

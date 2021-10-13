@@ -1,0 +1,21 @@
+@import '../../../../shared.scss';
+
+:host {
+  flex: 0 0 50%;
+  margin: 1rem 0;
+  font-family: $font-family-1;
+}
+
+.more {
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: $font-size-3;
+  cursor: pointer;
+}
+
+.less {
+  white-space: nowrap;
+  font-weight: bolder;
+  font-size: $font-size-3;
+  cursor: pointer;
+}

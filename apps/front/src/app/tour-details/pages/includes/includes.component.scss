@@ -1,0 +1,152 @@
+@import '../../../../shared.scss';
+
+::ng-deep {
+  .custom-col-6 {
+    border-bottom: 1px solid $border-color-1;
+    .panel-heading {
+      padding: 1.25rem;
+      background-color: $border-color-3;
+    }
+
+    .panel-body {
+      padding: 0 !important;
+    }
+  }
+}
+
+.wrap-includes {
+  .list-child {
+    //border-top: solid 1px $border-color-1;
+    background-color: white;
+    padding: 0.85rem;
+    word-break: break-word;
+  }
+}
+
+.font-family-1 {
+  line-height: 1.8rem;
+}
+
+.custom-carousel {
+  display: grid !important;
+  grid-template-columns: 2fr 2fr;
+  grid-row-end: 2;
+  gap: 0.5rem;
+}
+
+.cover-included-image {
+  width: 15rem;
+  height: 100%;
+  object-fit: cover;
+}
+
+::ng-deep {
+  // .panel-heading {
+  //   border: 0;
+  //   padding-top: 0.5rem;
+  //   padding-bottom: 0.5rem;
+  //   background-color: transparent;
+  // }
+
+  // .panel-default {
+  //   border: 0;
+  // }
+
+  // .panel-body {
+  //   padding-top: 0.25rem;
+  //   padding-bottom: 0.25rem;
+  // }
+
+  .panel-open {
+    .icon-lock {
+      display: block !important;
+    }
+
+    .icon-angle {
+      transform: rotate(180deg);
+      transition: all ease var(--animate-duration);
+    }
+  }
+}
+
+.wrapper-tab {
+  max-height: 9rem;
+
+  .first-block {
+    position: relative;
+
+    &:after {
+      position: absolute;
+      content: '';
+      top: 0;
+      right: 0;
+      background-color: $border-color-3;
+      width: calc(15rem / 2);
+      height: 100%;
+    }
+  }
+
+  .second-block {
+    // margin-left: -7rem;
+    z-index: 1;
+    transition: ease $all-transition-1;
+  }
+
+  &:hover {
+    .second-block {
+      margin-left: 0 !important;
+      padding-left: 0.5rem;
+    }
+
+    .first-block {
+      &:after {
+        background-color: transparent !important;
+      }
+    }
+  }
+}
+
+.active-included {
+  border-bottom: 3px solid $bg-success;
+  opacity: 1 !important;
+}
+
+.active-not-included {
+  border-bottom: 3px solid $bg-danger;
+  opacity: 1 !important;
+}
+
+.custom-button {
+  box-shadow: $shadow-custom;
+  opacity: 0.4;
+}
+.included {
+  color: $bg-success;
+}
+
+.not-included {
+  color: $bg-danger;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .custom-carousel {
+    grid-template-columns: initial;
+  }
+  ::ng-deep {
+    .included-section {
+      border-bottom: 1px solid #dadada;
+      .panel-heading {
+        padding: 1rem 0 !important;
+      }
+    }
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

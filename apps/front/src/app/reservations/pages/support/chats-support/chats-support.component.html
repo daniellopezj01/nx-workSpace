@@ -1,0 +1,30 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="d-flex row p-0">
+  <ng-container *ngIf="chats?.length; then whitData; else empty"></ng-container>
+</div>
+
+<ng-template #whitData>
+  <div
+    class="col-12 p-3 d-flex justify-content-between custom-chat"
+    *ngFor="let chat of chats"
+    (click)="selectChat(chat)"
+  >
+    <span
+      class="style-text truncate"
+      [innerHTML]="chat?.firstMessage?.message"
+    ></span>
+    <span class="ml-4 style-date">{{
+      chat.updatedAt | date: "dd LLL HH:mm"
+    }}</span>
+  </div>
+</ng-template>
+
+<ng-template #empty let-data="data" let-loading="loading">
+  <app-empty
+    class="w-100"
+    [loading]="loading"
+    [data]="data"
+    [text]="'GENERAL.NOT_FOUND_CHATS_RESERVATION'"
+  ></app-empty>
+</ng-template>

@@ -1,0 +1,126 @@
+@import '../../../../shared.scss';
+
+.container-info {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 700px;
+  padding: 0.5rem;
+  height: 100%;
+  min-height: 60vh;
+}
+
+.main-container {
+  box-shadow: $shadow-custom;
+  background-color: white;
+}
+
+.title-Step {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+  width: 100%;
+  font-size: $font-size-1;
+  font-weight: 500;
+  padding: 1rem 0;
+  background-color: #f4f4f4;
+  border-top: 1px solid $border-color-3;
+}
+
+.container-dates-departures {
+  display: flex;
+  flex-direction: column;
+}
+
+.single-departure {
+  display: inline-flex;
+}
+
+.for-departures {
+  display: grid;
+}
+
+.custom-special-info {
+  color: white;
+  background-color: $base-color;
+}
+
+/***STEP TWO**/
+
+.small-dates {
+  position: fixed;
+  bottom: 0;
+  min-height: 4rem;
+  background-color: white;
+  z-index: 10;
+  padding: 1rem;
+  width: 100%;
+  box-shadow: $shadow-custom-lg;
+  border-top: 1px solid $border-color-1;
+  border-bottom: 0px solid transparent;
+}
+
+.section-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+::ng-deep .custom-special-info {
+  a {
+    background-color: white;
+    padding: 0.3rem 0.5rem;
+    // font-weight: 600;
+    color: black;
+  }
+}
+.container-departure {
+  //box-shadow: $shadow-custom-sm
+  border-bottom: solid 1px $border-color-1;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .small-dates {
+    padding: 0.5rem;
+  }
+  .container-single-departure {
+    padding: 1rem 0.5rem;
+  }
+  .title-departures {
+    margin: 1.5rem 0;
+    span {
+      font-size: 1.5rem;
+    }
+  }
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .title-Step {
+    margin: 2rem 0;
+  }
+  .title-Step span {
+    font-size: 1.3rem;
+  }
+  h4 {
+    font-size: 1.2rem;
+  }
+  .mb-small {
+    margin-bottom: 4rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+}
+
+@media print, screen and (min-width: 1140px) {
+}

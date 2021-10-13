@@ -1,0 +1,23 @@
+@import '../../../../shared.scss';
+
+:host {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  //background-color: red;
+  font-size: $font-size-2;
+  z-index: 8;
+}
+
+app-message-card-in {
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.wrapper-chat {
+  pointer-events: none;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+}

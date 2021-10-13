@@ -1,0 +1,36 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="general-cont" *ngIf="data">
+  <div class="general">
+    <div class="container-success mt-3">
+      <div class="d-flex flex-column">
+        <h3>{{ "USER.AGENCY.SUCCESS_LINKING_TITLE" | translate }}</h3>
+        <p class="mb-2">
+          {{ "USER.AGENCY.SUCCESS_LINKING_DESCRIPTION" | translate }}
+        </p>
+      </div>
+      <div class="d-flex justify-content-center">
+        <img
+          class="custom-image-link"
+          src="/assets/extra/success_vinculation.svg"
+          alt="success linking"
+        />
+      </div>
+      <div class="d-flex justify-content-center">
+        <button (click)="goTo()" class="custom-button btn btn-primary p-2">
+          {{ "USER.AGENCY.RETURN_TO_PROFILE" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="general-cont" *ngIf="err">
+  <div class="general">
+    <app-global-error></app-global-error>
+    <div class="d-flex justify-content-center">
+      <button (click)="goTo()" class="custom-button btn btn-primary p-2">
+        {{ "USER.AGENCY.RETURN_TO_PROFILE" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

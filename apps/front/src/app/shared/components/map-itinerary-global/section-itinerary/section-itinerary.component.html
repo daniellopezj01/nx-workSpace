@@ -1,0 +1,39 @@
+<accordion [isAnimated]="true" [closeOthers]="true">
+  <accordion-group
+    panelClass="header-items"
+    (click)="changeActive(i + 1)"
+    *ngFor="let item of itinerary; let i = index"
+  >
+    <button
+      class="d-flex btn btn-default shadow-none justify-content-between w-100"
+      accordion-heading
+      type="button"
+    >
+      <div class="small">{{ item?.itineraryName }}</div>
+      <div>
+        <i class="uil uil-angle-down"></i>
+      </div>
+    </button>
+    <ng-container
+      [ngTemplateOutlet]="activitiesTemplate"
+      [ngTemplateOutletContext]="{ item: item }"
+    ></ng-container>
+  </accordion-group>
+</accordion>
+
+<ng-template #activitiesTemplate let-item="item">
+  <div class="details p-0" *ngFor="let activity of item.details; let i = index">
+    <span class="activity-title">
+      <i class="uil uil-map-marker"></i> {{ activity.title }}
+    </span>
+    <p class="activity-description pt-1">
+      {{ activity.description | striphtml }}
+    </p>
+  </div>
+  <!--  <div class="container-details d-flex w-100">-->
+  <!--    <i class="uil uil-map-marker"></i>-->
+
+  <!--    <span class="line-activity"></span>-->
+  <!--    <fa-icon class="icon-place-second" [icon]="faMapMarkerAlt"></fa-icon>-->
+  <!--  </div>-->
+</ng-template>

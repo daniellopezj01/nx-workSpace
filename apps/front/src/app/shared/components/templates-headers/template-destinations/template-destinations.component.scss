@@ -1,0 +1,256 @@
+@import '../../../../../shared';
+
+.main-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  min-height: 6rem;
+  // align-items: center;
+}
+
+.cont-list {
+  width: 100%;
+}
+
+.square {
+  //box-shadow: $shadow-custom;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $border-color-3;
+  margin: 0 10px;
+  height: 100%;
+  width: 25%;
+  max-height: 600px;
+  opacity: 1;
+  overflow: hidden !important;
+  border-radius: $border-radius;
+  position: relative;
+  transition: $all-transition;
+}
+
+.container-tours {
+  width: 100%;
+  display: grid;
+}
+
+.section-tours {
+  width: 100%;
+  //margin-top: 1rem;
+  display: flex;
+}
+
+.square:hover {
+  // cursor: pointer;
+  filter: brightness(110%);
+  cursor: pointer;
+  box-shadow: $shadow-custom-lg;
+}
+
+.img-wrap {
+  width: 100%;
+  height: 12rem;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+}
+
+.img-wrap img {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-height: 100%;
+  min-width: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: cover !important;
+  transform: translate(-50%, -50%);
+}
+
+.img-wrap-new {
+  cursor: pointer;
+  height: 12rem;
+  position: relative;
+}
+
+.img-card {
+  width: 100%;
+  display: block;
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  border-radius: $border-radius;
+  position: relative;
+  min-height: 12rem;
+  height: 100%;
+  object-fit: cover;
+}
+
+.new-tour {
+  // border: 1px solid #5ed3b6;
+  // border: 1px solid #53ac96;
+  border: 1px solid $base-color-3;
+  border-radius: $border-radius;
+  color: $base-color-3;
+  font-size: 70%;
+  line-height: revert;
+  margin-left: 5px;
+  padding: 4px 4px 0 4px;
+  text-transform: uppercase;
+  height: min-content;
+}
+
+.new-tour p {
+  font-size: inherit !important;
+}
+
+.cont-body ngx-stars,
+.cont-body font {
+  margin-left: 0.5rem;
+}
+
+.score-text {
+  //font-weight: bold;
+  font-size: $font-size-2;
+}
+
+.book-now {
+  // color: #008489;
+  color: $base-color-2;
+  //font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/********* Body***********/
+p {
+  margin: 0;
+}
+
+.body-tour {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1 1 auto;
+  padding: 10px !important;
+}
+
+.second-line {
+  display: flex;
+  font-weight: 500;
+  flex: 1 1 auto;
+}
+
+.second-line p {
+  font-weight: 500;
+  flex: 1 1 auto;
+}
+
+.first-line {
+  width: 100%;
+  display: flex;
+}
+
+.days {
+  flex-grow: 1;
+  display: inline-block;
+  font-size: 70%;
+}
+
+.score {
+  display: flex;
+}
+
+.text-item {
+  width: 100%;
+}
+
+.text-item p {
+  white-space: nowrap;
+  min-width: 75%;
+  //font-weight: bolder;
+  transition: $all-transition-2;
+}
+
+.text-item p:hover {
+  min-width: 75%;
+  color: $base-color;
+  cursor: pointer;
+  text-decoration: underline;
+  background-color: $background-hover-light;
+}
+
+.description {
+  font-size: $font-size-3;
+  font-family: $font-family-1;
+  color: $text-color-1;
+  font-weight: 400;
+}
+
+.title {
+  margin: 0 10px 10px 0;
+  font-size: $font-size-2;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: $text-color-1;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .title {
+    font-weight: bold;
+  }
+  .section-tours {
+    display: grid;
+  }
+  .square {
+    width: 100%;
+    margin: 0;
+  }
+  .img-wrap-new,
+  .description {
+    display: none;
+  }
+  .body-tour {
+    flex-direction: column-reverse;
+  }
+  .second-line {
+    padding-bottom: 0.3rem;
+  }
+  .second-line p {
+    font-weight: normal;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .title {
+    font-weight: bold;
+  }
+  .section-tours {
+    display: grid;
+  }
+  .square {
+    width: 100%;
+    margin: 0;
+  }
+  .img-wrap-new,
+  .description {
+    display: none;
+  }
+  .body-tour {
+    flex-direction: column-reverse;
+  }
+  .second-line {
+    padding-bottom: 0.3rem;
+  }
+  .second-line p {
+    font-weight: normal;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

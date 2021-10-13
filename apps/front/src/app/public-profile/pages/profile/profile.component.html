@@ -1,0 +1,194 @@
+<ng-container
+  *ngTemplateOutlet="loadingRef; context: { loading: loading }"
+></ng-container>
+
+<div class="cont">
+  <app-header></app-header>
+  <app-message-inbox *appOnlyBrowser="true"></app-message-inbox>
+  <!-- <app-header-empty></app-header-empty> -->
+  <div class="general-cont pt-4">
+    <div class="general">
+      <div class="cards-style row ml-0 mr-0">
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 animate__animated animate__fadeInDown animation-2"
+        >
+          <div class="personal-info">
+            <div class="cont-avatar">
+              <div
+                class="img-avatar d-flex justify-content-center"
+                (click)="callModalVideo()"
+              >
+                <ngx-avatar
+                  [round]="false"
+                  cornerRadius="3"
+                  size="250"
+                  [src]="user?.avatar"
+                  [name]="user?.name"
+                ></ngx-avatar>
+              </div>
+              <div class="d-flex justify-content-center pl-3 pr-3">
+                <ng-container *ngIf="goEdit">
+                  <div class="pt-2 pb-2 text-center w-100">
+                    <button
+                      type="button"
+                      class="btn btn-default btn-sm"
+                      [routerLink]="['/', 'user', 'media']"
+                    >
+                      {{ "PROFILE.UPDATE_AVATAR" | translate }}
+                    </button>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="currentUser">
+                  <div
+                    class="pt-2 pb-2 text-center w-100"
+                    *ngIf="user?._id !== currentUser?._id"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-default btn-sm"
+                      (click)="messageInboxService.newConversationMock(user)"
+                    >
+                      <i class="uil uil-comment-lines"></i>
+                      {{ "PROFILE.MESSAGE" | translate }}
+                    </button>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+            <div class="d-xs-block d-sm-block d-md-block d-lg-none pl-4 pr-4">
+              <ng-container *ngTemplateOutlet="infoProfile"></ng-container>
+            </div>
+            <div class="pl-4 pr-4">
+              <div *ngIf="user?.verified" class="verified">
+                <div class="text-primary">
+                  <i
+                    [style.fontSize]="'1.5rem'"
+                    class="uil uil-shield-check"
+                  ></i>
+                </div>
+                <div class="verified-title text-primary">
+                  {{ "PROFILE.VERIFIED_TITTLE" | translate }}
+                </div>
+              </div>
+              <div class="provide">
+                <div class="pt-2">
+                  <ul class="list-unstyled m-0 p-0 list-badges">
+                    <li
+                      *ngFor="let item of itemsCheck"
+                      class="small pt-1 pb-1 truncate"
+                    >
+                      <i class="uil uil-check"></i>
+                      <span class="pl-1">{{ item?.key | translate }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 section-two d-none d-lg-block animate__animated animate__fadeInDown animation-3 pt-2 pb-2"
+        >
+          <ng-container *ngTemplateOutlet="infoProfile"></ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  <app-footer></app-footer>-->
+</div>
+
+<ng-template #infoProfile>
+  <div class=" ">
+    <h3 class="title truncate">
+      {{ "PROFILE.HELLO" | translate }}
+      <span class="text-uppercase">{{ user?.name }} {{ user?.surname }}</span>
+    </h3>
+    <div class="begin-date small">
+      {{ "PROFILE.WHEN_REGISTER" | translate }}
+      {{ user?.createdAt | date: "yyyy" }}
+      <span
+        [routerLink]="['/user/personal-info']"
+        class="edit-profile"
+        *ngIf="goEdit"
+      >
+        {{ "PROFILE.EDIT_PROFILE" | translate }}</span
+      >
+    </div>
+    <div class="pt-3">
+      <small class="text-muted">{{ "PROFILE.SHARED_LINK" | translate }}</small>
+      <div class="input-group w-100 pt-2">
+        <input
+          type="text"
+          class="form-control referer-link"
+          readonly
+          [value]="link"
+        />
+        <div class="input-group-append">
+          <button
+            [cdkCopyToClipboard]="link"
+            (cdkCopyToClipboardCopied)="showToastClip()"
+            class="btn btn-outline-primary"
+          >
+            {{ "PROFILE.COPY" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="from-place custom-row d-flex align-content-center align-items-center"
+      *ngIf="user?.city && user?.country"
+    >
+      <i [style.fontSize]="'1.1rem'" class="uil uil-home"></i>
+      <div class="pl-1">
+        {{ "PROFILE.LIVE_IN" | translate }}
+        <span class="text-capitalize">{{ user?.city }}</span
+        >,
+        <span class="text-capitalize">{{ user?.country }}</span>
+      </div>
+    </div>
+    <ng-container *ngIf="reviews">
+      <div class="description">{{ user?.description }}</div>
+
+      <div class="cont-carouser">
+        <div>{{ "PROFILE.COMMENT_BY_USER" | translate }} {{ user?.name }}</div>
+        <!--        <app-reviews [id]="id" [loading]="loadingReviews" [data]="reviews" [type]="'user'"-->
+        <!--                     [numberItems]="numItems"></app-reviews>-->
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #loadingRef let-loading="loading">
+  <div
+    class="w-100 loading-wrap animate__animated animate__fadeIn"
+    *ngIf="loading == true"
+  >
+    <div class="in">
+      <img
+        class="circle"
+        src="../../../../../assets/loading.svg"
+        alt="loading"
+      />
+      <div>
+        <small>{{ "GENERAL.LOADING" | translate }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-100 error-wrap animate__animated animate__fadeIn"
+    *ngIf="loading?.status"
+  >
+    <div class="in">
+      <img
+        class="img"
+        src="../../../../../assets/extra/drawkit-grape-pack-illustration-7.svg"
+        alt="status loading"
+      />
+      <div>
+        <small>{{ "GENERAL.ERROR" | translate }}</small>
+      </div>
+    </div>
+  </div>
+</ng-template>

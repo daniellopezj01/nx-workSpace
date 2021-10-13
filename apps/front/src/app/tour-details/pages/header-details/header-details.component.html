@@ -1,0 +1,192 @@
+<section #picture>
+  <!-- main image in small screen -->
+  <div class="d-block d-md-none d-lg-none d-xl-none">
+    <ng-container *ngTemplateOutlet="templateVideo"></ng-container>
+    <img
+      *ngIf="!tour?.video && tour?.attached?.length"
+      appImgFallback
+      class="img-responsive w-100"
+      (click)="openCarousel(0)"
+      [src]="
+        (tour?.attached | firstValue)?.source?.sm ||
+        (tour?.attached | firstValue)?.source?.medium
+      "
+      alt="tour"
+    />
+    <div
+      *ngIf="tour?.attached?.length"
+      class="d-sm-block d-md-block d-lg-block d-xl-block"
+    >
+      <div
+        class="container-pictures mt-2"
+        [ngStyle]="{ cursor: played?.state ? 'initial' : 'pointer' }"
+      >
+        <ng-container *ngTemplateOutlet="templateSmallImages"></ng-container>
+      </div>
+    </div>
+  </div>
+  <!-- BIG SCREEN -->
+  <div
+    *ngIf="tour?.attached?.length"
+    class="d-none d-sm-block d-md-block d-lg-block d-xl-block"
+  >
+    <div
+      class="container-pictures mt-2"
+      [ngStyle]="{ cursor: played?.state ? 'initial' : 'pointer' }"
+    >
+      <!-- Big video -->
+      <div class="child-pictures" *ngIf="tour?.video">
+        <ng-container *ngTemplateOutlet="templateVideo"></ng-container>
+      </div>
+      <ng-container *ngTemplateOutlet="templateImages"></ng-container>
+    </div>
+  </div>
+  <div class="ks-modal-header-details">
+    <!-- [slideConfig]="{ infinite: false, sidePreviews: { show: false } }" sidePreviews: Ver imagenes en controles. -->
+    <ks-modal-gallery
+      [id]="10"
+      [modalImages]="images"
+      [enableCloseOutside]="false"
+      [slideConfig]="{ infinite: false }"
+      [currentImageConfig]="{ description: customFullDescription }"
+      [previewConfig]="{
+        visible: true,
+        size: { width: '40px', height: '40px' }
+      }"
+    ></ks-modal-gallery>
+    <!-- <ks-modal-gallery
+      [id]="10"
+      [modalImages]="images"
+      [enableCloseOutside]="false"
+      [slideConfig]="{ infinite: false, sidePreviews: { show: false } }"
+      [currentImageConfig]="{ description: customFullDescription }"
+      [previewConfig]="{
+        visible: true,
+        autoPlay: true,
+        size: { width: '40px', height: '40px' }
+      }"
+    ></ks-modal-gallery> -->
+  </div>
+</section>
+
+<ng-template #templateVideo>
+  <ng-container *ngIf="!deviceService.isMobile()">
+    <div *ngIf="tour?.video">
+      <div class="over-video" *ngIf="played?.state"></div>
+      <div
+        class="video-container"
+        [ngClass]="{ play: played?.state, 'inline-block': played?.state }"
+      >
+        <div (click)="getVideo()" *ngIf="played?.state" class="close-video p-0">
+          <i class="uil uil-times"></i>
+        </div>
+        <youtube-player
+          [videoId]="tour?.video"
+          class=""
+          suggestedQuality="highres"
+          [startSeconds]="0"
+          (ready)="ready($event)"
+          [height]="played?.height"
+          (stateChange)="changeState($event)"
+          [playerVars]="youtubeOptions"
+          [width]="played?.width"
+        >
+        </youtube-player>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="deviceService.isMobile()">
+    <div *ngIf="tour?.video">
+      <div class="over-video" *ngIf="played?.state"></div>
+      <div
+        class="video-container"
+        [ngClass]="{ play: played?.state, 'inline-block': played?.state }"
+      >
+        <div (click)="getVideo()" *ngIf="played?.state" class="close-video p-0">
+          <i class="uil uil-times"></i>
+        </div>
+        <ng-container *ngIf="!visibleVideo">
+          <div class="over-icon" (click)="playVideo()">
+            <i class="uil uil-play"></i>
+          </div>
+          <img
+            class="first-image"
+            [src]="(tour?.attached | firstValue)?.source?.small"
+            alt=""
+          />
+        </ng-container>
+
+        <youtube-player
+          [videoId]="tour?.video"
+          class=""
+          *ngIf="visibleVideo"
+          suggestedQuality="highres"
+          [startSeconds]="0"
+          (ready)="ready($event)"
+          [height]="played?.height"
+          (stateChange)="changeState($event)"
+          [playerVars]="youtubeOptions"
+          [width]="played?.width"
+        >
+        </youtube-player>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #templateImages>
+  <div
+    class="child-pictures"
+    [ngClass]="{ 'position-relative': i === numberImage - 1 }"
+    *ngFor="let a of tour?.attached | slice: 0:numberImage; let i = index"
+  >
+    <div
+      (click)="openCarousel(0)"
+      *ngIf="i === numberImage - 1 && tour?.attached.length > numberImage"
+      class="container-last-picture"
+    >
+      <h1>+{{ tour?.attached.length - numberImage }}</h1>
+    </div>
+    <img
+      appImgFallback
+      class=""
+      (click)="openCarousel(0)"
+      [src]="
+        i === 0
+          ? (a | toAny).source?.medium
+          : (a | toAny)?.source?.sm || (a | toAny).source?.medium
+      "
+      alt="tour"
+    />
+  </div>
+</ng-template>
+
+<ng-template #templateSmallImages>
+  <div
+    class="child-pictures"
+    [ngClass]="{ 'position-relative': i === numberSmallImage - 1 }"
+    *ngFor="
+      let a of tour?.attached
+        | slice: beginImages:numberSmallImage + beginImages;
+      let i = index
+    "
+  >
+    <div
+      (click)="openCarousel(0)"
+      class="container-last-picture"
+      *ngIf="
+        i === numberSmallImage - 1 &&
+        tour?.attached.length - 1 > numberSmallImage
+      "
+    >
+      <h1>+{{ tour?.attached.length - numberImage }}</h1>
+    </div>
+    <img
+      appImgFallback
+      class=""
+      (click)="openCarousel(0)"
+      [src]="(a | toAny).source?.small"
+      alt="tour"
+    />
+  </div>
+</ng-template>

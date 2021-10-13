@@ -1,0 +1,47 @@
+<div class="main-container-modal">
+  <div class="modal-header header-reviews d-flex w-100 justify-content-between">
+    <span class="style-title-modal text-uppercase">
+      {{ "CREATE_RESERVATION.SIGNATURE" | translate }}
+    </span>
+    <div (click)="closeModal()" class="cursor-pointer">
+      <i class="uil uil-times"></i>
+    </div>
+  </div>
+  <div class="main-container">
+    <span class="w-100"
+      >{{ "CREATE_RESERVATION.SIGNATURE_MSG" | translate }}
+    </span>
+    <div #containerSignature class="container-signature">
+      <signature-pad
+        #SignaturePad
+        class="style-signature"
+        [options]="signaturePadOptions"
+        (onBeginEvent)="drawStart()"
+        (onEndEvent)="drawComplete()"
+      ></signature-pad>
+    </div>
+    <div class="w-100 d-flex justify-content-between pt-3 pb-3">
+      <button
+        name="clear"
+        type="reset"
+        class="btn btn-outline-primary"
+        ngxLoading
+        (click)="clear()"
+        [loadingFlag]="loading"
+        [textInitial]="'GENERAL.CLEAR' | translate"
+        [textLoading]="'GENERAL.SENDING' | translate"
+      ></button>
+
+      <button
+        name="sendReservation"
+        (click)="save()"
+        class="btn btn-primary"
+        ngxLoading
+        [disabled]="loading || !image"
+        [loadingFlag]="loading"
+        [textInitial]="'GENERAL.SAVE' | translate"
+        [textLoading]="'GENERAL.SENDING' | translate"
+      ></button>
+    </div>
+  </div>
+</div>

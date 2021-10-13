@@ -1,0 +1,49 @@
+:host {
+  //position: relative;
+}
+
+.wrapper-message {
+  height: calc(100vh - 4rem);
+  &.wrapper-message-inbox {
+    //height: calc(100vh - 8.4rem);
+  }
+}
+
+//.conversations {
+//  width: 20%;
+//}
+
+//.messages {
+//  width: 60%;
+//}
+
+//.details {
+//  width: 20%;
+
+//}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  //.conversations {
+  //  width: 100%;
+  //}
+  //.messages {
+  //  width: 100%;
+  //}
+  //.details {
+  //  display: none;
+  //}
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  //.conversations {
+  //  width: 30%;
+  //}
+  //.messages {
+  //  width: 70%;
+  //}
+  //.details {
+  //  display: none;
+  //}
+}

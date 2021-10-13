@@ -1,0 +1,124 @@
+<ng-container
+  *ngTemplateOutlet="loadingRef; context: { loading: loading }"
+></ng-container>
+
+<div class="d-flex flex-column justify-content-between h-100">
+  <div class="cont-messages">
+    <perfect-scrollbar class="structure-messages" #scrollMe>
+      <div
+        *ngFor="let message of dataMessages?.messages | reverser; let i = index"
+        #item
+      >
+        <div class="w-100" *ngIf="showDate(message.dateCreate)">
+          <div class="indicator-day">
+            {{ message?.dateCreate | date }}
+          </div>
+        </div>
+        <div
+          class="single-message"
+          [ngStyle]="{
+            'justify-content': checkMessage(message.creator)
+              ? 'flex-end'
+              : 'flex-start'
+          }"
+        >
+          <!-- <div class="message"> -->
+          <div class="message">
+            <ng-container
+              *ngIf="
+                checkMessage(message.creator);
+                then sendTemp;
+                else receiveTemp
+              "
+            >
+            </ng-container>
+            <ng-template #sendTemp>
+              <div class="send combinate-style">
+                <div [innerHTML]="message.message | linkify"></div>
+                <span class="time small text-muted"
+                  >{{ message.dateCreate | date: 'shortTime' }}
+                </span>
+              </div>
+            </ng-template>
+            <ng-template #receiveTemp>
+              <div class="receive combinate-style">
+                <div [innerHTML]="message.message | linkify"></div>
+                <span class="time small text-muted"
+                  >{{ message.dateCreate | date: 'shortTime' }}
+                </span>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </perfect-scrollbar>
+  </div>
+  <div class="send-message">
+    <form [formGroup]="sendForm">
+      <div class="form-group d-flex">
+        <textarea
+          rows="1"
+          formControlName="message"
+          spellcheck="false"
+          autosize
+          name=""
+          id=""
+          class="text-not-resize form-control"
+          [placeholder]="'INBOX.WRITE_MESSAGE' | translate"
+        ></textarea>
+        <div
+          class="
+            group-btn-send
+            d-flex
+            align-items-center align-content-center
+            justify-content-center
+            pl-2
+            pr-2
+          "
+        >
+          <button
+            name="message"
+            class="btn btn-primary"
+            (click)="send()"
+            type="button"
+            ngxLoading
+            [loadingFlag]="loading"
+            [disabled]="!sendForm.valid"
+            [textInitial]="'GENERAL.SEND' | translate"
+            [textLoading]="'GENERAL.SENDING' | translate"
+          ></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #loadingRef let-loading="loading">
+  <div
+    class="w-100 loading-wrap animate__animated animate__fadeIn"
+    *ngIf="loading"
+  >
+    <div class="in">
+      <img class="circle" src="/assets/loading.svg" alt="loading" />
+      <div>
+        <small>{{ 'GENERAL.LOADING' | translate }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-100 error-wrap animate__animated animate__fadeIn"
+    *ngIf="loading?.status"
+  >
+    <div class="in">
+      <img
+        class="img"
+        src="/assets/extra/drawkit-grape-pack-illustration-7.svg"
+        alt="err"
+      />
+      <div>
+        <small>{{ 'GENERAL.ERROR' | translate }}</small>
+      </div>
+    </div>
+  </div>
+</ng-template>

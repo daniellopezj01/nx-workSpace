@@ -1,0 +1,14 @@
+<div class="d-flex align-items-center align-content-center">
+  <ngx-stars
+    *ngIf="tour?.score"
+    [readonly]="true"
+    [size]="1"
+    [color]="'#f9c74f'"
+    [initialStars]="tour?.score"
+  >
+  </ngx-stars>
+  <span class="new-tour" *ngIf="!tour?.score">
+    <span>{{ "DETAILS_TOUR.NEW_TRIP" | translate }}</span>
+  </span>
+  <span class="text-muted small" *ngIf="tour?.score">{{ tour?.score }}</span>
+</div>

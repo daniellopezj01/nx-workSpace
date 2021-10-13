@@ -1,0 +1,42 @@
+<div class="custom-row main-container row ml-0 mr-0">
+  <div
+    [style.height]="'auto'"
+    class="style-about col-md-6 col-sm-12 col-xs-12"
+    id="aboutInformation"
+    [ngClass]="{ 'default-height': activeDefaultHeight }"
+    (click)="showAll()">
+    <div [ngClass]="{ degradient: activeDegradient }"></div>
+    <div class="continer-title">
+      <h5>{{ "DETAILS_TOUR.ABOUT_TRIP" | translate }}</h5>
+    </div>
+    <div class="container-about-tour">
+      <p class="about-tour" [innerHTML]="tour?.description"></p>
+    </div>
+  </div>
+  <div
+    class="col-md-6 col-sm-12 col-xs-12 rm-small-padding"
+    id="buyInformation"
+  >
+    <div class="continer-title">
+      <h5 class="title">
+        {{ "DETAILS_TOUR.BUY_WITH_CONFIDENCE" | translate }}
+      </h5>
+    </div>
+    <div class="container-info-buy custom-row">
+      <div
+        class="col-md-12 pl-0 pr-0 col-sm-12 item-buy pt-2"
+        *ngFor="let item of data"
+      >
+        <div class="wrapper-icon-check">
+          <fa-icon class="icon-style" [icon]="item?.icon"></fa-icon>
+        </div>
+        <div class="content-info-but text-justify">
+          <span class="title-buy-info">{{ item?.title | translate }}</span>
+          <span class="description-buy-info">{{
+            item?.description | translate
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

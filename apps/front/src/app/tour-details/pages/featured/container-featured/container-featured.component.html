@@ -1,0 +1,11 @@
+<div *ngIf="included.length">
+  <h4>{{ "DETAILS_TOUR.FEATURED" | translate }}</h4>
+  <div class="row ml-0 mr-0">
+    <div
+      class="col-lg-6 col-md-12 col-sm-12 p-2"
+      *ngFor="let item of included; let i = index"
+    >
+      <app-card-featured [featured]="item"></app-card-featured>
+    </div>
+  </div>
+</div>

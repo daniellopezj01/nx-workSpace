@@ -1,0 +1,48 @@
+<div class="main-container-modal" id="container-map-itinerary">
+  <div class="modal-header header-reviews d-flex w-100 justify-content-between">
+    <span class="style-title-modal text-uppercase">
+      {{ "RESERVATION.NEW_CHAT" | translate }}</span
+    >
+    <div (click)="closeModal()" class="cursor-pointer">
+      <i class="uil uil-times"></i>
+    </div>
+  </div>
+  <div class="custom-body">
+    <span>{{ "RESERVATION.LEAVE_US_COMMENT" | translate }}</span>
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label></label>
+        <app-text-rich
+          class="row"
+          formControlName="message"
+          [mode]="'add'"
+          [isFull]="false"
+          [cancelBtn]="false"
+        ></app-text-rich>
+      </div>
+
+      <div class="w-100 d-flex justify-content-between">
+        <button
+          name="cancel"
+          type="reset"
+          class="btn btn-outline-primary"
+          ngxLoading
+          (click)="closeModal()"
+          [loadingFlag]="loading"
+          [textInitial]="'GENERAL.CANCEL' | translate"
+          [textLoading]="'GENERAL.SENDING' | translate"
+        ></button>
+        <button
+          name="sendReservation"
+          (click)="send()"
+          class="btn btn-primary"
+          ngxLoading
+          [loadingFlag]="loading"
+          [disabled]="form.invalid"
+          [textInitial]="'GENERAL.SEND' | translate"
+          [textLoading]="'GENERAL.SENDING' | translate"
+        ></button>
+      </div>
+    </form>
+  </div>
+</div>

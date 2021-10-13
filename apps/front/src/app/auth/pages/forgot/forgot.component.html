@@ -1,0 +1,41 @@
+<div class="cont">
+  <app-header-empty></app-header-empty>
+  <div class="o-mainContent">
+    <h3>{{ "AUTH_LOGIN.FORGET_TITLE" | translate }}</h3>
+    <form [formGroup]="forgetForm">
+      <div class="cont-input">
+        <input
+          type="email"
+          class="style-input"
+          formControlName="email"
+          placeholder="{{ 'AUTH_LOGIN.ENTER_EMAIL' | translate }}"
+          pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+        />
+        <div class="error-login">
+          <div *ngIf="validateinput(f.email)">
+            <div class="message-error-login" *ngIf="f.email.errors?.required">
+              <p>{{ "AUTH_LOGIN.EMPTY_EMAIL" | translate }}</p>
+            </div>
+            <div class="message-error-login" *ngIf="f.email.errors?.pattern">
+              <p>{{ "AUTH_LOGIN.INVALID_EMAIL" | translate }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-forget">
+        <button
+          name="forget"
+          class="btn btn-primary btn-sm"
+          (click)="resetPassword()"
+          ngxLoading
+          [loadingFlag]="loading"
+          [textInitial]="'AUTH_LOGIN.FORGET_TITLE' | translate"
+          [textLoading]="'GENERAL.SENDING' | translate"
+        ></button>
+      </div>
+    </form>
+    <div *ngIf="showError" class="show-error">
+      <p>{{ "AUTH_LOGIN.NOT_FOUND_EMAIL" | translate }}</p>
+    </div>
+  </div>
+</div>

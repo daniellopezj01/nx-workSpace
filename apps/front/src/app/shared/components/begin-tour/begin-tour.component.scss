@@ -1,0 +1,18 @@
+@import '../../../../shared.scss';
+
+.begin-tour {
+  margin: auto;
+  display: grid;
+  justify-content: center;
+  background-color: #fff1d6;
+}
+
+.begin-place {
+  font-size: $font-size-2;
+}
+
+.container-section-details {
+  display: grid;
+  flex: 1 100%;
+  justify-content: flex-start;
+}

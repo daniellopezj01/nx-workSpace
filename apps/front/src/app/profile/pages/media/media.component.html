@@ -1,0 +1,149 @@
+<ng-container
+  *ngTemplateOutlet="
+    loadingRef;
+    context: { loading: loading || updateService.activeLoading }
+  "
+></ng-container>
+
+<div class="cont">
+  <div class="general-cont">
+    <div class="general">
+      <app-bread-crumb></app-bread-crumb>
+      <div class="header-title pl-3">
+        <h3>{{ "USER.MEDIA.TITLE_MEDIA" | translate }}</h3>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-xl-8 container">
+          <div class="manager-forms">
+            <div
+              class="animate__animated animate__fadeInDown animation-1 section"
+            >
+              <div class="key-style">
+                {{ "USER.MEDIA.AVATAR_TITLE" | translate }}
+              </div>
+              <div class="description-avatar small mb-3">
+                {{ "USER.MEDIA.AVATAR_DESCRIPTION" | translate }}
+              </div>
+              <input
+                type="file"
+                class="custom-file-input-ex"
+                accept="image/*"
+                (change)="fileChangeEvent($event)"
+              />
+              <!--              <ngx-file-picker #uploader [showPreviewContainer]="false"-->
+              <!--                               (validationError)="onValidationError($event,'image')" [adapter]="adapter"-->
+              <!--                               [fileExtensions]="['jpg', 'jpeg', 'png']" [enableCropper]="false"-->
+              <!--                               (uploadSuccess)="onUploadSuccess($event)" (removeSuccess)="onRemoveSuccess($event)"-->
+              <!--                               [itemTemplate]="itemTemplate">-->
+              <div class="dropzoneTemplate d-flex justify-content-start">
+                <div class="d-flex justify-content-center">
+                  <div class="imageProfile">
+                    <ngx-avatar
+                      [round]="false"
+                      cornerRadius="3"
+                      size="135"
+                      [src]="user?.avatar"
+                      [name]="user?.name"
+                    ></ngx-avatar>
+                    <div class="logo">
+                      <i class="glyphicon glyphicon-check"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--              </ngx-file-picker>-->
+              <div class="message-error" *ngIf="errorImage">
+                <div class="small">
+                  {{ "USER.MEDIA.INVALID_FORMAT_IMAGE" | translate }}
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div
+              class="animate__animated animate__fadeInDown animation-2 section"
+            >
+              <div class="key-style">
+                {{ "USER.MEDIA.VIDEO_TITLE" | translate }}
+              </div>
+              <div class="description-avatar small">
+                {{ "USER.MEDIA.VIDEO_DESCRIPTION" | translate }}
+              </div>
+              <div>
+                <ngx-file-picker
+                  #uploaderVideo
+                  [totalMaxSize]="50"
+                  [fileMaxSize]="50"
+                  (validationError)="onValidationError($event, 'video')"
+                  [adapter]="adapterVideo"
+                  [fileExtensions]="['mp4']"
+                  (uploadSuccess)="onUploadSuccess($event)"
+                  [showeDragDropZone]="true"
+                  [showPreviewContainer]="true"
+                  [itemTemplate]="myItemTemplate"
+                >
+                  <div class="dropzoneTemplate">
+                    <div class="container-logo">
+                      <img
+                        class="video-image"
+                        src="../../../../../assets/user/navegador-video.svg"
+                        alt="default image avatar"
+                      />
+                    </div>
+                  </div>
+                </ngx-file-picker>
+                <div class="message-error" *ngIf="errorVideo">
+                  <p>{{ "USER.MEDIA.INVALID_FORMAT_VIDEO" | translate }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="animate__animated animate__fadeInDown col-xs-12 col-xl-4 squeare-info"
+        >
+          <div class="squeare">
+            <app-square [item]="squareItem"></app-square>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template
+  #itemTemplate
+  let-fileItem="fileItem"
+  let-uploadProgress="uploadProgress"
+>
+</ng-template>
+<ng-template #myItemTemplate let-fileItem="fileItem"> </ng-template>
+
+<ng-template #loadingRef let-loading="loading">
+  <div
+    class="w-100 loading-wrap animate__animated animate__fadeIn"
+    *ngIf="loading == true"
+  >
+    <div class="in">
+      <img class="circle" src="/assets/loading.svg" alt="loading" />
+      <div>
+        <small>{{ "GENERAL.LOADING" | translate }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-100 error-wrap animate__animated animate__fadeIn"
+    *ngIf="loading?.status"
+  >
+    <div class="in">
+      <img
+        class="img"
+        src="/assets/extra/drawkit-grape-pack-illustration-7.svg"
+        alt="err"
+      />
+      <div>
+        <small>{{ "GENERAL.ERROR" | translate }}</small>
+      </div>
+    </div>
+  </div>
+</ng-template>

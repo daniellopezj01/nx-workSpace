@@ -1,0 +1,95 @@
+@import '../../../../../shared.scss';
+
+.main-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
+.main-container-modal {
+  overflow: auto;
+  //height: 99vh;
+  position: relative;
+}
+
+.container-modal-map-itinerary {
+  //max-width: 1300px;
+  padding: 1rem !important;
+  //margin: auto;
+}
+
+.modal-header {
+  position: sticky !important;
+  top: 0;
+  z-index: 10;
+  background-color: white;
+}
+
+.style-title-modal {
+  //font-weight: bolder;
+}
+
+.container-map-itinerary {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.section-itinerary {
+  width: 100%;
+}
+
+.section-map {
+  padding-left: 2rem;
+  flex: 1;
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  flex-basis: calc(50% + 6em);
+  box-sizing: border-box;
+}
+
+.container-title,
+.second-title {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: flex-start;
+  margin: 2rem 0;
+  //font-weight: bolder;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .second-title {
+    font-size: 1.2rem;
+  }
+  .container-title {
+    margin: 1rem 0 0 0;
+  }
+  .section-map {
+    width: 100%;
+    padding-left: 0;
+    position: initial;
+  }
+  .container-modal-map-itinerary {
+    //margin-bottom: 6rem;
+  }
+  .container-map-itinerary {
+    display: grid;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+  .section-map {
+    width: 65%;
+  }
+  .section-itinerary {
+    width: 35%;
+  }
+  .container-title {
+    margin: 2rem 0 0 0;
+    font-size: 2.5rem;
+  }
+}

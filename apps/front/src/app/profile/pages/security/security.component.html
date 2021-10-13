@@ -1,0 +1,179 @@
+<div class="general-cont">
+  <div class="general">
+    <app-bread-crumb></app-bread-crumb>
+    <div class="header-title pl-3">
+      <h3>{{ 'USER.SECURITY.TITLE_SECURITY' | translate }}</h3>
+    </div>
+    <div class="row ml-0 mr-0">
+      <div
+        class="
+          col-xs-12
+          animate__animated animate__fadeInDown
+          animation-1
+          col-xl-8
+          container
+        "
+      >
+        <div class="manager-forms">
+          <div class="item-style" *ngFor="let item of showInfo; let i = index">
+            <div class="d-flex bd-highlight">
+              <div class="bd-highlight key-style text-capitalize">
+                {{ item.key }}
+              </div>
+              <div class="ml-auto bd-highlight">
+                <button
+                  *ngIf="!isItem(i)"
+                  [disabled]="isItemActive(i)"
+                  class="action-item"
+                  (click)="buttonActive(i)"
+                >
+                  {{
+                    isItem(i)
+                      ? ('USER.PERSONAL_INFO.CANCEL' | translate)
+                      : !item.value
+                      ? ('USER.PERSONAL_INFO.ADD' | translate)
+                      : ('USER.PERSONAL_INFO.EDIT' | translate)
+                  }}
+                </button>
+                <button
+                  *ngIf="isItem(i)"
+                  [disabled]="isItemActive(i)"
+                  class="action-item"
+                  (click)="cancel()"
+                >
+                  {{ 'USER.PERSONAL_INFO.CANCEL' | translate }}
+                </button>
+              </div>
+            </div>
+            <div class="value-style">
+              <ng-container
+                *ngIf="!isItem(i); then thenTemplate; else openTemp"
+              ></ng-container>
+              <ng-template #thenTemplate>
+                <p>
+                  {{
+                    item.value
+                      ? item.value
+                      : ('GENERAL.NOT_PROPORTIONED' | translate)
+                  }}
+                </p>
+              </ng-template>
+              <ng-template #openTemp>
+                <ng-container [ngSwitch]="i">
+                  <div *ngSwitchCase="0">
+                    <ng-container
+                      *ngTemplateOutlet="tempPassword"
+                    ></ng-container>
+                  </div>
+                </ng-container>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="animate__animated animate__fadeInDown col-xs-12 col-xl-4">
+        <div class="squeare">
+          <app-square [item]="squeareItem"></app-square>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #tempPassword>
+  <div class="cont-templates animate__animated animate__fadeInDown">
+    <form [formGroup]="form">
+      <div class="col-lg-12 rem-padding-width inputs">
+        <div class="form-group">
+          <small class="text-muted">{{
+            'USER.SECURITY.CURRENT_PASSWORD' | translate
+          }}</small>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="old"
+            placeholder=""
+          />
+          <div class="message-error">
+            <div *ngIf="validateInput(f.old)">
+              <div *ngIf="f.old.errors?.required">
+                <span>{{ 'AUTH_LOGIN.EMPTY_PASSWORD' | translate }}</span>
+              </div>
+              <div class="message-error-login" *ngIf="f.old.errors?.minlength">
+                <span>{{ 'AUTH_LOGIN.MIN_PASSWORD' | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12 rem-padding-width inputs">
+        <div class="form-group">
+          <small class="text-muted">{{
+            'USER.SECURITY.NEW_PASSWORD' | translate
+          }}</small>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="newpass"
+            placeholder=""
+          />
+          <div class="message-error">
+            <div *ngIf="validateInput(f.newpass)">
+              <div *ngIf="f.newpass.errors?.required">
+                <span>{{ 'AUTH_LOGIN.EMPTY_PASSWORD' | translate }}</span>
+              </div>
+              <div
+                class="message-error-login"
+                *ngIf="f.newpass.errors?.minlength"
+              >
+                <span>{{ 'AUTH_LOGIN.MIN_PASSWORD' | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12 rem-padding-width inputs">
+        <div class="form-group">
+          <small class="text-muted">{{
+            'USER.SECURITY.CONFIRM_PASSWORD' | translate
+          }}</small>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="confirmpassword"
+            placeholder=""
+          />
+          <div class="message-error">
+            <div *ngIf="validateInput(f.confirmpassword)">
+              <div *ngIf="f.confirmpassword.errors?.required">
+                <span>{{ 'AUTH_LOGIN.EMPTY_PASSWORD' | translate }}</span>
+              </div>
+              <div
+                class="message-error-login"
+                *ngIf="f.confirmpassword.errors?.minlength"
+              >
+                <span>{{ 'AUTH_LOGIN.MIN_PASSWORD' | translate }}</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="validateMessage()" class="message-error">
+            <span>{{ 'USER.SECURITY.NOT_MATCH' | translate }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="pt-2">
+        <button
+          (click)="update()"
+          class="btn btn-primary"
+          ngxLoading
+          [loadingFlag]="loading"
+          [disabled]="loading"
+          [textInitial]="'GENERAL.SAVE' | translate"
+          [textLoading]="'GENERAL.SENDING' | translate"
+        ></button>
+      </div>
+    </form>
+  </div>
+</ng-template>

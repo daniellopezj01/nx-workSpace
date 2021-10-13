@@ -1,0 +1,169 @@
+.cont-slide {
+  padding: 0.3rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.img-avatar {
+  border-radius: 50%;
+  position: relative;
+  height: 3rem;
+  width: 3rem;
+  margin-left: 1rem;
+  border: 1px solid white;
+}
+
+.img-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+.data-tour {
+  display: flex;
+}
+
+.tour-name {
+  font-size: 1.1rem;
+  outline: none;
+  margin: 0;
+}
+
+.image-in-body {
+  height: 5rem;
+}
+
+.image-in-body img {
+  border-radius: 10px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.content-tour {
+  margin-left: 1rem;
+}
+
+.score-comments {
+  display: flex;
+}
+
+#start_div:first-child br {
+  display: none;
+}
+
+.custom-start {
+  color: #f9c74f;
+  font-size: 1.1rem;
+}
+
+.details {
+  color: #fb0051;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.number p {
+  outline: none;
+  margin: 0;
+}
+
+.cont-first {
+  display: flex;
+}
+
+.img-person {
+  float: left;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  background-color: #f16967;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.img-person img {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.content-principal-comments {
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+}
+
+.content-comment {
+  padding-left: 0.5rem;
+  overflow: auto;
+}
+
+.content-comment p {
+  margin-bottom: 0.4rem;
+}
+
+.name-person-comment {
+  font-size: 0.8em;
+  //font-weight: bold;
+  color: #323643;
+  margin-bottom: 0;
+}
+
+.name-person-comment p {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ago {
+  font-size: 1em;
+  color: #a8b6c8;
+  float: right;
+  font-weight: normal;
+}
+
+.coment {
+  font-size: 0.7em;
+  color: black;
+}
+
+.rating {
+  font-size: 0.7em;
+  color: #a8b6c8;
+}
+
+.score-starts {
+  display: inline-flex;
+}
+//phone
+@media print, screen and (max-width: 740px) {
+  .br-unit {
+    font-size: 10rem !important;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .custom-start {
+    font-size: 1.3rem;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+  .custom-start {
+    font-size: 1.5rem;
+  }
+  .ago {
+    font-size: 0.9rem;
+  }
+  .name-person-comment {
+    font-size: 1rem;
+  }
+  .coment {
+    font-size: 0.9rem;
+  }
+}

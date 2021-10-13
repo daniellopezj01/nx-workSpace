@@ -1,0 +1,74 @@
+<!--<app-loading [loading]="loading"></app-loading>-->
+<div class="container-reviews">
+  <div class="d-flex mb-4 mt-4">
+    <button (click)="changeTab(1)"
+      class="text-decoration-none title mr-2 btn btn-link text-dark pl-0 custom-button"
+      [ngClass]="{ 'active-included': select === 1 }"
+      type="button">
+      <h4>
+        {{ "DETAILS_TOUR.INCLUDED" | translate }}
+        <i class="included uil uil-plus-circle"></i>
+      </h4>
+    </button>
+    <button
+      (click)="changeTab(2)"
+      class="text-decoration-none title mr-2 btn btn-link text-dark pl-0 custom-button"
+      [ngClass]="{ 'active-not-included': select === 2 }"
+      type="button">
+      <!-- [style.opacity]="select !== 1 ? '1' : '.5'" -->
+      <h4>
+        {{ "DETAILS_TOUR.NOT_INCLUDED" | translate }}
+        <i class="not-included uil uil-minus-circle"></i>
+      </h4>
+    </button>
+  </div>
+
+  <accordion class="custom-carousel" [isAnimated]="false" [closeOthers]="false">
+    <accordion-group
+      class="included-section custom-col-6 pl-0 pr-0"
+      *ngFor="let a of select === 1 ? included : tour?.notIncluded;let i = index">
+      <div accordion-heading is class="d-flex justify-content-between">
+        <div class="d-flex align-items-center align-content-center">
+          <div class="font-weight-normal">{{ a?.title }}</div>
+        </div>
+        <div class="col-2 pl-2 pr-2 d-flex justify-content-end">
+          <div class="d-flex justify-content-end">
+            <div
+              class="icon-angle d-flex justify-content-between align-content-center align-items-center">
+              <fa-icon class="text-muted" [icon]="faAngleDown"></fa-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrap-includes row m-0 col-12 p-0">
+        <div class="list-child">
+          <ng-container
+            *ngTemplateOutlet="itemRef; context: { data: a }"
+          ></ng-container>
+        </div>
+      </div>
+    </accordion-group>
+  </accordion>
+</div>
+
+<ng-template #itemRef let-data="data">
+  <div class="d-flex wrapper-tab">
+    <!--    <div class="first-block" *ngIf="data?.image">-->
+    <!--      <img class="cover-included-image" appImgFallback-->
+    <!--           [src]="data?.image?.source?.small"-->
+    <!--           alt="">-->
+    <!--    </div>-->
+    <div class="w-100" [ngClass]="{ 'second-block': data?.image }">
+      <p class="mb-0 font-family-1 line-clamp-3">
+        {{ data?.description | striphtml }}
+      </p>
+      <div class="pt-1">
+        <button
+          class="d-block small btn btn-sm btn-default"
+          (click)="includesService.moreInfo(data)">
+          {{ "GENERAL.MORE_INFO" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

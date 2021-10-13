@@ -1,0 +1,35 @@
+<app-header></app-header>
+<div class="main">
+  <div class="container col-lg-4 col-md-6 col-sm-12">
+    <h2 class="title font-weight-bold">
+      {{ "PAYMENT.THANK_YOU.TITLE" | translate }}
+    </h2>
+    <img
+      class="img img-success"
+      src="/assets/extra/SelfieDoodle.svg"
+      alt="sucess payment"
+    />
+    <p class="subtitle">{{ "PAYMENT.THANK_YOU.TEXT" | translate }}</p>
+    <div>
+      <button
+        name="goTrips"
+        (click)="goTo()"
+        class="btn btn-primary ml-2 text-capitalize mt-5"
+      >
+        {{
+          !id
+            ? ("PAYMENT.THANK_YOU.RETURN_PROFILE" | translate)
+            : ("PAYMENT.THANK_YOU.RETURN_RESERVATION" | translate)
+        }}
+      </button>
+      <button
+        name="goHome"
+        class="btn btn-outline-primary ml-2 text-capitalize mt-5"
+        [routerLink]="['/']"
+      >
+        {{ "PAYMENT.THANK_YOU.RETURN_HOME" | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

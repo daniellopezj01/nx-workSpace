@@ -1,0 +1,11 @@
+<div class="p-3">
+  <div class="modal-header header-reviews d-flex w-100 justify-content-end">
+    <div (click)="closeModal()" class="cursor-pointer">
+      <i class="uil uil-times"></i>
+    </div>
+  </div>
+  <div>
+    <h3 class="truncate">{{ data?.title }}</h3>
+    <p class="text-break" [innerHTML]="data?.description"></p>
+  </div>
+</div>

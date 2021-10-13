@@ -18,7 +18,18 @@
 # /apps/api/app
 /apps/api/.idea
 
+#oauth 
+/apps/oauth/src
+/apps/oauth/.env
+/apps/oauth/public
+/apps/oauth/logs
+/apps/oauth/coverage
+/apps/oauth/.nyc_output
+# /apps/api/app
+/apps/oauth/.idea
+
 # IDEs and editors
+/apps/front/.serverless/
 /apps/api/.idea
 /.idea
 .project

@@ -1,0 +1,249 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="containers-Form animate__animated animate__fadeInDown animation-3">
+  <div class="manager-forms">
+    <div class="buttons">
+      <button
+        class="col-6 style-button btn"
+        (click)="change(true)"
+        [ngClass]="{ classActive: formAction }"
+      >
+        {{ 'AUTH_LOGIN.LOGIN' | translate }}
+      </button>
+      <button
+        class="col-6 style-button btn"
+        (click)="change(false)"
+        [ngClass]="{ classActive: !formAction }"
+      >
+        {{ 'AUTH_LOGIN.SIGN_UP' | translate }}
+      </button>
+    </div>
+    <div class="forms">
+      <ng-container
+        *ngIf="formAction; then temLogin; else temRegister"
+      ></ng-container>
+      <div class="style-form">
+        <ng-template #temLogin>
+          <div class="col-12 form-login animate__animated animate__fadeIn">
+            <form [formGroup]="loginForm">
+              <div class="form-group">
+                <small class="text-muted">{{
+                  'AUTH_LOGIN.ENTER_EMAIL' | translate
+                }}</small>
+                <input
+                  type="email"
+                  placeholder=""
+                  controlErrorsClass="error-class-tailor"
+                  class="form-control"
+                  formControlName="email"
+                />
+              </div>
+              <div class="form-group">
+                <small class="text-muted">{{
+                  'AUTH_LOGIN.ENTER_PASSWORD' | translate
+                }}</small>
+                <input
+                  class="form-control"
+                  appEyePassword
+                  placeholder=""
+                  controlErrorsClass="error-class-tailor"
+                  type="password"
+                  formControlName="password"
+                />
+              </div>
+              <div class="w-100 text-center pb-2">
+                <button
+                  (click)="login()"
+                  class="btn btn-primary btn-block"
+                  ngxLoading
+                  [loadingFlag]="loading"
+                  [disabled]="!loginForm.valid"
+                  [textInitial]="'AUTH_LOGIN.LOGIN' | translate"
+                  [textLoading]="'GENERAL.SENDING' | translate"
+                ></button>
+              </div>
+              <div class="p-3 small text-center text-uppercase">
+                {{ 'AUTH_LOGIN.OR' | translate }}
+              </div>
+              <div class="w-100 text-center pb-2">
+                <a
+                  [href]="urlOauth.login.fb"
+                  class="
+                    btn
+                    hvr-shrink
+                    btn-default btn-block btn-social btn-facebook
+                  "
+                  ngxLoading
+                  [loadingFlag]="loading"
+                  [disabled]="!loginForm.valid"
+                  [textInitial]="'AUTH_LOGIN.LOGIN_FACEBOOK' | translate"
+                  [textLoading]="'GENERAL.SENDING' | translate"
+                ></a>
+              </div>
+              <div class="w-100 text-center pb-2">
+                <a
+                  [href]="urlOauth.login.google"
+                  class="
+                    btn
+                    hvr-shrink
+                    btn-default btn-block btn-social btn-google
+                  "
+                  ngxLoading
+                  [loadingFlag]="loading"
+                  [disabled]="!loginForm.valid"
+                  [textInitial]="'AUTH_LOGIN.LOGIN_GOOGLE' | translate"
+                  [textLoading]="'GENERAL.SENDING' | translate"
+                ></a>
+              </div>
+            </form>
+            <a class="small text-dark" [routerLink]="['/', 'auth', 'forgot']">
+              {{ 'AUTH_LOGIN.FORGOT' | translate }}
+            </a>
+          </div>
+        </ng-template>
+
+        <ng-template #temRegister>
+          <div class="col-12 form-login animate__animated animate__fadeIn">
+            <form [formGroup]="registerForm" errorTailor>
+              <div class="row">
+                <div class="col-lg-6 input-cont-register">
+                  <div class="form-group">
+                    <small class="text-muted">{{
+                      'AUTH_LOGIN.ENTER_NAME' | translate
+                    }}</small>
+                    <input
+                      type="text"
+                      class="form-control"
+                      controlErrorsClass="error-class-tailor"
+                      formControlName="name"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 input-cont-register">
+                  <div class="form-group">
+                    <small class="text-muted">{{
+                      'AUTH_LOGIN.ENTER_LAST_NAME' | translate
+                    }}</small>
+                    <input
+                      type="text"
+                      class="form-control"
+                      controlErrorsClass="error-class-tailor"
+                      formControlName="surname"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="input-cont-register">
+                <div class="form-group position-relative">
+                  <small class="text-muted">{{
+                    'AUTH_LOGIN.ENTER_EMAIL' | translate
+                  }}</small>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="email"
+                    placeholder=""
+                    controlErrorsClass="error-class-tailor"
+                  />
+                  <span
+                    class="
+                      position-absolute
+                      h-100
+                      align-items-center align-content-center
+                      d-flex
+                      loading-check
+                    "
+                    *ngIf="registerForm.pending"
+                  >
+                    <img
+                      src="../../../../../assets/loading.svg"
+                      alt="loading"
+                    />
+                  </span>
+                </div>
+
+                <div class="form-group">
+                  <small class="text-muted">{{
+                    'AUTH_LOGIN.ENTER_PASSWORD' | translate
+                  }}</small>
+                  <input
+                    class="form-control"
+                    appEyePassword
+                    controlErrorsClass="error-class-tailor"
+                    type="password"
+                    formControlName="password"
+                    placeholder=""
+                  />
+                </div>
+                <div>
+                  <password-strength-meter
+                    [minPasswordLength]="6"
+                    [colors]="colors"
+                    [password]="registerForm.value?.password"
+                  ></password-strength-meter>
+                </div>
+              </div>
+              <div class="instruction-password pb-2">
+                <span>{{
+                  'AUTH_LOGIN.INSTRUCTIONS_PASSWORD' | translate
+                }}</span>
+              </div>
+              <div class="w-100 pt-2">
+                <button
+                  (click)="register()"
+                  class="btn btn-primary btn-block"
+                  ngxLoading
+                  [loadingFlag]="loading"
+                  [disabled]="!registerForm.valid"
+                  [textInitial]="'AUTH_LOGIN.REGISTER_BUTTON' | translate"
+                  [textLoading]="'GENERAL.SENDING' | translate"
+                ></button>
+              </div>
+              <div class="p-3 small text-center text-uppercase">
+                {{ 'AUTH_LOGIN.OR' | translate }}
+              </div>
+              <div class="w-100 text-center pb-2">
+                <a
+                  [href]="urlOauth.register.fb"
+                  class="
+                    btn
+                    hvr-shrink
+                    btn-default btn-block btn-social btn-facebook
+                  "
+                  ngxLoading
+                  [loadingFlag]="loading"
+                  [disabled]="!loginForm.valid"
+                  [textInitial]="'AUTH_LOGIN.REGISTER_FACEBOOK' | translate"
+                  [textLoading]="'GENERAL.SENDING' | translate"
+                ></a>
+              </div>
+              <div class="w-100 text-center pb-2">
+                <a
+                  [href]="urlOauth.register.google"
+                  class="
+                    btn
+                    hvr-shrink
+                    btn-default btn-block btn-social btn-google
+                  "
+                  ngxLoading
+                  [loadingFlag]="loading"
+                  [disabled]="!loginForm.valid"
+                  [textInitial]="'AUTH_LOGIN.REGISTER_GOOGLE' | translate"
+                  [textLoading]="'GENERAL.SENDING' | translate"
+                ></a>
+              </div>
+            </form>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template let-error let-text="text" #tpl>
+  <ng-container *ngIf="error">
+    {{ 'GENERAL.ERROR_FIELD_REQUIRED' | translate }}
+  </ng-container>
+</ng-template>

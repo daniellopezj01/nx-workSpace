@@ -1,0 +1,105 @@
+<ng-container
+  *ngIf="tour?.idExternal; then externalTour; else ownTour"
+></ng-container>
+<ng-template #externalTour>
+  <div class="section-general-info">
+    <div class="col-xl-6">
+      <ng-container *ngTemplateOutlet="templateBeginTour"></ng-container>
+    </div>
+    <div class="col-xl-6">
+      <ng-container *ngTemplateOutlet="templateOfferedAgency"></ng-container>
+    </div>
+  </div>
+</ng-template>
+<ng-template #ownTour>
+  <div class="section-general-info">
+    <div class="col-xl-8 pl-0 pr-0 container-info-general mt-2">
+      <div class="p-3 container-section-details">
+        <div class="container-icons">
+          <i class="uil uil-calendar-alt"></i>
+        </div>
+        <span class="text-details small text-muted">
+          {{ "DETAILS_TOUR.DURATION" | translate }}</span
+        >
+        <span class="numbers">
+          {{ tour?.duration || 1 }} {{ "DETAILS_TOUR.DAY" | translate }}</span
+        >
+      </div>
+      <div class="p-3 container-section-details">
+        <div class="container-icons">
+          <i class="uil uil-globe"></i>
+        </div>
+        <span class="text-details small text-muted">{{
+          "DETAILS_TOUR.COUNTRIES" | translate
+        }}</span>
+        <span class="numbers">
+          {{ tour?.countries }}
+          <!-- {{ "DETAILS_TOUR.COUNTRIES" | translate }} -->
+        </span>
+      </div>
+      <div class="p-3 container-section-details">
+        <div class="container-icons">
+          <i class="uil uil-building"></i>
+        </div>
+        <span class="text-details small text-muted">{{
+          "DETAILS_TOUR.CITIES" | translate
+        }}</span>
+        <span class="numbers">
+          {{ tour?.cities }}
+          <!-- {{ "DETAILS_TOUR.CITIES" | translate }} -->
+        </span>
+      </div>
+
+      <div class="p-3 custom-language">
+        <app-tour-language-offered
+          [tour]="tour"
+          [type]="'inDetails'"
+        ></app-tour-language-offered>
+      </div>
+      <!-- <div class="p-3 container-section-details">
+        <div class="container-icons">
+          <i class="uil uil-letter-chinese-a"></i>
+        </div>
+        <span class="text-details small text-muted">{{
+          "DETAILS_TOUR.LANGUAGE" | translate
+        }}</span>
+        <span class="numbers">
+          <span *ngIf="!tour?.lenguages"> ES</span>
+          <span *ngFor="let lenguage of tour?.lenguages"> {{ lenguage }}</span>
+     
+        </span>
+      </div> -->
+      <div
+        class="p-3 container-section-details"
+        *ngIf="tour?.transport?.length"
+      >
+        <div class="container-icons">
+          <i class="uil uil-bus"></i>
+        </div>
+        <span class="text-details small text-muted"
+          >{{ "DETAILS_TOUR.TRANSPORT" | translate }}
+        </span>
+        <span class="numbers">{{ transport() }}</span>
+      </div>
+      <div class="p-3 container-section-details" *ngIf="tour?.agency.length">
+        <app-begin-tour [simple]="true" [tour]="tour"></app-begin-tour>
+      </div>
+    </div>
+    <div class="col-xl-4 p-3">
+      <ng-container
+        *ngIf="
+          tour?.agency.length;
+          then templateOfferedAgency;
+          else templateBeginTour
+        "
+      ></ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateOfferedAgency>
+  <app-agency-offered [tour]="tour"></app-agency-offered>
+</ng-template>
+<ng-template #templateBeginTour>
+  <app-begin-tour [tour]="tour"></app-begin-tour>
+</ng-template>

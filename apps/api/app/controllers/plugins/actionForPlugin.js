@@ -3,7 +3,8 @@ const model = require('../../models/plugins')
 const utils = require('../../middleware/utils')
 const db = require('../../middleware/db')
 
-const PATH_PLUGINS = '../../plugins'
+
+// const PATH_PLUGINS = '../../plugins'
 
 const actionForPlugin = async (req, res) => {
   try {
@@ -11,7 +12,7 @@ const actionForPlugin = async (req, res) => {
     const { id, action, params } = req
     await db.findOne({ path: id }, model)
     // eslint-disable-next-line import/no-dynamic-require
-    const singleModule = require(`${PATH_PLUGINS}/${id}`)
+    const singleModule = require(`../../plugins/${id}`)
     const data = await singleModule[action](params)
     res.status(200).json(data)
   } catch (error) {

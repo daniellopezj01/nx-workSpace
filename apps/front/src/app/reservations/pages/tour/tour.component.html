@@ -1,0 +1,57 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div *ngIf="tour" class="general-cont">
+  <div class="general">
+    <app-bread-crumb></app-bread-crumb>
+    <div class="p-3 d-flex flex-column">
+      <div class="row m-0 custom-header">
+        <span class="col-sm-12 col-md-6 col-lg-8 col-xl-8 p-0">
+          {{ tour.title }}
+        </span>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 p-3 meeting-point">
+          <span>{{ "RESERVATION.METTING_POINT" | translate }} </span>
+          <div class="mt-2 d-flex align-items-center">
+            <!-- <fa-icon class="icon-place" [icon]="faMapMarkerAlt"></fa-icon> -->
+            <div class="container-icons mr-2">
+              <i class="uil uil-map-marker-shield"></i>
+            </div>
+            <span class="begin-place mr-2">{{ beginTour?.itineraryName }}</span>
+            <span class="text-details small text-muted">{{
+              beginTour?.stringLocation.city
+            }}</span>
+          </div>
+          <div class="mt-2 d-flex">
+            <!-- <fa-icon class="icon-place" [icon]="faMapMarkerAlt"></fa-icon> -->
+            <div class="container-icons mr-2">
+              <i class="uil uil-calendar-alt"></i>
+            </div>
+            <span class="begin-place">{{
+              departure?.startDateDeparture
+                | datesFormatDeparture
+                | date: "dd MMMM yyyy"
+            }}</span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="section-map mb-3"
+        id="itineraryMap"
+        *ngIf="tour?.itinerary?.length"
+      >
+        <div class="title-map">
+          <h4 class="mb-4 mt-4">
+            {{ "DETAILS_TOUR.MAP_ITINERARY" | translate }}
+          </h4>
+        </div>
+        <div class="container-map mb-3">
+          <app-map-tour [tour]="tour"></app-map-tour>
+        </div>
+        <div class="section-itinerary">
+          <app-itinerary-tour [tour]="tour"></app-itinerary-tour>
+        </div>
+      </div>
+      <app-includes [tour]="tour"></app-includes>
+      <app-faq-tour [tour]="tour"></app-faq-tour>
+    </div>
+  </div>
+</div>

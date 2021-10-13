@@ -1,0 +1,13 @@
+<nav class="main w-100">
+  <ul class="nav sticky-top">
+    <li role="menuitem" *ngFor="let item of structureHeader; let i = index">
+      <a (click)="goTo(item?.link)" [href]="" class="single-item" base>
+        <i class="pr-1 uil {{ item?.icon }}"></i>
+        <span class="text-item">{{ item.title | translate }} </span>
+      </a>
+      <ul class="child-list" *ngIf="item?.child">
+        <app-contact></app-contact>
+      </ul>
+    </li>
+  </ul>
+</nav>

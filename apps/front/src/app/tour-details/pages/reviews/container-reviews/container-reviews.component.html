@@ -1,0 +1,30 @@
+<div class="container-reviews" *ngIf="tour?.comments?.length">
+  <div class="title">
+    <h4>({{ data?.length }}) {{ "DETAILS_TOUR.REVIEWS" | translate }}</h4>
+  </div>
+  <ng-container *ngTemplateOutlet="bigTemplate"></ng-container>
+</div>
+<ng-template #bigTemplate>
+  <div class="big">
+    <div class="container-big-stars">
+      <app-stars-reviews></app-stars-reviews>
+    </div>
+    <div class="reviews-big">
+      <app-card-review
+        [review]="item"
+        [index]="i"
+        *ngFor="
+          let item of data | slice: 0:limitReviewsBigScreen;
+          let i = index
+        "
+      >
+      </app-card-review>
+    </div>
+  </div>
+  <div class="text-all-reviews">
+    <a class="text-primary cursor-pointer" (click)="openAllReviews()">
+      {{ "DETAILS_TOUR.VIEW_ALL" | translate }} {{ data?.length }}
+      {{ "DETAILS_TOUR.REVIEWS" | translate }}</a
+    >
+  </div>
+</ng-template>

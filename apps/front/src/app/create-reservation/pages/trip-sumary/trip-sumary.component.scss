@@ -1,0 +1,218 @@
+@import '../../../../shared.scss';
+
+.main-container {
+  border: 1px solid $border-color-2;
+  padding: 1rem;
+  border-radius: $border-radius;
+  box-shadow: $shadow-custom;
+  display: grid;
+  background-color: white;
+}
+
+.container-why-book {
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.section-title,
+.section-person,
+.section-price,
+.section-total,
+.section-main-price {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-title {
+  font-size: $font-size-1;
+  color: $text-color-1;
+  //font-weight: bolder;
+}
+
+.important-section {
+  color: $text-color-1;
+  margin: auto 0;
+  //text-decoration: underline;
+  font-size: 0.8rem;
+
+  i {
+    font-size: $font-size-2;
+  }
+}
+
+.important-section span {
+  color: $text-color-2;
+  font-size: $font-size-3;
+  //font-weight: bolder;
+}
+
+.important-section fa-icon {
+  margin-right: 0.5rem;
+}
+
+.important-section:hover {
+  cursor: pointer;
+}
+
+/***DATES*/
+.main-container-date {
+  display: flex;
+  margin: 1rem 0;
+}
+
+.icon-container {
+  position: relative;
+  font-size: 0.9rem;
+  color: $text-color-1;
+
+  i {
+    font-size: 1.2rem;
+  }
+}
+
+.icon-container span {
+  position: absolute;
+  top: 23px;
+  right: 52%;
+  width: 1px;
+  height: 55%;
+  background-color: $border-color-3;
+}
+
+.title-date {
+  color: $font-size-3;
+  //font-weight: bolder;
+  font-size: $font-size-3;
+  text-transform: uppercase;
+}
+
+.container-date {
+  margin-left: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.body-date {
+  //font-weight: bolder;
+  font-size: $font-size-2;
+}
+
+.body-location {
+  font-size: $font-size-3;
+  color: $text-color-2;
+}
+
+.trip-person {
+  display: flex;
+  justify-content: space-between;
+}
+
+.trip-text,
+.trip-text-total {
+  font-size: $font-size-1;
+}
+
+.section-main-price {
+  margin-top: 1rem;
+}
+
+.normal-text {
+  color: $text-color;
+}
+
+.container-with-us {
+  margin: 1rem 0;
+  display: grid;
+}
+
+.icons-details-book-us {
+  display: flex;
+  justify-content: flex-start;
+  i {
+    color: $base-color;
+  }
+}
+
+.icons-details-book-us fa-icon {
+  color: $base-color;
+  margin: auto 1rem auto 0;
+}
+
+.icons-details-book-us span {
+  font-size: $font-size-2;
+  margin: auto 0;
+  color: $text-color-1;
+  // font-weight: lighter;
+  white-space: nowrap;
+}
+
+/**SECTIONS PRICE*/
+.div-price {
+  padding: 0.3rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.save-of-text,
+.save-of-number,
+.normal-price-number,
+.total-discount,
+.normal-price-text {
+  font-size: $font-size-3;
+  text-transform: uppercase;
+  color: $base-color;
+}
+
+.normal-price-text {
+  font-size: $font-size-3;
+  text-transform: uppercase;
+  color: $text-color-2;
+}
+
+.normal-price-number {
+  color: #7c7c7c;
+}
+
+.save-of-text {
+  font-size: 0.7rem;
+}
+
+.save-of-number {
+  font-size: $font-size-6;
+  margin: auto 0;
+  white-space: nowrap;
+}
+
+.total-text {
+  color: $text-color-1;
+  font-size: $font-size-1;
+  text-transform: uppercase;
+}
+
+.total-number {
+  color: $base-color;
+  font-size: 1.7rem;
+  line-height: 35px;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .container-why-book {
+    display: none;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .main-container {
+    margin: 1rem 0;
+  }
+}
+
+@media print, screen and (min-width: 1140px) {
+  .icons-details-book-us span {
+    font-weight: lighter;
+  }
+}

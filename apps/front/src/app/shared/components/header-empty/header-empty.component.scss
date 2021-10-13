@@ -1,0 +1,161 @@
+@import '../../../../shared';
+
+.main {
+  background-color: white;
+  border-top: solid 1px $border-color-3;
+  box-shadow: $shadow-custom;
+  text-align: left;
+  max-height: 4rem;
+  padding-right: 1rem;
+}
+
+.grid {
+  padding-right: 0;
+  align-items: center;
+  display: flex;
+}
+
+.container-logo {
+  margin-right: 2em;
+  min-height: 3.75em;
+  padding-left: 1.2rem;
+}
+
+.logo {
+  cursor: pointer;
+  height: 3.75em;
+  width: 6rem !important;
+  background-image: url('../../../../assets/logo.svg');
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position: center;
+  background-size: contain;
+}
+
+.first-cont {
+  display: flex;
+}
+
+.go-to {
+  font-size: 1em;
+  color: #302a3d;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: soleil-regular, sans-serif;
+}
+
+.go-to p {
+  margin-block-start: 1.5em;
+}
+
+.icon-style {
+  background-color: gray;
+  border-radius: 50%;
+  position: relative;
+  margin: auto;
+  border: 3px solid white;
+  height: 32px;
+  width: 32px;
+}
+
+.icon-style img {
+  position: absolute;
+  background-color: white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.account {
+  cursor: pointer;
+  border-radius: 5rem;
+  padding: 0.3em;
+  display: inline-flex;
+  border: 0.5px solid #ffa8c4;
+}
+
+.account p {
+  margin: 0.3em;
+}
+
+ul {
+  right: 2rem !important;
+}
+
+li:hover {
+  background-color: #e8e8e8;
+}
+
+.dropdown-item-style {
+  color: black;
+  display: block;
+  padding: 0.5em 1rem 0.5em 1rem !important;
+}
+
+.icon-style-inside {
+  font-size: 1.1em;
+  margin-right: 0.5em;
+}
+
+//smartphone
+@media print, screen and (max-width: 740px) {
+  .icon-style {
+    height: 45px;
+    width: 45px;
+  }
+  .account {
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    border: 0.5px solid white;
+  }
+  .account p {
+    display: none;
+  }
+  .go-to {
+    display: none;
+  }
+  .main {
+    min-height: 2.75rem;
+    padding: 0.375rem 1rem 0.35rem 0.575rem;
+  }
+  .container-logo {
+    margin: 0;
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+  .logo {
+    height: 2.2rem !important;
+    width: 8rem !important;
+  }
+}
+
+//tablets
+@media print, screen and (max-width: 1200px) and (min-width: 740px) {
+  .container-logo {
+    margin-right: 2em;
+    padding-left: 0.7rem;
+    min-height: 3rem;
+  }
+  .logo {
+    height: 3.5rem !important;
+    width: 9.4rem !important;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1200px) {
+  .grid {
+    padding-left: 0;
+    padding-right: 1em;
+  }
+}
+
+p {
+  margin: 0;
+  outline: 0;
+}

@@ -1,0 +1,204 @@
+@import '../../../../../shared';
+
+.main {
+  padding: 0.5rem;
+  position: relative;
+}
+
+.section-filter {
+  font-size: 80%;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+  border-bottom: 0px solid $border-color-3;
+}
+
+.stars-row-style {
+  padding: 0.25rem 0;
+}
+
+::ng-deep {
+  .stars-line {
+    margin-top: -2px !important;
+    padding-left: 1.25rem;
+    div {
+      text-indent: 0.25rem !important;
+    }
+  }
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-title {
+  font-weight: 500;
+  margin: auto 0;
+}
+
+.clear-filter {
+  font-size: $font-size-3;
+  //font-weight: bolder;
+  color: $base-color;
+  margin: auto 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.title {
+  //margin: 1rem 0 0.5rem 0;
+  font-weight: 500;
+  text-transform: capitalize;
+  color: $text-color-2;
+}
+
+.font-price {
+  font-size: $font-size-3;
+  margin-top: 1rem;
+  //font-weight: 5;
+}
+
+.body-categories,
+.body-duration {
+  margin-bottom: 1rem;
+}
+
+::ng-deep {
+  .ng-select {
+    font-size: $font-size-2;
+  }
+
+  .ng-select .ng-select-container,
+  .ng-select.ng-select-opened > .ng-select-container {
+    border-color: $border-color-1;
+    border-width: 0;
+    border-radius: $border-radius;
+    font-size: $font-size-2;
+  }
+
+  .ng-select .ng-select-container .ng-value-container {
+    padding: 0;
+  }
+
+  .ng-select .ng-select-container:hover {
+    box-shadow: 0 0 0 !important;
+  }
+
+  .ng-select.ng-select-opened > .ng-select-container {
+    opacity: 0.3;
+  }
+}
+
+/***Continents***/
+
+.cont-continent {
+  margin-top: 1rem;
+}
+
+.body-list {
+  display: grid;
+}
+
+.continent {
+  border-radius: $border-radius;
+  padding: 0.5rem;
+  display: inline-flex;
+  min-height: 2rem;
+  border: solid 1px transparent;
+}
+
+.continent:hover {
+  cursor: pointer;
+  box-shadow: $shadow-custom;
+  //background-color: $border-color-2;
+  border: solid 1px $border-color-1;
+}
+
+.continent p {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.continent-name {
+  margin-left: 1rem;
+}
+
+.number-trips {
+  margin-left: 0.5rem;
+  font-weight: 500;
+  font-size: $font-size-2;
+  color: $text-color-2;
+}
+
+.cont-image {
+  display: flex;
+  min-height: 100%;
+  width: 30px;
+  position: relative;
+}
+
+.continent-name {
+  font-weight: 500;
+  font-size: $font-size-2;
+}
+
+.number-days {
+  font-size: 0.8rem;
+  color: #838383;
+}
+
+.img-continent {
+  background-size: contain;
+  width: 30px;
+  height: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.activeItem,
+.active-duration {
+  background-color: $border-color-3;
+}
+
+/****DURATION****/
+.cont-square {
+  padding: 0.4rem 0.4rem;
+  margin: 0.5rem 0;
+}
+
+.cont-square {
+  padding: 0.4rem 0.4rem;
+}
+
+.square {
+  border-radius: $border-radius;
+  min-height: 3rem;
+  font-weight: 500;
+  border: solid 1px transparent;
+  //box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+.square:hover {
+  cursor: pointer;
+  border-color: $border-color-1;
+  box-shadow: $shadow-custom;
+}
+
+.inside-square {
+  display: flex;
+  position: absolute;
+  vertical-align: middle;
+  padding: 0.3rem;
+  min-width: 100% !important;
+  min-height: 100% !important;
+}
+
+.inside-square p {
+  margin: auto 0.5rem;
+  text-transform: capitalize;
+}
+
+.last-item {
+  margin-bottom: 3rem;
+}

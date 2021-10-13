@@ -1,6 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-undef */
-
 process.env.NODE_ENV = 'test'
 
 const _ = require('lodash')
@@ -10,7 +7,6 @@ const chaiHttp = require('chai-http')
 const support = require('../../app/models/supportTicket')
 const server = require('../../server')
 // eslint-disable-next-line no-unused-vars
-const should = chai.should()
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'

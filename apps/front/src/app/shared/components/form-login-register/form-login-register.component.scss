@@ -1,0 +1,325 @@
+@import '../../../../shared.scss';
+
+.container-page {
+  display: flex;
+  flex-wrap: wrap;
+  height: calc(100% - 3.8rem);
+  position: absolute;
+  width: 100%;
+}
+
+.image-page {
+  background-attachment: scroll;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+
+.loading-check {
+  top: 1.5%;
+  padding: 0.25rem 0.5rem;
+  right: 0;
+}
+
+.first-block {
+  border-right: solid 1px $border-color-3;
+  box-shadow: $shadow-custom;
+  min-height: 12rem;
+}
+
+.all-section-two {
+  margin: 0;
+  padding-top: 0;
+}
+
+.cont-all {
+  padding: 0 18% 0 18%;
+}
+
+.main-text {
+  padding: 1.8rem 0.625rem 1.25rem 0.625rem;
+}
+
+.wellcome,
+.title,
+.text-description {
+  text-align: center;
+}
+
+.wellcome {
+  color: $text-color-1;
+  margin-bottom: 0;
+  font-size: 1.7em;
+  line-height: 2.5rem;
+}
+
+.title {
+  color: $text-color-1;
+  margin-bottom: 1rem;
+  letter-spacing: 0;
+  text-decoration: none;
+  font-style: normal;
+  font-size: 2.5em !important;
+  line-height: 2.9rem;
+}
+
+.error-login {
+  margin-bottom: 2rem;
+}
+
+.style-input {
+  padding-left: 0.5rem;
+  padding-right: 3rem;
+  border-radius: $border-radius;
+  width: 100%;
+  border: none;
+  font-size: $font-size-2;
+  background-color: $border-color-3;
+  border-bottom: 1px solid $base-color-1;
+}
+
+.style-input:focus {
+  outline-width: 0;
+  border-bottom: 1px solid $base-color-1;
+}
+
+.text-description {
+  font-size: $font-size-1;
+  color: $text-color-1;
+  line-height: 1.75rem;
+}
+
+.btn-register {
+  text-align: center;
+}
+
+.error-login p {
+  margin: 0;
+  outline: none;
+}
+
+.terms-privacy {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: $font-size-3;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.message-error-login,
+.message-error {
+  color: $bg-danger;
+  position: relative;
+  font-weight: 400;
+  //display: inline-flex;
+  text-align: left;
+  font-size: $font-size-3;
+}
+
+.btn-register {
+  margin-bottom: 1rem;
+}
+
+.instruction-password {
+  font-size: $font-size-2;
+  //margin-top: -1rem;
+  text-align: justify;
+}
+
+.btn-register button:hover {
+  background: $base-color;
+}
+
+.btn-register button {
+  width: 18.75rem;
+  color: #fff;
+  background: $base-color;
+  height: 2.8125rem;
+  font-size: $font-size-1;
+  text-transform: none;
+  text-decoration: none;
+  border-radius: 1.78571rem;
+  padding: 0.625rem 2.1875rem;
+  position: relative;
+  cursor: pointer;
+  letter-spacing: 0;
+  border: transparent;
+}
+
+.copyright {
+  font-size: 1rem;
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.font-click {
+  //text-decoration: underline;
+  //color: $base-color;
+  cursor: pointer;
+}
+
+.change-tab {
+  font-size: 1rem;
+  text-align: center;
+}
+
+.btn-login {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  margin-top: 3rem;
+}
+
+.btn-login button:hover {
+  background: $base-color;
+}
+
+.btn-login button {
+  width: 18.75rem;
+  color: #fff;
+  background: $base-color;
+  height: 2.8125rem;
+  font-size: 1rem;
+  text-transform: none;
+  text-decoration: none;
+  border-radius: 1.78571rem;
+  padding: 0.625rem 2.1875rem;
+  position: relative;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0;
+  border: transparent;
+}
+
+.manager-forms {
+  background-color: white;
+  box-shadow: $shadow-custom;
+  border: solid 2px $border-color-2;
+}
+
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+.style-form {
+  background-color: #fafafc;
+}
+
+.containers-Form {
+  margin-bottom: 1.25rem;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 2.5rem !important;
+  height: 3.5rem;
+}
+
+.style-button {
+  background-color: $border-color-3;
+  border: 2px solid $border-color-3;
+  border-right: none;
+  font-weight: 500;
+  text-align: center;
+}
+
+.classActive {
+  background-color: white !important;
+  border-color: $base-color white white;
+}
+
+.form-login {
+  padding: 1.5rem;
+}
+
+.forgot {
+  text-align: center;
+}
+
+.forgot p {
+  margin-top: 0.5rem;
+  cursor: pointer;
+  text-decoration: underline;
+  color: $text-color-1;
+  font-size: none;
+  text-transform: none;
+}
+
+.input-cont-register {
+  position: relative;
+}
+
+.symbol-required span {
+  top: 18px;
+  height: 5px;
+  width: 5px;
+  margin-left: -0.5rem;
+  position: absolute;
+  background-color: $base-color;
+  border-radius: 50%;
+}
+
+//smartphone
+@media print, screen and (max-width: 740px) {
+  .copyright {
+    margin-top: 1.5rem;
+  }
+  .in-xs-size {
+    margin-bottom: 3rem;
+  }
+  .cont-all {
+    padding: 0;
+  }
+  .img-cover {
+    min-height: 12rem;
+  }
+  .wellcome {
+    font-size: 1.5rem !important;
+    line-height: 2.2rem;
+  }
+  .title {
+    line-height: 3rem;
+    margin-bottom: 0.625rem;
+    font-size: 2.3rem !important;
+  }
+  .main-text {
+    padding: 1.85rem 0.625rem 1.25rem;
+  }
+  .text-description {
+    padding: 0 0.8rem 0 0.8rem;
+    font-weight: 1.75rem;
+    font-size: 1.14rem;
+    display: flex;
+  }
+  .all-section-two {
+    padding-top: 0 !important;
+  }
+}
+
+@media print, screen and (max-width: 1200px) and (min-width: 740px) {
+  .all-section-two {
+    padding-top: 0;
+  }
+  .wellcome {
+    font-size: 1.7rem !important;
+    line-height: 2.2rem;
+  }
+  .title {
+    font-size: 2.56rem !important;
+  }
+  .main-text {
+    padding: 1.9rem 0.625rem 1.25rem;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1200px) {
+  .containers-Form {
+    margin-bottom: 1.875rem;
+  }
+  .all-section-two {
+    padding-top: 2.5em;
+  }
+}

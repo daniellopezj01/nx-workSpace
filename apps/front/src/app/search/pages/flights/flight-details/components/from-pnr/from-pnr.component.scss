@@ -1,0 +1,119 @@
+@import '../../../../../../../shared.scss';
+
+.square {
+  border-radius: $border-radius;
+  height: 100%;
+  opacity: 1;
+  margin: 30px;
+  overflow: hidden !important;
+  display: flex;
+  flex-wrap: wrap;
+}
+.container-step-two {
+  width: 100%;
+  display: grid;
+  min-height: 200px;
+  margin: 3rem 0;
+  box-shadow: $shadow-custom;
+}
+
+.container-form {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border: 1px solid $border-color-2;
+}
+
+.title-Step {
+  width: 100%;
+  justify-content: center;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.main-step-two {
+  display: grid;
+  background-color: white;
+}
+
+.body-step-two {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  transition: 0.3s;
+}
+
+.icon-style {
+  font-size: 1.2rem;
+  color: $base-color;
+  margin-right: 1rem;
+}
+
+.text-icon {
+  margin: auto;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.input-container {
+  position: relative;
+}
+
+::ng-deep ngx-intl-tel-input input.form-control {
+  padding: 0 !important;
+  margin: -6px -8px 0px -28px;
+  border-width: 0 !important;
+
+  &:focus {
+    box-shadow: 0 0 0 transparent !important;
+    filter: none !important;
+  }
+}
+::ng-deep {
+  .form-control:disabled,
+  .form-control[readonly] {
+    background-color: white !important;
+  }
+}
+
+::ng-deep ngx-intl-tel-input .country-dropdown.show {
+  margin-left: 1rem;
+  z-index: 10;
+  margin-top: -3rem;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .title-Step {
+    margin: 2rem 0;
+  }
+  .title-Step span {
+    font-size: 1.3rem;
+  }
+  .body-step-two {
+    display: flex;
+    flex-direction: column;
+    justify-content: initial;
+  }
+  .info-price-step-2 {
+    margin: 1.4rem 0;
+  }
+  .custom-small {
+    display: none;
+  }
+  .style-container-info {
+    padding: 0;
+  }
+  .square {
+    margin: 0.5rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+}
+
+@media print, screen and (min-width: 1140px) {
+  .style-container-info {
+    display: flex;
+  }
+}

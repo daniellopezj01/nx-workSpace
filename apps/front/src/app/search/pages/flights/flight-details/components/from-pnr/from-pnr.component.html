@@ -1,0 +1,260 @@
+<!-- <app-loading [loading]="loading"></app-loading> -->
+
+<div id="formPnr">
+  <div class="square" *ngIf="activeStep">
+    <div class="title-Step">
+      <h4>{{ 'SEARCH.FLIGHTS.FORM_RESERVATION' | translate }}</h4>
+    </div>
+    <div class="w-100">
+      <div class="pt-2 pb-2">
+        <!-- <form [formGroup]="orderForm">
+          <div
+            formArrayName="passengers"
+            *ngFor="let item of passengersFormArr.controls; let i = index"
+          >
+            {{ i }}
+            <div [formGroupName]="i">
+              <input formControlName="name" placeholder="Item name" />
+              <input formControlName="surname" placeholder="Item description" />
+              <input formControlName="phone" placeholder="Item price" />
+            </div>
+          </div>
+        </form> -->
+
+        <div>
+          <form [formGroup]="pnrForm">
+            <div
+              formArrayName="passengers"
+              *ngFor="let item of passengersFormArr.controls; let i = index"
+            >
+              <div [formGroupName]="i" class="container-form">
+                <div class="title-section pb-2">
+                  {{
+                    i < adults
+                      ? ('SEARCH.FLIGHTS.ADULT' | translate)
+                      : ('SEARCH.FLIGHTS.SINGLE_CHILDREN' | translate)
+                  }}
+                  {{ i < adults ? i + 1 : i + 1 - adults }}
+                </div>
+                <div>
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 input-container">
+                      <div class="form-group">
+                        <small class="text-muted">{{
+                          'CREATE_RESERVATION.NAME_PLACEHOLDER' | translate
+                        }}</small>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="name"
+                          placeholder=""
+                          controlErrorsClass="error-class-tailor"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 input-container">
+                      <div class="form-group">
+                        <small class="text-muted">{{
+                          'CREATE_RESERVATION.SURNAME_PLACEHOLDER' | translate
+                        }}</small>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="surname"
+                          placeholder=""
+                          controlErrorsClass="error-class-tailor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-5 col-md-12 input-container">
+                      <div class="form-group">
+                        <small class="text-muted">{{
+                          'CREATE_RESERVATION.PHONE_PLACEHOLDER' | translate
+                        }}</small>
+                        <ngx-intl-tel-input
+                          class="form-control"
+                          [enableAutoCountrySelect]="true"
+                          [enablePlaceholder]="false"
+                          [searchCountryPlaceholder]="'Buscar Pais'"
+                          [searchCountryField]="[
+                            SearchCountryField.Iso2,
+                            SearchCountryField.Name
+                          ]"
+                          [selectFirstCountry]="false"
+                          [searchCountryFlag]="true"
+                          [selectedCountryISO]="CountryISO.Mexico"
+                          [maxLength]="'15'"
+                          [spellcheck]="false"
+                          #inputPhone
+                          inputmode="search"
+                          controlErrorsClass="error-class-tailor"
+                          [separateDialCode]="true"
+                          formControlName="phone"
+                        >
+                        </ngx-intl-tel-input>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 input-container">
+                      <div class="form-group">
+                        <small class="text-muted">{{
+                          'CREATE_RESERVATION.BIRTH_DATE_PLACEHOLDER'
+                            | translate
+                        }}</small>
+                        <input
+                          #dp="bsDatepicker"
+                          bsDatepicker
+                          readonly
+                          formControlName="dateOfBirth"
+                          [maxDate]="today"
+                          [bsConfig]="{
+                            showWeekNumbers: false,
+                            isAnimated: false,
+                            dateInputFormat: 'DD-MMM-YYYY',
+                            containerClass: 'theme-red'
+                          }"
+                          class="form-control dp-dd"
+                          placeholder=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 input-container">
+                      <div class="form-group position-relative w-100">
+                        <small class="text-muted">{{
+                          'CREATE_RESERVATION.GENDER_PLACEHOLDER' | translate
+                        }}</small>
+                        <ng-select
+                          [items]="genders"
+                          bindLabel="name"
+                          autofocus
+                          required
+                          [searchable]="false"
+                          [clearable]="false"
+                          class="form-control select-custom"
+                          bindValue="value"
+                          formControlName="gender"
+                        >
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 input-container">
+                      <div class="form-group">
+                        <div class="d-flex align-items-center">
+                          <small class="text-muted">{{
+                            'CREATE_RESERVATION.DOCUMENT_PLACEHOLDER'
+                              | translate
+                          }}</small>
+                          <!-- <i
+                          class="pl-2 uil uil-question-circle"
+                          tooltip="{{
+                            'CREATE_RESERVATION.TOOLTIP_DOCUMENT' | translate
+                          }}"
+                        ></i> -->
+                        </div>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="passDocument"
+                          placeholder=""
+                          controlErrorsClass="error-class-tailor"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 input-container">
+                      <div class="form-group">
+                        <small class="text-muted">{{
+                          'CREATE_RESERVATION.EMAIL_PLACEHOLDER' | translate
+                        }}</small>
+                        <input
+                          type="text"
+                          class="form-control"
+                          pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+                          formControlName="email"
+                          placeholder=""
+                          controlErrorsClass="error-class-tailor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="container-form">
+              <div class="title-section pb-2 truncate">
+                {{ 'SEARCH.FLIGHTS.FORM_EMERGENCY' | translate }}
+              </div>
+
+              <form [formGroup]="emergencyForm">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 input-container">
+                    <div class="form-group">
+                      <small class="text-muted">{{
+                        'CREATE_RESERVATION.PHONE_PLACEHOLDER' | translate
+                      }}</small>
+                      <ngx-intl-tel-input
+                        class="form-control"
+                        [enableAutoCountrySelect]="true"
+                        [enablePlaceholder]="false"
+                        [searchCountryPlaceholder]="'Buscar Pais'"
+                        [searchCountryField]="[
+                          SearchCountryField.Iso2,
+                          SearchCountryField.Name
+                        ]"
+                        [selectFirstCountry]="false"
+                        [searchCountryFlag]="true"
+                        [selectedCountryISO]="CountryISO.Mexico"
+                        [maxLength]="'15'"
+                        [spellcheck]="false"
+                        #inputPhone
+                        inputmode="search"
+                        controlErrorsClass="error-class-tailor"
+                        [separateDialCode]="true"
+                        formControlName="phone"
+                      >
+                      </ngx-intl-tel-input>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 input-container">
+                    <div class="form-group">
+                      <small classs="text-muted">{{
+                        'CREATE_RESERVATION.EMAIL_PLACEHOLDER' | translate
+                      }}</small>
+                      <input
+                        type="text"
+                        class="form-control"
+                        pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+                        formControlName="email"
+                        placeholder=""
+                        controlErrorsClass="error-class-tailor"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 input-container">
+                <button
+                  name="sendReservation"
+                  (click)="sendForm()"
+                  class="btn btn-primary w-100 mt-2"
+                  ngxLoading
+                  [loadingFlag]="loadingButton"
+                  [disabled]="pnrForm.invalid || emergencyForm.invalid"
+                  [textInitial]="'GENERAL.CONTINUE' | translate"
+                  [textLoading]="'GENERAL.SENDING' | translate"
+                ></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

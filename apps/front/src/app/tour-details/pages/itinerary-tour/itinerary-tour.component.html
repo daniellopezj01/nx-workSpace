@@ -1,0 +1,39 @@
+<div class="main-container">
+  <div class="cities position-relative" [perfectScrollbar]="config">
+    <span class="cities-title">{{
+      "DETAILS_TOUR.NIGHTS_LOCATION" | translate
+    }}</span>
+    <div class="container-cities">
+      <span class="line"></span>
+      <div
+        class="city"
+        *ngFor="let itinerary of tour?.itinerary; let i = index"
+        (click)="activeItem(i)"
+        [ngClass]="{ activeClass: activePosition === i }"
+      >
+        <span
+          class="circle"
+          [ngClass]="{ 'active-circle': activePosition === i }"
+        >
+        </span>
+        <span class="name">{{ itinerary?.stringLocation?.city }}</span>
+        <span class="number-nights" *ngIf="itinerary?.nights"
+          >{{ itinerary?.nights }} {{ "DETAILS_TOUR.NIGHTS" | translate }}</span
+        >
+      </div>
+    </div>
+    <div class="show-itinerary">
+      <span class="cursor-pointer" (click)="activeItem(0)">{{
+        "DETAILS_TOUR.ITINERARY_DETAILS" | translate
+      }}</span>
+    </div>
+  </div>
+  <div
+    id="containerItinerary"
+    class="container-itinerary"
+    (scroll)="onScroll($event)"
+  >
+    <app-details-itinerary [tour]="tour" [small]="false">
+    </app-details-itinerary>
+  </div>
+</div>

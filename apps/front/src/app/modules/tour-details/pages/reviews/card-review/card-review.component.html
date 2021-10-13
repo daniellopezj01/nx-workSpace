@@ -1,0 +1,61 @@
+<div class="container-review" *ngIf="review">
+  <div class="name d-flex">
+    <div class="cursor-pointer" [routerLink]="['/', 'profile', creator?._id]">
+      <!-- <ngx-avatar
+        [cornerRadius]="3"
+        [round]="false"
+        size="25"
+        [name]="creator?.name"
+      ></ngx-avatar> -->
+    </div>
+    <span>{{ creator?.name }} {{ creator?.surname }}</span>
+  </div>
+  <div class="stars-ago">
+    <ngx-stars
+      *ngIf="review?.vote"
+      [readonly]="true"
+      [size]="1"
+      [color]="'#f9c74f'"
+      [initialStars]="review?.vote"
+    >
+    </ngx-stars>
+    <span class="ago" timeago [date]="review?.createdAt"></span>
+  </div>
+  <div class="container-content d-flex">
+    <div class="d-flex mr-2" *ngIf="review?.attachment?.source">
+      <div class="pt-2 pb-2">
+        <ngx-avatar
+          (click)="openCarousel(0)"
+          cornerRadius="5"
+          [round]="false"
+          size="75"
+          [src]="review?.attachment?.source?.small"
+        ></ngx-avatar>
+      </div>
+    </div>
+    <span class="content text-muted small">
+      <app-read-more
+        [content]="review?.content | striphtml"
+        [limit]="300"
+        [minLimit]="300"
+        [completeWords]="false"
+      >
+      </app-read-more>
+    </span>
+  </div>
+</div>
+<div class="ks-modal-header-details" *ngIf="review?.attachment?.source">
+  <!-- [slideConfig]="{ infinite: false, sidePreviews: { show: false } }" sidePreviews: Ver imagenes en controles. -->
+  <ks-modal-gallery
+    [id]="index"
+    [modalImages]="image"
+    [enableCloseOutside]="false"
+    [slideConfig]="{ infinite: false, sidePreviews: { show: false } }"
+    [currentImageConfig]="{ description: customFullDescription }"
+    [previewConfig]="{
+      visible: true,
+      autoPlay: false,
+      size: { width: '40px', height: '40px' }
+    }"
+  ></ks-modal-gallery>
+</div>

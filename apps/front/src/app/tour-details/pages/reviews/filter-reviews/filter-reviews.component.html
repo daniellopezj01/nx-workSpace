@@ -1,0 +1,39 @@
+<div class="filters">
+  <div class="form-stars">
+    <ng-select
+      [items]="filterService.stars"
+      bindLabel="name"
+      [searchable]="false"
+      [clearable]="false"
+      bindValue="name"
+      [(ngModel)]="filterService.selectedFilter"
+      (change)="changeFilter($event)"
+    >
+      <ng-template
+        ng-option-tmp
+        let-item="item"
+        let-index="index"
+        let-search="searchTerm"
+      >
+        <div class="col col-lg-12 template-stars">
+          <font class="font-empty-star">{{ item.name }}</font>
+          <ngx-stars
+            *ngIf="item.value"
+            class="stars-style"
+            [readonly]="true"
+            [size]="1"
+            [color]="'#f9c74f'"
+            [maxStars]="item.value"
+            [initialStars]="item.value"
+          >
+          </ngx-stars>
+        </div>
+      </ng-template>
+    </ng-select>
+  </div>
+  <div class="button-reset">
+    <button (click)="changeFilter()">
+      {{ "DETAILS_TOUR.RESET_FILTERS" | translate }}
+    </button>
+  </div>
+</div>

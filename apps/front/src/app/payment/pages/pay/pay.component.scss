@@ -1,0 +1,278 @@
+@import '../../../../shared.scss';
+
+.general-cont {
+  width: 100%;
+}
+
+.header-title p-3 {
+}
+
+.manager-forms {
+  border-radius: $border-radius;
+  background-color: white;
+  box-shadow: $shadow-custom-lg;
+  padding: 1.5rem 1rem;
+}
+
+.logo-payment {
+  width: 2.5rem;
+}
+
+/****/
+.StripeElement {
+  border-radius: $border-radius;
+  background-color: white;
+  font-size: $font-size-1;
+  padding: 1rem 0.5rem;
+  color: $text-color;
+  border: solid 1px $border-color-2;
+}
+
+.StripeElement--focus {
+  transition: all $all-transition;
+  border-color: $border-color-1;
+  filter: $filter-shadow;
+}
+
+.StripeElement--invalid {
+  border-color: $bg-danger;
+}
+
+.message-error {
+  color: $bg-danger;
+  position: relative;
+  font-weight: 500;
+  //display: inline-flex;
+  text-align: left;
+  font-size: $font-size-3;
+}
+
+/**PAY FORM**/
+
+label {
+  outline: none;
+  margin: 0;
+}
+
+.title-payment {
+  padding-bottom: 0.5em;
+}
+
+.img-card {
+  margin-top: -1.3em;
+  width: 3em;
+  height: 3em;
+}
+
+.button-pay {
+  margin-top: 1em;
+}
+
+.button-pay button:disabled {
+  color: white;
+}
+
+.input-amount {
+  position: relative;
+  width: 100%;
+  color: $text-color-2;
+}
+
+.currency {
+  font-weight: 500;
+}
+
+.currency,
+.signal {
+  position: absolute;
+  font-size: 1.5rem;
+  top: 0;
+  width: 2em;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: $text-color-2;
+}
+
+.currency {
+  right: 2rem;
+}
+
+.signal {
+  left: 30%;
+  z-index: 1;
+}
+
+.input-amount input {
+  height: 5.5rem;
+  font-size: 3rem;
+  font-weight: 500;
+  text-align: center;
+  background-color: white;
+}
+
+.radio {
+  margin-bottom: 0.2rem;
+  background: white;
+  padding: 1rem 1rem 1rem 0;
+}
+
+.result-data {
+  justify-content: space-between;
+  p {
+    outline: none;
+    margin: 0;
+  }
+}
+.radio label {
+  margin-left: 0.5rem;
+}
+
+.modal-header {
+  padding: 1rem 0.5rem;
+}
+
+.modal-PayError {
+  margin: 0 auto;
+  margin-top: 30%;
+  width: 15em;
+  display: table;
+  border-radius: 12px 12px 12px 12px;
+  -moz-border-radius: 12px 12px 12px 12px;
+  -webkit-border-radius: 12px 12px 12px 12px;
+  background-color: white;
+}
+
+.text-error-modal {
+  color: #a8b6c8;
+  padding: 5% 5% 5% 10%;
+}
+
+.button-error-modal button {
+  width: 50%;
+}
+
+.modal-title-Error {
+  color: #f16967;
+  font-size: 1.5em;
+  margin-top: 5%;
+  font-weight: bold;
+  text-align: center;
+}
+
+.principal-pay-button {
+  margin-top: 0.5em;
+}
+
+.principal-pay-button button {
+  font-weight: bold;
+  border-radius: 0.8em;
+  color: white;
+}
+
+.learn-more {
+  font-size: 0.8em;
+  color: #d1d7f6;
+}
+
+.images-credit-card {
+  margin: 3rem 0 0 0;
+}
+
+.terms-style {
+  text-align: left;
+  margin: 0.5rem;
+  padding: 0.25rem 0;
+}
+
+.cont-terms {
+  margin: 2rem 0 2rem 0;
+}
+
+.terms-font {
+  cursor: pointer;
+  font-size: 1rem;
+  padding-left: 0.5rem;
+  color: #337ab7;
+}
+
+.terms-font:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.icon-style {
+  height: 25px;
+  width: 25px;
+}
+
+.mns-security {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.mns-security p {
+  margin-left: 1rem;
+  padding-top: 0.4rem;
+}
+
+.font-pay {
+  color: black;
+  font-weight: bolder;
+}
+
+.balance-payment {
+  display: flex;
+  flex-direction: column;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .manager-forms {
+    width: 100%;
+  }
+  .cont-form {
+    width: 100%;
+  }
+  .currency,
+  .signal {
+    font-size: 1.5rem;
+    top: 0;
+    width: 2em;
+    height: 2em;
+  }
+  .currency {
+    right: 0;
+  }
+  .signal {
+    top: 2px;
+    left: 1rem;
+  }
+  .input-amount input {
+    height: 2.5rem;
+    font-size: 1.5rem;
+  }
+  .label-amount {
+    margin-bottom: 0.5rem;
+  }
+  .mns-security {
+    margin-top: 1rem;
+  }
+  .mns-security p {
+    margin-left: 0.2rem;
+    padding-top: 0.2rem;
+  }
+  .result-data {
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

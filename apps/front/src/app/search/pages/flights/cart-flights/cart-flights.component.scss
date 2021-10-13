@@ -1,0 +1,294 @@
+@import '../../../../../shared';
+
+.square {
+  box-shadow: $shadow-custom;
+  border: 1px solid $border-color-3;
+  border-radius: $border-radius;
+  height: 100%;
+  opacity: 1;
+  margin: 0 10px;
+  overflow: hidden !important;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.square:hover {
+  // cursor: pointer;
+  //filter: brightness(110%);
+  cursor: pointer;
+
+  box-shadow: $shadow-custom-lg;
+
+  .img-card {
+    transition: $all-transition-2;
+    filter: opacity(1);
+  }
+}
+
+.body-main {
+  display: grid;
+  //width: 75%;
+}
+
+.body-section {
+  display: flex;
+  vertical-align: top;
+  //width: 100%;
+  border-bottom: 1px dashed $border-color-2;
+  // padding: 1rem 0;
+  &:last-child {
+    border-color: transparent;
+  }
+}
+
+.price-section {
+  display: grid;
+  margin: auto;
+  //width: 20%;
+  // padding: 3rem 0;
+  color: $text-color-1;
+  justify-content: center;
+  text-align: center;
+  // margin-left: 50px;
+}
+
+.time {
+  color: $text-color-1;
+  //font-size: $font-size-1;
+  //line-height: 20px;
+}
+
+.duration {
+  margin: 0 1rem;
+  color: $text-color-1;
+}
+
+.air-brand {
+  text-align: center;
+  //width: 30%;
+}
+
+.place-line {
+  display: flex;
+  justify-content: space-between;
+}
+
+.divider-air {
+  width: 150%;
+  left: -25%;
+  right: -25%;
+  position: absolute;
+  border-bottom: solid 1px $border-color-1;
+
+  .marker-air {
+    font-family: $font-family-1;
+    font-size: $font-size-1;
+    //right: 50%;
+    //left: 50%;
+    &:not(:first-child):not(:last-child) {
+      width: 100%;
+      text-align: center;
+    }
+
+    &:first-child {
+      left: 0;
+    }
+
+    &:last-child {
+      right: 0;
+    }
+  }
+
+  &:before {
+    background-color: white;
+    border: solid 1px $text-color-1;
+    content: '';
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    left: 2%;
+    margin-top: -4px;
+    border-radius: 23px;
+  }
+
+  &:after {
+    background-color: white;
+    border: solid 1px $text-color-1;
+    content: '';
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    margin-top: -4px;
+    right: 2%;
+    border-radius: 23px;
+  }
+}
+.more-info-air {
+  font-family: $font-family-1;
+  font-size: $font-size-1;
+  // background-color: $border-color-2;
+}
+
+.custom-step {
+  // background-color: $border-color-1;
+  border-bottom: 1px solid $base-color-2;
+}
+.airports {
+  white-space: nowrap;
+  // font-weight: bolder;
+}
+
+.times-flights {
+  white-space: nowrap;
+}
+
+.time-line {
+  display: flex;
+  justify-content: space-between;
+}
+
+.place {
+  // font-weight: bolder;
+  color: $text-color-2;
+  margin: auto 0;
+}
+
+.stops {
+  cursor: pointer;
+  text-decoration: underline;
+  margin: 0 1rem;
+  font-weight: 500;
+  color: $base-color-2;
+  //font-size: $font-size-3;
+  // font-weight: bolder;
+}
+
+.price {
+  font-weight: 500;
+  white-space: nowrap;
+  //color: $base-color-2;
+  margin-bottom: 1rem;
+}
+
+.btn-pay:hover {
+  background: #ca0444;
+}
+
+.opacity-0-70 {
+  opacity: 0.7;
+}
+
+.btn-pay {
+  // width: 18.75rem;
+  color: #fff;
+  background: #fb0051;
+  // height: 2.8125rem;
+  font-family: soleil-bold, sans-serif;
+  border-radius: 1.78571rem;
+  // padding: 0.5rem 1rem;
+  font-weight: bolder;
+  font-size: 0.9rem;
+  cursor: pointer;
+
+  // border: transparent;
+}
+
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+.view {
+  color: $base-color;
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: bold;
+  line-height: 17px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.view {
+  border: 1px solid $base-color;
+  border-radius: 5px;
+  padding: 7px 10px;
+  text-transform: uppercase;
+}
+
+.view::after {
+  border-right: 1px solid $base-color;
+  border-top: 1px solid $base-color;
+  content: '';
+  display: inline-block;
+  height: 5px;
+  margin-left: 4px;
+  -webkit-transform: rotate(45deg) translateY(-1px);
+  -ms-transform: rotate(45deg) translateY(-1px);
+  transform: rotate(45deg) translateY(-1px);
+  width: 5px;
+}
+.container-price {
+  display: flex;
+  justify-content: center;
+}
+
+//phone
+@media print, screen and (max-width: 740px) {
+  .square {
+    margin: 0rem;
+    display: grid;
+  }
+  .body-main {
+    width: 100%;
+  }
+  .body-section {
+    display: grid;
+    flex-wrap: wrap;
+    padding-left: 0.5rem;
+  }
+  .price-section {
+    display: flex;
+    padding: 1rem;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .price {
+    margin-bottom: 0;
+  }
+  .time {
+    font-size: 1rem;
+  }
+  .airports {
+    font-weight: initial;
+  }
+  .h3,
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+//tablet
+@media print, screen and (max-width: 1140px) and (min-width: 740px) {
+  .square {
+    flex-wrap: wrap;
+    flex-direction: inherit !important;
+  }
+  .price-section {
+    display: initial;
+  }
+  .h3,
+  h3 {
+    font-size: 1.3rem;
+  }
+  .body-main {
+    padding: 1rem 0;
+  }
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+  .body-main {
+    padding: 1rem 0;
+  }
+}

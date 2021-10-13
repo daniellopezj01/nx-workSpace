@@ -1,0 +1,108 @@
+<div
+  class="square"
+  [ngClass]="{ 'width-small': deviceService.isMobile() && sizeCarousel }"
+  (click)="gotoDetails()"
+>
+  <div class="img-wrap-new">
+    <img
+      class="img-card"
+      appImgFallback
+      [src]="
+        (tour?.attached | firstValue)?.source?.sm ||
+        (tour?.attached | firstValue)?.source?.medium
+      "
+      alt="tour"
+    />
+  </div>
+  <div class="body-tour p-2">
+    <div class="first-line w-100">
+      <div class="general-info">
+        <div *ngIf="tour?.duration">
+          <i class="uil uil-calendar-alt"></i>
+          <span
+            >{{ tour?.duration || 1 }}
+            {{ "SEARCH.TOURS.DAYS" | translate }}</span
+          >
+        </div>
+        <div *ngIf="tour?.countries">
+          <i class="uil uil-globe"></i>
+          <span>
+            {{ tour?.countries }}
+            {{ tour?.countries | numberCountries | translate }}
+          </span>
+        </div>
+        <div class="custom-text-tour-language d-flex align-items-center">
+          <app-tour-language-offered
+            class=""
+            [tour]="tour"
+          ></app-tour-language-offered>
+        </div>
+      </div>
+      <app-score [tour]="tour"></app-score>
+    </div>
+    <div class="second-line w-100 pt-2">
+      <span class="truncate">{{ tour?.title }}</span>
+    </div>
+    <div class="container-route">
+      <p class="">{{ tour?.route }}</p>
+    </div>
+    <div
+      class="percentage-discount mt-2 mb-2"
+      *ngIf="bestDeparture?.specialPrice"
+    >
+      <span class="text-primary">
+        {{
+          100 - (bestDeparture?.normalPrice * 100) / bestDeparture?.specialPrice
+            | number: "1.0-2"
+            | roundUp
+        }}
+        % {{ "SEARCH.TOURS.OF_DISCOUNT" | translate }}
+      </span>
+    </div>
+    <div
+      class="percentage pt-2 pb-2 d-flex justify-content-between align-items-center"
+    >
+      <div class="d-flex flex-column">
+        <span class="big-amount" *ngIf="bestDeparture?.specialPrice"
+          >antes
+          <span>
+            {{
+              bestDeparture?.specialPrice
+                | number: "1.0-0"
+                | currencyCurrent: "0:true":bestDeparture?.currencies
+            }}
+          </span>
+        </span>
+        <span class="text-primary" *ngIf="bestDeparture?.normalPrice"
+          >ahora
+          {{
+            bestDeparture?.normalPrice
+              | number: "1.0-0"
+              | currencyCurrent: "0:true":bestDeparture?.currencies
+          }}</span
+        >
+      </div>
+
+      <span class="ml-2" *ngIf="bestDeparture?.minAmount">
+        {{ "SEARCH.TOURS.RESERVE_WITH" | translate }}
+        {{
+          bestDeparture?.minAmount
+            | number: "1.0-0"
+            | currencyCurrent: "0:true":bestDeparture?.currencies
+        }}
+      </span>
+    </div>
+
+    <div class="last-item pt-1 pb-1">
+      <div class="more-info small">
+        <span> {{ "SEARCH.TOURS.MORE_INFO" | translate }}</span>
+      </div>
+      <button
+        class="hvr-shrink btn btn-sm btn-primary p-1 pl-2 pr-2 d-flex justify-content-between"
+      >
+        {{ "SEARCH.TOURS.VIEW_TRIP" | translate }}
+        <i class="uil uil-angle-right-b"></i>
+      </button>
+    </div>
+  </div>
+</div>

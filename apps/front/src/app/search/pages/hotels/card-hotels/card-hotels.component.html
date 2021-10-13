@@ -1,0 +1,67 @@
+<div class="square">
+  <div class="img-wrap-new">
+    <!-- <img data-src="{{tour?.attached[0].source?.medium}}"> -->
+    <div
+      class="img-card"
+      [ngStyle]="{ 'background-image': 'url(' + hotel?.cover + ')' }"
+    ></div>
+  </div>
+
+  <div class="body-tour p-2 pb-3">
+    <div class="first-line w-100">
+      <div class="days">
+        <p>
+          {{ hotel?.rooms?.length }}
+          {{ "SEARCH.HOTELS.ROOM_AVALIABLE" | translate }}
+        </p>
+      </div>
+      <div class="score">
+        <ngx-stars
+          [readonly]="true"
+          [size]="1"
+          [color]="'#f9c74f'"
+          [initialStars]="hotel?.stars"
+        >
+        </ngx-stars>
+        <!-- <span class="new-tour" *ngIf="!tour?.score">
+          <p> New trips</p>
+        </span>-->
+        <span class="score-text">{{ hotel?.stars }}</span>
+      </div>
+    </div>
+    <div class="second-line w-100">
+      <p>{{ hotel?.name }}</p>
+    </div>
+    <p class="description pt-1">
+      <app-read-more
+        [content]="hotel?.ty_summary | striphtml"
+        [limit]="60"
+        [minLimit]="100"
+        [completeWords]="false"
+      >
+      </app-read-more>
+    </p>
+    <div class="book-now text-decoration-none pt-1">
+      <!--      <span class="old-price"> {{hotel?.maxPrice | currency}}</span>-->
+      <span class="new-price">
+        {{ hotel?.price | number | currencyCurrent: "2:true" }}</span
+      >
+    </div>
+    <div class="last-item small pt-1">
+      <div class="more-info">
+        <!-- <span> GUEST RATING {{roundValue(hotel?.rating/20)}} </span> -->
+        <!--        <span> {{"SEARCH.HOTELS.GUEST_RATING" | translate}}  {{roundValue(hotel?.rating / 10)}} </span>-->
+      </div>
+      <div>
+        <a
+          [href]="hotel?.urlExternal"
+          target="_blank"
+          class="hvr-shrink btn btn-outline-primary btn-sm p-1 pl-2 pr-2 d-flex justify-content-between"
+        >
+          {{ "SEARCH.HOTELS.VIEW_DETAILS" | translate }}
+          <i class="uil uil-angle-right-b"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
