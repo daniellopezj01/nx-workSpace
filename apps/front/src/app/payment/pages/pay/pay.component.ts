@@ -5,7 +5,6 @@ import {
   OnInit,
   ElementRef,
   ViewChild,
-  AfterViewInit,
   ChangeDetectorRef,
   Renderer2,
   Inject,
@@ -44,24 +43,24 @@ export class PayComponent implements OnInit {
   public cardNumber: any = null;
   public cardExp: any = null;
   public cardCvv: any = null;
-  private STRIPE: any;
-  private codeReservation: any;
+
   public isReservation = false;
   public data: any;
-  amount: any;
-  errorMessage = 'error';
-  isAll: any;
-  payPercentage = 0;
-  amountInNumber = 0;
-  pCheckWallet = false;
-  activeFormPayment = true;
+  public amount: any;
+  public errorMessage = 'error';
+  public isAll: any;
+  public payPercentage = 0;
+  public amountInNumber = 0;
+  public pCheckWallet = false;
+  public activeFormPayment = true;
   public totalWallet = 0;
   public subPayment = false;
   public payForm: FormGroup;
   private pk = '';
   private operationType = '';
   private externalCode: any;
-
+  private STRIPE: any;
+  private codeReservation: any;
 
   constructor(
     private activeRouter: ActivatedRoute,

@@ -4,7 +4,7 @@ const utils = require('../../../../middleware/utils')
 const serviceSaveTokenSabre = (data) => new Promise((resolve, reject) => {
   try {
     const dataFile = JSON.stringify(data)
-    const dir = './public/tmp'
+    const dir = './apps/api/public/tmp'
     const name = `${dir}/sabre.json`
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir)

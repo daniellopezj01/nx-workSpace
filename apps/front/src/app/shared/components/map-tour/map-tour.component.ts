@@ -10,8 +10,8 @@ import {
 } from '@angular/core';
 import MapBox from 'mapbox-gl';
 
-import _ from 'lodash';
-import turf from '@turf/turf';
+import * as _ from 'lodash';
+import * as turf from '@turf/turf';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../../environments/environment';
 import { RestService } from '../../../core/services/rest.service';
@@ -24,11 +24,9 @@ import { RestService } from '../../../core/services/rest.service';
 export class MapTourComponent implements OnInit, AfterViewInit {
   @Input() tour: any;
   @Input() marker = true;
-  public map?: any;
-  // public map?: MapBox.Map;
+  public map?: MapBox.Map;
   public dataCoordinate: any = [];
   public markers: any = [];
-  // markers: MapBox = [];
   public arc: any = [];
   public small = false;
   public activeFirstChange = false;
@@ -43,12 +41,7 @@ export class MapTourComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     if (this.tour) {
       const { itinerary } = this.tour;
-
-      if (MapBox) {
-        // Object.getOwnPropertyDescriptor(MapBox, 'accessToken').set(environment.mapBoxApi)
-        MapBox.accessToken = environment.mapBoxApi;
-        // Object.getOwnPropertyDescriptor(MapBox, 'accessToken').set(environment.mapBoxApi)
-      }
+      MapBox.accessToken = environment.mapBoxApi;
       _.forEach(itinerary, (a) => {
         const point = a.stringLocation.coordinates;
         if (a.includedInMap || a.includedInMap === undefined) {
@@ -145,7 +138,7 @@ export class MapTourComponent implements OnInit, AfterViewInit {
           type: 'geojson',
           data: point,
         });
-        const mapa = this.map;
+        const mapa: any = this.map;
         this.map?.addLayer({
           id: 'route',
           source: 'route',
@@ -189,12 +182,11 @@ export class MapTourComponent implements OnInit, AfterViewInit {
           }
           counter = counter + 1;
         }
-
         const mainElement = document.getElementById('replay');
         if (mainElement) {
           mainElement.addEventListener('click', () => {
             point.features[0].geometry.coordinates = origin;
-            mapa?.getSource('point').setData(point);
+            // mapa?.getSource('point').setData(point);
             counter = 0;
             animate();
           });

@@ -54,7 +54,7 @@ export class SearchFligthsComponent implements OnInit, OnDestroy {
     isAnimated: false,
     rangeInputFormat: 'DD-MMM-YYYY',
   };
-  public bsRangeValue: any;
+  public bsRangeValue?: any = undefined;
   public inputFrom?: boolean = false;
   public typeFlight = '';
 

@@ -4,8 +4,6 @@ import {
   ElementRef,
   Input,
   OnChanges,
-  OnInit,
-  Renderer2,
 } from '@angular/core';
 
 @Directive({
@@ -15,11 +13,10 @@ import {
 export class LoadingBtnDirective implements OnChanges {
   @Input() textLoading?: string;
   @Input() textInitial?: string;
-  @Input() disabled?: boolean;
-  @Input() loadingFlag = false;
+  @Input() disabled = false;
+  @Input() loadingFlag: boolean | undefined = undefined;
 
   constructor(private elem: ElementRef) { }
-
 
   ngOnChanges(changes: any): void {
     if (changes?.condition && changes?.condition?.currentValue) {
@@ -29,7 +26,8 @@ export class LoadingBtnDirective implements OnChanges {
     this.elem.nativeElement.innerText = this.loadingFlag
       ? this.textLoading
       : this.textInitial;
-    if (![!!undefined].includes(this.loadingFlag)) {
+
+    if ([undefined, false].includes(this.loadingFlag)) {
       this.elem.nativeElement.disabled = !!this.disabled;
     }
   }

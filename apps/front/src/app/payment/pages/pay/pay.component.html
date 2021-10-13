@@ -142,15 +142,20 @@
                 <div class="col pay-button col-md-12">
                   <button
                     name="pay"
-                    [disabled]="
-                      activeFormPayment ? !payForm.valid : ActivePaymentWallet()
-                    "
                     class="btn btn-primary btn-block btn-lg"
                     ngxLoading
                     [loadingFlag]="loading"
                     [textInitial]="'GENERAL.SEND' | translate"
+                    [disabled]="
+                      activeFormPayment
+                        ? payForm.invalid
+                        : ActivePaymentWallet()
+                    "
                     [textLoading]="'GENERAL.SENDING' | translate"
                   ></button>
+                  <!-- [disabled]="
+                      activeFormPayment ? !payForm.valid : ActivePaymentWallet()
+                    " -->
                 </div>
               </div>
               <ng-container *ngTemplateOutlet="messageSecurity"></ng-container>

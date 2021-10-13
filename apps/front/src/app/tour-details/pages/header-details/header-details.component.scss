@@ -65,6 +65,9 @@
   align-content: center;
   font-size: 1.5rem;
   z-index: 101;
+  i {
+    padding-right: 0;
+  }
 }
 
 .container-pictures {
@@ -86,8 +89,8 @@
       grid-column-start: 1;
       grid-column-end: 3;
       grid-row-start: 1;
-
       grid-row-end: 3;
+      height: 5rem;
     }
     &:not(:first-child) {
       height: calc(31.5rem / 2);

@@ -30,7 +30,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   public ngSelectLanguages: any = 'empty';
   public listSubscribers: any = [];
   public today = new Date();
-  public bsRangeValue: any = [];
+  public bsRangeValue?: any = undefined;
   public bsOptions = {
     showWeekNumbers: false,
     isAnimated: false,
@@ -305,7 +305,7 @@ export class FilterComponent implements OnInit, OnDestroy {
       this.currentMaxAge = this.highLimitAge;
     }
     if (['minDate', 'maxDate'].find((prop) => prop in this.currentParams)) {
-      this.bsRangeValue = null;
+      this.bsRangeValue = undefined;
     }
     this.mainSearchService.removeParms(properties, this.tourService)
   }

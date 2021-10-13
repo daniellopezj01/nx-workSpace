@@ -87,7 +87,12 @@
           ></app-input-search>
         </div>
         <div
-          class="flex-shrink-1 d-flex justify-content-center align-content-center align-items-center"
+          class="
+            flex-shrink-1
+            d-flex
+            justify-content-center
+            align-content-center align-items-center
+          "
           *ngIf="!focusSearch"
         >
           <ng-container
@@ -207,7 +212,7 @@
     >
       <a>
         {{ currency?.name }}
-        {{ currency?.value | number: "1.2-2" }}
+        {{ currency?.value | number: '1.2-2' }}
       </a>
     </li>
   </ul>
