@@ -1,7 +1,15 @@
 const cron = require('node-cron')
-const { serviceRefreshTokenLongLive } = require('../controllers/external/services')
-const { getInfo, updateDepartures, disabledTours } = require('../plugins/contiki')
-const { assignedChangeCurrency } = require('../plugins/sabre/assignedChangeCurrency')
+const {
+  serviceRefreshTokenLongLive
+} = require('../controllers/external/services')
+const {
+  getInfo,
+  updateDepartures,
+  disabledTours
+} = require('../plugins/contiki')
+const {
+  assignedChangeCurrency
+} = require('../plugins/sabre/assignedChangeCurrency')
 const { authSabre } = require('../plugins/sabre/authSabre')
 const { loggerSlack } = require('../../config/logger')
 /**
@@ -31,7 +39,8 @@ const callCrons = () => {
       console.log('cron', error.message)
     }
   })
-  cron.schedule('0 0 0 1 * *', async () => { // scraper contiki
+  cron.schedule('0 0 0 1 * *', async () => {
+    // scraper contiki
     try {
       loggerSlack.write('\n ✌✌ MESSAGE ==> BEGIN CRON TOURS CONTIKI')
       await getInfo()
@@ -40,7 +49,8 @@ const callCrons = () => {
       console.log('cron scraper contiki', error.message)
     }
   })
-  cron.schedule('0 0 1 * * *', async () => { // scraper departures contiki
+  cron.schedule('0 0 1 * * *', async () => {
+    // scraper departures contiki
     try {
       loggerSlack.write('\n ✌✌ MESSAGE ==> BEGIN CRON DEPARTURES CONTIKI')
       await updateDepartures()
@@ -49,11 +59,16 @@ const callCrons = () => {
       console.log('cron scraper contiki', error.message)
     }
   })
-  cron.schedule('0 0 2 * * *', async () => { // scraper departures contiki
+  cron.schedule('0 0 2 * * *', async () => {
+    // scraper departures contiki
     try {
-      loggerSlack.write('\n ✌✌ MESSAGE ==> BEGIN CRON DISABLED DEPARTURES CONTIKI')
+      loggerSlack.write(
+        '\n ✌✌ MESSAGE ==> BEGIN CRON DISABLED DEPARTURES CONTIKI'
+      )
       await disabledTours()
-      loggerSlack.write('\n ✌✌ MESSAGE ==> COMPELTED CRON DISABLED DEPARTURES CONTIKI')
+      loggerSlack.write(
+        '\n ✌✌ MESSAGE ==> COMPELTED CRON DISABLED DEPARTURES CONTIKI'
+      )
     } catch (error) {
       console.log('cron scraper contiki', error.message)
     }

@@ -22,7 +22,8 @@ module.exports = (req = {}) => {
         profileFields: ['id', 'email', 'name', 'picture.type(large)']
       },
       (accessToken, refreshToken, profile, done) => {
-        profile._json.picture = profile && profile._json.picture ? profile._json.picture.data.url : ''
+        profile._json.picture =
+          profile && profile._json.picture ? profile._json.picture.data.url : ''
         profile.loginFlag = loginFlag
         done(null, profile)
       }

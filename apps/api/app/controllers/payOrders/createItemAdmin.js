@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 const { matchedData } = require('express-validator')
 const model = require('../../models/payOrder')
 const modelUser = require('../../models/user')
@@ -8,11 +9,13 @@ const { helperCreatePdf } = require('./helpers')
 const { helperCheckKey } = require('../wallet/helpers')
 const { serviceGetTotal } = require('../wallet/services')
 const { emailPayments } = require('../../middleware/emailer/index')
+
 /**
  * Create item function called by route
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
+
 const createItemAdmin = async (req, res) => {
   try {
     const locale = req.getLocale()
@@ -25,19 +28,19 @@ const createItemAdmin = async (req, res) => {
       const reservation = await db.getItem(idReservation, modelReservation)
       const query = await helperCheckKey(idReservation)
       const totalPayment = await serviceGetTotal(query)
-      updateReservation.status = parseFloat(reservation.amount) > totalPayment.total
-        ? 'progress'
-        : 'completed'
+      updateReservation.status =
+        parseFloat(reservation.amount) > totalPayment.total
+          ? 'progress'
+          : 'completed'
       await db.updateItem(idReservation, modelReservation, updateReservation)
       emailPayments(locale, payOrder, reservation.status, user)
     } else {
       emailPayments(locale, payOrder, 'wallet', user)
     }
-    const response = await helperCreatePdf(payOrder)
-      .catch((err) => {
-        console.log(err)
-        return payOrder
-      })
+    const response = await helperCreatePdf(payOrder).catch((err) => {
+      console.log(err)
+      return payOrder
+    })
     res.status(201).json(response)
   } catch (error) {
     utils.handleError(res, error)

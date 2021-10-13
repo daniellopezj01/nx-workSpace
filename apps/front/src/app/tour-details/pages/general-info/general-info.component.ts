@@ -12,8 +12,6 @@ export class GeneralInfoComponent implements OnInit {
   public defaultTransport = '';
   public beginTour: any;
 
-  constructor() { }
-
   ngOnInit(): void {
     const { itinerary } = this.tour;
     this.beginTour = _.head(itinerary);

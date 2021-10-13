@@ -12,7 +12,8 @@ const getHooks = async () => {
   const listSources = _.compact(_.flattenDeep(_.map(data, 'sources')))
   _.forEach(listSources, (src) => {
     const { url, urlDev, trigger } = src
-    const urlHook = (process.env.NODE_ENV === 'production' ? url : urlDev) || url
+    const urlHook =
+      (process.env.NODE_ENV === 'production' ? url : urlDev) || url
     webHooks
       .add(trigger, urlHook)
       .then(() => {

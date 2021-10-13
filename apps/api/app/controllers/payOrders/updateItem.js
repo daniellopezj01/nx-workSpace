@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 const mongoose = require('mongoose')
 const { matchedData } = require('express-validator')
 const model = require('../../models/payOrder')
@@ -44,7 +45,8 @@ const updateItem = async (req, res) => {
         idReservation: mongoose.Types.ObjectId(idReservation)
       }
       const totalPayment = await serviceGetTotal(query)
-      const pending = parseFloat(reservation.amount) - parseFloat(totalPayment.total)
+      const pending =
+        parseFloat(reservation.amount) - parseFloat(totalPayment.total)
       reservation = await helperChangeStatusReservation(payOrder, pending)
       emailPayments(locale, payOrder, reservation.status, user)
     } else if (operationType && externalCode) {
@@ -52,12 +54,16 @@ const updateItem = async (req, res) => {
     } else {
       emailPayments(locale, payOrder, 'wallet', user)
     }
-    await helperCreatePdf(payOrder).catch((e) => { console.log(e) })
+    await helperCreatePdf(payOrder).catch((e) => {
+      console.log(e)
+    })
     webHooks.trigger('payorder.successful', payOrder)
     console.log('webhook: payorder.successful')
     res.status(200).json(payOrder)
     if (idReservation) {
-      await serviceCreatePaymentToReffered(idUser).catch((err) => { console.log(err) })
+      await serviceCreatePaymentToReffered(idUser).catch((err) => {
+        console.log(err)
+      })
     }
     if (operationType && externalCode) {
       const params = { code: externalCode }
