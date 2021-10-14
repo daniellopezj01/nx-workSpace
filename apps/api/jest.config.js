@@ -2,16 +2,16 @@ module.exports = {
   displayName: 'api',
   preset: '../../jest.preset.js',
   globals: {
-    ENV: 'test',
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json'
     }
   },
-  testMatch: ['**/tests/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   testEnvironment: 'node',
+  testMatch: ['**/tests/**/*.js'],
+  // testMatch: ['**/tests/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   transform: {
     '^.+\\.[tj]s$': 'ts-jest'
   },
-  moduleFileExtensions: ['js', 'ts', 'html'],
+  moduleFileExtensions: ['js', 'ts', 'html', 'json'],
   coverageDirectory: '../../coverage/apps/api'
 }
