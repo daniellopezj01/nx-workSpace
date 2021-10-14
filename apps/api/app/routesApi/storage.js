@@ -42,12 +42,7 @@ const requireAuth = passport.authenticate('jwt', {
  *
  *
  */
-router.post(
-  '/',
-  requireAuth,
-  trimRequest.all,
-  createItem
-)
+router.post('/', requireAuth, trimRequest.all, createItem)
 
 /**
  * @swagger
@@ -81,12 +76,6 @@ router.post(
  *      '422':
  *        description: Error de validación
  */
-router.get(
-  '/:id',
-  requireAuth,
-  trimRequest.all,
-  validateGetItem,
-  getItem
-)
+router.get('/:id', requireAuth, trimRequest.all, validateGetItem, getItem)
 
 module.exports = router

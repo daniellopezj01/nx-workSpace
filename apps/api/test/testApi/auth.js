@@ -1,6 +1,6 @@
+/* eslint-disable handle-callback-err */
 /* eslint-disable max-len */
 /* eslint-disable no-undef */
-/* eslint-disable import/no-extraneous-dependencies */
 
 process.env.NODE_ENV = 'test'
 
@@ -55,7 +55,9 @@ describe('*********** AUTH_USER ***********', () => {
         .send({ email: 'admin@admin.com', password: 'error password' })
         .end((err, res) => {
           res.should.have.status(422)
-          res.body.should.have.property('errors').eql({ msg: { msg: 'WRONG_PASSWORD' } })
+          res.body.should.have
+            .property('errors')
+            .eql({ msg: { msg: 'WRONG_PASSWORD' } })
           res.body.should.be.an('object')
           done()
         })
@@ -151,7 +153,9 @@ describe('*********** AUTH_USER ***********', () => {
           res.should.have.status(422)
           body.should.be.an('object')
           body.should.have.property('errors')
-          body.errors.should.have.property('msg').eql({ msg: 'USER_DOES_NOT_EXIST' })
+          body.errors.should.have
+            .property('msg')
+            .eql({ msg: 'USER_DOES_NOT_EXIST' })
           verificationForgot = res.body.verification
           done()
         })

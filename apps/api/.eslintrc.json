@@ -57,13 +57,9 @@
         "max-len": ["off"],
         "max-nested-callbacks": ["off"],
         "new-cap": ["off"],
+        "no-async-promise-executor": ["off"],
         "consistent-this": ["error", "that"],
-        "prettier/prettier": [
-          "error",
-          {
-            "endOfLine": "auto"
-          }
-        ],
+
         "no-unused-vars": [
           "warn",
           {

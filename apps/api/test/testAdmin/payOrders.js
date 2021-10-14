@@ -1,5 +1,5 @@
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-undef */
-/* eslint-disable import/no-extraneous-dependencies */
 process.env.NODE_ENV = 'test'
 const _ = require('lodash')
 const faker = require('faker')
@@ -90,7 +90,14 @@ describe('*********** PAY_ORDERS_ADMIN ***********', () => {
           res.should.have.status(201)
           const { body } = res
           body.should.be.a('object')
-          body.should.include.keys('_id', 'idUser', 'platform', 'idOperation', 'idUser', 'platform')
+          body.should.include.keys(
+            '_id',
+            'idUser',
+            'platform',
+            'idOperation',
+            'idUser',
+            'platform'
+          )
           body.should.have.property('platform').eql('stripe')
           body.should.have.property('idUser').eql(idUser)
           body.should.have.property('amount').eql(orderPostTwo.amount)
@@ -115,7 +122,14 @@ describe('*********** PAY_ORDERS_ADMIN ***********', () => {
           res.should.have.status(201)
           const { body } = res
           body.should.be.a('object')
-          body.should.include.keys('_id', 'idUser', 'platform', 'idOperation', 'idUser', 'platform')
+          body.should.include.keys(
+            '_id',
+            'idUser',
+            'platform',
+            'idOperation',
+            'idUser',
+            'platform'
+          )
           body.should.have.property('platform').eql('stripe')
           body.should.have.property('idReservation').eql(idReservation)
           body.should.have.property('amount').eql(orderPostTwo.amount)

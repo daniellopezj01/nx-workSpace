@@ -55,9 +55,7 @@ router.post(
   validateCreateHook,
   createHook
 )
-/*
-* Deleted item route
-*/
+
 router.delete(
   '/unsubscriber',
   trimRequest.all,

@@ -65,12 +65,7 @@ router.post(
 /*
  * Get item route
  */
-router.get(
-  '/public/:id',
-  trimRequest.all,
-  validateGetItem,
-  getItemPublic
-)
+router.get('/public/:id', trimRequest.all, validateGetItem, getItemPublic)
 
 /*
  * Get item route

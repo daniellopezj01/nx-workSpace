@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-undef */
 
 process.env.NODE_ENV = 'test'
@@ -85,15 +85,13 @@ describe('*********** RESERVATIONS_ADMIN ***********', () => {
           docs.should.be.a('array')
           totalDocs.should.be.a('number')
           const reservationHead = _.head(docs)
-          reservationHead.should.include.keys(
-            'code',
-            'departure',
-            'idTour'
-          )
+          reservationHead.should.include.keys('code', 'departure', 'idTour')
           reservationHead.should.have.property('user').be.a('object')
           reservationHead._id.should.be.a('string')
           reservationHead.travelerLastName.should.be.a('string')
-          reservationHead.should.have.property('travelerFirstName').eql('daniel')
+          reservationHead.should.have
+            .property('travelerFirstName')
+            .eql('daniel')
           done()
         })
     })
@@ -334,9 +332,7 @@ describe('*********** RESERVATIONS_ADMIN ***********', () => {
             'observations'
           )
           body.should.have.property('emergencyName').eql(emergencyName)
-          body.should.have
-            .property('emergencyLastName')
-            .eql(emergencyLastName)
+          body.should.have.property('emergencyLastName').eql(emergencyLastName)
           createdID.push(res.body._id)
           done()
         })

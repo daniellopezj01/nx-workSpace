@@ -1,3 +1,4 @@
+/* eslint-disable no-invalid-this */
 const { Observable } = require('rxjs')
 const redis = require('redis')
 const mongoose = require('mongoose')
@@ -65,7 +66,8 @@ exports.getBrowserInfo = (req) => req.headers['user-agent']
  * Gets country from user using CloudFlare header 'cf-ipcountry'
  * @param {*} req - request object
  */
-exports.getCountry = (req) => req.headers['cf-ipcountry'] ? req.headers['cf-ipcountry'] : 'XX'
+exports.getCountry = (req) =>
+  req.headers['cf-ipcountry'] ? req.headers['cf-ipcountry'] : 'XX'
 
 /**
  * Handles error by printing to console in development env and builds and sends an error response
@@ -116,14 +118,15 @@ exports.handleErrorHooks = (res, err) => {
   })
 }
 
-exports.deleteFile = (routerFileDelete) => new Promise((resolve, reject) => {
-  fs.unlink(`${routerFileDelete}`, (err) => {
-    if (err) {
-      reject(err)
-    }
+exports.deleteFile = (routerFileDelete) =>
+  new Promise((resolve, reject) => {
+    fs.unlink(`${routerFileDelete}`, (err) => {
+      if (err) {
+        reject(err)
+      }
+    })
+    resolve('OK')
   })
-  resolve('OK')
-})
 
 /**
  * Builds error object
@@ -181,7 +184,8 @@ exports.buildSuccObject = (message) => {
  * Copy and paste file
  */
 
-exports.copyAndPaste = (copyPath, pastePath) => fsPromises.copyFile(copyPath, pastePath)
+exports.copyAndPaste = (copyPath, pastePath) =>
+  fsPromises.copyFile(copyPath, pastePath)
 
 /**
  * Checks if given ID is good for MongoDB
@@ -252,20 +256,25 @@ exports.itemAlreadyExists = (err, item, reject, message) => {
   }
 }
 
-exports.generateTokenBase64 = async (Username, Password) => new Promise((resolve) => {
-  const auth = `Basic ${Buffer.from(`${Username}:${Password}`).toString('base64')}`
-  resolve({ Authorization: auth })
-})
+exports.generateTokenBase64 = async (Username, Password) =>
+  new Promise((resolve) => {
+    const auth = `Basic ${Buffer.from(`${Username}:${Password}`).toString(
+      'base64'
+    )}`
+    resolve({ Authorization: auth })
+  })
 
-exports.structureToken = async (token) => new Promise((resolve) => {
-  const auth = `Basic ${token}`
-  resolve({ Authorization: auth })
-})
+exports.structureToken = async (token) =>
+  new Promise((resolve) => {
+    const auth = `Basic ${token}`
+    resolve({ Authorization: auth })
+  })
 
-exports.structureTokenBearer = async (token) => new Promise((resolve) => {
-  const auth = `Bearer ${token}`
-  resolve({ Authorization: auth })
-})
+exports.structureTokenBearer = async (token) =>
+  new Promise((resolve) => {
+    const auth = `Bearer ${token}`
+    resolve({ Authorization: auth })
+  })
 
 /**
  * Structure for request
@@ -275,18 +284,19 @@ exports.structureTokenBearer = async (token) => new Promise((resolve) => {
  * @param {*} body
  */
 
-exports.structureRequest = async () => new Promise((resolve) => {
-  const url = process.env.OAUHT_URL || null
-  const baseToken = generateBasicAuth()
-  const header = {
-    'Axios-Redis-Cache-Duration': null,
-    Authorization: `Basic ${baseToken}`
-  }
-  resolve({
-    header,
-    url
+exports.structureRequest = async () =>
+  new Promise((resolve) => {
+    const url = process.env.OAUHT_URL || null
+    const baseToken = generateBasicAuth()
+    const header = {
+      'Axios-Redis-Cache-Duration': null,
+      Authorization: `Basic ${baseToken}`
+    }
+    resolve({
+      header,
+      url
+    })
   })
-})
 
 /**
  * Item already exists
@@ -318,21 +328,22 @@ exports.httpRequest = async (url, method, headers = null, body) => {
  * HTTP Request with Observable
  */
 
-exports.httpRequest$ = (url, method, headers, data = null) => new Observable((observer) => {
-  const request = {
-    method,
-    url,
-    headers
-  }
-  if (data) {
-    request.data = data
-  }
-  axiosInstance(request)
-    .then((response) => {
-      observer.next(response.data)
-      observer.complete()
-    })
-    .catch((error) => {
-      observer.error(error)
-    })
-})
+exports.httpRequest$ = (url, method, headers, data = null) =>
+  new Observable((observer) => {
+    const request = {
+      method,
+      url,
+      headers
+    }
+    if (data) {
+      request.data = data
+    }
+    axiosInstance(request)
+      .then((response) => {
+        observer.next(response.data)
+        observer.complete()
+      })
+      .catch((error) => {
+        observer.error(error)
+      })
+  })

@@ -1,5 +1,5 @@
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-undef */
-/* eslint-disable import/no-extraneous-dependencies */
 process.env.NODE_ENV = 'test'
 
 const faker = require('faker')

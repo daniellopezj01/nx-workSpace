@@ -58,8 +58,7 @@ const validateCreateItem = [
     .not()
     .isEmpty()
     .withMessage('IS_EMPTY'),
-  check('description')
-    .optional(),
+  check('description').optional(),
   check('birthDate')
     .exists()
     .withMessage('MISSING')

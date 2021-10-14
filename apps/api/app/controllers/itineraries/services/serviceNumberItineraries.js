@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 const mongoose = require('mongoose')
 const model = require('../../../models/itinerary')
 

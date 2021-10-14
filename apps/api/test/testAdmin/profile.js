@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-undef */
 
 process.env.NODE_ENV = 'test'
@@ -12,7 +11,6 @@ const loginDetails = {
   email: 'admin@admin.com',
   password: '12345'
 }
-let token = ''
 
 chai.use(chaiHttp)
 
@@ -55,7 +53,6 @@ describe('*********** PROFILE ***********', () => {
   //         done()
   //       })
   //   })
-
   //   //Admin
   //   // it('Rute Admin it should NOT be able to consume the route since no token was sent', (done) => {
   //   //   chai
@@ -79,7 +76,6 @@ describe('*********** PROFILE ***********', () => {
   //   //     })
   //   // })
   // })
-
   // describe('/PATCH profile', () => {
   //   it('it should UPDATE profile', (done) => {
   //     const user = {
@@ -148,7 +144,6 @@ describe('*********** PROFILE ***********', () => {
   //         done()
   //       })
   //   })
-
   //   //Admin
   //   // it('Rute Admin it should UPDATE profile', (done) => {
   //   //   const user = {
@@ -218,7 +213,6 @@ describe('*********** PROFILE ***********', () => {
   //   //     })
   //   // })
   // })
-
   // describe('/POST profile/changePassword', () => {
   //   it('it should NOT change password', (done) => {
   //     const data = {
@@ -277,7 +271,6 @@ describe('*********** PROFILE ***********', () => {
   //         done()
   //       })
   //   })
-
   //   //ADMIN
   //   // it('Rute Admin it should NOT change password', (done) => {
   //   //   const data = {

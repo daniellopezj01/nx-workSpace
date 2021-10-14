@@ -86,10 +86,8 @@ const validateUpdateItem = [
     .withMessage('IS_EMPTY')
     .isIn(['user', 'admin'])
     .withMessage('USER_NOT_IN_KNOWN_ROLE'),
-  check('description')
-    .optional(),
-  check('typeReferred')
-    .optional(),
+  check('description').optional(),
+  check('typeReferred').optional(),
   check('country')
     .optional()
     .exists()

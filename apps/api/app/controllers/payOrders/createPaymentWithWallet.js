@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable max-statements */
 const { matchedData } = require('express-validator')
 const model = require('../../models/payOrder')

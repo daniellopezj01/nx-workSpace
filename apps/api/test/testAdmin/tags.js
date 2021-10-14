@@ -1,5 +1,5 @@
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-undef */
-/* eslint-disable import/no-extraneous-dependencies */
 process.env.NODE_ENV = 'test'
 
 const faker = require('faker')
@@ -226,10 +226,7 @@ describe('*********** TAGS_ADMIN ***********', () => {
         .end((err, res) => {
           res.should.have.status(201)
           res.body.should.be.a('object')
-          res.body.should.include.keys(
-            '_id',
-            'name'
-          )
+          res.body.should.include.keys('_id', 'name')
           chai
             .request(server)
             .delete(`${url}/tags/${res.body._id}`)

@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 const { helperUploadMedia } = require('../helpers/helperUploadMedia')
 
 const serviceLoadImageS3 = (file, loadAll = true) => new Promise(async (resolve) => {

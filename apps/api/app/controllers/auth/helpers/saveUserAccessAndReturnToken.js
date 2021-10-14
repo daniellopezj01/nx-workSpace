@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const UserAccess = require('../../../models/userAccess')
 const { setUserInfo } = require('./setUserInfo')
 const {

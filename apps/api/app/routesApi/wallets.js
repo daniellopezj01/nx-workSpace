@@ -27,11 +27,6 @@ const requireAuth = passport.authenticate('jwt', {
  *      '200':
  *        description: retorna todos los datos en la coleccion
  */
-router.get(
-  '/',
-  requireAuth,
-  trimRequest.all,
-  getItems
-)
+router.get('/', requireAuth, trimRequest.all, getItems)
 
 module.exports = router

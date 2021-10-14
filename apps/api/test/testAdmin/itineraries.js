@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-undef */
 
 process.env.NODE_ENV = 'test'
@@ -250,7 +250,11 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
           const { body } = res
           res.should.have.status(200)
           body.should.be.a('object')
-          body.should.include.keys('_id', 'itineraryDescription', 'itineraryName')
+          body.should.include.keys(
+            '_id',
+            'itineraryDescription',
+            'itineraryName'
+          )
           body.itineraryName.should.be.a('string')
           body.should.have.property('_id').eql(id)
           body.should.have.property('itineraryName').eql(newTitle)

@@ -1,6 +1,8 @@
 const { emailReservation } = require('./emailReservation')
 const { emailPayments } = require('./emailPayments')
-const { emailChangeToursInReservation } = require('./emailChangeToursInReservation')
+const {
+  emailChangeToursInReservation
+} = require('./emailChangeToursInReservation')
 const { emailSupport } = require('./emailSupport')
 const { prepareToSendEmail } = require('./prepareToSendEmail')
 const { emailCancelReservation } = require('./emailCancelReservation')

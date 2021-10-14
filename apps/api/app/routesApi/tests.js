@@ -22,15 +22,10 @@ const {
   getPayments
 } = require('../controllers/reservations/index')
 
-
-router.get(
-  '/login',
-  function (req, res) {
-    res.status(200).json({
-      title: 'Express Login'
-    });
-  }
-)
-
+router.get('/login', (req, res) => {
+  res.status(200).json({
+    title: 'Express Login'
+  })
+})
 
 module.exports = router

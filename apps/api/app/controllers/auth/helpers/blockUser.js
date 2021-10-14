@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const { addHours } = require('date-fns')
 const { buildErrObject } = require('../../../middleware/utils')
 

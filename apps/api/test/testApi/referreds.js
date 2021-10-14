@@ -1,5 +1,5 @@
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-undef */
-/* eslint-disable import/no-extraneous-dependencies */
 process.env.NODE_ENV = 'test'
 
 const chai = require('chai')
@@ -61,12 +61,7 @@ describe('*********** REFERREDS_USERS ***********', () => {
         .end((err, res) => {
           const { body } = res
           res.should.have.status(200)
-          const {
-            docs,
-            totalDocs,
-            hasPrevPage,
-            hasNextPage
-          } = body
+          const { docs, totalDocs, hasPrevPage, hasNextPage } = body
           body.should.be.an('object')
           docs.should.be.a('array')
           docs.should.have.length(2)

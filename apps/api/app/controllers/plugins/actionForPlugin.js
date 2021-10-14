@@ -11,7 +11,6 @@ const actionForPlugin = async (req, res) => {
     req = matchedData(req)
     const { id, action, params } = req
     await db.findOne({ path: id }, model)
-    // eslint-disable-next-line import/no-dynamic-require
     const singleModule = require(`../../plugins/${id}`)
     const data = await singleModule[action](params)
     res.status(200).json(data)

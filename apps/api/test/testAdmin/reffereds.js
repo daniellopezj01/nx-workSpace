@@ -1,5 +1,5 @@
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-undef */
-/* eslint-disable import/no-extraneous-dependencies */
 process.env.NODE_ENV = 'test'
 
 const _ = require('lodash')
@@ -118,7 +118,9 @@ describe('*********** REFERREDS_ADMIN ***********', () => {
           body.should.be.a('object')
           body.should.include.keys('_id', 'planReferred', 'userTo')
           body.should.have.property('status').eql('available')
-          body.should.have.property('amountFrom').eql(refferedPostTwo.amountFrom)
+          body.should.have
+            .property('amountFrom')
+            .eql(refferedPostTwo.amountFrom)
           body.should.have.property('_id').be.a('string')
           createdID.push(res.body._id)
           done()

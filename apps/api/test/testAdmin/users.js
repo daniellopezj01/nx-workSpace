@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint handle-callback-err: "off"*/
 
 process.env.NODE_ENV = 'test'
@@ -15,7 +14,6 @@ const should = chai.should()
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
-
 }
 let token = ''
 let accessToken = ''
@@ -231,7 +229,9 @@ describe('*********** USERS_ADMIN ***********', () => {
           body.should.be.a('object')
           body.should.have.property('_id').eql(id)
           body.should.have.property('name').eql('JS123456')
-          body.should.have.property('email').eql('emailthatalreadyexists@email.com')
+          body.should.have
+            .property('email')
+            .eql('emailthatalreadyexists@email.com')
           createdID.push(res.body._id)
           done()
         })

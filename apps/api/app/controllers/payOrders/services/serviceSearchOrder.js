@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 const model = require('../../../models/payOrder')
 const utils = require('../../../middleware/utils')
 

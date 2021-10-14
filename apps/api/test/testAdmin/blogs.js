@@ -1,5 +1,5 @@
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-undef */
-/* eslint-disable import/no-extraneous-dependencies */
 process.env.NODE_ENV = 'test'
 
 const faker = require('faker')
@@ -93,7 +93,13 @@ describe('*********** BLOGS_ADMIN ***********', () => {
           body.should.be.a('object')
           body.should.have.property('title').eql(title)
           body.should.have.property('description').eql(description)
-          body.should.include.keys('_id', 'title', 'description', 'userCreator', 'slug')
+          body.should.include.keys(
+            '_id',
+            'title',
+            'description',
+            'userCreator',
+            'slug'
+          )
           createdID.push(res.body._id)
           done()
         })
@@ -129,7 +135,13 @@ describe('*********** BLOGS_ADMIN ***********', () => {
           const { body } = res
           res.should.have.status(200)
           body.should.be.a('object')
-          body.should.include.keys('_id', 'title', 'description', 'userCreator', 'slug')
+          body.should.include.keys(
+            '_id',
+            'title',
+            'description',
+            'userCreator',
+            'slug'
+          )
           body.should.have.property('_id').eql(firstBlog)
           body.should.have.property('title').eql(newtitle)
           body.should.have.property('description').eql(newDescription)
@@ -167,12 +179,7 @@ describe('*********** BLOGS_ADMIN ***********', () => {
         .end((err, res) => {
           res.should.have.status(201)
           res.body.should.be.a('object')
-          res.body.should.include.keys(
-            '_id',
-            'description',
-            'title',
-            'slug'
-          )
+          res.body.should.include.keys('_id', 'description', 'title', 'slug')
           chai
             .request(server)
             .delete(`${url}/blogs/${res.body._id}`)

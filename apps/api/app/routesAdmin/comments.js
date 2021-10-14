@@ -51,12 +51,7 @@ const {
  *      '401':
  *        description: 'You do not have necessary permissions for the resource'
  */
-router.get(
-  '/',
-  requireAuth,
-  trimRequest.all,
-  getItemsAdmin
-)
+router.get('/', requireAuth, trimRequest.all, getItemsAdmin)
 
 /**
  * @swagger

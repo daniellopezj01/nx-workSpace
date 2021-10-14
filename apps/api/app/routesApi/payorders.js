@@ -2,8 +2,14 @@ const express = require('express')
 const passport = require('passport')
 const trimRequest = require('trim-request')
 
-const { updateItem, createPaymentWithWallet } = require('../controllers/payOrders/index')
-const { validateUpdateItem, validatePaymentWallet } = require('../controllers/payOrders/validators')
+const {
+  updateItem,
+  createPaymentWithWallet
+} = require('../controllers/payOrders/index')
+const {
+  validateUpdateItem,
+  validatePaymentWallet
+} = require('../controllers/payOrders/validators')
 
 const router = express.Router()
 require('../../config/passport')

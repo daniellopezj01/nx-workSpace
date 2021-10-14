@@ -11,13 +11,9 @@ const requireAuth = passport.authenticate('jwt', {
   session: false
 })
 
-const {
-  createItem
-} = require('../controllers/messages/index')
+const { createItem } = require('../controllers/messages/index')
 
-const {
-  validateCreateItem
-} = require('../controllers/messages/validators')
+const { validateCreateItem } = require('../controllers/messages/validators')
 
 /**
  * @swagger

@@ -1,23 +1,21 @@
 const { lookupCreator } = require('./lookupCreator')
 
-const lookupComments = (key = '$tags', withCreator = false) => new Promise(async (resolve) => {
-  const creator = await lookupCreator('creator')
-  const pipe = [
-    {
-      $match: {
-        $expr: {
-          $in: [
-            '$$tagName', '$tags'
-          ]
+const lookupComments = (key = '$tags', withCreator = false) =>
+  new Promise(async (resolve) => {
+    const creator = await lookupCreator('creator')
+    const pipe = [
+      {
+        $match: {
+          $expr: {
+            $in: ['$$tagName', '$tags']
+          }
         }
       }
+    ]
+    if (withCreator) {
+      pipe.push(creator)
     }
-  ]
-  if (withCreator) {
-    pipe.push(creator)
-  }
-  resolve(
-    {
+    resolve({
       $lookup: {
         from: 'tags',
         let: {
@@ -27,10 +25,7 @@ const lookupComments = (key = '$tags', withCreator = false) => new Promise(async
           {
             $match: {
               $expr: {
-                $in: [
-                  '$name',
-                  '$$tagsTour'
-                ]
+                $in: ['$name', '$$tagsTour']
               }
             }
           },
@@ -47,8 +42,7 @@ const lookupComments = (key = '$tags', withCreator = false) => new Promise(async
         ],
         as: 'allComments'
       }
-    }
-  )
-})
+    })
+  })
 
 module.exports = { lookupComments }

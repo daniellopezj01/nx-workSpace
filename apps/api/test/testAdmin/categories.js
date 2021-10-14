@@ -1,5 +1,5 @@
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-undef */
-/* eslint-disable import/no-extraneous-dependencies */
 process.env.NODE_ENV = 'test'
 
 const faker = require('faker')
@@ -199,12 +199,7 @@ describe('*********** CATEGORIES_ADMIN ***********', () => {
         .end((err, res) => {
           res.should.have.status(201)
           res.body.should.be.a('object')
-          res.body.should.include.keys(
-            '_id',
-            'name',
-            'icon',
-            'description'
-          )
+          res.body.should.include.keys('_id', 'name', 'icon', 'description')
           chai
             .request(server)
             .delete(`${url}/categories/${res.body._id}`)

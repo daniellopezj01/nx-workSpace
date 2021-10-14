@@ -1,4 +1,6 @@
-const { serviceStructureParamsAllData } = require('./serviceStructureParamsAllData')
+const {
+  serviceStructureParamsAllData
+} = require('./serviceStructureParamsAllData')
 const { serviceTransformFlightData } = require('./serviceTransformFlightData')
 
 module.exports = {

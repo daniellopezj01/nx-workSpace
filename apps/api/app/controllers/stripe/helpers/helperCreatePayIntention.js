@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 /* eslint-disable radix */
 /* eslint-disable camelcase */
 const db = require('../../../middleware/db')

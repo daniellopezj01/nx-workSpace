@@ -23,8 +23,21 @@ const connection = mysql.createConnection({
 
 connection.connect()
 
+const save = async (item) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      resolve(await item.save())
+    } catch (error) {
+      console.log('Error inesperado: ', error)
+      console.log('Error codigo: ', error.code)
+      reject(error)
+    }
+  })
+
 connection.query('SELECT * FROM departures', async (error, results) => {
-  if (error) throw error
+  if (error) {
+    throw error
+  }
   const throbber = ora('Guardando departures').start()
   for (let i = 0; i < results.length; i++) {
     const departure = new Departure({
@@ -71,14 +84,3 @@ status = (type) => {
       break
   }
 }
-
-const save = async (item) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      resolve(await item.save())
-    } catch (error) {
-      console.log('Error inesperado: ', error)
-      console.log('Error codigo: ', error.code)
-      reject(error)
-    }
-  })

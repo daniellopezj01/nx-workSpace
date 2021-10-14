@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-undef */
 
 process.env.NODE_ENV = 'test'
@@ -91,11 +91,7 @@ describe('*********** RESERVATIONS_USERS ***********', () => {
           docs.should.be.a('array')
           totalDocs.should.be.a('number')
           const reservationHead = _.head(docs)
-          reservationHead.should.include.keys(
-            'code',
-            'departure',
-            'tour'
-          )
+          reservationHead.should.include.keys('code', 'departure', 'tour')
           reservationHead._id.should.be.a('string')
           reservationHead.travelerLastName.should.be.a('string')
           done()
@@ -238,11 +234,7 @@ describe('*********** RESERVATIONS_USERS ***********', () => {
           const { body } = res
           res.should.have.status(200)
           body.should.be.a('object')
-          body.should.include.keys(
-            'asTour',
-            'canUpdate',
-            'code'
-          )
+          body.should.include.keys('asTour', 'canUpdate', 'code')
           body.should.have.property('_id').eql(idReservation)
           body.should.have.property('code').eql(codeReservation)
           body.amount.should.be.a('number')
@@ -260,11 +252,7 @@ describe('*********** RESERVATIONS_USERS ***********', () => {
           const { body } = res
           res.should.have.status(200)
           body.should.be.a('object')
-          body.should.include.keys(
-            'asTour',
-            'canUpdate',
-            'code'
-          )
+          body.should.include.keys('asTour', 'canUpdate', 'code')
           body.should.have.property('_id').eql(idReservation)
           body.should.have.property('code').eql(codeReservation)
           body.amount.should.be.a('number')

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-undef */
 /* eslint handle-callback-err: "off"*/
 
@@ -109,7 +108,12 @@ describe('*********** TOURS_ADMIN ***********', () => {
           res.should.have.status(200)
           body.should.be.an('object')
           body.should.be.a('object')
-          body.should.include.keys('_id', 'countries', 'departures', 'itinerary')
+          body.should.include.keys(
+            '_id',
+            'countries',
+            'departures',
+            'itinerary'
+          )
           body.should.have.property('slug').eql('tour-one')
           body.should.have.property('status').eql('publish')
           body.should.have.property('departures').be.a('array').length(1)

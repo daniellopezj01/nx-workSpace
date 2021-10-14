@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-undef */
 
 process.env.NODE_ENV = 'test'
@@ -148,9 +148,7 @@ describe('*********** PROFILE_USERS ***********', () => {
           res.should.have.status(422)
           body.should.be.a('object')
           body.should.have.property('errors').that.has.property('msg')
-          body.errors.msg[0].should.have
-            .property('msg')
-            .eql('NOT_A_VALID_URL')
+          body.errors.msg[0].should.have.property('msg').eql('NOT_A_VALID_URL')
           done()
         })
     })

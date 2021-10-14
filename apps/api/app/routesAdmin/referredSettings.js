@@ -42,12 +42,7 @@ const requireAuth = passport.authenticate('jwt', {
  */
 router.get('/', requireAuth, trimRequest.all, getItemsAdmin)
 
-router.get(
-  '/:id',
-  requireAuth,
-  validateGetItem,
-  getItem
-)
+router.get('/:id', requireAuth, validateGetItem, getItem)
 
 /**
  * @swagger
@@ -73,13 +68,7 @@ router.get(
  *      '201':
  *        description: retorna el objeto insertado en la coleccion con stado '201'
  */
-router.post(
-  '/',
-  requireAuth,
-  trimRequest.all,
-  validateCreateItem,
-  createItem
-)
+router.post('/', requireAuth, trimRequest.all, validateCreateItem, createItem)
 
 router.patch(
   '/:id',

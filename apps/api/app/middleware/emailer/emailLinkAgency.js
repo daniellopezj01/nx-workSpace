@@ -11,7 +11,11 @@ const emailLinkAgency = async (locale, userAgency) => {
   i18n.setLocale(locale)
   const subject = i18n.__('linkAgency.SUBJECT')
   const template = '_linkAgency'
-  let user = await db.findOne({ key: 'defaultEmail' }, settings, 'key email name')
+  let user = await db.findOne(
+    { key: 'defaultEmail' },
+    settings,
+    'key email name'
+  )
   const htmlMessage = await htmlLinkAgency(template, userAgency)
   const { name, lastName } = user
   user = user._doc

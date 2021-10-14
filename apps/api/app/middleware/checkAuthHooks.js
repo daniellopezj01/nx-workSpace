@@ -1,3 +1,4 @@
+/* eslint-disable callback-return */
 /* eslint-disable camelcase */
 // const utils = require('.')
 const utils = require('./utils')
@@ -8,11 +9,15 @@ const checkAuthHooks = async (req, res, next) => {
     const { headers } = req
     const { app_id, app_secret } = headers
     let filter = {
-      appId: app_id, appSecret: app_secret, status: 'enabled'
+      appId: app_id,
+      appSecret: app_secret,
+      status: 'enabled'
     }
     if (process.env.NODE_ENV === 'production') {
       filter = {
-        appId: headers['x-appid'], appSecret: headers['x-appsecret'], status: 'enabled'
+        appId: headers['x-appid'],
+        appSecret: headers['x-appsecret'],
+        status: 'enabled'
       }
     }
     const hooks = await Hooks.findOne(filter)
@@ -20,7 +25,10 @@ const checkAuthHooks = async (req, res, next) => {
       req.machine = hooks
       next()
     } else {
-      utils.handleError(res, utils.buildErrObject(401, 'Unauthorized hooks api'))
+      utils.handleError(
+        res,
+        utils.buildErrObject(401, 'Unauthorized hooks api')
+      )
     }
   } catch (error) {
     utils.handleError(res, error)

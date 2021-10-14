@@ -1,21 +1,22 @@
-const lookupScore = (key = '$comments.vote') => new Promise((resolve) => {
-  const data = [
-    {
-      $addFields: {
-        average: {
-          $avg: key
+const lookupScore = (key = '$comments.vote') =>
+  new Promise((resolve) => {
+    const data = [
+      {
+        $addFields: {
+          average: {
+            $avg: key
+          }
+        }
+      },
+      {
+        $addFields: {
+          score: {
+            $round: ['$average', 1]
+          }
         }
       }
-    },
-    {
-      $addFields: {
-        score: {
-          $round: ['$average', 1]
-        }
-      }
-    }
-  ]
-  resolve(data)
-})
+    ]
+    resolve(data)
+  })
 
 module.exports = { lookupScore }

@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-undef */
 
 process.env.NODE_ENV = 'test'
@@ -82,7 +82,8 @@ describe('*********** STORAGE_USER ***********', () => {
           const { body } = res
           body.should.be.an('object')
           res.should.have.status(400)
-          body.should.have.property('errors')
+          body.should.have
+            .property('errors')
             .eql({ msg: 'No files were uploaded.' })
           done()
         })
@@ -114,7 +115,9 @@ describe('*********** STORAGE_USER ***********', () => {
           const { body } = res
           body.should.be.an('object')
           res.should.have.status(400)
-          body.should.have.property('errors').eql({ msg: 'No files were uploaded.' })
+          body.should.have
+            .property('errors')
+            .eql({ msg: 'No files were uploaded.' })
           done()
         })
     })

@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 const helmet = require('helmet')
 require('dotenv-safe').config()
 const express = require('express')
@@ -51,7 +50,9 @@ app.use(
 
 morganBody(app, {
   skip(req, res) {
-    return [403, 404, 409, 401, 422].includes(res.statusCode) || res.statusCode < 400
+    return (
+      [403, 404, 409, 401, 422].includes(res.statusCode) || res.statusCode < 400
+    )
   },
   stream: loggerSlack
 })
@@ -85,7 +86,6 @@ app.use('/admin', require('./app/routesAdmin'))
 
 // require('./app/routes/tests')(app);
 // app.use('/', require('./app/routes'))
-
 
 server.listen(process.env.PORT)
 

@@ -5,16 +5,9 @@ const trimRequest = require('trim-request')
 const router = express.Router()
 require('../../config/passport')
 
-const {
-  getItemPublic,
-  getAllAgents
+const { getItemPublic, getAllAgents } = require('../controllers/users')
 
-} = require('../controllers/users')
-
-const {
-
-  validateGetItem
-} = require('../controllers/users/validators')
+const { validateGetItem } = require('../controllers/users/validators')
 
 /**
  * @swagger
@@ -43,17 +36,8 @@ const {
  *      '200':
  *        description: retorna el objeto encontrado por el id, si  no es encontrado retorna err
  */
-router.get(
-  '/public/:id',
-  trimRequest.all,
-  validateGetItem,
-  getItemPublic
-)
+router.get('/public/:id', trimRequest.all, validateGetItem, getItemPublic)
 
-router.get(
-  '/agents',
-  trimRequest.all,
-  getAllAgents
-)
+router.get('/agents', trimRequest.all, getAllAgents)
 
 module.exports = router

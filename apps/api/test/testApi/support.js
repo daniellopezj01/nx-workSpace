@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 process.env.NODE_ENV = 'test'
 
 const _ = require('lodash')

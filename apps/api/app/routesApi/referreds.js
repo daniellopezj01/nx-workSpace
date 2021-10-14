@@ -2,9 +2,7 @@ const express = require('express')
 const passport = require('passport')
 const trimRequest = require('trim-request')
 
-const {
-  getItems
-} = require('../controllers/referred/index')
+const { getItems } = require('../controllers/referred/index')
 
 const router = express.Router()
 require('../../config/passport')

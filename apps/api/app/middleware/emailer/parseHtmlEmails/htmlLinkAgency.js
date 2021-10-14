@@ -10,9 +10,7 @@ const htmlLinkAgency = (template = '', userAgency) => {
           reject(err)
           return
         }
-        const {
-          name, surname, accountStripe, email
-        } = userAgency
+        const { name, surname, accountStripe, email } = userAgency
         data = data.replace(/NAME_AGENCY/g, `${name} ${surname || ''}`)
         data = data.replace(/EMAIL_AGENCY/g, email)
         data = data.replace(/ACCOUNT_AGENCY/g, accountStripe)

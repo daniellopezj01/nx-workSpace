@@ -49,12 +49,7 @@ const {
  *      '201':
  *        description: retorna el objeto insertado en la coleccion
  */
-router.post(
-  '/register',
-  trimRequest.all,
-  validateRegister,
-  register
-)
+router.post('/register', trimRequest.all, validateRegister, register)
 
 /**
  * @swagger
@@ -108,12 +103,7 @@ router.post(
  *      '201':
  *        description: retorna el objeto insertado en la coleccion
  */
-router.post(
-  '/forgot',
-  trimRequest.all,
-  validateForgotPassword,
-  forgotPassword
-)
+router.post('/forgot', trimRequest.all, validateForgotPassword, forgotPassword)
 
 /**
  * @swagger
@@ -141,12 +131,7 @@ router.post(
  *      '201':
  *        description: retorna el objeto del usuario
  */
-router.post(
-  '/reset',
-  trimRequest.all,
-  validateResetPassword,
-  resetPassword
-)
+router.post('/reset', trimRequest.all, validateResetPassword, resetPassword)
 
 /**
  * @swagger
@@ -199,11 +184,6 @@ router.post('/login', trimRequest.all, validateLogin, login)
  * Exchange TOKEN
  */
 
-router.post(
-  '/exchange',
-  trimRequest.all,
-  validateExchange,
-  exchangeToken
-)
+router.post('/exchange', trimRequest.all, validateExchange, exchangeToken)
 
 module.exports = router

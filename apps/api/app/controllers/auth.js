@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-underscore-dangle */
 const _ = require('lodash')
 const jwt = require('jsonwebtoken')
@@ -35,14 +36,16 @@ const generateBasicAuth = () => {
  * Find Referred Plan default
  */
 
-const findReferredPlan = async () => new Promise((resolve) => {
-  const plan = SettingsReferred.findOne({ default: true })
-  resolve(plan)
-})
+const findReferredPlan = async () =>
+  new Promise((resolve) => {
+    const plan = SettingsReferred.findOne({ default: true })
+    resolve(plan)
+  })
 
 const generateToken = (user) => {
   // Gets expiration time
-  const expiration = Math.floor(Date.now() / 1000) + 60 * process.env.JWT_EXPIRATION_IN_MINUTES
+  const expiration =
+    Math.floor(Date.now() / 1000) + 60 * process.env.JWT_EXPIRATION_IN_MINUTES
 
   // returns signed and encrypted token
   return auth.encrypt(
@@ -79,7 +82,10 @@ const registerUserReferred = async (codeRef, userTo) => {
   const referredUser = await findUserByRefCode(codeRef)
   console.log('referredUser ------> ', referredUser)
   if (referredUser.typeReferred) {
-    const planReferred = await db.findOne({ _id: referredUser.typeReferred }, SettingsReferred)
+    const planReferred = await db.findOne(
+      { _id: referredUser.typeReferred },
+      SettingsReferred
+    )
     console.log('PLAN- ---->', planReferred)
     const body = {
       userTo: userTo._id,

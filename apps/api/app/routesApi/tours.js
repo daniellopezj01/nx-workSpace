@@ -64,12 +64,7 @@ router.get('/forContinents', mdCache.cache, trimRequest.all, getForContinents)
  *      '200':
  *        description: retorna el objeto encontrado por el id, si  no es encontrado retorna err
  */
-router.get(
-  '/search',
-  elastic.log,
-  trimRequest.all,
-  getToursAndPlaces
-)
+router.get('/search', elastic.log, trimRequest.all, getToursAndPlaces)
 
 router.get(
   '/getFilters',

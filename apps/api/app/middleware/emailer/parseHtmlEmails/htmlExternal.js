@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 /* eslint-disable max-len */
 const moment = require('moment')
 const fs = require('fs')
@@ -15,10 +16,10 @@ const htmlExternal = (object, template = '', user) => {
       operationType,
       externalCode,
       code
-
     } = object
-
-    const createPayment = moment(createdAt, 'DD-MM-YYYY').format('DD [de] MMMM YYYY')
+    const createPayment = moment(createdAt, 'DD-MM-YYYY').format(
+      'DD [de] MMMM YYYY'
+    )
     fs.readFile(
       `${__dirname}/../../../templates/${template}.html`,
       'utf8',
@@ -35,7 +36,10 @@ const htmlExternal = (object, template = '', user) => {
         data = data.replace(/CODE_PNR/g, code)
         data = data.replace(/AMOUNT/g, amount)
         data = data.replace(/EMAIL_USER/g, user?.email)
-        data = data.replace(/NAME_USER/g, `${user?.name} ${user?.surname || ''}`)
+        data = data.replace(
+          /NAME_USER/g,
+          `${user?.name} ${user?.surname || ''}`
+        )
         data = data.replace(/TOUR_NAME/g, description)
         data = data.replace(/TYPE_PLATFORM/g, platform)
         data = data.replace(/STATUS_PAYMENT/g, status)

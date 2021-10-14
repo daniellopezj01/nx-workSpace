@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const User = require('../../../models/user')
 const { itemNotFound, buildErrObject } = require('../../../middleware/utils')
 

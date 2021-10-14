@@ -31,12 +31,7 @@ const {
 /*
  * Forgot password route
  */
-router.post(
-  '/forgot',
-  trimRequest.all,
-  validateForgotPassword,
-  forgotPassword
-)
+router.post('/forgot', trimRequest.all, validateForgotPassword, forgotPassword)
 
 /*
  * Reset password route
@@ -115,22 +110,12 @@ router.get('/token', requireAuth, trimRequest.all, getRefreshToken)
  *      '201':
  *        description: retorna el objeto insertado en la coleccion
  */
-router.post(
-  '/register',
-  trimRequest.all,
-  validateRegisterAdmin,
-  register
-)
+router.post('/register', trimRequest.all, validateRegisterAdmin, register)
 
 /**
-* Exchange TOKEN
-*/
+ * Exchange TOKEN
+ */
 
-router.post(
-  '/exchange',
-  trimRequest.all,
-  validateExchange,
-  exchangeToken
-)
+router.post('/exchange', trimRequest.all, validateExchange, exchangeToken)
 
 module.exports = router

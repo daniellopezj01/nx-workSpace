@@ -2,7 +2,9 @@ const { matchedData } = require('express-validator')
 const model = require('../../models/validateFlights')
 const utils = require('../../middleware/utils')
 const db = require('../../middleware/db')
-const { serviceRequestValidateSearch } = require('../../plugins/sabre/services/servicesValidateSearch')
+const {
+  serviceRequestValidateSearch
+} = require('../../plugins/sabre/services/servicesValidateSearch')
 const { helperGetPaymentByCountry } = require('../paymentMethods/helpers')
 
 /**
@@ -20,7 +22,10 @@ const getItem = async (req, res) => {
     const data = await serviceRequestValidateSearch(params, false)
     const pk = await helperGetPaymentByCountry('MX')
     res.status(200).json({
-      code, ...info, ...data, pk
+      code,
+      ...info,
+      ...data,
+      pk
     })
   } catch (error) {
     utils.handleError(res, error)

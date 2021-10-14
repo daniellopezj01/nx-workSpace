@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-undef */
 
 process.env.NODE_ENV = 'test'
@@ -83,12 +83,7 @@ describe('*********** SUPPORT_ADMIN ***********', () => {
           body.totalDocs.should.be.a('number').eql(1)
           const { docs } = body
           const firstChat = _.head(docs)
-          firstChat.should.include.keys(
-            '_id',
-            'status',
-            'hash',
-            'firstMessage'
-          )
+          firstChat.should.include.keys('_id', 'status', 'hash', 'firstMessage')
           id = firstChat._id
           firstChat._id.should.be.a('string')
           firstChat.hash.should.be.a('string').eql(hash)
@@ -103,12 +98,7 @@ describe('*********** SUPPORT_ADMIN ***********', () => {
         .end((err, res) => {
           res.should.have.status(200)
           const { body } = res
-          body.should.include.keys(
-            '_id',
-            'status',
-            'hash',
-            'messages'
-          )
+          body.should.include.keys('_id', 'status', 'hash', 'messages')
           body._id.should.be.a('string').eql(id)
           body.hash.should.be.a('string').eql(hash)
           done()
