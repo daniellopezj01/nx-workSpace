@@ -26,7 +26,7 @@ const reservation = { _id: '5fa18bde4087883d305e6800' }
 const price = 100
 const TokenCard = 'tok_visa'
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** STRIPE_USERS ***********', () => {
   describe('/POST login', () => {

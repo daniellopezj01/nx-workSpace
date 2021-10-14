@@ -19,7 +19,7 @@ const createdID = []
 const idReservation = '5fa18bde4087883d305e6800'
 const idUser = '5aa1c2c35ef7a4e97b5e995a'
 const url = process.env.URL_TEST_ADMIN
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** PAY_ORDERS_ADMIN ***********', () => {
   describe('/POST login', () => {

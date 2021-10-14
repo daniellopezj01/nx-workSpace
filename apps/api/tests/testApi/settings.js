@@ -7,7 +7,7 @@ const chaiHttp = require('chai-http')
 const server = require('../../server')
 // eslint-disable-next-line no-unused-vars
 const should = chai.should()
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 const url = process.env.URL_TEST_USER
 
 describe('*********** SETTINGS_USERS ***********', () => {

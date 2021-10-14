@@ -22,7 +22,7 @@ const description = faker.random.words()
 const newtitle = faker.random.words()
 const newDescription = faker.random.words()
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 const url = process.env.URL_TEST_ADMIN
 
 describe('*********** BLOGS_ADMIN ***********', () => {

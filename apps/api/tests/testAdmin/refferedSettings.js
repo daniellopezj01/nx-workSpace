@@ -18,7 +18,7 @@ let accessToken = ''
 const url = process.env.URL_TEST_ADMIN
 const createdID = []
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** REFERREDS_SETTINGS_ADMIN ***********', () => {
   describe('/POST login', () => {

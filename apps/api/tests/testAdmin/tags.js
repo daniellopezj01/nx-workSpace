@@ -19,7 +19,7 @@ const createdID = []
 const name = faker.random.words()
 const newtag = faker.random.words()
 const url = process.env.URL_TEST_ADMIN
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** TAGS_ADMIN ***********', () => {
   describe('/POST login', () => {

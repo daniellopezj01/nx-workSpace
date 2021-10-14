@@ -15,7 +15,7 @@ let token = ''
 let accessToken = ''
 const url = process.env.URL_TEST_USER
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** REFERREDS_USERS ***********', () => {
   describe('/POST login', () => {

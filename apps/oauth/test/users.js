@@ -29,7 +29,7 @@ const tokens = {
 const email = faker.internet.email()
 const createdID = []
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** USERS ***********', () => {
   describe('/POST login', () => {

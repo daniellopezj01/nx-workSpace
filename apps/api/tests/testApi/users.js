@@ -17,7 +17,7 @@ let publicId = ''
 const url = process.env.URL_TEST_USER
 const createdID = []
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** MANAGER_USERS ***********', () => {
   describe('/POST login', () => {

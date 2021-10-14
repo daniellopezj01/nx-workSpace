@@ -29,7 +29,7 @@ const contractData = {
 }
 const pk = 'pk_test_Wj915HLpr6PpdvzQMuzq8idv'
 const url = process.env.URL_TEST_USER
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** PAY_ORDERS_USERS ***********', () => {
   describe('/POST login', () => {

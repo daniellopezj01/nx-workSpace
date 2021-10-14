@@ -26,7 +26,7 @@ const idDeparture = '5f7dd6b56ce74a8e3ff15add'
 const url = process.env.URL_TEST_ADMIN
 const createdID = []
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** RESERVATIONS_ADMIN ***********', () => {
   describe('/POST login', () => {

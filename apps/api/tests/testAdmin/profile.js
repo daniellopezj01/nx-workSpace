@@ -12,7 +12,7 @@ const loginDetails = {
   password: '12345'
 }
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** PROFILE ***********', () => {
   // describe('/POST login', () => {

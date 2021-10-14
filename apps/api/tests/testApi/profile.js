@@ -15,7 +15,7 @@ const loginDetails = {
 let token = ''
 const url = process.env.URL_TEST_USER
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** PROFILE_USERS ***********', () => {
   describe('/POST login', () => {

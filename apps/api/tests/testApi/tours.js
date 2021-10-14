@@ -20,7 +20,7 @@ const createdID = []
 
 const url = process.env.URL_TEST_USER
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** TOURS_USERS ***********', () => {
   describe('/POST login', () => {

@@ -23,7 +23,7 @@ const contractData = {
   intent: 'buyTour'
 }
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** CONTRACTS_USER ***********', () => {
   describe('/POST login', () => {

@@ -32,7 +32,7 @@ const contractData = {
   intent: 'buyTour'
 }
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** RESERVATIONS_USERS ***********', () => {
   describe('/POST login', () => {

@@ -15,7 +15,7 @@ const loginDetails = {
 const createdID = []
 
 const url = process.env.URL_TEST_USER
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** CATEGORIES_USER ***********', () => {
   describe('/POST login', () => {

@@ -20,7 +20,7 @@ const content = faker.random.words()
 const createdID = []
 const url = process.env.URL_TEST_ADMIN
 const idUser = '5aa1c2c35ef7a4e97b5e995a'
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** COMMENTS_ADMIN ***********', () => {
   describe('/POST login', () => {

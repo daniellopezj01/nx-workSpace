@@ -43,7 +43,7 @@ const newObject = {
     }
   ]
 }
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** ITINERARIES_ADMIN ***********', () => {
   describe('/POST login', () => {

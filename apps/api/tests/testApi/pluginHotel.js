@@ -9,7 +9,7 @@ const server = require('../../server')
 // eslint-disable-next-line no-unused-vars
 const should = chai.should()
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** HOTELS_USERS ***********', () => {
   describe('/POST hotels For type', () => {

@@ -22,7 +22,7 @@ const publicId = '5aa1c2c35ef7a4e97b5e995a'
 const email = faker.internet.email()
 const createdID = []
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** USERS_ADMIN ***********', () => {
   describe('/POST login', () => {

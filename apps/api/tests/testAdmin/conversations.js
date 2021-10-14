@@ -22,7 +22,7 @@ const toUser2 = '5fa29a9584b39b13786fbfc2'
 
 const url = process.env.URL_TEST_ADMIN
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** CONVERSATIONS_ADMIN ***********', () => {
   describe('/POST login', () => {

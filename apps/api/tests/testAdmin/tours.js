@@ -24,7 +24,7 @@ const route = faker.random.words()
 const newtour = faker.random.words()
 
 const url = process.env.URL_TEST_ADMIN
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** TOURS_ADMIN ***********', () => {
   describe('/POST login', () => {

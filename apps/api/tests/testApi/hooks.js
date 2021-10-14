@@ -20,7 +20,7 @@ const createdID = []
 const target_url = faker.internet.url()
 const action_trigger = faker.random.word()
 const url = process.env.URL_TEST_USER
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** HOOKS ***********', () => {
   describe('/POST login', () => {

@@ -22,7 +22,7 @@ const userFrom = '5aa1c2c35ef7a4e97b5e995a'
 const userTo = '5fa29a9584b39b13786fbfc2'
 const planReferred = '6061e77ada99821b1425b282'
 const url = process.env.URL_TEST_ADMIN
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** REFERREDS_ADMIN ***********', () => {
   describe('/POST login', () => {

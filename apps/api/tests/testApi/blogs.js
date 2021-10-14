@@ -16,7 +16,7 @@ let id = ''
 let slugBlog = ''
 const createdID = []
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 const url = process.env.URL_TEST_USER
 
 describe('*********** BLOGS_USER ***********', () => {

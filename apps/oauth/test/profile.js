@@ -13,7 +13,7 @@ const loginDetails = {
 }
 let token = ''
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** PROFILE ***********', () => {
   describe('/POST login', () => {

@@ -21,7 +21,7 @@ let verificationForgot = ''
 const email = faker.internet.email()
 
 const url = process.env.URL_TEST_USER
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** AUTH_USER ***********', () => {
   describe('/GET /', () => {

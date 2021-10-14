@@ -25,7 +25,7 @@ const hash = 'YPp_bWfeEWQV'
 
 const url = process.env.URL_TEST_ADMIN
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** SUPPORT_ADMIN ***********', () => {
   describe('/POST login', () => {

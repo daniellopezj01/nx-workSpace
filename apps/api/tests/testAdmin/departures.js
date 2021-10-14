@@ -18,7 +18,7 @@ let accessToken = ''
 const createdID = []
 const idTour = '5fa181b202945b26c456176a'
 const url = process.env.URL_TEST_ADMIN
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** DEPARTURES_ADMIN ***********', () => {
   describe('/POST login', () => {

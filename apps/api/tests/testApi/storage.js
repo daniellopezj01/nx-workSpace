@@ -22,7 +22,7 @@ const url = process.env.URL_TEST_USER
 
 const file = `${__dirname}/../../data/6.storages/prueba_0.jpg`
 const video = `${__dirname}/../../data/6.storages/custom.mp4`
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** STORAGE_USER ***********', () => {
   describe('/POST login', () => {

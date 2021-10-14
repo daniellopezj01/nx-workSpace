@@ -21,7 +21,7 @@ const icon = faker.random.words()
 const description = faker.random.words()
 const newCategory = faker.random.words()
 const url = process.env.URL_TEST_ADMIN
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** CATEGORIES_ADMIN ***********', () => {
   describe('/POST login', () => {

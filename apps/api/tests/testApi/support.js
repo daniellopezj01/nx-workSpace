@@ -22,7 +22,7 @@ const hash = 'YPp_bWfeEWQV'
 
 const url = process.env.URL_TEST_USER
 
-chai.use(chaiHttp)
+// chai.use(chaiHttp)
 
 describe('*********** SUPPORT_USERS ***********', () => {
   describe('/POST login', () => {
