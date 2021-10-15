@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 const Settings = require('../../../models/settings')
 
 const helpergetAPI = () => {

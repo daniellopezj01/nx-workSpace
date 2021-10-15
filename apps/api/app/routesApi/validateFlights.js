@@ -6,11 +6,6 @@ const { getItem } = require('../controllers/validateFlights')
 const router = express.Router()
 require('../../config/passport')
 
-router.get(
-  '/:code',
-  trimRequest.all,
-  validateGetItem,
-  getItem
-)
+router.get('/:code', trimRequest.all, validateGetItem, getItem)
 
 module.exports = router

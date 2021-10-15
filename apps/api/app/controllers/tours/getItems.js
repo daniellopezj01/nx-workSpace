@@ -1,7 +1,11 @@
+/* eslint-disable max-statements */
 const model = require('../../models/tour')
 const utils = require('../../middleware/utils')
 const db = require('../../middleware/db')
-const { serviceGetItems, serviceManagerParamsDepartures } = require('./services')
+const {
+  serviceGetItems,
+  serviceManagerParamsDepartures
+} = require('./services')
 const { filterMainSearch } = require('./filters')
 const { helperAssignedPrice } = require('./helpers')
 /**
@@ -15,8 +19,17 @@ const getItems = async (req, res) => {
     const match = await filterMainSearch(query)
     const queryAggregate = await serviceGetItems(match)
     let response = {}
-    const filtersDeparture = ['minPrice', 'maxPrice', 'minAge', 'maxAge', 'minDate', 'maxDate']
-    const includeDepartureFilters = filtersDeparture.find((prop) => prop in query)
+    const filtersDeparture = [
+      'minPrice',
+      'maxPrice',
+      'minAge',
+      'maxAge',
+      'minDate',
+      'maxDate'
+    ]
+    const includeDepartureFilters = filtersDeparture.find(
+      (prop) => prop in query
+    )
     if (includeDepartureFilters) {
       response = await serviceManagerParamsDepartures(queryAggregate, query)
     } else {

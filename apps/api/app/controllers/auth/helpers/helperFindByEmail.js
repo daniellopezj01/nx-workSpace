@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 const user = require('../../../models/user')
 
 const helperFindByEmail = (emails, data) => {

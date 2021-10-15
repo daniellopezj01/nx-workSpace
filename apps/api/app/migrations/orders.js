@@ -1,6 +1,6 @@
 const mysql = require('mysql')
 const Order = require('../models/payOrder')
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
 const ora = require('ora')
 
 mongoose.connect('mongodb://localhost:27017/migrations', {
@@ -8,13 +8,13 @@ mongoose.connect('mongodb://localhost:27017/migrations', {
   useNewUrlParser: true
 })
 
-let db = mongoose.connection
+const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', function () {
+db.once('open', () => {
   console.log('Connection Successful!')
 })
 
-let connection = mysql.createConnection({
+const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
@@ -23,11 +23,24 @@ let connection = mysql.createConnection({
 
 connection.connect()
 
+const save = async (item) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      resolve(await item.save())
+    } catch (error) {
+      console.log('Error inesperado: ', error)
+      // console.log('Error codigo: ', error.code)
+      reject(error)
+    }
+  })
+
 connection.query('SELECT * FROM `order`', async (error, results) => {
-  if (error) throw error
-  let throbber = ora('Guardando orders').start()
+  if (error) {
+    throw error
+  }
+  const throbber = ora('Guardando orders').start()
   for (let i = 0; i < results.length; i++) {
-    var order = new Order({
+    const order = new Order({
       status: status(results[i].status),
       idOperation: results[i].id_operation
         ? results[i].id_operation
@@ -64,14 +77,3 @@ status = (type) => {
       break
   }
 }
-
-const save = async (item) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      resolve(await item.save())
-    } catch (error) {
-      console.log('Error inesperado: ', error)
-      // console.log('Error codigo: ', error.code)
-      reject(error)
-    }
-  })

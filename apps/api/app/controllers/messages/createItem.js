@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable max-statements */
 const { matchedData } = require('express-validator')
 const _ = require('lodash')
 const model = require('../../models/conversation')

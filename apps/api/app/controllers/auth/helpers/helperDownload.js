@@ -1,3 +1,5 @@
+/* eslint-disable callback-return */
+/* eslint-disable handle-callback-err */
 const request = require('request')
 const fs = require('fs')
 

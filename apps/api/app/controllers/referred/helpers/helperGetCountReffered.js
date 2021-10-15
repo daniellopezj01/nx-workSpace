@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 const _ = require('lodash')
 const mongoose = require('mongoose')
 const model = require('../../../models/user')

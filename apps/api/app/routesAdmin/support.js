@@ -3,7 +3,6 @@ const trimRequest = require('trim-request')
 const passport = require('passport')
 // const controller = require('../controllers/messages')
 const {
-
   // validateGetTickets,
   validateGetItemAdmin,
   validateCreateItemAdmin
@@ -54,12 +53,7 @@ const requireAuth = passport.authenticate('jwt', {
  *        description: retorna el objeto insertado en la coleccion
  */
 
-router.get(
-  '/',
-  requireAuth,
-  trimRequest.all,
-  getItemsAdmin
-)
+router.get('/', requireAuth, trimRequest.all, getItemsAdmin)
 
 router.post(
   '/',
@@ -69,13 +63,7 @@ router.post(
   createItemAdmin
 )
 
-router.get(
-  '/:id',
-  requireAuth,
-  trimRequest.all,
-  validateGetItemAdmin,
-  getItem
-)
+router.get('/:id', requireAuth, trimRequest.all, validateGetItemAdmin, getItem)
 
 /**
  * @swagger

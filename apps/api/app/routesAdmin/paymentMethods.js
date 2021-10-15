@@ -4,7 +4,9 @@ const passport = require('passport')
 
 const { roleAuthorization } = require('../controllers/auth/index')
 const { createItem, getItems } = require('../controllers/paymentMethods')
-const { validateCreateItem } = require('../controllers/paymentMethods/validators')
+const {
+  validateCreateItem
+} = require('../controllers/paymentMethods/validators')
 
 const router = express.Router()
 require('../../config/passport')

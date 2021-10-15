@@ -11,7 +11,10 @@ const db = require('../db')
 const emailChangeToursInReservation = async (locale, reservation) => {
   i18n.setLocale(locale)
   reservation.tour = await db.getItem(reservation.idTour, modelTour)
-  reservation.departure = await db.getItem(reservation.idDeparture, modelDeparture)
+  reservation.departure = await db.getItem(
+    reservation.idDeparture,
+    modelDeparture
+  )
   const subject = i18n.__('updateTour.SUBJECT')
   const template = '_updateTour'
   const htmlMessage = await htmlTour(template, reservation)

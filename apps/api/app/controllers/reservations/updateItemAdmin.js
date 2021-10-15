@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 const { matchedData } = require('express-validator')
 const model = require('../../models/reservation')
 const modelDeparture = require('../../models/departure')

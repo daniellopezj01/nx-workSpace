@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 const nanoid = require('nanoid')
 const user = require('../../../models/user')
 const { serviceFindReferredPlan } = require('../../referredSettings/services')

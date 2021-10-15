@@ -18,13 +18,12 @@ let verification = ''
 let verificationForgot = ''
 const email = faker.internet.email()
 
-chai.use(chaiHttp)
+
 
 describe('*********** AUTH ***********', () => {
   describe('/GET /', () => {
-    it('it should GET home API url', (done) => {
-      chai
-        .request(server)
+    test('it should GET home API url', (done) => {
+      request(server)
         .get('/')
         .end((err, res) => {
           res.should.have.status(200)
@@ -34,9 +33,8 @@ describe('*********** AUTH ***********', () => {
   })
 
   describe('/GET /404url', () => {
-    it('it should GET 404 url', (done) => {
-      chai
-        .request(server)
+    test('it should GET 404 url', (done) => {
+      request(server)
         .get('/404url')
         .end((err, res) => {
           res.should.have.status(404)
@@ -47,9 +45,8 @@ describe('*********** AUTH ***********', () => {
   })
 
   describe('/POST login', () => {
-    it('it should GET token', (done) => {
-      chai
-        .request(server)
+    test('it should GET token', (done) => {
+      request(server)
         .post('/login')
         .send(loginDetails)
         .end((err, res) => {
@@ -63,14 +60,13 @@ describe('*********** AUTH ***********', () => {
     })
   })
   describe('/POST register', () => {
-    it('it should POST register', (done) => {
+    test('it should POST register', (done) => {
       const user = {
         name: faker.random.words(),
         email,
         password: faker.random.words()
       }
-      chai
-        .request(server)
+      request(server)
         .post('/register')
         .send(user)
         .end((err, res) => {
@@ -83,14 +79,13 @@ describe('*********** AUTH ***********', () => {
           done()
         })
     })
-    it('it should NOT POST a register if email already exists', (done) => {
+    test('it should NOT POST a register if email already exists', (done) => {
       const user = {
         name: faker.random.words(),
         email,
         password: faker.random.words()
       }
-      chai
-        .request(server)
+      request(server)
         .post('/register')
         .send(user)
         .end((err, res) => {
@@ -103,9 +98,8 @@ describe('*********** AUTH ***********', () => {
   })
 
   describe('/POST verify', () => {
-    it('it should POST verify', (done) => {
-      chai
-        .request(server)
+    test('it should POST verify', (done) => {
+      request(server)
         .post('/verify')
         .send({
           id: verification
@@ -121,9 +115,8 @@ describe('*********** AUTH ***********', () => {
   })
 
   describe('/POST forgot', () => {
-    it('it should POST forgot', (done) => {
-      chai
-        .request(server)
+    test('it should POST forgot', (done) => {
+      request(server)
         .post('/forgot')
         .send({
           email
@@ -139,9 +132,8 @@ describe('*********** AUTH ***********', () => {
   })
 
   describe('/POST reset', () => {
-    it('it should POST reset', (done) => {
-      chai
-        .request(server)
+    test('it should POST reset', (done) => {
+      request(server)
         .post('/reset')
         .send({
           id: verificationForgot,
@@ -157,18 +149,16 @@ describe('*********** AUTH ***********', () => {
   })
 
   describe('/GET token', () => {
-    it('it should NOT be able to consume the route since no token was sent', (done) => {
-      chai
-        .request(server)
+    test('it should NOT be able to consume the route since no token was sent', (done) => {
+      request(server)
         .get('/token')
         .end((err, res) => {
           res.should.have.status(401)
           done()
         })
     })
-    it('it should GET a fresh token', (done) => {
-      chai
-        .request(server)
+    test('it should GET a fresh token', (done) => {
+      request(server)
         .get('/token')
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {

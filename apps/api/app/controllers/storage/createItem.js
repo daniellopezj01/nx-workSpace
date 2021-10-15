@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-return-await */
 const mime = require('mime')
 const model = require('../../models/storage')

@@ -45,7 +45,9 @@ const saveUser = async (user) =>
   })
 
 connection.query('SELECT * FROM users', async (error, results) => {
-  if (error) throw error
+  if (error) {
+    throw error
+  }
   const throbber = ora('Guardando usuarios').start()
   for (let i = 0; i < results.length; i++) {
     const usuario = new User({

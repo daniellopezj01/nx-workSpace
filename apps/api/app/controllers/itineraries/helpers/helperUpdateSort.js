@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 const model = require('../../../models/itinerary')
 
 const helperUpdateSort = (ids) => {

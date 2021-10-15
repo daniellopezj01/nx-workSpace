@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 const model = require('../../../../models/conversation')
 
 const lookupCheckConversation = (fromUser, toUser) => new Promise(async (resolve) => {

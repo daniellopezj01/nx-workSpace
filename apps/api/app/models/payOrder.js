@@ -25,10 +25,12 @@ const PayOrderSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    externalCode: { // codigo que se utiliza para guardar pagos diferentes a las reservaciones y monedero
+    externalCode: {
+      // codigo que se utiliza para guardar pagos diferentes a las reservaciones y monedero
       type: String
     },
-    operationType: { // tipo de las posibles operaciones externas
+    operationType: {
+      // tipo de las posibles operaciones externas
       type: String,
       enum: ['flights']
     },

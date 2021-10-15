@@ -5,7 +5,10 @@ const passport = require('passport')
 const router = express.Router()
 require('../../config/passport')
 
-const { validateCreateItem, validateAgencyCallback } = require('../controllers/stripe/validators')
+const {
+  validateCreateItem,
+  validateAgencyCallback
+} = require('../controllers/stripe/validators')
 const {
   createItem,
   getUrlConnect,
@@ -44,6 +47,12 @@ router.post('/', requireAuth, trimRequest.all, validateCreateItem, createItem)
 
 router.get('/agency', requireAuth, trimRequest.all, getUrlConnect)
 
-router.post('/agency-callback', requireAuth, trimRequest.all, validateAgencyCallback, linkAccountToUser)
+router.post(
+  '/agency-callback',
+  requireAuth,
+  trimRequest.all,
+  validateAgencyCallback,
+  linkAccountToUser
+)
 
 module.exports = router

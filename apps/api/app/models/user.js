@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-this-alias */
+/* eslint-disable no-invalid-this */
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
@@ -159,7 +162,9 @@ UserSchema.pre('save', function (next) {
 UserSchema.post('findOneAndUpdate', async () => { })
 
 UserSchema.methods.comparePassword = function (passwordAttempt, cb) {
-  bcrypt.compare(passwordAttempt, this.password, (err, isMatch) => err ? cb(err) : cb(null, isMatch))
+  bcrypt.compare(passwordAttempt, this.password, (err, isMatch) =>
+    err ? cb(err) : cb(null, isMatch)
+  )
 }
 UserSchema.plugin(mongoosePaginate)
 UserSchema.plugin(aggregatePaginate)

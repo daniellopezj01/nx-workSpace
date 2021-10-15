@@ -8,16 +8,11 @@ require('../../config/passport')
 const requireAuth = passport.authenticate('jwt', {
   session: false
 })
-const {
-  validateGetItem
-} = require('../controllers/conversations/validators')
+const { validateGetItem } = require('../controllers/conversations/validators')
 
 const { roleAuthorization } = require('../controllers/auth/index')
 
-const {
-  getItem,
-  getItems
-} = require('../controllers/conversations/index')
+const { getItem, getItems } = require('../controllers/conversations/index')
 
 /**
  * @swagger
@@ -73,12 +68,6 @@ router.get(
  *      '200':
  *        description: retorna el objeto encontrado por el hash, si  no es encontrado retorna err
  */
-router.get(
-  '/:hash',
-  requireAuth,
-  trimRequest.all,
-  validateGetItem,
-  getItem
-)
+router.get('/:hash', requireAuth, trimRequest.all, validateGetItem, getItem)
 
 module.exports = router

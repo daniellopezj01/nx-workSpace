@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const { saveLoginAttemptsToDB } = require('./saveLoginAttemptsToDB')
 const { blockUser } = require('./blockUser')
 const { buildErrObject } = require('../../../middleware/utils')

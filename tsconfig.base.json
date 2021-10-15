@@ -12,6 +12,7 @@
     "module": "esnext",
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
+    "allowJs": true,
     "skipDefaultLibCheck": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,

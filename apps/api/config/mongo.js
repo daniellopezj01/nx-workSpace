@@ -13,7 +13,6 @@ const optionsConnection = {
 }
 
 module.exports = () => {
-  console.log(dbType)
   try {
     const connect = () => {
       mongoose.Promise = global.Promise

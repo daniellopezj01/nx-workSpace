@@ -35,9 +35,7 @@ const emailSupport = async (locale, ticket, type, message) => {
       subject = i18n.__('orderPay.SUBJECT')
       break
   }
-  const {
-    name, surname, email, _doc
-  } = user
+  const { name, surname, email, _doc } = user
   const tosend = {
     name: `${name || ''} ${surname || ''}`,
     email: email || _doc.email

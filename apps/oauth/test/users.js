@@ -29,13 +29,12 @@ const tokens = {
 const email = faker.internet.email()
 const createdID = []
 
-chai.use(chaiHttp)
+
 
 describe('*********** USERS ***********', () => {
   describe('/POST login', () => {
-    it('it should GET token as admin', (done) => {
-      chai
-        .request(server)
+    test('it should GET token as admin', (done) => {
+      request(server)
         .post('/login')
         .send(loginDetails.admin)
         .end((err, res) => {
@@ -46,9 +45,8 @@ describe('*********** USERS ***********', () => {
           done()
         })
     })
-    it('it should GET token as user', (done) => {
-      chai
-        .request(server)
+    test('it should GET token as user', (done) => {
+      request(server)
         .post('/login')
         .send(loginDetails.user)
         .end((err, res) => {
@@ -61,18 +59,16 @@ describe('*********** USERS ***********', () => {
     })
   })
   describe('/GET users', () => {
-    it('it should NOT be able to consume the route since no token was sent', (done) => {
-      chai
-        .request(server)
+    test('it should NOT be able to consume the route since no token was sent', (done) => {
+      request(server)
         .get('/users')
         .end((err, res) => {
           res.should.have.status(401)
           done()
         })
     })
-    it('it should GET all the users', (done) => {
-      chai
-        .request(server)
+    test('it should GET all the users', (done) => {
+      request(server)
         .get('/users')
         .set('Authorization', `Bearer ${tokens.admin}`)
         .end((err, res) => {
@@ -82,9 +78,8 @@ describe('*********** USERS ***********', () => {
           done()
         })
     })
-    it('it should GET the users with filters', (done) => {
-      chai
-        .request(server)
+    test('it should GET the users with filters', (done) => {
+      request(server)
         .get('/users?filter=admin&fields=name,email,city,country,phone')
         .set('Authorization', `Bearer ${tokens.admin}`)
         .end((err, res) => {
@@ -98,10 +93,9 @@ describe('*********** USERS ***********', () => {
     })
   })
   describe('/POST user', () => {
-    it('it should NOT POST a user without name', (done) => {
+    test('it should NOT POST a user without name', (done) => {
       const user = {}
-      chai
-        .request(server)
+      request(server)
         .post('/users')
         .set('Authorization', `Bearer ${tokens.admin}`)
         .send(user)
@@ -112,7 +106,7 @@ describe('*********** USERS ***********', () => {
           done()
         })
     })
-    it('it should POST a user ', (done) => {
+    test('it should POST a user ', (done) => {
       const user = {
         name: faker.random.words(),
         email,
@@ -124,8 +118,7 @@ describe('*********** USERS ***********', () => {
         city: faker.random.words(),
         country: faker.random.words()
       }
-      chai
-        .request(server)
+      request(server)
         .post('/users')
         .set('Authorization', `Bearer ${tokens.admin}`)
         .send(user)
@@ -137,15 +130,14 @@ describe('*********** USERS ***********', () => {
           done()
         })
     })
-    it('it should NOT POST a user with email that already exists', (done) => {
+    test('it should NOT POST a user with email that already exists', (done) => {
       const user = {
         name: faker.random.words(),
         email,
         password: faker.random.words(),
         role: 'admin'
       }
-      chai
-        .request(server)
+      request(server)
         .post('/users')
         .set('Authorization', `Bearer ${tokens.admin}`)
         .send(user)
@@ -156,15 +148,14 @@ describe('*********** USERS ***********', () => {
           done()
         })
     })
-    it('it should NOT POST a user with not known role', (done) => {
+    test('it should NOT POST a user with not known role', (done) => {
       const user = {
         name: faker.random.words(),
         email,
         password: faker.random.words(),
         role: faker.random.words()
       }
-      chai
-        .request(server)
+      request(server)
         .post('/users')
         .set('Authorization', `Bearer ${tokens.admin}`)
         .send(user)
@@ -177,10 +168,9 @@ describe('*********** USERS ***********', () => {
     })
   })
   describe('/GET/:id user', () => {
-    it('it should GET a user by the given id', (done) => {
+    test('it should GET a user by the given id', (done) => {
       const id = createdID.slice(-1).pop()
-      chai
-        .request(server)
+      request(server)
         .get(`/users/${id}`)
         .set('Authorization', `Bearer ${tokens.admin}`)
         .end((error, res) => {
@@ -193,7 +183,7 @@ describe('*********** USERS ***********', () => {
     })
   })
   describe('/PATCH/:id user', () => {
-    it('it should UPDATE a user given the id', (done) => {
+    test('it should UPDATE a user given the id', (done) => {
       const id = createdID.slice(-1).pop()
       const user = {
         name: 'JS123456',
@@ -205,8 +195,7 @@ describe('*********** USERS ***********', () => {
         city: faker.random.words(),
         country: faker.random.words()
       }
-      chai
-        .request(server)
+      request(server)
         .patch(`/users/${id}`)
         .set('Authorization', `Bearer ${tokens.admin}`)
         .send(user)
@@ -222,15 +211,14 @@ describe('*********** USERS ***********', () => {
           done()
         })
     })
-    it('it should NOT UPDATE a user with email that already exists', (done) => {
+    test('it should NOT UPDATE a user with email that already exists', (done) => {
       const id = createdID.slice(-1).pop()
       const user = {
         name: faker.random.words(),
         email: 'admin@admin.com',
         role: 'admin'
       }
-      chai
-        .request(server)
+      request(server)
         .patch(`/users/${id}`)
         .set('Authorization', `Bearer ${tokens.admin}`)
         .send(user)
@@ -241,15 +229,14 @@ describe('*********** USERS ***********', () => {
           done()
         })
     })
-    it('it should NOT UPDATE another user if not an admin', (done) => {
+    test('it should NOT UPDATE another user if not an admin', (done) => {
       const id = createdID.slice(-1).pop()
       const user = {
         name: faker.random.words(),
         email: 'toto@toto.com',
         role: 'user'
       }
-      chai
-        .request(server)
+      request(server)
         .patch(`/users/${id}`)
         .set('Authorization', `Bearer ${tokens.user}`)
         .send(user)
@@ -262,7 +249,7 @@ describe('*********** USERS ***********', () => {
     })
   })
   describe('/DELETE/:id user', () => {
-    it('it should DELETE a user given the id', (done) => {
+    test('it should DELETE a user given the id', (done) => {
       const user = {
         name: faker.random.words(),
         email: faker.internet.email(),
@@ -274,8 +261,7 @@ describe('*********** USERS ***********', () => {
         city: faker.random.words(),
         country: faker.random.words()
       }
-      chai
-        .request(server)
+      request(server)
         .post('/users')
         .set('Authorization', `Bearer ${tokens.admin}`)
         .send(user)

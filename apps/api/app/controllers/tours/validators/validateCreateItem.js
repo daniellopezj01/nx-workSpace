@@ -16,8 +16,7 @@ const validateCreateItem = [
     .not()
     .isEmpty()
     .withMessage('IS_EMPTY'),
-  check('specialInfo')
-    .optional(),
+  check('specialInfo').optional(),
   check('description')
     .exists()
     .withMessage('MISSING')
@@ -65,8 +64,7 @@ const validateCreateItem = [
     .not()
     .isEmpty()
     .withMessage('IS_EMPTY'),
-  check('accountAgency')
-    .optional(),
+  check('accountAgency').optional(),
   check('paymentMethod')
     .optional()
     .exists()
@@ -89,29 +87,32 @@ const validateCreateItem = [
     .not()
     .isEmpty()
     .withMessage('IS_EMPTY'),
-  check('tags')
-    .optional(),
+  check('tags').optional(),
   check('status')
     .optional()
     .not()
     .isEmpty()
     .withMessage('IS_EMPTY')
-    .custom((v) => v.toLowerCase() === 'publish' || v.toLowerCase() === 'draft' || v.toLowerCase() === 'construction'
-      ? v.toLowerCase()
-      : v === '')
+    .custom((v) =>
+      v.toLowerCase() === 'publish' ||
+        v.toLowerCase() === 'draft' ||
+        v.toLowerCase() === 'construction'
+        ? v.toLowerCase()
+        : v === ''
+    )
     .withMessage('ISNOT_VALID_VALUE'),
-  check('featured').optional().not().isEmpty()
-    .withMessage('IS_EMPTY'),
-  check('termsConditions').optional().not().isEmpty()
-    .withMessage('IS_EMPTY'),
+  check('featured').optional().not().isEmpty().withMessage('IS_EMPTY'),
+  check('termsConditions').optional().not().isEmpty().withMessage('IS_EMPTY'),
   check('type')
     .optional()
     .not()
     .isEmpty()
     .withMessage('IS_EMPTY')
-    .custom((v) => v.toLowerCase() === 'departures' || v.toLowerCase() === 'schedules'
-      ? v.toLowerCase()
-      : v === '')
+    .custom((v) =>
+      v.toLowerCase() === 'departures' || v.toLowerCase() === 'schedules'
+        ? v.toLowerCase()
+        : v === ''
+    )
     .withMessage('ISNOT_VALID_VALUE'),
   (req, res, next) => {
     validationResult(req, res, next)

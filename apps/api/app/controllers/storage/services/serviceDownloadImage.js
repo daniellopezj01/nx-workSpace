@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-unused-vars */
 const fs = require('fs')
 const request = require('request')

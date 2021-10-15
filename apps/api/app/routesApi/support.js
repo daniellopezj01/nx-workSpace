@@ -51,13 +51,7 @@ const requireAuth = passport.authenticate('jwt', {
  *      '201':
  *        description: retorna el objeto insertado en la coleccion
  */
-router.post(
-  '/',
-  requireAuth,
-  trimRequest.all,
-  validateCreateItem,
-  createItem
-)
+router.post('/', requireAuth, trimRequest.all, validateCreateItem, createItem)
 
 router.post(
   '/currentChat',

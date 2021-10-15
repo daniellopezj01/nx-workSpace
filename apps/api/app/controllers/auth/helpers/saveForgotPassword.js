@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const uuid = require('uuid')
 const ForgotPassword = require('../../../models/forgotPassword')
 const utils = require('../../../middleware/utils')

@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 const { matchedData } = require('express-validator')
 const db = require('../../middleware/db')
 const utils = require('../../middleware/utils')

@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 const utils = require('../../../middleware/utils')
 const model = require('../../../models/tour')
 const { lookupCreator } = require('../../tours/services/lookup')

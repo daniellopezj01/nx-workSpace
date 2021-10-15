@@ -2,7 +2,7 @@ const { saveLoginAttemptsToDB } = require('./saveLoginAttemptsToDB')
 const { blockUser } = require('./blockUser')
 const { buildErrObject } = require('../../../middleware/utils')
 
-const LOGIN_ATTEMPTS = 5
+const LOGIN_ATTEMPTS = process.env.NODE_ENV === 'production' ? 5 : 10000000;
 
 /**
  * Adds one attempt to loginAttempts, then compares loginAttempts with the constant

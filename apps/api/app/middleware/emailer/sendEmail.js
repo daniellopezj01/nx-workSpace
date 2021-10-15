@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable max-statements */
 const nodemailer = require('nodemailer')
 const aws = require('@aws-sdk/client-ses')
 const settings = require('../../models/settings')
@@ -22,7 +24,11 @@ const sendEmail = async (data = {}, callback) => {
     let options = {}
     let transporter = {}
     const { htmlMessage, user } = data
-    let defaultEmail = await db.findOne({ key: 'defaultEmail' }, settings, 'key email name')
+    let defaultEmail = await db.findOne(
+      { key: 'defaultEmail' },
+      settings,
+      'key email name'
+    )
     defaultEmail = defaultEmail._doc
     const emails = [
       {

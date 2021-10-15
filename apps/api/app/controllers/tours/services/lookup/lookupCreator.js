@@ -1,29 +1,30 @@
-const lookupCreator = (nameField = 'guide', key = '$idUser') => new Promise((resolve) => {
-  resolve({
-    $lookup: {
-      from: 'users',
-      let: { idUser: key },
-      pipeline: [
-        {
-          $match: {
-            $expr: {
-              $and: [{ $eq: ['$$idUser', '$_id'] }]
+const lookupCreator = (nameField = 'guide', key = '$idUser') =>
+  new Promise((resolve) => {
+    resolve({
+      $lookup: {
+        from: 'users',
+        let: { idUser: key },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $and: [{ $eq: ['$$idUser', '$_id'] }]
+              }
+            }
+          },
+          {
+            $project: {
+              _id: 1,
+              name: 1,
+              surname: 1,
+              avatar: 1,
+              email: 1
             }
           }
-        },
-        {
-          $project: {
-            _id: 1,
-            name: 1,
-            surname: 1,
-            avatar: 1,
-            email: 1
-          }
-        }
-      ],
-      as: nameField
-    }
+        ],
+        as: nameField
+      }
+    })
   })
-})
 
 module.exports = { lookupCreator }

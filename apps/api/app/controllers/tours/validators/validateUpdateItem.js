@@ -79,25 +79,11 @@ const validateUpdateItem = [
   check('category').optional(),
   check('tags').optional(),
   check('status').optional(),
-  check('specialInfo')
-    .optional(),
-  check('featured')
-    .optional()
-    .not()
-    .isEmpty()
-    .withMessage('IS_EMPTY'),
-  check('termsConditions')
-    .optional()
-    .not()
-    .isEmpty()
-    .withMessage('IS_EMPTY'),
-  check('type')
-    .optional()
-    .not()
-    .isEmpty()
-    .withMessage('IS_EMPTY'),
-  check('accountAgency')
-    .optional(),
+  check('specialInfo').optional(),
+  check('featured').optional().not().isEmpty().withMessage('IS_EMPTY'),
+  check('termsConditions').optional().not().isEmpty().withMessage('IS_EMPTY'),
+  check('type').optional().not().isEmpty().withMessage('IS_EMPTY'),
+  check('accountAgency').optional(),
   check('paymentMethod')
     .optional()
     .exists()
@@ -110,9 +96,13 @@ const validateUpdateItem = [
     .not()
     .isEmpty()
     .withMessage('IS_EMPTY')
-    .custom((v) => v.toLowerCase() === 'publish' || v.toLowerCase() === 'draft' || v.toLowerCase() === 'construction'
-      ? v.toLowerCase()
-      : v === '')
+    .custom((v) =>
+      v.toLowerCase() === 'publish' ||
+        v.toLowerCase() === 'draft' ||
+        v.toLowerCase() === 'construction'
+        ? v.toLowerCase()
+        : v === ''
+    )
     .withMessage('ISNOT_VALID_VALUE'),
   check('transport').optional(),
   check('id')

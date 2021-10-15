@@ -8,6 +8,7 @@ const {
 } = require('./singleFilter')
 const utils = require('../../../middleware/utils')
 
+// eslint-disable-next-line max-statements
 const filterMainSearch = (query) => new Promise(async (resolve, reject) => {
   try {
     const {

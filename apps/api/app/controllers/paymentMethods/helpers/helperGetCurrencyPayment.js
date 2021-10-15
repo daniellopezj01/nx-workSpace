@@ -1,5 +1,4 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/order */
+
 const db = require('../../../middleware/db')
 const payments = require('../../../models/paymentMethods')
 const modelSettings = require('../../../models/settings')
