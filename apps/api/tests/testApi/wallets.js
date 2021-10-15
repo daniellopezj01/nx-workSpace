@@ -18,36 +18,34 @@ const TokenCard = 'tok_visa'
 const pk = 'pk_test_Wj915HLpr6PpdvzQMuzq8idv'
 const url = process.env.URL_TEST_USER
 
-// chai.use(chaiHttp)
+
 
 describe('*********** WALLETS_USERS ***********', () => {
   describe('/POST login', () => {
-    it('it should GET token user', (done) => {
-      chai
-        .request(server)
+    test('it should GET token user', (done) => {
+      request(server)
         .post(`${url}/login`)
         .send(loginDetails)
         .end((err, res) => {
-          res.should.have.status(200)
-          res.body.should.be.an('object')
-          res.body.should.include.keys('accessToken', 'user')
+          expect(res).have.status(200)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
           const currentAccessToken = res.body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
-    it('it should GET a fresh token', (done) => {
-      chai
-        .request(server)
+    test('it should GET a fresh token', (done) => {
+      request(server)
         .post(`${url}/exchange`)
         .send({
           accessToken
         })
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.an('object')
-          body.should.include.keys('token', 'user')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
           const currentToken = body.token
           token = currentToken
           done()
@@ -56,76 +54,75 @@ describe('*********** WALLETS_USERS ***********', () => {
   })
 
   describe('/GET wallets', () => {
-    it('it should NOT be able to consume the route since no token was sent', (done) => {
-      chai
-        .request(server)
-        .get(`${url}/wallets`)
-        .end((err, res) => {
-          res.should.have.status(401)
-          done()
-        })
-    })
-    it('it should GET to wallets', (done) => {
-      chai
-        .request(server)
+    it(
+      'it should NOT be able to consume the route since no token was sent',
+      (done) => {
+        request(server)
+          .get(`${url}/wallets`)
+          .end((err, res) => {
+            expect(res).have.status(401)
+            done()
+          })
+      }
+    )
+    test('it should GET to wallets', (done) => {
+      request(server)
         .get(`${url}/wallets`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
+          expect(res).have.status(200)
           const { docs, total } = body
-          body.should.be.a('object')
-          body.hasNextPage.should.be.a('boolean')
-          body.hasPrevPage.should.be.a('boolean')
-          body.limit.should.be.a('number')
-          body.page.should.be.a('number')
-          body.pagingCounter.should.be.a('number')
-          body.totalDocs.should.be.a('number')
-          body.should.include.keys('total', 'docs')
-          docs.should.be.a('array').length(0)
-          total.should.be.a('number').eql(0)
+          expect(body).toBeInstanceOf(Object)
+          expect(body.hasNextPage).toBeInstanceOf(Boolean)
+          expect(body.hasPrevPage).toBeInstanceOf(Boolean)
+          expect(body.limit).toBeInstanceOf(Number)
+          expect(body.page).toBeInstanceOf(Number)
+          expect(body.pagingCounter).toBeInstanceOf(Number)
+          expect(body.totalDocs).toBeInstanceOf(Number)
+          expect(body).toEqual(expect.arrayContaining(['total', 'docs']))
+          expect(docs).be.a('array').toHaveLength(0)
+          expect(total).be.a('number').toBe(0)
           done()
         })
     })
   })
 
   describe('/POST postPayOrder', () => {
-    it('it should NOT POST  without params', (done) => {
+    test('it should NOT POST  without params', (done) => {
       const orderPost = {
         token: TokenCard
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/stripe`)
         .set('Authorization', `Bearer ${token}`)
         .send(orderPost)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(422)
-          body.should.be.a('object')
-          body.should.have.property('errors')
+          expect(res).have.status(422)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           const { errors } = body
-          errors.should.be.a('object')
-          errors.msg.should.be.a('array').length(2)
+          expect(errors).toBeInstanceOf(Object)
+          expect(errors.msg).be.a('array').toHaveLength(2)
           // errors[0].should.have.property('msg').eql('Invalid integer: NaN')
           done()
         })
     })
-    it('it should POST a Stripe with amount ', (done) => {
+    test('it should POST a Stripe with amount ', (done) => {
       const orderPost = {
         token: TokenCard,
         amount: price,
         pk
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/stripe`)
         .set('Authorization', `Bearer ${token}`)
         .send(orderPost)
         .end((err, res) => {
-          res.should.have.status(201)
-          res.body.should.be.a('object')
-          res.body.should.include.keys('id', 'client_secret')
+          expect(res).have.status(201)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).toEqual(expect.arrayContaining(['id', 'client_secret']))
           const customData = res.body
           chai
             .request(server)
@@ -134,20 +131,20 @@ describe('*********** WALLETS_USERS ***********', () => {
             .send(customData)
             .end((error, result) => {
               const { body } = result
-              result.should.have.status(200)
-              body.should.be.a('object')
-              body.should.include.keys('_id', 'idOperation')
-              body.should.have.property('status').eql('succeeded')
-              body.should.have.property('idOperation').eql(res.body.id)
-              body.should.have.property('amount').to.be.a('Number')
-              body.should.have.property('amount').eql(price)
+              expect(result).have.status(200)
+              expect(body).toBeInstanceOf(Object)
+              expect(body).toEqual(expect.arrayContaining(['_id', 'idOperation']))
+              expect(body).have.property('status').toBe('succeeded')
+              expect(body).have.property('idOperation').toEqual(res.body.id)
+              expect(body).toBeInstanceOf(Number)
+              expect(body).have.property('amount').toEqual(price)
               done()
             })
         })
     })
   })
 
-  after(() => {
+  afterAll(() => {
     collectionPayOrder.deleteMany({}, (err) => {
       if (err) {
         // console.log(err)

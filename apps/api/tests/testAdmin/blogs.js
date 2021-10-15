@@ -7,8 +7,6 @@ const chai = require('chai')
 const chaiHttp = require('chai-http')
 const server = require('../../server')
 const Blog = require('../../app/models/blog')
-// eslint-disable-next-line no-unused-vars
-const should = chai.should()
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -22,37 +20,35 @@ const description = faker.random.words()
 const newtitle = faker.random.words()
 const newDescription = faker.random.words()
 
-// chai.use(chaiHttp)
+
 const url = process.env.URL_TEST_ADMIN
 
 describe('*********** BLOGS_ADMIN ***********', () => {
   describe('/POST login', () => {
-    it('it should GET token user', (done) => {
-      chai
-        .request(server)
+    test('it should GET token user', (done) => {
+      request(server)
         .post(`${url}/login`)
         .send(loginDetails)
         .end((err, res) => {
-          res.should.have.status(200)
-          res.body.should.be.an('object')
-          res.body.should.include.keys('accessToken', 'user')
+          expect(res).have.status(200)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
           const currentAccessToken = res.body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
-    it('it should GET a fresh token', (done) => {
-      chai
-        .request(server)
+    test('it should GET a fresh token', (done) => {
+      request(server)
         .post(`${url}/exchange`)
         .send({
           accessToken
         })
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.an('object')
-          body.should.include.keys('token', 'user')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
           const currentToken = body.token
           token = currentToken
           done()
@@ -60,71 +56,66 @@ describe('*********** BLOGS_ADMIN ***********', () => {
     })
   })
   describe('/POST blogs', () => {
-    it('it should NOT POST a blogs without blogs', (done) => {
+    test('it should NOT POST a blogs without blogs', (done) => {
       const blogPostOne = {}
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/blogs`)
         .set('Authorization', `Bearer ${token}`)
         .send(blogPostOne)
         .end((err, res) => {
-          res.should.have.status(422)
+          expect(res).have.status(422)
           const { body } = res
-          body.should.be.a('object')
-          body.should.have.property('errors')
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           const { errors } = body
-          errors.should.have.property('msg').be.a('array').length(4)
+          expect(errors).toHaveProperty('msg').be.a('array').toHaveLength(4)
           done()
         })
     })
-    it('it should POST a blogs ', (done) => {
+    test('it should POST a blogs ', (done) => {
       const blogsPostTwo = {
         title,
         description
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/blogs`)
         .set('Authorization', `Bearer ${token}`)
         .send(blogsPostTwo)
         .end((err, res) => {
-          res.should.have.status(201)
+          expect(res).have.status(201)
           const { body } = res
-          body.should.be.a('object')
-          body.should.have.property('title').eql(title)
-          body.should.have.property('description').eql(description)
-          body.should.include.keys(
-            '_id',
-            'title',
-            'description',
-            'userCreator',
-            'slug'
+          expect(body).toBeInstanceOf(Object)
+          expect(body).have.property('title').toEqual(title)
+          expect(body).have.property('description').toEqual(description)
+          expect(body).toEqual(
+            expect.arrayContaining(['_id', 'title', 'description', 'userCreator', 'slug'])
           )
           createdID.push(res.body._id)
           done()
         })
     })
-    it('it should NOT be able to consume the route since no token was sent', (done) => {
-      const blogsPostTwo = {
-        title,
-        description
+    it(
+      'it should NOT be able to consume the route since no token was sent',
+      (done) => {
+        const blogsPostTwo = {
+          title,
+          description
+        }
+        request(server)
+          .post(`${url}/blogs`)
+          .send(blogsPostTwo)
+          .end((err, res) => {
+            expect(res).have.status(401)
+            done()
+          })
       }
-      chai
-        .request(server)
-        .post(`${url}/blogs`)
-        .send(blogsPostTwo)
-        .end((err, res) => {
-          res.should.have.status(401)
-          done()
-        })
-    })
+    )
   })
 
   describe('/PATCH/:id blogs', () => {
-    it('it should UPDATE a blogs given the id', (done) => {
+    test('it should UPDATE a blogs given the id', (done) => {
       const firstBlog = createdID.slice(-1).pop()
-      chai
-        .request(server)
+      request(server)
         .patch(`${url}/blogs/${firstBlog}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
@@ -133,69 +124,66 @@ describe('*********** BLOGS_ADMIN ***********', () => {
         })
         .end((error, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.a('object')
-          body.should.include.keys(
-            '_id',
-            'title',
-            'description',
-            'userCreator',
-            'slug'
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(
+            expect.arrayContaining(['_id', 'title', 'description', 'userCreator', 'slug'])
           )
-          body.should.have.property('_id').eql(firstBlog)
-          body.should.have.property('title').eql(newtitle)
-          body.should.have.property('description').eql(newDescription)
+          expect(body).have.property('_id').toEqual(firstBlog)
+          expect(body).have.property('title').toEqual(newtitle)
+          expect(body).have.property('description').toEqual(newDescription)
           createdID.push(res.body._id)
           done()
         })
     })
-    it('it should NOT be able to consume the route since no token was sent', (done) => {
-      const secondId = createdID.slice(-1).pop()
-      chai
-        .request(server)
-        .patch(`${url}/blogs/${secondId}`)
-        .send({
-          title: newtitle,
-          description: newDescription
-        })
-        .end((err, res) => {
-          res.should.have.status(401)
-          done()
-        })
-    })
+    it(
+      'it should NOT be able to consume the route since no token was sent',
+      (done) => {
+        const secondId = createdID.slice(-1).pop()
+        request(server)
+          .patch(`${url}/blogs/${secondId}`)
+          .send({
+            title: newtitle,
+            description: newDescription
+          })
+          .end((err, res) => {
+            expect(res).have.status(401)
+            done()
+          })
+      }
+    )
   })
 
   describe('/DELETE/:id blogs', () => {
-    it('it should DELETE a blogs given the id', (done) => {
+    test('it should DELETE a blogs given the id', (done) => {
       const blogsdelete = {
         title: faker.random.words(),
         description: faker.random.words()
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/blogs`)
         .set('Authorization', `Bearer ${token}`)
         .send(blogsdelete)
         .end((err, res) => {
-          res.should.have.status(201)
-          res.body.should.be.a('object')
-          res.body.should.include.keys('_id', 'description', 'title', 'slug')
+          expect(res).have.status(201)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).toEqual(expect.arrayContaining(['_id', 'description', 'title', 'slug']))
           chai
             .request(server)
             .delete(`${url}/blogs/${res.body._id}`)
             .set('Authorization', `Bearer ${token}`)
             .end((error, result) => {
               const { body } = result
-              result.should.have.status(200)
-              body.should.be.a('object')
-              body.should.have.property('msg').eql('DELETED')
+              expect(result).have.status(200)
+              expect(body).toBeInstanceOf(Object)
+              expect(body).have.property('msg').toBe('DELETED')
               done()
             })
         })
     })
   })
 
-  after(() => {
+  afterAll(() => {
     createdID.forEach((idBlog) => {
       Blog.findByIdAndRemove(idBlog, (err) => {
         if (err) {

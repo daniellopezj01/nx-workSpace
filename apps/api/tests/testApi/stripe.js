@@ -8,8 +8,6 @@ const chaiHttp = require('chai-http')
 const server = require('../../server')
 const payOrders = require('../../app/models/payOrder')
 
-// eslint-disable-next-line no-unused-vars
-const should = chai.should()
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -26,36 +24,34 @@ const reservation = { _id: '5fa18bde4087883d305e6800' }
 const price = 100
 const TokenCard = 'tok_visa'
 
-// chai.use(chaiHttp)
+
 
 describe('*********** STRIPE_USERS ***********', () => {
   describe('/POST login', () => {
-    it('it should GET token user', (done) => {
-      chai
-        .request(server)
+    test('it should GET token user', (done) => {
+      request(server)
         .post(`${url}/login`)
         .send(loginDetails)
         .end((err, res) => {
-          res.should.have.status(200)
-          res.body.should.be.an('object')
-          res.body.should.include.keys('accessToken', 'user')
+          expect(res).have.status(200)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
           const currentAccessToken = res.body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
-    it('it should GET a fresh token', (done) => {
-      chai
-        .request(server)
+    test('it should GET a fresh token', (done) => {
+      request(server)
         .post(`${url}/exchange`)
         .send({
           accessToken
         })
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.an('object')
-          body.should.include.keys('token', 'user')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
           const currentToken = body.token
           token = currentToken
           done()
@@ -64,88 +60,84 @@ describe('*********** STRIPE_USERS ***********', () => {
   })
 
   describe('/POST stripe', () => {
-    it('it should NOT POST  without params', (done) => {
+    test('it should NOT POST  without params', (done) => {
       const orderPost = {
         token: TokenCard
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/stripe`)
         .set('Authorization', `Bearer ${token}`)
         .send(orderPost)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(422)
-          body.should.be.a('object')
-          body.should.have.property('errors')
+          expect(res).have.status(422)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           const { errors } = body
-          errors.should.be.a('object')
-          errors.msg.should.be.a('array').length(2)
+          expect(errors).toBeInstanceOf(Object)
+          expect(errors.msg).be.a('array').toHaveLength(2)
           // errors.should.have.property('msg').eql('Invalid integer: NaN')
           done()
         })
     })
-    it('it should POST a Stripe with amount ', (done) => {
+    test('it should POST a Stripe with amount ', (done) => {
       const orderPost = {
         token: TokenCard,
         amount: price,
         pk
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/stripe`)
         .set('Authorization', `Bearer ${token}`)
         .send(orderPost)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(201)
-          body.should.be.a('object')
-          body.should.include.keys('id', 'client_secret', 'amount')
+          expect(res).have.status(201)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['id', 'client_secret', 'amount']))
           const { description, amount } = body
-          amount.should.be.a('number').eql(price * 100)
-          description.should.be.a('string').eql('Abono a monedero')
+          expect(amount).be.a('number').toEqual(price * 100)
+          expect(description).be.a('string').toBe('Abono a monedero')
           done()
         })
     })
-    it('it should NOT POST error params', (done) => {
+    test('it should NOT POST error params', (done) => {
       const orderPost = {
         token: TokenCard,
         reference: reservation._id
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/stripe`)
         .set('Authorization', `Bearer ${token}`)
         .send(orderPost)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(422)
-          body.should.be.a('object')
-          body.should.have.property('errors')
+          expect(res).have.status(422)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           const { errors } = body
-          errors.should.be.a('object')
-          errors.msg.should.be.a('array').length(2)
+          expect(errors).toBeInstanceOf(Object)
+          expect(errors.msg).be.a('array').toHaveLength(2)
           // errors.should.have.property('msg').eql('Invalid integer: NaN')
           done()
         })
     })
-    it('it should POST a Stripe with Reservation ', (done) => {
+    test('it should POST a Stripe with Reservation ', (done) => {
       const orderPost = {
         token: TokenCard,
         reference: reservation._id,
         amount: price,
         pk
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/stripe`)
         .set('Authorization', `Bearer ${token}`)
         .send(orderPost)
         .end((err, res) => {
-          res.should.have.status(201)
-          res.body.should.be.a('object')
-          res.body.amount.should.be.a('number').eql(price * 100)
-          res.body.should.include.keys('id', 'client_secret')
+          expect(res).have.status(201)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body.amount).be.a('number').toEqual(price * 100)
+          expect(res.body).toEqual(expect.arrayContaining(['id', 'client_secret']))
           customData = res.body
           chai
             .request(server)
@@ -154,33 +146,35 @@ describe('*********** STRIPE_USERS ***********', () => {
             .send(customData)
             .end((error, result) => {
               const { body } = result
-              result.should.have.status(200)
-              body.should.be.a('object')
-              body.should.include.keys('_id', 'idOperation', 'customData')
-              body.should.have.property('status').eql('succeeded')
-              body.should.have.property('idOperation').eql(res.body.id)
-              body.should.have.property('amount').to.be.a('Number')
-              body.should.have.property('amount').eql(price)
+              expect(result).have.status(200)
+              expect(body).toBeInstanceOf(Object)
+              expect(body).toEqual(expect.arrayContaining(['_id', 'idOperation', 'customData']))
+              expect(body).have.property('status').toBe('succeeded')
+              expect(body).have.property('idOperation').toEqual(res.body.id)
+              expect(body).toBeInstanceOf(Number)
+              expect(body).have.property('amount').toEqual(price)
               done()
             })
         })
     })
-    it('it should NOT be able to consume the route since no token was sent', (done) => {
-      chai
-        .request(server)
-        .post(`${url}/stripe`)
-        .send({
-          token: TokenCard,
-          reference: reservation._id,
-          amount: price
-        })
-        .end((err, res) => {
-          res.should.have.status(401)
-          done()
-        })
-    })
+    it(
+      'it should NOT be able to consume the route since no token was sent',
+      (done) => {
+        request(server)
+          .post(`${url}/stripe`)
+          .send({
+            token: TokenCard,
+            reference: reservation._id,
+            amount: price
+          })
+          .end((err, res) => {
+            expect(res).have.status(401)
+            done()
+          })
+      }
+    )
   })
-  after(() => {
+  afterAll(() => {
     payOrders.deleteMany({}, (err) => {
       if (err) {
         console.log(err)

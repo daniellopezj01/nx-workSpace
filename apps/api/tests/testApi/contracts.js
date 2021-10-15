@@ -6,8 +6,6 @@ const _ = require('lodash')
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 const server = require('../../server')
-// eslint-disable-next-line no-unused-vars
-const should = chai.should()
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -23,36 +21,34 @@ const contractData = {
   intent: 'buyTour'
 }
 
-// chai.use(chaiHttp)
+
 
 describe('*********** CONTRACTS_USER ***********', () => {
   describe('/POST login', () => {
-    it('it should GET token user', (done) => {
-      chai
-        .request(server)
+    test('it should GET token user', (done) => {
+      request(server)
         .post(`${url}/login`)
         .send(loginDetails)
         .end((err, res) => {
-          res.should.have.status(200)
-          res.body.should.be.an('object')
-          res.body.should.include.keys('accessToken', 'user')
+          expect(res).have.status(200)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
           const currentAccessToken = res.body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
-    it('it should GET a fresh token', (done) => {
-      chai
-        .request(server)
+    test('it should GET a fresh token', (done) => {
+      request(server)
         .post(`${url}/exchange`)
         .send({
           accessToken
         })
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.an('object')
-          body.should.include.keys('token', 'user')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
           const currentToken = body.token
           token = currentToken
           done()
@@ -61,74 +57,70 @@ describe('*********** CONTRACTS_USER ***********', () => {
   })
 
   describe('/POST contracts', () => {
-    it('it should NOT POST a contract without contracts', (done) => {
+    test('it should NOT POST a contract without contracts', (done) => {
       const contractOne = {}
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/contracts`)
         .set('Authorization', `Bearer ${token}`)
         .send(contractOne)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(422)
-          body.should.be.a('object')
-          body.should.have.property('errors')
+          expect(res).have.status(422)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           const { msg } = body.errors
-          msg.should.be.a('Array')
+          expect(msg).toBeInstanceOf(Array)
           done()
         })
     })
-    it('it should POST a contracts 100 percentage', (done) => {
-      chai
-        .request(server)
+    test('it should POST a contracts 100 percentage', (done) => {
+      request(server)
         .post(`${url}/contracts`)
         .set('Authorization', `Bearer ${token}`)
         .send(contractData)
         .end((err, res) => {
-          res.should.have.status(200)
+          expect(res).have.status(200)
           const { body } = res
-          body.should.be.a('object')
-          body.should.have.property('percentage').eql(contractData.payAmount)
-          body.should.have.property('idOperation').eql(contractData.id)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).have.property('percentage').toEqual(contractData.payAmount)
+          expect(body).have.property('idOperation').toEqual(contractData.id)
           done()
         })
     })
-    it('it should POST a contracts other percentage', (done) => {
+    test('it should POST a contracts other percentage', (done) => {
       contractData.payAmount = 10
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/contracts`)
         .set('Authorization', `Bearer ${token}`)
         .send(contractData)
         .end((err, res) => {
-          res.should.have.status(200)
+          expect(res).have.status(200)
           const { body } = res
-          body.should.be.a('object')
-          body.should.have.property('percentage').eql(contractData.payAmount)
-          body.should.have.property('idOperation').eql(contractData.id)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).have.property('percentage').toEqual(contractData.payAmount)
+          expect(body).have.property('idOperation').toEqual(contractData.id)
           done()
         })
     })
-    it('it should NOT POST a contracts are emply fields', (done) => {
+    test('it should NOT POST a contracts are emply fields', (done) => {
       const contractTwo = {
         id: '5fa1831e02945b26c4561774',
         payAmount: 100
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/contracts/`)
         .set('Authorization', `Bearer ${token}`)
         .send(contractTwo)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(422)
-          body.should.be.a('object')
-          body.should.have.property('errors')
+          expect(res).have.status(422)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           const { msg } = body.errors
-          msg.should.be.a('Array')
-          msg.should.have.length(2)
+          expect(msg).toBeInstanceOf(Array)
+          expect(msg).toHaveLength(2)
           const first = _.head(msg)
-          first.should.include.keys('msg', 'param', 'location')
+          expect(first).toEqual(expect.arrayContaining(['msg', 'param', 'location']))
           done()
         })
     })

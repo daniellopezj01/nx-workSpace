@@ -8,8 +8,6 @@ const chai = require('chai')
 const chaiHttp = require('chai-http')
 const itinerary = require('../../app/models/itinerary')
 const server = require('../../server')
-// eslint-disable-next-line no-unused-vars
-const should = chai.should()
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -43,36 +41,34 @@ const newObject = {
     }
   ]
 }
-// chai.use(chaiHttp)
+
 
 describe('*********** ITINERARIES_ADMIN ***********', () => {
   describe('/POST login', () => {
-    it('it should GET token user', (done) => {
-      chai
-        .request(server)
+    test('it should GET token user', (done) => {
+      request(server)
         .post(`${url}/login`)
         .send(loginDetails)
         .end((err, res) => {
-          res.should.have.status(200)
-          res.body.should.be.an('object')
-          res.body.should.include.keys('accessToken', 'user')
+          expect(res).have.status(200)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
           const currentAccessToken = res.body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
-    it('it should GET a fresh token', (done) => {
-      chai
-        .request(server)
+    test('it should GET a fresh token', (done) => {
+      request(server)
         .post(`${url}/exchange`)
         .send({
           accessToken
         })
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.an('object')
-          body.should.include.keys('token', 'user')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
           const currentToken = body.token
           token = currentToken
           done()
@@ -81,165 +77,162 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
   })
 
   describe('/GET itineraries', () => {
-    it('it should GET all the itineraries', (done) => {
-      chai
-        .request(server)
+    test('it should GET all the itineraries', (done) => {
+      request(server)
         .get(`${url}/itineraries`)
         .end((err, res) => {
-          res.should.have.status(200)
+          expect(res).have.status(200)
           const { body } = res
-          body.should.be.an('object')
-          body.docs.should.be.a('array')
+          expect(body).toBeInstanceOf(Object)
+          expect(Array.isArray(body.docs)).toBe(true)
           const firstItinerary = _.head(body.docs)
           idItinerary = firstItinerary._id
-          firstItinerary.should.include.keys(
+          expect(firstItinerary).toEqual(expect.arrayContaining([
             '_id',
             'itineraryName',
             'itineraryDescription',
             'idTour',
             'stringLocation',
             'details'
-          )
-          firstItinerary._id.should.be.a('string')
-          firstItinerary.itineraryName.should.be.a('string')
-          firstItinerary.idTour.should.be.a('string').eql(idTour)
-          firstItinerary.details.should.be.a('array')
+          ]))
+          expect(typeof firstItinerary._id).toBe('string')
+          expect(typeof firstItinerary.itineraryName).toBe('string')
+          expect(firstItinerary.idTour).be.a('string').toEqual(idTour)
+          expect(Array.isArray(firstItinerary.details)).toBe(true)
           done()
         })
     })
   })
 
   describe('/POST itineraries', () => {
-    it('it should NOT POST a itinerary without itinerary', (done) => {
+    test('it should NOT POST a itinerary without itinerary', (done) => {
       const itineraryOne = {}
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/itineraries`)
         .set('Authorization', `Bearer ${token}`)
         .send(itineraryOne)
         .end((err, res) => {
-          res.should.have.status(422)
+          expect(res).have.status(422)
           const { body } = res
-          body.should.be.a('object')
-          body.should.have.property('errors')
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           const { errors } = body
-          errors.should.have.property('msg').be.a('array')
+          expect(Array.isArray(errors)).toBe(true)
           done()
         })
     })
-    it('it should POST a itineraries ', (done) => {
-      chai
-        .request(server)
+    test('it should POST a itineraries ', (done) => {
+      request(server)
         .post(`${url}/itineraries`)
         .set('Authorization', `Bearer ${token}`)
         .send(newObject)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(201)
-          body.should.be.a('object')
-          body.should.include.keys('_id', 'stringLocation')
-          body.should.include.property('itineraryName').eql(itineraryName)
-          body._id.should.be.a('string')
-          body.itineraryName.should.be.a('string')
-          body.itineraryDescription.should.be.a('string')
-          body.idTour.should.be.a('string').eql(idTour)
-          body.stringLocation.should.be.a('object')
-          body.details.should.be.a('array')
+          expect(res).have.status(201)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['_id', 'stringLocation']))
+          expect(body).include.property('itineraryName').toEqual(itineraryName)
+          expect(typeof body._id).toBe('string')
+          expect(typeof body.itineraryName).toBe('string')
+          expect(typeof body.itineraryDescription).toBe('string')
+          expect(body.idTour).be.a('string').toEqual(idTour)
+          expect(body.stringLocation).toBeInstanceOf(Object)
+          expect(Array.isArray(body.details)).toBe(true)
           createdID.push(res.body._id)
           done()
         })
     })
-    it('it should NOT POST a itinerary that incomplete fields', (done) => {
+    test('it should NOT POST a itinerary that incomplete fields', (done) => {
       const itineraryTwo = {
         changeNameItinerary
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/itineraries`)
         .set('Authorization', `Bearer ${token}`)
         .send(itineraryTwo)
         .end((err, res) => {
-          res.should.have.status(422)
+          expect(res).have.status(422)
           const { body } = res
-          body.should.be.a('object')
-          body.should.have.property('errors')
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           const { errors } = body
-          errors.should.have.property('msg').be.a('array')
+          expect(Array.isArray(errors)).toBe(true)
           done()
         })
     })
-    it('it should NOT be able to consume the route since no token was sent', (done) => {
-      chai
-        .request(server)
-        .post(`${url}/itineraries`)
-        .send(newObject)
-        .end((err, res) => {
-          res.should.have.status(401)
-          done()
-        })
-    })
+    it(
+      'it should NOT be able to consume the route since no token was sent',
+      (done) => {
+        request(server)
+          .post(`${url}/itineraries`)
+          .send(newObject)
+          .end((err, res) => {
+            expect(res).have.status(401)
+            done()
+          })
+      }
+    )
   })
 
   describe('/GET/:id itineraries', () => {
-    it('it should GET a itinerary by the given id', (done) => {
-      chai
-        .request(server)
+    test('it should GET a itinerary by the given id', (done) => {
+      request(server)
         .get(`${url}/itineraries/${idItinerary}`)
         .set('Authorization', `Bearer ${token}`)
         .end((error, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.a('object')
-          body.should.have.property('_id').eql(idItinerary)
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).have.property('_id').toEqual(idItinerary)
           // res.body.should.include.property('itineraryName').eql(itineraryName)
-          body._id.should.be.a('string')
-          body.itineraryName.should.be.a('string')
-          body.itineraryDescription.should.be.a('string')
-          body.idTour.should.be.a('string').eql(idTour)
-          body.stringLocation.should.be.a('object')
-          body.details.should.be.a('array')
+          expect(typeof body._id).toBe('string')
+          expect(typeof body.itineraryName).toBe('string')
+          expect(typeof body.itineraryDescription).toBe('string')
+          expect(body.idTour).be.a('string').toEqual(idTour)
+          expect(body.stringLocation).toBeInstanceOf(Object)
+          expect(Array.isArray(body.details)).toBe(true)
           done()
         })
     })
-    it('it should GET a itinerary by the given id rute admin', (done) => {
+    test('it should GET a itinerary by the given id rute admin', (done) => {
       const id = createdID.slice(-1).pop()
-      chai
-        .request(server)
+      request(server)
         .get(`${url}/itineraries/${id}`)
         .set('Authorization', `Bearer ${token}`)
         .end((error, res) => {
-          res.should.have.status(200)
+          expect(res).have.status(200)
           const { body } = res
-          body.should.be.a('object')
-          body.should.have.property('_id').eql(id)
-          body.should.include.property('itineraryName').eql(itineraryName)
-          body._id.should.be.a('string')
-          body.itineraryName.should.be.a('string')
-          body.itineraryDescription.should.be.a('string')
-          body.idTour.should.be.a('string')
-          body.stringLocation.should.be.a('object')
-          body.details.should.be.a('array').length(2)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).have.property('_id').toEqual(id)
+          expect(body).include.property('itineraryName').toEqual(itineraryName)
+          expect(typeof body._id).toBe('string')
+          expect(typeof body.itineraryName).toBe('string')
+          expect(typeof body.itineraryDescription).toBe('string')
+          expect(typeof body.idTour).toBe('string')
+          expect(body.stringLocation).toBeInstanceOf(Object)
+          expect(body.details).be.a('array').toHaveLength(2)
           done()
         })
     })
-    it('it should NOT be able to consume the route since no token was sent rute admin', (done) => {
-      const id = createdID.slice(-1).pop()
-      chai
-        .request(server)
-        .get(`${url}/itineraries/${id}`)
-        .end((err, res) => {
-          res.should.have.status(401)
-          done()
-        })
-    })
+    it(
+      'it should NOT be able to consume the route since no token was sent rute admin',
+      (done) => {
+        const id = createdID.slice(-1).pop()
+        request(server)
+          .get(`${url}/itineraries/${id}`)
+          .end((err, res) => {
+            expect(res).have.status(401)
+            done()
+          })
+      }
+    )
   })
   describe('/PATCH/:id itineraries', () => {
-    it('it should UPDATE a itinerary given the id', (done) => {
+    test('it should UPDATE a itinerary given the id', (done) => {
       const id = createdID.slice(-1).pop()
       const newDescription = faker.random.words()
       const newTitle = faker.random.words()
-      chai
-        .request(server)
+      request(server)
         .patch(`${url}/itineraries/${id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
@@ -248,56 +241,54 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
         })
         .end((error, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.a('object')
-          body.should.include.keys(
-            '_id',
-            'itineraryDescription',
-            'itineraryName'
-          )
-          body.itineraryName.should.be.a('string')
-          body.should.have.property('_id').eql(id)
-          body.should.have.property('itineraryName').eql(newTitle)
-          body.should.have.property('itineraryDescription').eql(newDescription)
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['_id', 'itineraryDescription', 'itineraryName']))
+          expect(typeof body.itineraryName).toBe('string')
+          expect(body).have.property('_id').toEqual(id)
+          expect(body).have.property('itineraryName').toEqual(newTitle)
+          expect(body).have.property('itineraryDescription').toEqual(newDescription)
           done()
         })
     })
   })
-  it('it should NOT be able to consume the route since no token was sent', (done) => {
-    const id = createdID.slice(-1).pop()
-    const newDescription = faker.random.words()
-    const newTitle = faker.random.words()
-    chai
-      .request(server)
-      .patch(`${url}/itineraries/${id}`)
-      .send({
-        itineraryName: newTitle,
-        itineraryDescription: newDescription
-      })
-      .end((err, res) => {
-        res.should.have.status(401)
-        done()
-      })
-  })
+  it(
+    'it should NOT be able to consume the route since no token was sent',
+    (done) => {
+      const id = createdID.slice(-1).pop()
+      const newDescription = faker.random.words()
+      const newTitle = faker.random.words()
+      request(server)
+        .patch(`${url}/itineraries/${id}`)
+        .send({
+          itineraryName: newTitle,
+          itineraryDescription: newDescription
+        })
+        .end((err, res) => {
+          expect(res).have.status(401)
+          done()
+        })
+    }
+  )
 })
 
 describe('/DELETE/:id itineraries', () => {
-  it('it should DELETE a itinerary given the id', (done) => {
+  test('it should DELETE a itinerary given the id', (done) => {
     const id = createdID.slice(-1).pop()
     chai
       .request(server)
       .delete(`${url}/itineraries/${id}`)
       .set('Authorization', `Bearer ${token}`)
       .end((error, result) => {
-        result.should.have.status(200)
-        result.body.should.be.a('object')
-        result.body.should.have.property('msg').eql('DELETED')
+        expect(result).have.status(200)
+        expect(result.body).toBeInstanceOf(Object)
+        expect(result.body).have.property('msg').toBe('DELETED')
         done()
       })
   })
 })
 
-after(() => {
+afterAll(() => {
   createdID.forEach((id) => {
     itinerary.findByIdAndRemove(id, (err) => {
       if (err) {

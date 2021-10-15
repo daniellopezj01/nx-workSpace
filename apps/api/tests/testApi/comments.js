@@ -26,11 +26,11 @@
 // const emptyUser = '5fa29a9584b39b13786fbfc2'
 // let globalCommets = []
 // const url = process.env.URL_TEST_USER
-// chai.use(chaiHttp)
+
 
 // describe('*********** COMMENTS_USER ***********', () => {
 //   describe('/POST login', () => {
-//     it('it should GET token user', (done) => {
+//     test('it should GET token user', (done) => {
 //       chai
 //         .request(server)
 //         .post(`${url}/login`)
@@ -44,7 +44,7 @@
 //           done()
 //         })
 //     })
-//     it('it should GET a fresh token', (done) => {
+//     test('it should GET a fresh token', (done) => {
 //       chai
 //         .request(server)
 //         .post(`${url}/exchange`)
@@ -64,7 +64,7 @@
 //   })
 
 //   describe('/POST comments', () => {
-//     it('it should NOT POST a commentary without comments', (done) => {
+//     test('it should NOT POST a commentary without comments', (done) => {
 //       const commentaryOne = {}
 //       chai
 //         .request(server)
@@ -79,7 +79,7 @@
 //           done()
 //         })
 //     })
-//     it('it should POST a comments ', (done) => {
+//     test('it should POST a comments ', (done) => {
 //       const commentaryPost = {
 //         content,
 //         status: 'public',
@@ -104,7 +104,7 @@
 //           done()
 //         })
 //     })
-//     it('it should NOT POST a comments are emply fields', (done) => {
+//     test('it should NOT POST a comments are emply fields', (done) => {
 //       const commentaryTwo = {
 //         content,
 //         status: 'public',
@@ -136,7 +136,7 @@
 //           done()
 //         })
 //     })
-//     it('it should GET the comments for  Slug Tour, Is Empty ', (done) => {
+//     test('it should GET the comments for  Slug Tour, Is Empty ', (done) => {
 //       chai
 //         .request(server)
 //         .get(`${url}/comments/empty`)
@@ -147,7 +147,7 @@
 //           done()
 //         })
 //     })
-//     it('it should GET the comments for User, Is Empty ', (done) => {
+//     test('it should GET the comments for User, Is Empty ', (done) => {
 //       chai
 //         .request(server)
 //         .get(`${url}/comments/forUser/${emptyUser}`)
@@ -159,7 +159,7 @@
 //           done()
 //         })
 //     })
-//     it('it should GET the comments for  slug Tour', (done) => {
+//     test('it should GET the comments for  slug Tour', (done) => {
 //       chai
 //         .request(server)
 //         .get(`${url}/comments/${slugTour}`)
@@ -173,7 +173,7 @@
 //           done()
 //         })
 //     })
-//     it('it should GET the comments for User', (done) => {
+//     test('it should GET the comments for User', (done) => {
 //       chai
 //         .request(server)
 //         .get(`${url}/comments/forUser/${idUser}`)
@@ -191,7 +191,7 @@
 //   })
 
 //   describe('/PATCH/:id comments', () => {
-//     it('it should UPDATE a commentary given the id', (done) => {
+//     test('it should UPDATE a commentary given the id', (done) => {
 //       const lastComment = _.last(globalCommets)
 //       const id = lastComment._id
 //       const newContent = faker.random.words()
@@ -214,7 +214,7 @@
 //           done()
 //         })
 //     })
-//     it('it should NOT be able to consume the route since no token was sent', (done) => {
+//     test('it should NOT be able to consume the route since no token was sent', (done) => {
 //       const id = globalCommets[globalCommets.length - 1]._id
 //       chai
 //         .request(server)
@@ -231,7 +231,7 @@
 //   })
 
 //   describe('/DELETE/:id comments', () => {
-//     it('it should NOT be able to consume the route since no token was sent', (done) => {
+//     test('it should NOT be able to consume the route since no token was sent', (done) => {
 //       const comment = globalCommets[globalCommets.length - 1]
 //       const newId = comment._id
 //       chai
@@ -242,7 +242,7 @@
 //           done()
 //         })
 //     })
-//     it('it should DELETE a commentary given the id', (done) => {
+//     test('it should DELETE a commentary given the id', (done) => {
 //       const comment = globalCommets[globalCommets.length - 1]
 //       const newId = comment._id
 //       chai

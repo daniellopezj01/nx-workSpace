@@ -22,36 +22,34 @@ const hash = 'YPp_bWfeEWQV'
 
 const url = process.env.URL_TEST_USER
 
-// chai.use(chaiHttp)
+
 
 describe('*********** SUPPORT_USERS ***********', () => {
   describe('/POST login', () => {
-    it('it should GET token user', (done) => {
-      chai
-        .request(server)
+    test('it should GET token user', (done) => {
+      request(server)
         .post(`${url}/login`)
         .send(loginDetails)
         .end((err, res) => {
-          res.should.have.status(200)
-          res.body.should.be.an('object')
-          res.body.should.include.keys('accessToken', 'user')
+          expect(res).have.status(200)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
           const currentAccessToken = res.body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
-    it('it should GET a fresh token', (done) => {
-      chai
-        .request(server)
+    test('it should GET a fresh token', (done) => {
+      request(server)
         .post(`${url}/exchange`)
         .send({
           accessToken
         })
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.an('object')
-          body.should.include.keys('token', 'user')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
           const currentToken = body.token
           token = currentToken
           done()
@@ -59,53 +57,49 @@ describe('*********** SUPPORT_USERS ***********', () => {
     })
   })
   describe('/GET support', () => {
-    it('it should NOT be able to consume the route since no token was sent', (done) => {
-      chai
-        .request(server)
-        .post(`${url}/support`)
-        .end((err, res) => {
-          res.should.have.status(401)
-          done()
-        })
-    })
-    it('it should GET all the support', (done) => {
-      chai
-        .request(server)
+    it(
+      'it should NOT be able to consume the route since no token was sent',
+      (done) => {
+        request(server)
+          .post(`${url}/support`)
+          .end((err, res) => {
+            expect(res).have.status(401)
+            done()
+          })
+      }
+    )
+    test('it should GET all the support', (done) => {
+      request(server)
         .get(`${url}/support/${codeReservation}`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(200)
+          expect(res).have.status(200)
           const { body } = res
-          body.docs.should.be.a('array')
-          body.totalDocs.should.be.a('number').eql(1)
+          expect(Array.isArray(body.docs)).toBe(true)
+          expect(body.totalDocs).be.a('number').toBe(1)
           const { docs } = body
           const firstChat = _.head(docs)
-          firstChat.should.include.keys(
-            '_id',
-            'status',
-            'hash',
-            'firstMessage',
-            'codeReservation'
+          expect(firstChat).toEqual(
+            expect.arrayContaining(['_id', 'status', 'hash', 'firstMessage', 'codeReservation'])
           )
-          firstChat._id.should.be.a('string')
-          firstChat.hash.should.be.a('string').eql(hash)
-          firstChat.codeReservation.should.be.a('string').eql(codeReservation)
+          expect(typeof firstChat._id).toBe('string')
+          expect(firstChat.hash).be.a('string').toEqual(hash)
+          expect(firstChat.codeReservation).be.a('string').toEqual(codeReservation)
           done()
         })
     })
-    it('it should not  GET support by codeReservation', (done) => {
-      chai
-        .request(server)
+    test('it should not  GET support by codeReservation', (done) => {
+      request(server)
         .get(`${url}/support/6035014000c0712dcc000368`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(200)
+          expect(res).have.status(200)
           const { body } = res
-          body.should.be.an('object')
-          body.should.have.property('docs')
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('docs')
           const { docs } = body
-          docs.should.be.an('array')
-          docs.should.have.length(0)
+          expect(Array.isArray(docs)).toBe(true)
+          expect(docs).toHaveLength(0)
           done()
         })
     })
@@ -116,20 +110,19 @@ describe('*********** SUPPORT_USERS ***********', () => {
       const messagePost = {
         message: faker.random.words()
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/support`)
         .set('Authorization', `Bearer ${token}`)
         .send(messagePost)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(422)
-          body.should.be.a('object')
-          body.should.have.property('errors')
+          expect(res).have.status(422)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           done()
         })
     })
-    // it('it should POST to without hash', (done) => {
+    // test('it should POST to without hash', (done) => {
     //   const messagePost = {
     //     message: faker.random.words(),
     //     codeReservation
@@ -154,29 +147,28 @@ describe('*********** SUPPORT_USERS ***********', () => {
     //       done()
     //     })
     // })
-    it('it should POST to with hash', (done) => {
+    test('it should POST to with hash', (done) => {
       const messagePost = {
         message: faker.random.words(),
         codeReservation,
         hash
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/support`)
         .set('Authorization', `Bearer ${token}`)
         .send(messagePost)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.a('object')
-          body.should.include.keys('_id', 'hash')
-          body.should.include.property('hash').eql(hash)
-          body._id.should.be.a('string')
-          body.hash.should.be.a('string')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['_id', 'hash']))
+          expect(body).include.property('hash').toEqual(hash)
+          expect(typeof body._id).toBe('string')
+          expect(typeof body.hash).toBe('string')
           // body.messages.should.be.a('array').length(2)
-          body.codeReservation.should.be.a('string').eql(codeReservation)
+          expect(body.codeReservation).be.a('string').toEqual(codeReservation)
           const lastMessage = _.last(body.messages)
-          lastMessage.should.have.property('message').eql(messagePost.message)
+          expect(lastMessage).have.property('message').toEqual(messagePost.message)
           createdID.push(res.body._id)
           done()
         })
@@ -186,22 +178,21 @@ describe('*********** SUPPORT_USERS ***********', () => {
         message: faker.random.words(),
         codeReservation
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/support`)
         .set('Authorization', `Bearer ${token}`)
         .send(messagePost)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.a('object')
-          body.should.include.keys('_id', 'hash')
-          body._id.should.be.a('string')
-          body.hash.should.be.a('string')
-          body.messages.should.be.a('array').length(1)
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['_id', 'hash']))
+          expect(typeof body._id).toBe('string')
+          expect(typeof body.hash).toBe('string')
+          expect(body.messages).be.a('array').toHaveLength(1)
           const lastMessage = _.last(body.messages)
-          lastMessage.should.have.property('message').eql(messagePost.message)
-          body.codeReservation.should.be.a('string').eql(codeReservation)
+          expect(lastMessage).have.property('message').toEqual(messagePost.message)
+          expect(body.codeReservation).be.a('string').toEqual(codeReservation)
           createdID.push(res.body._id)
           done()
         })
@@ -213,27 +204,26 @@ describe('*********** SUPPORT_USERS ***********', () => {
       codeReservation,
       hash
     }
-    it('it should GET support by hash', (done) => {
-      chai
-        .request(server)
+    test('it should GET support by hash', (done) => {
+      request(server)
         .post(`${url}/support/currentChat`)
         .set('Authorization', `Bearer ${token}`)
         .send(object)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.an('object')
-          body.should.include.keys('_id', 'hash')
-          body.should.have.property('hash').eql(hash)
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['_id', 'hash']))
+          expect(body).have.property('hash').toEqual(hash)
           // body.messages.should.be.a('array').length(2)
-          body.codeReservation.should.be.a('string').eql(codeReservation)
+          expect(body.codeReservation).be.a('string').toEqual(codeReservation)
           createdID.push(res.body._id)
           done()
         })
     })
   })
 
-  after(() => {
+  afterAll(() => {
     createdID.forEach((id) => {
       support.findByIdAndRemove(id, (err) => {
         if (err) {

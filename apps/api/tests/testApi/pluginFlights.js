@@ -13,11 +13,11 @@
 // const oldSearchId = '140f2e6e-5f31-4f56-ad71-1511c06138b1'
 // let currentSearchId = ''
 // const url = '/api/1.0/plugins/travelpayouts-api-fligths/events'
-// chai.use(chaiHttp)
+
 
 // describe('*********** FLIGHTS ***********', () => {
 //   describe('/POST POPULAR ROUTES FOR AIRLINE', () => {
-//     it('it should not get flights For type, error in params because empty', (done) => {
+//     test('it should not get flights For type, error in params because empty', (done) => {
 //       const paramsForType = {}
 //       chai
 //         .request(server)
@@ -54,7 +54,7 @@
 //           done()
 //         })
 //     })
-//     it('it get routes for airline, default limit', (done) => {
+//     test('it get routes for airline, default limit', (done) => {
 //       const paramsForType = {
 //         params: {
 //           airline_code: 'SU'
@@ -76,7 +76,7 @@
 //           done()
 //         })
 //     })
-//     it('it get routes for airline, with limit', (done) => {
+//     test('it get routes for airline, with limit', (done) => {
 //       const limit = 5
 //       const paramsForType = {
 //         params: {
@@ -103,7 +103,7 @@
 //   })
 
 //   describe('/POST POPULAR DESTINATIONS', () => {
-//     it('it should not get flights For type, error in params because empty', (done) => {
+//     test('it should not get flights For type, error in params because empty', (done) => {
 //       const paramsForType = {}
 //       chai
 //         .request(server)
@@ -121,7 +121,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not get flights For type, error in param Origin', (done) => {
+//     test('it should not get flights For type, error in param Origin', (done) => {
 //       const paramsForType = {
 //         params: {}
 //       }
@@ -163,7 +163,7 @@
 //           done()
 //         })
 //     })
-//     it('it get popular destinations for Airport', (done) => {
+//     test('it get popular destinations for Airport', (done) => {
 //       const paramsForType = {
 //         params: {
 //           origin: 'BOG'
@@ -191,7 +191,7 @@
 //   })
 
 //   describe('/POST SEARCH AIRPORT', () => {
-//     it('it should not search airport, error in params because empty', (done) => {
+//     test('it should not search airport, error in params because empty', (done) => {
 //       const paramsForType = {}
 //       chai
 //         .request(server)
@@ -206,7 +206,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not search airport, error in param term', (done) => {
+//     test('it should not search airport, error in param term', (done) => {
 //       const paramsForType = {
 //         params: {}
 //       }
@@ -226,7 +226,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not fing airport, error in term', (done) => {
+//     test('it should not fing airport, error in term', (done) => {
 //       const paramsForType = {
 //         params: {
 //           term: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
@@ -245,7 +245,7 @@
 //           done()
 //         })
 //     })
-//     it('it get Airport for term ', (done) => {
+//     test('it get Airport for term ', (done) => {
 //       const paramsForType = {
 //         params: {
 //           term: 'medellin'
@@ -277,7 +277,7 @@
 //   })
 
 //   describe('/POST CHEAPEST TICKETS', () => {
-//     it('it should not cheapest tickets, error in params because empty', (done) => {
+//     test('it should not cheapest tickets, error in params because empty', (done) => {
 //       const paramsForType = {}
 //       chai
 //         .request(server)
@@ -292,7 +292,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not cheapest tickets, error in param origin', (done) => {
+//     test('it should not cheapest tickets, error in param origin', (done) => {
 //       const paramsForType = {
 //         params: {
 //           destination: 'MDE',
@@ -316,7 +316,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not cheapest tickets, error in Dates', (done) => {
+//     test('it should not cheapest tickets, error in Dates', (done) => {
 //       const paramsForType = {
 //         params: {
 //           origin: 'BOG',
@@ -340,7 +340,7 @@
 //           done()
 //         })
 //     })
-//     it('it should fetch cheapest tickets ', (done) => {
+//     test('it should fetch cheapest tickets ', (done) => {
 //       const paramsForType = {
 //         params: {
 //           origin: 'BOG',
@@ -367,7 +367,7 @@
 //   })
 
 //   describe('/POST_TRENDS_PRICE', () => {
-//     it('it should not trends price, error in params because empty', (done) => {
+//     test('it should not trends price, error in params because empty', (done) => {
 //       const paramsForType = {}
 //       chai
 //         .request(server)
@@ -385,7 +385,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not trends price, error in param origin', (done) => {
+//     test('it should not trends price, error in param origin', (done) => {
 //       const paramsForType = {
 //         params: {
 //           destination: 'MAD',
@@ -410,7 +410,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not trends price, error in Dates', (done) => {
+//     test('it should not trends price, error in Dates', (done) => {
 //       const paramsForType = {
 //         params: {
 //           origin: 'BOG',
@@ -435,7 +435,7 @@
 //           done()
 //         })
 //     })
-//     it('it should fetch trends price', (done) => {
+//     test('it should fetch trends price', (done) => {
 //       const paramsForType = {
 //         params: {
 //           origin: 'BOG',
@@ -463,7 +463,7 @@
 //   })
 
 //   describe('/POST TRENDS PRICE MONTH', () => {
-//     it('it should not trends price month, error in params because empty', (done) => {
+//     test('it should not trends price month, error in params because empty', (done) => {
 //       const paramsForType = {}
 //       chai
 //         .request(server)
@@ -481,7 +481,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not trends price month, error in param origin', (done) => {
+//     test('it should not trends price month, error in param origin', (done) => {
 //       const paramsForType = {
 //         params: {
 //           destination: 'MAD',
@@ -506,7 +506,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not trends price month, error in origin not exists', (done) => {
+//     test('it should not trends price month, error in origin not exists', (done) => {
 //       const paramsForType = {
 //         params: {
 //           origin: 'BOGGGG',
@@ -530,7 +530,7 @@
 //           done()
 //         })
 //     })
-//     it('it should fetch trends price month', (done) => {
+//     test('it should fetch trends price month', (done) => {
 //       const paramsForType = {
 //         params: {
 //           origin: 'BOG',
@@ -559,7 +559,7 @@
 //   })
 
 //   describe('/POST GET FLIGHTS', () => {
-//     it('it should not get flights, error in params because empty', (done) => {
+//     test('it should not get flights, error in params because empty', (done) => {
 //       const paramsForType = {}
 //       chai
 //         .request(server)
@@ -574,7 +574,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not get flights, error in params', (done) => {
+//     test('it should not get flights, error in params', (done) => {
 //       const paramsForType = {
 //         params: {}
 //       }
@@ -590,7 +590,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not get flights, params incompleted', (done) => {
+//     test('it should not get flights, params incompleted', (done) => {
 //       const paramsForType = {
 //         params: {
 //           host: 'beta.aviasales.ru',
@@ -616,7 +616,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not get flights, error in dates', (done) => {
+//     test('it should not get flights, error in dates', (done) => {
 //       const paramsForType = {
 //         params: {
 //           host: 'beta.aviasales.ru',
@@ -651,7 +651,7 @@
 //           done()
 //         })
 //     })
-//     it('it should get flights', (done) => {
+//     test('it should get flights', (done) => {
 //       const paramsForType = {
 //         params: {
 //           host: 'beta.aviasales.ru',
@@ -693,7 +693,7 @@
 //   })
 
 //   describe('/POST GET ALL FLIGHTS', () => {
-//     it('it should not get ALL lights, error in params because empty', (done) => {
+//     test('it should not get ALL lights, error in params because empty', (done) => {
 //       const paramsForType = {}
 //       chai
 //         .request(server)
@@ -708,7 +708,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not get ALL flights, error in params', (done) => {
+//     test('it should not get ALL flights, error in params', (done) => {
 //       const paramsForType = {
 //         params: {}
 //       }
@@ -728,7 +728,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not get ALL flights, old search id', (done) => {
+//     test('it should not get ALL flights, old search id', (done) => {
 //       const paramsForType = {
 //         params: {
 //           search_id: oldSearchId
@@ -750,7 +750,7 @@
 //           done()
 //         })
 //     })
-//     it('it should get ALL flights', (done) => {
+//     test('it should get ALL flights', (done) => {
 //       const paramsForType = {
 //         params: {
 //           search_id: currentSearchId
@@ -774,7 +774,7 @@
 //   })
 
 //   describe('/POST PAY_REFERENCIAL', () => {
-//     it('it should not get pay referencial, error in params because empty', (done) => {
+//     test('it should not get pay referencial, error in params because empty', (done) => {
 //       const paramsForType = {}
 //       chai
 //         .request(server)
@@ -789,7 +789,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not get pay referencial, error in params', (done) => {
+//     test('it should not get pay referencial, error in params', (done) => {
 //       const paramsForType = {
 //         params: {
 //           search_id: oldSearchId
@@ -811,7 +811,7 @@
 //           done()
 //         })
 //     })
-//     it('it should not get URL, old params', (done) => {
+//     test('it should not get URL, old params', (done) => {
 //       const paramsForType = {
 //         params: {
 //           search_id: oldSearchId,
@@ -831,7 +831,7 @@
 //           done()
 //         })
 //     })
-//     it('it should  get URL pay_referencial', (done) => {
+//     test('it should  get URL pay_referencial', (done) => {
 //       const paramsForType = {
 //         params: {
 //           search_id: currentSearchId,

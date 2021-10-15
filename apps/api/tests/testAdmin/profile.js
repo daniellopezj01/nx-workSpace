@@ -2,21 +2,18 @@
 
 process.env.NODE_ENV = 'test'
 
-const chai = require('chai')
 const chaiHttp = require('chai-http')
 const server = require('../../server')
-// eslint-disable-next-line no-unused-vars
-const should = chai.should()
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345'
 }
 
-// chai.use(chaiHttp)
+
 
 describe('*********** PROFILE ***********', () => {
   // describe('/POST login', () => {
-  //   it('it should GET token', (done) => {
+  //   test('it should GET token', (done) => {
   //     chai
   //       .request(server)
   //       .post('/api/1.0/login')
@@ -32,7 +29,7 @@ describe('*********** PROFILE ***********', () => {
   //   })
   // })
   // describe('/GET profile', () => {
-  //   it('it should NOT be able to consume the route since no token was sent', (done) => {
+  //   test('it should NOT be able to consume the route since no token was sent', (done) => {
   //     chai
   //       .request(server)
   //       .get('/api/1.0/profile')
@@ -41,7 +38,7 @@ describe('*********** PROFILE ***********', () => {
   //         done()
   //       })
   //   })
-  //   it('it should GET profile', (done) => {
+  //   test('it should GET profile', (done) => {
   //     chai
   //       .request(server)
   //       .get('/api/1.0/profile')
@@ -77,7 +74,7 @@ describe('*********** PROFILE ***********', () => {
   //   // })
   // })
   // describe('/PATCH profile', () => {
-  //   it('it should UPDATE profile', (done) => {
+  //   test('it should UPDATE profile', (done) => {
   //     const user = {
   //       name: 'Test123456',
   //       surname: 'Test123456',
@@ -105,7 +102,7 @@ describe('*********** PROFILE ***********', () => {
   //         done()
   //       })
   //   })
-  //   it('it should NOT UPDATE profile with email that already exists', (done) => {
+  //   test('it should NOT UPDATE profile with email that already exists', (done) => {
   //     const user = {
   //       email: 'user@user.com'
   //     }
@@ -121,7 +118,7 @@ describe('*********** PROFILE ***********', () => {
   //         done()
   //       })
   //   })
-  //   it('it should NOT UPDATE profile with not valid URL´s', (done) => {
+  //   test('it should NOT UPDATE profile with not valid URL´s', (done) => {
   //     const user = {
   //       name: 'Test123456',
   //       urlTwitter: 'hello',
@@ -214,7 +211,7 @@ describe('*********** PROFILE ***********', () => {
   //   // })
   // })
   // describe('/POST profile/changePassword', () => {
-  //   it('it should NOT change password', (done) => {
+  //   test('it should NOT change password', (done) => {
   //     const data = {
   //       old: '123456',
   //       newpass: '123456'
@@ -234,7 +231,7 @@ describe('*********** PROFILE ***********', () => {
   //         done()
   //       })
   //   })
-  //   it('it should NOT change a too short password', (done) => {
+  //   test('it should NOT change a too short password', (done) => {
   //     const data = {
   //       old: '1234',
   //       newpass: '1234'
@@ -254,7 +251,7 @@ describe('*********** PROFILE ***********', () => {
   //         done()
   //       })
   //   })
-  //   it('it should change password', (done) => {
+  //   test('it should change password', (done) => {
   //     const data = {
   //       old: '12345',
   //       newass: '12345'

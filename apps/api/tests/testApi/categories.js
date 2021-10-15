@@ -6,8 +6,6 @@ const chai = require('chai')
 const chaiHttp = require('chai-http')
 const modalCategory = require('../../app/models/category')
 const server = require('../../server')
-// eslint-disable-next-line no-unused-vars
-const should = chai.should()
 const loginDetails = {
   email: 'user@user.com',
   password: '12345'
@@ -15,75 +13,71 @@ const loginDetails = {
 const createdID = []
 
 const url = process.env.URL_TEST_USER
-// chai.use(chaiHttp)
+
 
 describe('*********** CATEGORIES_USER ***********', () => {
   describe('/POST login', () => {
-    it('it should GET token user', (done) => {
-      chai
-        .request(server)
+    test('it should GET token user', (done) => {
+      request(server)
         .post(`${url}/login`)
         .send(loginDetails)
         .end((err, res) => {
-          res.should.have.status(200)
-          res.body.should.be.an('object')
-          res.body.should.include.keys('accessToken', 'user')
+          expect(res).have.status(200)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
           done()
         })
     })
   })
 
   describe('/GET categories', () => {
-    it('it should GET all the categories', (done) => {
-      chai
-        .request(server)
+    test('it should GET all the categories', (done) => {
+      request(server)
         .get(`${url}/categories`)
         .end((err, res) => {
           const { body } = res
           const { docs } = body
           const category = _.head(docs)
-          res.should.have.status(200)
-          body.should.be.an('object')
-          docs.should.have.lengthOf(1)
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(docs).toHaveLength(1)
           id = category._id
-          category.should.include.keys('_id', 'name', 'description')
+          expect(category).toEqual(expect.arrayContaining(['_id', 'name', 'description']))
           done()
         })
     })
-    it('it should NOT GET the categories with filters', (done) => {
-      chai
-        .request(server)
+    test('it should NOT GET the categories with filters', (done) => {
+      request(server)
         .get(`${url}/categories?filter=notExist&fields=name`)
         .end((err, res) => {
-          res.should.have.status(200)
-          res.body.should.be.an('object')
+          expect(res).have.status(200)
+          expect(res.body).toBeInstanceOf(Object)
           const { body } = res
           const { docs, totalDocs } = body
-          totalDocs.should.be.a('number')
-          body.should.have.property('totalDocs').eql(0)
-          docs.should.have.lengthOf(0)
+          expect(totalDocs).toBeInstanceOf(Number)
+          expect(body).have.property('totalDocs').toBe(0)
+          expect(docs).toHaveLength(0)
           done()
         })
     })
-    it('it should GET the categories with filters', (done) => {
-      chai
-        .request(server)
+    test('it should GET the categories with filters', (done) => {
+      request(server)
         .get(`${url}/categories?filter=technology&fields=name`)
         .end((err, res) => {
-          res.should.have.status(200)
-          res.body.should.be.an('object')
+          expect(res).have.status(200)
+          expect(res.body).toBeInstanceOf(Object)
           const { body } = res
           const { docs } = body
           const category = _.head(docs)
-          body.should.be.an('object')
-          docs.should.have.lengthOf(1)
-          category.should.include.keys('_id', 'name', 'description')
-          category.should.have.property('name').eql('technology')
+          expect(body).toBeInstanceOf(Object)
+          expect(docs).toHaveLength(1)
+          expect(category).toEqual(expect.arrayContaining(['_id', 'name', 'description']))
+          expect(category).have.property('name').toBe('technology')
           done()
         })
     })
   })
-  after(() => {
+  afterAll(() => {
     createdID.forEach((idCategory) => {
       modalCategory.findByIdAndRemove(idCategory, (err) => {
         if (err) {

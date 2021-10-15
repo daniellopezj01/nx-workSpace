@@ -9,8 +9,6 @@ const chaiHttp = require('chai-http')
 const Tour = require('../../app/models/tour')
 const server = require('../../server')
 
-// eslint-disable-next-line no-unused-vars
-const should = chai.should()
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -20,36 +18,34 @@ const createdID = []
 
 const url = process.env.URL_TEST_USER
 
-// chai.use(chaiHttp)
+
 
 describe('*********** TOURS_USERS ***********', () => {
   describe('/POST login', () => {
-    it('it should GET token user', (done) => {
-      chai
-        .request(server)
+    test('it should GET token user', (done) => {
+      request(server)
         .post(`${url}/login`)
         .send(loginDetails)
         .end((err, res) => {
-          res.should.have.status(200)
-          res.body.should.be.an('object')
-          res.body.should.include.keys('accessToken', 'user')
+          expect(res).have.status(200)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
           const currentAccessToken = res.body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
-    it('it should GET a fresh token', (done) => {
-      chai
-        .request(server)
+    test('it should GET a fresh token', (done) => {
+      request(server)
         .post(`${url}/exchange`)
         .send({
           accessToken
         })
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.an('object')
-          body.should.include.keys('token', 'user')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
           const currentToken = body.token
           token = currentToken
           done()
@@ -58,104 +54,98 @@ describe('*********** TOURS_USERS ***********', () => {
   })
 
   describe('/GET tours', () => {
-    it('it should GET all the tours', (done) => {
-      chai
-        .request(server)
+    test('it should GET all the tours', (done) => {
+      request(server)
         .get(`${url}/tours`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
+          expect(res).have.status(200)
           const { docs, totalDocs } = body
-          body.should.be.an('object')
-          body.hasNextPage.should.be.a('boolean')
-          body.hasPrevPage.should.be.a('boolean')
-          body.limit.should.be.a('number')
-          body.page.should.be.a('number')
-          body.pagingCounter.should.be.a('number')
-          body.totalPages.should.be.a('number')
-          totalDocs.should.be.a('number').eql(2)
-          docs.should.be.a('array')
-          docs.should.have.lengthOf(2)
+          expect(body).toBeInstanceOf(Object)
+          expect(body.hasNextPage).toBeInstanceOf(Boolean)
+          expect(body.hasPrevPage).toBeInstanceOf(Boolean)
+          expect(body.limit).toBeInstanceOf(Number)
+          expect(body.page).toBeInstanceOf(Number)
+          expect(body.pagingCounter).toBeInstanceOf(Number)
+          expect(body.totalPages).toBeInstanceOf(Number)
+          expect(totalDocs).be.a('number').toBe(2)
+          expect(Array.isArray(docs)).toBe(true)
+          expect(docs).toHaveLength(2)
           _.map(docs, (a, i) => {
-            docs[i].category.should.be.a('array').lengthOf(1)
-            docs[i].should.include.keys('title', 'slug', 'route')
+            expect(docs[i].category).be.a('array').toHaveLength(1)
+            expect(docs[i]).toEqual(expect.arrayContaining(['title', 'slug', 'route']))
           })
           done()
         })
     })
-    it('it should GET the tours with limit', (done) => {
-      chai
-        .request(server)
+    test('it should GET the tours with limit', (done) => {
+      request(server)
         .get(`${url}/tours?limit=1`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(200)
+          expect(res).have.status(200)
           const { body } = res
-          body.should.be.an('object')
-          body.docs.should.be.a('array')
-          body.docs.should.have.lengthOf(1)
+          expect(body).toBeInstanceOf(Object)
+          expect(Array.isArray(body.docs)).toBe(true)
+          expect(body.docs).toHaveLength(1)
           done()
         })
     })
-    it('it should GET the tours with query,Empty', (done) => {
-      chai
-        .request(server)
+    test('it should GET the tours with query,Empty', (done) => {
+      request(server)
         .get(`${url}/tours?query=zzzzzzzzzz`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(200)
+          expect(res).have.status(200)
           const { body } = res
-          body.should.be.an('object')
-          body.docs.should.be.a('array')
-          body.docs.should.have.lengthOf(0)
+          expect(body).toBeInstanceOf(Object)
+          expect(Array.isArray(body.docs)).toBe(true)
+          expect(body.docs).toHaveLength(0)
           done()
         })
     })
-    it('it should GET the tours with query', (done) => {
-      chai
-        .request(server)
+    test('it should GET the tours with query', (done) => {
+      request(server)
         .get(`${url}/tours?query=medellin`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.an('object')
-          body.docs.should.be.a('array')
-          body.docs.should.have.lengthOf(1)
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(Array.isArray(body.docs)).toBe(true)
+          expect(body.docs).toHaveLength(1)
           done()
         })
     })
-    it('it should GET number tours for continents', (done) => {
-      chai
-        .request(server)
+    test('it should GET number tours for continents', (done) => {
+      request(server)
         .get(`${url}/tours/forContinents`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.an('Array')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Array)
           _.map(res.body, (a, i) => {
-            body[i].should.have.property('count').to.be.a('number')
-            body[i].should.have.property('count').to.be.above(0)
+            expect(body[i]).toBeInstanceOf(Number)
+            expect(body[i]).have.property('count').toBeGreaterThan(0)
           })
           done()
         })
     })
-    it('it should GET departures tours', (done) => {
-      chai
-        .request(server)
+    test('it should GET departures tours', (done) => {
+      request(server)
         .get(`${url}/tours/departures/tour-one`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.an('Object')
-          body.should.have.property('departures')
-          body.should.have.property('departures').be.an('Array')
-          body.should.have.property('status').eql('publish')
-          body.should.have.property('slug').eql('tour-one')
-          body.departures.should.have.length(1)
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('departures')
+          expect(body).toBeInstanceOf(Array)
+          expect(body).have.property('status').toBe('publish')
+          expect(body).have.property('slug').toBe('tour-one')
+          expect(body.departures).toHaveLength(1)
           done()
         })
     })
@@ -163,84 +153,79 @@ describe('*********** TOURS_USERS ***********', () => {
 
   describe('*********** SEARCH TOURS ******************', () => {
     it('with out params', (done) => {
-      chai
-        .request(server)
+      request(server)
         .get(`${url}/tours/search`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(404)
-          body.should.be.a('object')
-          body.should.have.property('errors').eql({ msg: 'Params Error' })
+          expect(res).have.status(404)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).have.property('errors').toEqual({ msg: 'Params Error' })
           done()
         })
     })
     it('search with params', (done) => {
-      chai
-        .request(server)
+      request(server)
         .get(`${url}/tours/search?query=MedeLLIN`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.a('object')
-          body.should.have.property('tours')
-          body.should.have.property('places')
-          body.tours.should.have.lengthOf(1)
-          body.tours[0].should.have.property('title').eql('tour one')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('tours')
+          expect(body).toHaveProperty('places')
+          expect(body.tours).toHaveLength(1)
+          expect(body.tours[0]).have.property('title').toBe('tour one')
           done()
         })
     })
     it('empty search', (done) => {
-      chai
-        .request(server)
+      request(server)
         .get(`${url}/tours/search?query=zzzzzzzzzzzzzzzzzz`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.a('object')
-          body.should.have.property('tours')
-          body.should.have.property('places')
-          body.tours.should.have.lengthOf(0)
-          body.places.should.have.lengthOf(0)
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('tours')
+          expect(body).toHaveProperty('places')
+          expect(body.tours).toHaveLength(0)
+          expect(body.places).toHaveLength(0)
           done()
         })
     })
   })
 
   describe('/GET/:id tour', () => {
-    it('it should GET a tour by the given id', (done) => {
-      chai
-        .request(server)
+    test('it should GET a tour by the given id', (done) => {
+      request(server)
         .get(`${url}/tours/5fa181b202945b26c456176a`)
         .set('Authorization', `Bearer ${token}`)
         .end((error, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.a('object')
-          body.should.have.property('title')
-          body.should.have.property('_id').eql('5fa181b202945b26c456176a')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('title')
+          expect(body).have.property('_id').toBe('5fa181b202945b26c456176a')
           done()
         })
     })
-    it('it should GET a tour by the given slug', (done) => {
-      chai
-        .request(server)
+    test('it should GET a tour by the given slug', (done) => {
+      request(server)
         .get(`${url}/tours/tour-one`)
         .set('Authorization', `Bearer ${token}`)
         .end((error, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.a('object')
-          body.should.have.property('title')
-          body.should.have.property('slug').eql('tour-one')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('title')
+          expect(body).have.property('slug').toBe('tour-one')
           done()
         })
     })
   })
 
-  after(() => {
+  afterAll(() => {
     createdID.forEach((id) => {
       Tour.findByIdAndRemove(id, (err) => {
         if (err) {

@@ -6,29 +6,26 @@ process.env.NODE_ENV = 'test'
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 const server = require('../../server')
-// eslint-disable-next-line no-unused-vars
-const should = chai.should()
-// chai.use(chaiHttp)
+
 
 const url = process.env.URL_TEST_USER
 
 describe('*********** EXTERNAL_USERS ***********', () => {
   describe('/GET blog', () => {
-    it('it should GET all the blogg', (done) => {
-      chai
-        .request(server)
+    test('it should GET all the blogg', (done) => {
+      request(server)
         .get(`${url}/external/blog`)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(404)
-          body.should.be.an('object')
-          body.should.have.property('errors').eql({})
+          expect(res).have.status(404)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).have.property('errors').toEqual({})
           done()
         })
     })
   })
   // describe('/GET instagram', () => {
-  //   it('it should GET all the instagrams', (done) => {
+  //   test('it should GET all the instagrams', (done) => {
   //     chai
   //       .request(server)
   //       .get(`${url}/external/instagram`)

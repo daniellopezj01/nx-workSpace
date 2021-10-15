@@ -9,8 +9,6 @@ const chai = require('chai')
 const chaiHttp = require('chai-http')
 const reservation = require('../../app/models/reservation')
 const server = require('../../server')
-// eslint-disable-next-line no-unused-vars
-const should = chai.should()
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -32,36 +30,34 @@ const contractData = {
   intent: 'buyTour'
 }
 
-// chai.use(chaiHttp)
+
 
 describe('*********** RESERVATIONS_USERS ***********', () => {
   describe('/POST login', () => {
-    it('it should GET token user', (done) => {
-      chai
-        .request(server)
+    test('it should GET token user', (done) => {
+      request(server)
         .post(`${url}/login`)
         .send(loginDetails)
         .end((err, res) => {
-          res.should.have.status(200)
-          res.body.should.be.an('object')
-          res.body.should.include.keys('accessToken', 'user')
+          expect(res).have.status(200)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
           const currentAccessToken = res.body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
-    it('it should GET a fresh token', (done) => {
-      chai
-        .request(server)
+    test('it should GET a fresh token', (done) => {
+      request(server)
         .post(`${url}/exchange`)
         .send({
           accessToken
         })
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.an('object')
-          body.should.include.keys('token', 'user')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
           const currentToken = body.token
           token = currentToken
           done()
@@ -69,72 +65,71 @@ describe('*********** RESERVATIONS_USERS ***********', () => {
     })
   })
   describe('/GET reservations', () => {
-    it('it should NOT be able to consume the route since no token was sent', (done) => {
-      chai
-        .request(server)
-        .get(`${url}/reservations`)
-        .end((err, res) => {
-          res.should.have.status(401)
-          done()
-        })
-    })
-    it('it should GET all the Reservations', (done) => {
-      chai
-        .request(server)
+    it(
+      'it should NOT be able to consume the route since no token was sent',
+      (done) => {
+        request(server)
+          .get(`${url}/reservations`)
+          .end((err, res) => {
+            expect(res).have.status(401)
+            done()
+          })
+      }
+    )
+    test('it should GET all the Reservations', (done) => {
+      request(server)
         .get(`${url}/reservations`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(200)
+          expect(res).have.status(200)
           const { body } = res
-          body.should.be.an('object')
+          expect(body).toBeInstanceOf(Object)
           const { docs, totalDocs } = body
-          docs.should.be.a('array')
-          totalDocs.should.be.a('number')
+          expect(Array.isArray(docs)).toBe(true)
+          expect(totalDocs).toBeInstanceOf(Number)
           const reservationHead = _.head(docs)
-          reservationHead.should.include.keys('code', 'departure', 'tour')
-          reservationHead._id.should.be.a('string')
-          reservationHead.travelerLastName.should.be.a('string')
+          expect(reservationHead).toEqual(expect.arrayContaining(['code', 'departure', 'tour']))
+          expect(typeof reservationHead._id).toBe('string')
+          expect(typeof reservationHead.travelerLastName).toBe('string')
           done()
         })
     })
   })
 
   describe('/POST reservations', () => {
-    it('it should NOT POST a reservation without tour', (done) => {
+    test('it should NOT POST a reservation without tour', (done) => {
       const reservationsOne = {}
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/reservations`)
         .set('Authorization', `Bearer ${token}`)
         .send(reservationsOne)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(422)
-          body.should.be.a('object')
-          body.should.have.property('errors')
+          expect(res).have.status(422)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           const { errors } = body
-          errors.should.have.property('msg').be.a('array')
-          errors.msg.should.have.length(24)
+          expect(Array.isArray(errors)).toBe(true)
+          expect(errors.msg).toHaveLength(24)
           done()
         })
     })
-    it('it should POST a contracts 100 percentage', (done) => {
-      chai
-        .request(server)
+    test('it should POST a contracts 100 percentage', (done) => {
+      request(server)
         .post(`${url}/contracts`)
         .set('Authorization', `Bearer ${token}`)
         .send(contractData)
         .end((err, res) => {
-          res.should.have.status(200)
+          expect(res).have.status(200)
           const { body } = res
           idIntention = body._id
-          body.should.be.a('object')
-          body.should.have.property('percentage').eql(contractData.payAmount)
-          body.should.have.property('idOperation').eql(contractData.id)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).have.property('percentage').toEqual(contractData.payAmount)
+          expect(body).have.property('idOperation').toEqual(contractData.id)
           done()
         })
     })
-    it('it should POST a reservations ', (done) => {
+    test('it should POST a reservations ', (done) => {
       const fackEmail = 'pepito@gmail.com'
       const reservationsPost = {
         travelerFirstName: faker.random.words(),
@@ -152,137 +147,132 @@ describe('*********** RESERVATIONS_USERS ***********', () => {
         city: faker.random.word(),
         idIntention
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/reservations`)
         .set('Authorization', `Bearer ${token}`)
         .send(reservationsPost)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(201)
-          body.should.be.a('object')
-          body.should.include.keys('_id', 'amount', 'status', 'code')
-          body.should.have.property('amount').to.be.a('Number')
-          body.should.have.property('amount').eql(980.1)
-          body.should.have.property('status').eql('pending')
-          body.should.have.property('travelerEmail').eql(fackEmail)
+          expect(res).have.status(201)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['_id', 'amount', 'status', 'code']))
+          expect(body).toBeInstanceOf(Number)
+          expect(body).have.property('amount').toBe(980.1)
+          expect(body).have.property('status').toBe('pending')
+          expect(body).have.property('travelerEmail').toEqual(fackEmail)
           createdID.push(body._id)
           done()
         })
     })
-    it('it should NOT POST a reservation', (done) => {
+    test('it should NOT POST a reservation', (done) => {
       const reservationsTwo = {
         travelerAddres: faker.random.word(),
         travelerGender: faker.random.word(),
         idDeparture
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/reservations`)
         .set('Authorization', `Bearer ${token}`)
         .send(reservationsTwo)
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(422)
-          body.should.be.a('object')
-          body.should.have.property('errors')
+          expect(res).have.status(422)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           const { errors } = body
-          errors.should.be.a('object')
-          errors.should.have.property('msg').be.a('array')
+          expect(errors).toBeInstanceOf(Object)
+          expect(Array.isArray(errors)).toBe(true)
           done()
         })
     })
-    it('it should NOT be able to consume the route since no token was sent', (done) => {
-      const reservationsTwo = {
-        travelerAddres: faker.random.word(),
-        travelerGender: faker.random.word(),
-        idDeparture
+    it(
+      'it should NOT be able to consume the route since no token was sent',
+      (done) => {
+        const reservationsTwo = {
+          travelerAddres: faker.random.word(),
+          travelerGender: faker.random.word(),
+          idDeparture
+        }
+        request(server)
+          .post(`${url}/reservations`)
+          .send(reservationsTwo)
+          .end((err, res) => {
+            expect(res).have.status(401)
+            done()
+          })
       }
-      chai
-        .request(server)
-        .post(`${url}/reservations`)
-        .send(reservationsTwo)
-        .end((err, res) => {
-          res.should.have.status(401)
-          done()
-        })
-    })
+    )
   })
 
   describe('/GET/:id Reservation', () => {
-    it('it should not  GET reservation by the given code', (done) => {
-      chai
-        .request(server)
+    test('it should not  GET reservation by the given code', (done) => {
+      request(server)
         .get(`${url}/reservations/000-000`)
         .set('Authorization', `Bearer ${token}`)
         .end((error, res) => {
           const { body } = res
-          res.should.have.status(404)
-          body.should.be.a('object')
-          body.should.have
-            .property('errors')
-            .eql({ msg: 'NOT_FOUND_RESERVATION' })
+          expect(res).have.status(404)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).have
+            .property('errors').toEqual({ msg: 'NOT_FOUND_RESERVATION' })
           done()
         })
     })
-    it('it should GET a reservation by the given code', (done) => {
-      chai
-        .request(server)
+    test('it should GET a reservation by the given code', (done) => {
+      request(server)
         .get(`${url}/reservations/${codeReservation}`)
         .set('Authorization', `Bearer ${token}`)
         .end((error, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.a('object')
-          body.should.include.keys('asTour', 'canUpdate', 'code')
-          body.should.have.property('_id').eql(idReservation)
-          body.should.have.property('code').eql(codeReservation)
-          body.amount.should.be.a('number')
-          body.asTour.should.be.a('array')
-          body.should.have.property('travelerEmail').eql(loginDetails.email)
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['asTour', 'canUpdate', 'code']))
+          expect(body).have.property('_id').toEqual(idReservation)
+          expect(body).have.property('code').toEqual(codeReservation)
+          expect(body.amount).toBeInstanceOf(Number)
+          expect(Array.isArray(body.asTour)).toBe(true)
+          expect(body).have.property('travelerEmail').toEqual(loginDetails.email)
           done()
         })
     })
-    it('it should GET a tour by the given id', (done) => {
-      chai
-        .request(server)
+    test('it should GET a tour by the given id', (done) => {
+      request(server)
         .get(`${url}/reservations/${idReservation}`)
         .set('Authorization', `Bearer ${token}`)
         .end((error, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.a('object')
-          body.should.include.keys('asTour', 'canUpdate', 'code')
-          body.should.have.property('_id').eql(idReservation)
-          body.should.have.property('code').eql(codeReservation)
-          body.amount.should.be.a('number')
-          body.asTour.should.be.a('array')
-          body.should.have.property('travelerEmail').eql(loginDetails.email)
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['asTour', 'canUpdate', 'code']))
+          expect(body).have.property('_id').toEqual(idReservation)
+          expect(body).have.property('code').toEqual(codeReservation)
+          expect(body.amount).toBeInstanceOf(Number)
+          expect(Array.isArray(body.asTour)).toBe(true)
+          expect(body).have.property('travelerEmail').toEqual(loginDetails.email)
           done()
         })
     })
   })
 
   describe('/GET/payment/:code Reservation', () => {
-    it('it should GET a tour by the given id', (done) => {
-      chai
-        .request(server)
+    test('it should GET a tour by the given id', (done) => {
+      request(server)
         .get(`${url}/reservations/payment/${codeReservation}`)
         .set('Authorization', `Bearer ${token}`)
         .end((error, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.have.property('idReservation').eql(idReservation)
-          body.should.be.a('object')
-          body.should.include.keys('transactions')
-          body.transactions.should.have.lengthOf(0)
+          expect(res).have.status(200)
+          expect(body).have.property('idReservation').toEqual(idReservation)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining('transactions'))
+          expect(body.transactions).toHaveLength(0)
           done()
         })
     })
   })
 
   describe('/PATCH/:id reservations', () => {
-    it('it should UPDATE a tour given the id', (done) => {
+    test('it should UPDATE a tour given the id', (done) => {
       const id = createdID.slice(-1).pop()
       const emergencyName = faker.random.words()
       const emergencyLastName = faker.random.words()
@@ -324,16 +314,15 @@ describe('*********** RESERVATIONS_USERS ***********', () => {
         invoice: faker.random.words(),
         customData: {}
       }
-      chai
-        .request(server)
+      request(server)
         .patch(`${url}/reservations/${id}`)
         .set('Authorization', `Bearer ${token}`)
         .send(dataUpdate)
         .end((err, res) => {
-          res.should.have.status(200)
-          res.body.should.be.a('object')
-          res.body.should.have.property('_id').eql(id)
-          res.body.should.include.keys(
+          expect(res).have.status(200)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).have.property('_id').toEqual(id)
+          expect(res.body).toEqual(expect.arrayContaining([
             'status',
             'deleted',
             '_id',
@@ -352,35 +341,36 @@ describe('*********** RESERVATIONS_USERS ***********', () => {
             'emergencyPhone',
             'invoice',
             'observations'
-          )
-          res.body.should.have.property('emergencyName').eql(emergencyName)
-          res.body.should.have
-            .property('emergencyLastName')
-            .eql(emergencyLastName)
+          ]))
+          expect(res.body).have.property('emergencyName').toEqual(emergencyName)
+          expect(res.body).have
+            .property('emergencyLastName').toEqual(emergencyLastName)
           createdID.push(res.body._id)
           done()
         })
     })
-    it('it should NOT be able to consume the route since no token was sent', (done) => {
-      const id = createdID.slice(-1).pop()
-      const name = faker.random.words()
-      const lastName = faker.random.words()
-      chai
-        .request(server)
-        .patch(`${url}/reservations/${id}`)
-        .send({
-          emergencyName: name,
-          emergencyLastName: lastName,
-          travelerBirthDay: '02-10-2020'
-        })
-        .end((err, res) => {
-          res.should.have.status(401)
-          done()
-        })
-    })
+    it(
+      'it should NOT be able to consume the route since no token was sent',
+      (done) => {
+        const id = createdID.slice(-1).pop()
+        const name = faker.random.words()
+        const lastName = faker.random.words()
+        request(server)
+          .patch(`${url}/reservations/${id}`)
+          .send({
+            emergencyName: name,
+            emergencyLastName: lastName,
+            travelerBirthDay: '02-10-2020'
+          })
+          .end((err, res) => {
+            expect(res).have.status(401)
+            done()
+          })
+      }
+    )
   })
 
-  after(() => {
+  afterAll(() => {
     createdID.forEach((id) => {
       reservation.findByIdAndRemove(id, (err) => {
         if (err) {

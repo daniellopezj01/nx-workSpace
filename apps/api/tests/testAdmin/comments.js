@@ -8,8 +8,6 @@ const chaiHttp = require('chai-http')
 const _ = require('lodash')
 const comment = require('../../app/models/comments')
 const server = require('../../server')
-// eslint-disable-next-line no-unused-vars
-const should = chai.should()
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -20,36 +18,34 @@ const content = faker.random.words()
 const createdID = []
 const url = process.env.URL_TEST_ADMIN
 const idUser = '5aa1c2c35ef7a4e97b5e995a'
-// chai.use(chaiHttp)
+
 
 describe('*********** COMMENTS_ADMIN ***********', () => {
   describe('/POST login', () => {
-    it('it should GET token user', (done) => {
-      chai
-        .request(server)
+    test('it should GET token user', (done) => {
+      request(server)
         .post(`${url}/login`)
         .send(loginDetails)
         .end((err, res) => {
-          res.should.have.status(200)
-          res.body.should.be.an('object')
-          res.body.should.include.keys('accessToken', 'user')
+          expect(res).have.status(200)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
           const currentAccessToken = res.body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
-    it('it should GET a fresh token', (done) => {
-      chai
-        .request(server)
+    test('it should GET a fresh token', (done) => {
+      request(server)
         .post(`${url}/exchange`)
         .send({
           accessToken
         })
         .end((err, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.an('object')
-          body.should.include.keys('token', 'user')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
           const currentToken = body.token
           token = currentToken
           done()
@@ -58,24 +54,23 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
   })
 
   describe('/POST comments', () => {
-    it('it should NOT POST a comment without comment', (done) => {
+    test('it should NOT POST a comment without comment', (done) => {
       const commentPostOne = {}
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/comments`)
         .set('Authorization', `Bearer ${token}`)
         .send(commentPostOne)
         .end((err, res) => {
-          res.should.have.status(422)
+          expect(res).have.status(422)
           const { body } = res
-          body.should.be.a('object')
-          body.should.have.property('errors')
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           const { errors } = body
-          errors.should.have.property('msg').be.a('array')
+          expect(Array.isArray(errors)).toBe(true)
           done()
         })
     })
-    it('it should POST a comment ', (done) => {
+    test('it should POST a comment ', (done) => {
       const commentPostTwo = {
         vote: 3,
         content,
@@ -83,19 +78,18 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
         status: 'publish',
         tags: ['tren']
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/comments`)
         .set('Authorization', `Bearer ${token}`)
         .send(commentPostTwo)
         .end((err, res) => {
-          res.should.have.status(201)
+          expect(res).have.status(201)
           const { body } = res
-          body.should.be.a('object')
-          body.should.include.keys('_id', 'vote', 'content')
-          body.should.have.property('status').eql('publish')
-          body.should.have.property('content').eql(content)
-          body.should.have.property('_id').be.a('string')
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['_id', 'vote', 'content']))
+          expect(body).have.property('status').toBe('publish')
+          expect(body).have.property('content').toEqual(content)
+          expect(typeof body).toBe('string')
           createdID.push(res.body._id)
           done()
         })
@@ -103,67 +97,65 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
   })
 
   describe('/GET comments', () => {
-    it('it should GET all the comments', (done) => {
-      chai
-        .request(server)
+    test('it should GET all the comments', (done) => {
+      request(server)
         .get(`${url}/comments`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           const { body } = res
           const { docs } = body
           const commentFirst = _.head(docs)
-          res.should.have.status(200)
-          body.should.be.an('object')
-          docs.should.have.lengthOf(1)
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(docs).toHaveLength(1)
           id = commentFirst._id
-          commentFirst.should.include.keys('_id', 'content', 'vote')
+          expect(commentFirst).toEqual(expect.arrayContaining(['_id', 'content', 'vote']))
           done()
         })
     })
-    it('it should not GET comments unauthorized', (done) => {
-      chai
-        .request(server)
+    test('it should not GET comments unauthorized', (done) => {
+      request(server)
         .get(`${url}/comments`)
         .end((err, res) => {
-          res.should.have.status(401)
+          expect(res).have.status(401)
           done()
         })
     })
   })
 
   describe('/GET/:id comments', () => {
-    it('it should GET a comments by the given id', (done) => {
+    test('it should GET a comments by the given id', (done) => {
       const id = createdID.slice(-1).pop()
-      chai
-        .request(server)
+      request(server)
         .get(`${url}/comments/${id}`)
         .set('Authorization', `Bearer ${token}`)
         .end((error, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.a('object')
-          body.should.include.keys('status', 'tags', '_id')
-          body.should.have.property('_id').eql(id)
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.arrayContaining(['status', 'tags', '_id']))
+          expect(body).have.property('_id').toEqual(id)
           done()
         })
     })
-    it('it should NOT be able to consume the route since no token was sent', (done) => {
-      const id = createdID.slice(-1).pop()
-      chai
-        .request(server)
-        .get(`${url}/comments/${id}`)
-        .end((err, res) => {
-          res.should.have.status(401)
-          done()
-        })
-    })
+    it(
+      'it should NOT be able to consume the route since no token was sent',
+      (done) => {
+        const id = createdID.slice(-1).pop()
+        request(server)
+          .get(`${url}/comments/${id}`)
+          .end((err, res) => {
+            expect(res).have.status(401)
+            done()
+          })
+      }
+    )
   })
 
   describe('/PATCH/:id comments', () => {
-    it('it should UPDATE a comment given the id', (done) => {
+    test('it should UPDATE a comment given the id', (done) => {
       const id = createdID.slice(-1).pop()
-      chai
-        .request(server)
+      request(server)
         .patch(`${url}/comments/${id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
@@ -175,51 +167,52 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
         })
         .end((error, res) => {
           const { body } = res
-          res.should.have.status(200)
-          body.should.be.a('object')
-          body.should.have.property('_id').eql(id)
-          body.should.have.property('content').eql(content)
-          body._id.should.be.a('string')
+          expect(res).have.status(200)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).have.property('_id').toEqual(id)
+          expect(body).have.property('content').toEqual(content)
+          expect(typeof body._id).toBe('string')
           createdID.push(res.body._id)
           done()
         })
     })
-    it('it should not UPDATE a comment empty', (done) => {
+    test('it should not UPDATE a comment empty', (done) => {
       const id = createdID.slice(-1).pop()
-      chai
-        .request(server)
+      request(server)
         .patch(`${url}/comments/${id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({})
         .end((error, res) => {
           const { body } = res
-          res.should.have.status(422)
-          body.should.be.a('object')
-          body.should.have.property('errors')
+          expect(res).have.status(422)
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           done()
         })
     })
-    it('it should NOT be able to consume the route since no token was sent', (done) => {
-      const id = createdID.slice(-1).pop()
-      chai
-        .request(server)
-        .patch(`${url}/comments/${id}`)
-        .send({
-          vote: 3,
-          content,
-          idUser,
-          status: 'publish',
-          tags: ['naturaleza']
-        })
-        .end((err, res) => {
-          res.should.have.status(401)
-          done()
-        })
-    })
+    it(
+      'it should NOT be able to consume the route since no token was sent',
+      (done) => {
+        const id = createdID.slice(-1).pop()
+        request(server)
+          .patch(`${url}/comments/${id}`)
+          .send({
+            vote: 3,
+            content,
+            idUser,
+            status: 'publish',
+            tags: ['naturaleza']
+          })
+          .end((err, res) => {
+            expect(res).have.status(401)
+            done()
+          })
+      }
+    )
   })
 
   describe('/DELETE/:id comment', () => {
-    it('it should DELETE a comment given the id', (done) => {
+    test('it should DELETE a comment given the id', (done) => {
       const commentdelete = {
         vote: 3,
         content,
@@ -227,31 +220,30 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
         status: 'publish',
         tags: ['naturaleza']
       }
-      chai
-        .request(server)
+      request(server)
         .post(`${url}/comments`)
         .set('Authorization', `Bearer ${token}`)
         .send(commentdelete)
         .end((err, res) => {
-          res.should.have.status(201)
-          res.body.should.be.a('object')
-          res.body.should.include.keys('_id', 'vote', 'status', 'tags')
+          expect(res).have.status(201)
+          expect(res.body).toBeInstanceOf(Object)
+          expect(res.body).toEqual(expect.arrayContaining(['_id', 'vote', 'status', 'tags']))
           chai
             .request(server)
             .delete(`${url}/comments/${res.body._id}`)
             .set('Authorization', `Bearer ${token}`)
             .end((error, result) => {
               const { body } = result
-              result.should.have.status(200)
-              body.should.be.a('object')
-              body.should.have.property('msg').eql('DELETED')
+              expect(result).have.status(200)
+              expect(body).toBeInstanceOf(Object)
+              expect(body).have.property('msg').toBe('DELETED')
               done()
             })
         })
     })
   })
 
-  after(() => {
+  afterAll(() => {
     createdID.forEach((id) => {
       comment.findByIdAndRemove(id, (err) => {
         if (err) {
