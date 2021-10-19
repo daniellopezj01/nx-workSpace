@@ -21,15 +21,22 @@ const continentsSchema = new mongoose.Schema(
 )
 
 continentsSchema.post('save', () => {
-  console.log('INSERCION EN continents')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('INSERCION EN continents')
+  }
 })
 
 continentsSchema.pre('findOneAndRemove', async () => {
-  console.log('DELETE EN continents')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('DELETE EN continents')
+  }
 })
 
+
 continentsSchema.post('findOneAndUpdate', async () => {
-  console.log('ACTUALIZACION EN continents')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('ACTUALIZACION EN continents')
+  }
 })
 
 continentsSchema.plugin(mongoose_delete, { overrideMethods: true })

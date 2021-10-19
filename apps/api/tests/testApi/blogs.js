@@ -2,8 +2,8 @@
 /* eslint-disable no-undef */
 process.env.NODE_ENV = 'test'
 const _ = require('lodash')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const server = require('../../server')
 const Blog = require('../../app/models/blog')
 const loginDetails = {

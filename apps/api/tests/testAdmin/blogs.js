@@ -3,9 +3,8 @@
 process.env.NODE_ENV = 'test'
 
 const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
-const server = require('../../server')
+const server = require('../../superTest')
+const request = require('supertest')
 const Blog = require('../../app/models/blog')
 const loginDetails = {
   email: 'admin@admin.com',
@@ -20,55 +19,63 @@ const description = faker.random.words()
 const newtitle = faker.random.words()
 const newDescription = faker.random.words()
 
-
 const url = process.env.URL_TEST_ADMIN
+
 
 describe('*********** BLOGS_ADMIN ***********', () => {
   describe('/POST login', () => {
     test('it should GET token user', (done) => {
       request(server)
-        .post(`${url}/login`)
+        .post(`${url}/login/`)
         .send(loginDetails)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
-          const currentAccessToken = res.body.accessToken
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            accessToken: expect.any(String),
+            user: expect.any(Object),
+          }))
+          const currentAccessToken = body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
     test('it should GET a fresh token', (done) => {
       request(server)
-        .post(`${url}/exchange`)
+        .post(`${url}/exchange/`)
         .send({
           accessToken
         })
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
+          expect(body).toEqual(expect.objectContaining({
+            token: expect.any(String),
+            user: expect.any(Object),
+          }))
           const currentToken = body.token
           token = currentToken
           done()
         })
-    })
+    }, 10000)
   })
   describe('/POST blogs', () => {
     test('it should NOT POST a blogs without blogs', (done) => {
       const blogPostOne = {}
       request(server)
-        .post(`${url}/blogs`)
+        .post(`${url}/blogs/`)
         .set('Authorization', `Bearer ${token}`)
         .send(blogPostOne)
+        .expect(422)
         .end((err, res) => {
-          expect(res).have.status(422)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
           expect(body).toHaveProperty('errors')
           const { errors } = body
-          expect(errors).toHaveProperty('msg').be.a('array').toHaveLength(4)
+          expect(errors.msg).toBeInstanceOf(Array)
+          expect(errors.msg).toHaveLength(4)
           done()
         })
     })
@@ -78,19 +85,23 @@ describe('*********** BLOGS_ADMIN ***********', () => {
         description
       }
       request(server)
-        .post(`${url}/blogs`)
+        .post(`${url}/blogs/`)
         .set('Authorization', `Bearer ${token}`)
         .send(blogsPostTwo)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
-          expect(body).have.property('title').toEqual(title)
-          expect(body).have.property('description').toEqual(description)
-          expect(body).toEqual(
-            expect.arrayContaining(['_id', 'title', 'description', 'userCreator', 'slug'])
-          )
-          createdID.push(res.body._id)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            title: expect.any(String),
+            description: expect.any(String),
+            userCreator: expect.any(Object),
+            slug: expect.any(String),
+          }))
+          expect(body).toHaveProperty('title', title)
+          expect(body).toHaveProperty('description', description)
+          createdID.push(body._id)
           done()
         })
     })
@@ -104,8 +115,8 @@ describe('*********** BLOGS_ADMIN ***********', () => {
         request(server)
           .post(`${url}/blogs`)
           .send(blogsPostTwo)
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -122,16 +133,21 @@ describe('*********** BLOGS_ADMIN ***********', () => {
           title: newtitle,
           description: newDescription
         })
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(
-            expect.arrayContaining(['_id', 'title', 'description', 'userCreator', 'slug'])
-          )
-          expect(body).have.property('_id').toEqual(firstBlog)
-          expect(body).have.property('title').toEqual(newtitle)
-          expect(body).have.property('description').toEqual(newDescription)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            title: expect.any(String),
+            description: expect.any(String),
+            userCreator: expect.any(Object),
+            slug: expect.any(String),
+          }))
+          expect(body).toHaveProperty('_id', firstBlog)
+          expect(body).toHaveProperty('title', newtitle)
+          expect(body).toHaveProperty('description', newDescription)
+          // expect(body).have.property('description').toEqual(newDescription)
           createdID.push(res.body._id)
           done()
         })
@@ -146,8 +162,8 @@ describe('*********** BLOGS_ADMIN ***********', () => {
             title: newtitle,
             description: newDescription
           })
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -161,26 +177,32 @@ describe('*********** BLOGS_ADMIN ***********', () => {
         description: faker.random.words()
       }
       request(server)
-        .post(`${url}/blogs`)
+        .post(`${url}/blogs/`)
         .set('Authorization', `Bearer ${token}`)
         .send(blogsdelete)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['_id', 'description', 'title', 'slug']))
-          chai
-            .request(server)
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            title: expect.any(String),
+            description: expect.any(String),
+            userCreator: expect.any(Object),
+            slug: expect.any(String),
+          }))
+          request(server)
             .delete(`${url}/blogs/${res.body._id}`)
             .set('Authorization', `Bearer ${token}`)
+            .expect(200)
             .end((error, result) => {
-              const { body } = result
-              expect(result).have.status(200)
-              expect(body).toBeInstanceOf(Object)
-              expect(body).have.property('msg').toBe('DELETED')
+              const { body: newBody } = result
+              expect(newBody).toBeInstanceOf(Object)
+              expect(newBody).toMatchObject({ msg: 'DELETED' })
               done()
             })
         })
-    })
+    }, 50000)
   })
 
   afterAll(() => {

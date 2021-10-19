@@ -2,9 +2,9 @@
 /* eslint-disable no-undef */
 process.env.NODE_ENV = 'test'
 
-const chai = require('chai')
+
 const faker = require('faker')
-const chaiHttp = require('chai-http')
+
 const server = require('../../server')
 const referredSettings = require('../../app/models/settingReferred')
 const loginDetails = {
@@ -233,8 +233,7 @@ describe('*********** REFERREDS_SETTINGS_ADMIN ***********', () => {
           expect(res).have.status(201)
           expect(res.body).toBeInstanceOf(Object)
           expect(res.body).toEqual(expect.arrayContaining(['_id', 'label', 'name', 'amountTo', 'amountFrom']))
-          chai
-            .request(server)
+          request(server)
             .delete(`${url}/referredSettings/${res.body._id}`)
             .set('Authorization', `Bearer ${token}`)
             .end((error, result) => {

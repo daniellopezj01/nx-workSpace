@@ -5,8 +5,8 @@ process.env.NODE_ENV = 'test'
 
 const _ = require('lodash')
 const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const reservation = require('../../app/models/reservation')
 const server = require('../../server')
 const loginDetails = {

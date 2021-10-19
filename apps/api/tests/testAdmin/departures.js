@@ -3,10 +3,11 @@
 process.env.NODE_ENV = 'test'
 
 const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const departure = require('../../app/models/departure')
-const server = require('../../server')
+const server = require('../../superTest')
+const request = require('supertest')
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -22,35 +23,41 @@ describe('*********** DEPARTURES_ADMIN ***********', () => {
   describe('/POST login', () => {
     test('it should GET token user', (done) => {
       request(server)
-        .post(`${url}/login`)
+        .post(`${url}/login/`)
         .send(loginDetails)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
-          const currentAccessToken = res.body.accessToken
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            accessToken: expect.any(String),
+            user: expect.any(Object),
+          }))
+          const currentAccessToken = body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
     test('it should GET a fresh token', (done) => {
       request(server)
-        .post(`${url}/exchange`)
+        .post(`${url}/exchange/`)
         .send({
           accessToken
         })
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
+          expect(body).toEqual(expect.objectContaining({
+            token: expect.any(String),
+            user: expect.any(Object),
+          }))
           const currentToken = body.token
           token = currentToken
           done()
         })
-    })
+    }, 10000)
   })
-
   describe('/POST departures', () => {
     test('it should NOT POST a departure without departure', (done) => {
       const departurePostOne = {}
@@ -58,8 +65,8 @@ describe('*********** DEPARTURES_ADMIN ***********', () => {
         .post(`${url}/departures`)
         .set('Authorization', `Bearer ${token}`)
         .send(departurePostOne)
+        .expect(422)
         .end((err, res) => {
-          expect(res).have.status(422)
           expect(res.body).toBeInstanceOf(Object)
           expect(res.body).toHaveProperty('errors')
           done()
@@ -83,17 +90,20 @@ describe('*********** DEPARTURES_ADMIN ***********', () => {
         .post(`${url}/departures`)
         .set('Authorization', `Bearer ${token}`)
         .send(departurePostTwo)
+        .expect(201)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(201)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['_id', 'createdAt']))
-          expect(body).have.property('closeDateDeparture').toBe('15-11-2020')
-          expect(typeof body._id).toBe('string')
-          expect(body.payAmount).be.a('array').toHaveLength(0)
-          expect(body).have.property('startDateDeparture').toBe('21-03-2021')
-          expect(body).have.property('status').toBe('visible')
-          expect(typeof body.endDateDeparture).toBe('string')
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            endDateDeparture: expect.any(String),
+            createdAt: expect.any(String),
+          }))
+          expect(body).toHaveProperty('closeDateDeparture', '15-11-2020')
+          expect(body.payAmount).toBeInstanceOf(Array)
+          expect(body.payAmount).toHaveLength(0)
+          expect(body).toHaveProperty('startDateDeparture', '21-03-2021')
+          expect(body).toHaveProperty('status', 'visible')
           createdID.push(res.body._id)
           done()
         })
@@ -118,40 +128,35 @@ describe('*********** DEPARTURES_ADMIN ***********', () => {
           flight: faker.random.boolean(),
           idTour
         })
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).have.property('_id').toEqual(id)
-          expect(body).have.property('startDateDeparture').toBe('21-05-2021')
-          expect(typeof body._id).toBe('string')
-          expect(body.minStock).toBeInstanceOf(Number)
-          expect(body.normalPrice).toBeInstanceOf(Number)
-          expect(typeof body.closeDateDeparture).toBe('string')
-          expect(typeof body.idTour).toBe('string')
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            closeDateDeparture: expect.any(String),
+            idTour: expect.any(String),
+            minStock: expect.any(Number),
+            normalPrice: expect.any(Number),
+          }))
+          expect(body).toHaveProperty('_id', id)
+          expect(body).toHaveProperty('startDateDeparture', '21-05-2021')
+          // expect(body.minStock).toBeInstanceOf(Number)
+          // expect(body.normalPrice).toBeInstanceOf(Number)
+          // expect(typeof body.closeDateDeparture).toBe('string')
+          // expect(typeof body.idTour).toBe('string')
           createdID.push(res.body._id)
           done()
         })
     })
-    it(
-      'it should NOT be able to consume the route since no token was sent',
+    it('it should NOT be able to consume the route since no token was sent',
       (done) => {
         const id = createdID.slice(-1).pop()
         request(server)
           .patch(`${url}/departures/${id}`)
-          .send({
-            startDateDeparture: '21-05-2021',
-            endDateDeparture: '11-05-2021',
-            stock: faker.random.number(),
-            minStock: faker.random.number(),
-            normalPrice: faker.random.number(),
-            closeDateDeparture: '15-11-2020',
-            flight: faker.random.boolean(),
-            payAmount: faker.finance.amount(),
-            idTour
-          })
+          .send({})
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -176,18 +181,19 @@ describe('*********** DEPARTURES_ADMIN ***********', () => {
         .post(`${url}/departures`)
         .set('Authorization', `Bearer ${token}`)
         .send(departuredelete)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
           expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining('_id'))
-          chai
-            .request(server)
+          expect(res.body).toEqual(expect.objectContaining({
+            _id: expect.any(String)
+          }))
+          request(server)
             .delete(`${url}/departures/${res.body._id}`)
             .set('Authorization', `Bearer ${token}`)
+            .expect(200)
             .end((error, result) => {
-              expect(result).have.status(200)
               expect(result.body).toBeInstanceOf(Object)
-              expect(result.body).have.property('msg').toBe('DELETED')
+              expect(result.body).toHaveProperty('msg', 'DELETED')
               done()
             })
         })

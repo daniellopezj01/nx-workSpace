@@ -3,8 +3,8 @@
 
 process.env.NODE_ENV = 'test'
 
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const collectionPayOrder = require('../../app/models/payOrder')
 const server = require('../../server')
 // eslint-disable-next-line no-unused-vars
@@ -124,8 +124,7 @@ describe('*********** WALLETS_USERS ***********', () => {
           expect(res.body).toBeInstanceOf(Object)
           expect(res.body).toEqual(expect.arrayContaining(['id', 'client_secret']))
           const customData = res.body
-          chai
-            .request(server)
+          request(server)
             .patch(`${url}/payorders/${res.body.id}`)
             .set('Authorization', `Bearer ${token}`)
             .send(customData)

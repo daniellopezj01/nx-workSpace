@@ -3,10 +3,11 @@
 process.env.NODE_ENV = 'test'
 const _ = require('lodash')
 const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const orders = require('../../app/models/payOrder')
-const server = require('../../server')
+const server = require('../../superTest')
+const request = require('supertest')
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -23,33 +24,40 @@ describe('*********** PAY_ORDERS_ADMIN ***********', () => {
   describe('/POST login', () => {
     test('it should GET token user', (done) => {
       request(server)
-        .post(`${url}/login`)
+        .post(`${url}/login/`)
         .send(loginDetails)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
-          const currentAccessToken = res.body.accessToken
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            accessToken: expect.any(String),
+            user: expect.any(Object),
+          }))
+          const currentAccessToken = body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
     test('it should GET a fresh token', (done) => {
       request(server)
-        .post(`${url}/exchange`)
+        .post(`${url}/exchange/`)
         .send({
           accessToken
         })
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
+          expect(body).toEqual(expect.objectContaining({
+            token: expect.any(String),
+            user: expect.any(Object),
+          }))
           const currentToken = body.token
           token = currentToken
           done()
         })
-    })
+    }, 10000)
   })
 
   describe('/POST payOrders', () => {
@@ -59,13 +67,13 @@ describe('*********** PAY_ORDERS_ADMIN ***********', () => {
         .post(`${url}/payOrders`)
         .set('Authorization', `Bearer ${token}`)
         .send(orderPostOne)
+        .expect(422)
         .end((err, res) => {
-          expect(res).have.status(422)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
           expect(body).toHaveProperty('errors')
           const { errors } = body
-          expect(Array.isArray(errors)).toBe(true)
+          expect(errors.msg).toBeInstanceOf(Array)
           done()
         })
     })
@@ -80,16 +88,19 @@ describe('*********** PAY_ORDERS_ADMIN ***********', () => {
         .post(`${url}/payOrders`)
         .set('Authorization', `Bearer ${token}`)
         .send(orderPostTwo)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(
-            expect.arrayContaining(['_id', 'idUser', 'platform', 'idOperation', 'idUser', 'platform'])
-          )
-          expect(body).have.property('platform').toBe('stripe')
-          expect(body).have.property('idUser').toEqual(idUser)
-          expect(body).have.property('amount').toEqual(orderPostTwo.amount)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            idUser: expect.any(String),
+            platform: expect.any(String),
+            idOperation: expect.any(String),
+          }))
+          expect(body).toHaveProperty('platform', 'stripe')
+          expect(body).toHaveProperty('idUser', idUser)
+          expect(body).toHaveProperty('amount', orderPostTwo.amount)
           createdID.push(res.body._id)
           done()
         })
@@ -106,16 +117,19 @@ describe('*********** PAY_ORDERS_ADMIN ***********', () => {
         .post(`${url}/payOrders`)
         .set('Authorization', `Bearer ${token}`)
         .send(orderPostTwo)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(
-            expect.arrayContaining(['_id', 'idUser', 'platform', 'idOperation', 'idUser', 'platform'])
-          )
-          expect(body).have.property('platform').toBe('stripe')
-          expect(body).have.property('idReservation').toEqual(idReservation)
-          expect(body).have.property('amount').toEqual(orderPostTwo.amount)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            idUser: expect.any(String),
+            platform: expect.any(String),
+            idOperation: expect.any(String),
+          }))
+          expect(body).toHaveProperty('platform', 'stripe')
+          expect(body).toHaveProperty('idReservation', idReservation)
+          expect(body).toHaveProperty('amount', orderPostTwo.amount)
           createdID.push(res.body._id)
           done()
         })
@@ -127,14 +141,18 @@ describe('*********** PAY_ORDERS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/payOrders`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((err, res) => {
           const { body } = res
           const { docs } = body
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
           expect(docs).toHaveLength(2)
           const firstorder = _.head(docs)
-          expect(firstorder).toEqual(expect.arrayContaining(['_id', 'amount', 'idOperation']))
+          expect(firstorder).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            amount: expect.any(Number),
+            idOperation: expect.any(String),
+          }))
           done()
         })
     })
@@ -146,23 +164,26 @@ describe('*********** PAY_ORDERS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/payOrders/${id}`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['status', '_id', 'idReservation']))
-          expect(body).have.property('_id').toEqual(id)
+          expect(body).toEqual(expect.objectContaining({
+            status: expect.any(String),
+            _id: expect.any(String),
+            idReservation: expect.any(String),
+          }))
+          expect(body).toHaveProperty('_id', id)
           done()
         })
     })
-    it(
-      'it should NOT be able to consume the route since no token was sent',
+    test('it should NOT be able to consume the route since no token was sent',
       (done) => {
         const id = createdID.slice(-1).pop()
         request(server)
           .get(`${url}/payOrders/${id}`)
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -177,12 +198,12 @@ describe('*********** PAY_ORDERS_ADMIN ***********', () => {
         .patch(`${url}/payOrders/fromPanel/${id}`)
         .set('Authorization', `Bearer ${token}`)
         .send(object)
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).have.property('_id').toEqual(id)
-          expect(body).have.property('amount').toEqual(object.amount)
+          expect(body).toHaveProperty('_id', id)
+          expect(body).toHaveProperty('amount', object.amount)
           done()
         })
     })
@@ -195,8 +216,8 @@ describe('*********** PAY_ORDERS_ADMIN ***********', () => {
           .send({
             amount: faker.random.number()
           })
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -216,19 +237,24 @@ describe('*********** PAY_ORDERS_ADMIN ***********', () => {
         .post(`${url}/payOrders`)
         .set('Authorization', `Bearer ${token}`)
         .send(objectDelete)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['_id', 'idOperation', 'idUser', 'platform']))
-          chai
-            .request(server)
-            .delete(`${url}/payOrders/${res.body._id}`)
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            platform: expect.any(String),
+            _id: expect.any(String),
+            idOperation: expect.any(String),
+            idUser: expect.any(String),
+          }))
+          request(server)
+            .delete(`${url}/payOrders/${body._id}`)
             .set('Authorization', `Bearer ${token}`)
+            .expect(200)
             .end((error, result) => {
-              const { body } = result
-              expect(result).have.status(200)
-              expect(body).toBeInstanceOf(Object)
-              expect(body).have.property('msg').toBe('DELETED')
+              const { body: newBody } = result
+              expect(newBody).toBeInstanceOf(Object)
+              expect(newBody).toHaveProperty('msg', 'DELETED')
               done()
             })
         })

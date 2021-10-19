@@ -4,10 +4,10 @@
 process.env.NODE_ENV = 'test'
 const _ = require('lodash')
 const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+const server = require('../../superTest')
+const request = require('supertest')
 const itinerary = require('../../app/models/itinerary')
-const server = require('../../server')
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -47,58 +47,61 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
   describe('/POST login', () => {
     test('it should GET token user', (done) => {
       request(server)
-        .post(`${url}/login`)
+        .post(`${url}/login/`)
         .send(loginDetails)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
-          const currentAccessToken = res.body.accessToken
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            accessToken: expect.any(String),
+            user: expect.any(Object),
+          }))
+          const currentAccessToken = body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
     test('it should GET a fresh token', (done) => {
       request(server)
-        .post(`${url}/exchange`)
+        .post(`${url}/exchange/`)
         .send({
           accessToken
         })
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
+          expect(body).toEqual(expect.objectContaining({
+            token: expect.any(String),
+            user: expect.any(Object),
+          }))
           const currentToken = body.token
           token = currentToken
           done()
         })
     })
   })
-
   describe('/GET itineraries', () => {
     test('it should GET all the itineraries', (done) => {
       request(server)
         .get(`${url}/itineraries`)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
-          expect(Array.isArray(body.docs)).toBe(true)
+          expect(body.docs).toBeInstanceOf(Array)
           const firstItinerary = _.head(body.docs)
           idItinerary = firstItinerary._id
-          expect(firstItinerary).toEqual(expect.arrayContaining([
-            '_id',
-            'itineraryName',
-            'itineraryDescription',
-            'idTour',
-            'stringLocation',
-            'details'
-          ]))
-          expect(typeof firstItinerary._id).toBe('string')
-          expect(typeof firstItinerary.itineraryName).toBe('string')
-          expect(firstItinerary.idTour).be.a('string').toEqual(idTour)
-          expect(Array.isArray(firstItinerary.details)).toBe(true)
+          expect(firstItinerary).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            itineraryName: expect.any(String),
+            itineraryDescription: expect.any(String),
+            idTour: expect.any(String),
+            stringLocation: expect.any(Object),
+            details: expect.any(Array),
+          }))
+          expect(firstItinerary).toHaveProperty('idTour', idTour)
           done()
         })
     })
@@ -111,13 +114,13 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
         .post(`${url}/itineraries`)
         .set('Authorization', `Bearer ${token}`)
         .send(itineraryOne)
+        .expect(422)
         .end((err, res) => {
-          expect(res).have.status(422)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
           expect(body).toHaveProperty('errors')
           const { errors } = body
-          expect(Array.isArray(errors)).toBe(true)
+          expect(errors.msg).toBeInstanceOf(Object)
           done()
         })
     })
@@ -126,18 +129,20 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
         .post(`${url}/itineraries`)
         .set('Authorization', `Bearer ${token}`)
         .send(newObject)
+        .expect(201)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(201)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['_id', 'stringLocation']))
-          expect(body).include.property('itineraryName').toEqual(itineraryName)
-          expect(typeof body._id).toBe('string')
-          expect(typeof body.itineraryName).toBe('string')
-          expect(typeof body.itineraryDescription).toBe('string')
-          expect(body.idTour).be.a('string').toEqual(idTour)
-          expect(body.stringLocation).toBeInstanceOf(Object)
-          expect(Array.isArray(body.details)).toBe(true)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            itineraryName: expect.any(String),
+            itineraryDescription: expect.any(String),
+            idTour: expect.any(String),
+            stringLocation: expect.any(Object),
+            details: expect.any(Array),
+          }))
+          expect(body).toHaveProperty('idTour', idTour)
+          expect(body).toHaveProperty('itineraryName', itineraryName)
           createdID.push(res.body._id)
           done()
         })
@@ -150,24 +155,23 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
         .post(`${url}/itineraries`)
         .set('Authorization', `Bearer ${token}`)
         .send(itineraryTwo)
+        .expect(422)
         .end((err, res) => {
-          expect(res).have.status(422)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
           expect(body).toHaveProperty('errors')
           const { errors } = body
-          expect(Array.isArray(errors)).toBe(true)
+          expect(errors.msg).toBeInstanceOf(Array)
           done()
         })
     })
-    it(
-      'it should NOT be able to consume the route since no token was sent',
+    test('it should NOT be able to consume the route since no token was sent',
       (done) => {
         request(server)
           .post(`${url}/itineraries`)
           .send(newObject)
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -179,18 +183,18 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
       request(server)
         .get(`${url}/itineraries/${idItinerary}`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).have.property('_id').toEqual(idItinerary)
-          // res.body.should.include.property('itineraryName').eql(itineraryName)
-          expect(typeof body._id).toBe('string')
-          expect(typeof body.itineraryName).toBe('string')
-          expect(typeof body.itineraryDescription).toBe('string')
-          expect(body.idTour).be.a('string').toEqual(idTour)
-          expect(body.stringLocation).toBeInstanceOf(Object)
-          expect(Array.isArray(body.details)).toBe(true)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            itineraryName: expect.any(String),
+            itineraryDescription: expect.any(String),
+            idTour: expect.any(String),
+          }))
+          expect(body).toHaveProperty('idTour', idTour)
+          expect(body).toHaveProperty('_id', idItinerary)
           done()
         })
     })
@@ -199,18 +203,20 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
       request(server)
         .get(`${url}/itineraries/${id}`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((error, res) => {
-          expect(res).have.status(200)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
-          expect(body).have.property('_id').toEqual(id)
-          expect(body).include.property('itineraryName').toEqual(itineraryName)
-          expect(typeof body._id).toBe('string')
-          expect(typeof body.itineraryName).toBe('string')
-          expect(typeof body.itineraryDescription).toBe('string')
-          expect(typeof body.idTour).toBe('string')
-          expect(body.stringLocation).toBeInstanceOf(Object)
-          expect(body.details).be.a('array').toHaveLength(2)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            itineraryName: expect.any(String),
+            itineraryDescription: expect.any(String),
+            idTour: expect.any(String),
+          }))
+          expect(body).toHaveProperty('idTour', idTour)
+          expect(body).toHaveProperty('itineraryName', itineraryName)
+          expect(body).toHaveProperty('_id', id)
+          expect(body.details).toHaveLength(2)
           done()
         })
     })
@@ -220,8 +226,8 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
         const id = createdID.slice(-1).pop()
         request(server)
           .get(`${url}/itineraries/${id}`)
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -239,15 +245,19 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
           itineraryName: newTitle,
           itineraryDescription: newDescription
         })
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['_id', 'itineraryDescription', 'itineraryName']))
-          expect(typeof body.itineraryName).toBe('string')
-          expect(body).have.property('_id').toEqual(id)
-          expect(body).have.property('itineraryName').toEqual(newTitle)
-          expect(body).have.property('itineraryDescription').toEqual(newDescription)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            itineraryName: expect.any(String),
+            itineraryDescription: expect.any(String),
+            idTour: expect.any(String),
+          }))
+          expect(body).toHaveProperty('itineraryDescription', newDescription)
+          expect(body).toHaveProperty('itineraryName', newTitle)
+          expect(body).toHaveProperty('_id', id)
           done()
         })
     })
@@ -264,8 +274,8 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
           itineraryName: newTitle,
           itineraryDescription: newDescription
         })
+        .expect(401)
         .end((err, res) => {
-          expect(res).have.status(401)
           done()
         })
     }
@@ -275,14 +285,14 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
 describe('/DELETE/:id itineraries', () => {
   test('it should DELETE a itinerary given the id', (done) => {
     const id = createdID.slice(-1).pop()
-    chai
-      .request(server)
+    request(server)
       .delete(`${url}/itineraries/${id}`)
       .set('Authorization', `Bearer ${token}`)
+      .expect(200)
       .end((error, result) => {
-        expect(result).have.status(200)
-        expect(result.body).toBeInstanceOf(Object)
-        expect(result.body).have.property('msg').toBe('DELETED')
+        const { body: newBody } = result
+        expect(newBody).toBeInstanceOf(Object)
+        expect(newBody).toMatchObject({ msg: 'DELETED' })
         done()
       })
   })

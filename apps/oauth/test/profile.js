@@ -2,8 +2,8 @@
 
 process.env.NODE_ENV = 'test'
 
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const server = require('../server')
 // eslint-disable-next-line no-unused-vars
 const should = chai.should()

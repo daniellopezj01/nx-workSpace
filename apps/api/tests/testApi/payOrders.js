@@ -2,8 +2,8 @@
 /* eslint-disable no-undef */
 process.env.NODE_ENV = 'test'
 const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const orders = require('../../app/models/payOrder')
 const reservations = require('../../app/models/reservation')
 const server = require('../../server')
@@ -152,8 +152,7 @@ describe('*********** PAY_ORDERS_USERS ***********', () => {
           expect(res.body).toBeInstanceOf(Object)
           expect(res.body).toEqual(expect.arrayContaining(['id', 'client_secret']))
           const customData = res.body
-          chai
-            .request(server)
+          request(server)
             .patch(`${url}/payorders/${res.body.id}`)
             .set('Authorization', `Bearer ${token}`)
             .send(customData)

@@ -3,8 +3,8 @@
 
 process.env.NODE_ENV = 'test'
 
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const server = require('../../server')
 const payOrders = require('../../app/models/payOrder')
 
@@ -139,8 +139,7 @@ describe('*********** STRIPE_USERS ***********', () => {
           expect(res.body.amount).be.a('number').toEqual(price * 100)
           expect(res.body).toEqual(expect.arrayContaining(['id', 'client_secret']))
           customData = res.body
-          chai
-            .request(server)
+          request(server)
             .patch(`${url}/payorders/${res.body.id}`)
             .set('Authorization', `Bearer ${token}`)
             .send(customData)

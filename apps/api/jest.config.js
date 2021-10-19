@@ -9,7 +9,8 @@ module.exports = {
   },
   testEnvironment: 'node',
   // testMatch: ['**/tests/testAdmin/test.js'],
-  testMatch: ['**/tests/testAdmin/auth.js'],
+  testMatch: ['**/tests/testAdmin/*.js'],
+  globalSetup: './clean.js',
   // testMatch: ['**/tests/**/*.js'],
   // testMatch: ['**/tests/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   transform: {

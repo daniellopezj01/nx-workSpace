@@ -3,11 +3,11 @@
 process.env.NODE_ENV = 'test'
 
 const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
 const _ = require('lodash')
 const comment = require('../../app/models/comments')
-const server = require('../../server')
+const server = require('../../superTest')
+const request = require('supertest')
+
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -24,33 +24,40 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
   describe('/POST login', () => {
     test('it should GET token user', (done) => {
       request(server)
-        .post(`${url}/login`)
+        .post(`${url}/login/`)
         .send(loginDetails)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
-          const currentAccessToken = res.body.accessToken
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            accessToken: expect.any(String),
+            user: expect.any(Object),
+          }))
+          const currentAccessToken = body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
     test('it should GET a fresh token', (done) => {
       request(server)
-        .post(`${url}/exchange`)
+        .post(`${url}/exchange/`)
         .send({
           accessToken
         })
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
+          expect(body).toEqual(expect.objectContaining({
+            token: expect.any(String),
+            user: expect.any(Object),
+          }))
           const currentToken = body.token
           token = currentToken
           done()
         })
-    })
+    }, 10000)
   })
 
   describe('/POST comments', () => {
@@ -60,13 +67,13 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
         .post(`${url}/comments`)
         .set('Authorization', `Bearer ${token}`)
         .send(commentPostOne)
+        .expect(422)
         .end((err, res) => {
-          expect(res).have.status(422)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
           expect(body).toHaveProperty('errors')
           const { errors } = body
-          expect(Array.isArray(errors)).toBe(true)
+          expect(errors.msg).toBeInstanceOf(Array)
           done()
         })
     })
@@ -82,14 +89,17 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
         .post(`${url}/comments`)
         .set('Authorization', `Bearer ${token}`)
         .send(commentPostTwo)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['_id', 'vote', 'content']))
-          expect(body).have.property('status').toBe('publish')
-          expect(body).have.property('content').toEqual(content)
-          expect(typeof body).toBe('string')
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            vote: expect.any(Number),
+            content: expect.any(String),
+          }))
+          expect(body).toHaveProperty('status', 'publish')
+          expect(body).toHaveProperty('content', content)
           createdID.push(res.body._id)
           done()
         })
@@ -101,23 +111,27 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/comments`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((err, res) => {
           const { body } = res
           const { docs } = body
           const commentFirst = _.head(docs)
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
           expect(docs).toHaveLength(1)
+          expect(commentFirst).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            vote: expect.any(Number),
+            content: expect.any(String),
+          }))
           id = commentFirst._id
-          expect(commentFirst).toEqual(expect.arrayContaining(['_id', 'content', 'vote']))
           done()
         })
     })
     test('it should not GET comments unauthorized', (done) => {
       request(server)
         .get(`${url}/comments`)
+        .expect(401)
         .end((err, res) => {
-          expect(res).have.status(401)
           done()
         })
     })
@@ -129,26 +143,28 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/comments/${id}`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['status', 'tags', '_id']))
-          expect(body).have.property('_id').toEqual(id)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            tags: expect.any(Array),
+            status: expect.any(String),
+          }))
+          expect(body).toHaveProperty('_id', id)
           done()
         })
     })
-    it(
-      'it should NOT be able to consume the route since no token was sent',
-      (done) => {
-        const id = createdID.slice(-1).pop()
-        request(server)
-          .get(`${url}/comments/${id}`)
-          .end((err, res) => {
-            expect(res).have.status(401)
-            done()
-          })
-      }
+    test('it should NOT be able to consume the route since no token was sent', (done) => {
+      const id = createdID.slice(-1).pop()
+      request(server)
+        .get(`${url}/comments/${id}`)
+        .expect(401)
+        .end((err, res) => {
+          done()
+        })
+    }
     )
   })
 
@@ -165,13 +181,12 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
           status: 'publish',
           tags: ['naturaleza']
         })
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).have.property('_id').toEqual(id)
-          expect(body).have.property('content').toEqual(content)
-          expect(typeof body._id).toBe('string')
+          expect(body).toHaveProperty('_id', id)
+          expect(body).toHaveProperty('content', content)
           createdID.push(res.body._id)
           done()
         })
@@ -182,9 +197,9 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
         .patch(`${url}/comments/${id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({})
+        .expect(422)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(422)
           expect(body).toBeInstanceOf(Object)
           expect(body).toHaveProperty('errors')
           done()
@@ -203,8 +218,8 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
             status: 'publish',
             tags: ['naturaleza']
           })
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -224,19 +239,24 @@ describe('*********** COMMENTS_ADMIN ***********', () => {
         .post(`${url}/comments`)
         .set('Authorization', `Bearer ${token}`)
         .send(commentdelete)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['_id', 'vote', 'status', 'tags']))
-          chai
-            .request(server)
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            vote: expect.any(Number),
+            tags: expect.any(Array),
+            status: expect.any(String),
+          }))
+          request(server)
             .delete(`${url}/comments/${res.body._id}`)
             .set('Authorization', `Bearer ${token}`)
+            .expect(200)
             .end((error, result) => {
-              const { body } = result
-              expect(result).have.status(200)
-              expect(body).toBeInstanceOf(Object)
-              expect(body).have.property('msg').toBe('DELETED')
+              const { body: newBody } = result
+              expect(newBody).toBeInstanceOf(Object)
+              expect(newBody).toHaveProperty('msg', 'DELETED')
               done()
             })
         })

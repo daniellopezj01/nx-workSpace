@@ -4,8 +4,8 @@
 process.env.NODE_ENV = 'test'
 
 const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const hook = require('../../app/models/hooks')
 const server = require('../../server')
 const loginDetails = {
@@ -124,8 +124,7 @@ describe('*********** HOOKS ***********', () => {
           expect(res).have.status(201)
           expect(res.body).toBeInstanceOf(Object)
           expect(res.body).toEqual(expect.arrayContaining(['url', 'trigger']))
-          chai
-            .request(server)
+          request(server)
             .delete(`${url}/hook/unsubscriber`)
             .set('app_id', '1')
             .set('app_secret', '2')

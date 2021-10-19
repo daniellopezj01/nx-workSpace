@@ -2,8 +2,8 @@
 /* eslint-disable no-undef */
 process.env.NODE_ENV = 'test'
 const _ = require('lodash')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const modalquestion = require('../../app/models/questionsReservation')
 const server = require('../../server')
 const loginDetails = {

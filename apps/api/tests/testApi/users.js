@@ -1,8 +1,8 @@
 /* eslint-disable handle-callback-err */
 process.env.NODE_ENV = 'test'
 
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const User = require('../../app/models/user')
 const server = require('../../server')
 const loginDetails = {

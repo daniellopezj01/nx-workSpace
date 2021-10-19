@@ -94,7 +94,7 @@ MongoClient.connect(process.env.MONGO_URI, async (err, client) => {
   } else {
     console.log('MongoDB successfully connected on port 27017.')
   }
-
+  console.log('ENTRO A INIT')
   const db = client.db()
   await insertSettings(db)
   await insertTours(db)

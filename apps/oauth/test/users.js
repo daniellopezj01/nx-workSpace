@@ -4,8 +4,8 @@ process.env.NODE_ENV = 'test'
 
 const User = require('../app/models/user')
 const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const server = require('../server')
 // eslint-disable-next-line no-unused-vars
 const should = chai.should()
@@ -269,8 +269,7 @@ describe('*********** USERS ***********', () => {
           res.should.have.status(201)
           res.body.should.be.a('object')
           res.body.should.include.keys('_id', 'name', 'email', 'verification')
-          chai
-            .request(server)
+          request(server)
             .delete(`/users/${res.body._id}`)
             .set('Authorization', `Bearer ${tokens.admin}`)
             .end((error, result) => {

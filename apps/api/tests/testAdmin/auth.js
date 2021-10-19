@@ -6,8 +6,8 @@ process.env.NODE_ENV = 'test'
 
 const faker = require('faker')
 
-const server = require('../../superTest')
 const request = require('supertest')
+const server = require('../../superTest')
 const User = require('../../app/models/user')
 const loginDetails = {
   email: 'admin@admin.com',
@@ -134,7 +134,6 @@ describe('*********** AUTH_ADMIN ***********', () => {
           expect(body).toHaveProperty('errors')
           const { msg } = body.errors
           const message = `E11000 duplicate key error collection: oauth_service.users index: email_1 dup key: { email: "${email.toLowerCase()}" }`
-          // expect(msg).have.property('msg').toEqual(message)
           expect(msg).toMatchObject({ msg: message })
           done()
         })
@@ -166,7 +165,7 @@ describe('*********** AUTH_ADMIN ***********', () => {
           expect(res.body).toBeInstanceOf(Object)
           expect(res.body).toEqual(expect.objectContaining({
             msg: expect.any(String),
-            // email: expect.any(String),
+            email: expect.any(String),
             verification: expect.any(String),
           }))
           verificationForgot = res.body.verification
@@ -187,7 +186,6 @@ describe('*********** AUTH_ADMIN ***********', () => {
           const { body } = res
           expect(res.body).toBeInstanceOf(Object)
           expect(body.msg).toEqual('PASSWORD_CHANGED')
-          // expect(res.body).have.property('msg').toBe('PASSWORD_CHANGED')
           done()
         })
     })
@@ -200,8 +198,7 @@ describe('*********** AUTH_ADMIN ***********', () => {
         .end((err, res) => {
           done()
         })
-    }
-    )
+    })
     test('it should GET a fresh token', (done) => {
       request(server)
         .post(`${url}/exchange/`)
@@ -211,7 +208,6 @@ describe('*********** AUTH_ADMIN ***********', () => {
         .expect(200)
         .end((err, res) => {
           const { body } = res
-
           expect(body).toBeInstanceOf(Object)
           expect(body).toEqual(expect.objectContaining({
             token: expect.any(String),
@@ -231,7 +227,6 @@ describe('*********** AUTH_ADMIN ***********', () => {
         .end((err, res) => {
           const { body } = res
           expect(body).toBeInstanceOf(Object)
-          console.log(body)
           expect(body).toEqual(expect.objectContaining({
             token: expect.any(String),
             user: expect.any(Object),

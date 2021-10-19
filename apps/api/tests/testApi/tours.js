@@ -3,9 +3,9 @@
 
 process.env.NODE_ENV = 'test'
 
-const chai = require('chai')
+
 const _ = require('lodash')
-const chaiHttp = require('chai-http')
+
 const Tour = require('../../app/models/tour')
 const server = require('../../server')
 

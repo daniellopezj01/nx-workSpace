@@ -4,10 +4,11 @@
 process.env.NODE_ENV = 'test'
 
 const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const conversation = require('../../app/models/conversation')
-const server = require('../../server')
+const server = require('../../superTest')
+const request = require('supertest')
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -26,33 +27,40 @@ describe('*********** CONVERSATIONS_ADMIN ***********', () => {
   describe('/POST login', () => {
     test('it should GET token user', (done) => {
       request(server)
-        .post(`${url}/login`)
+        .post(`${url}/login/`)
         .send(loginDetails)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
-          const currentAccessToken = res.body.accessToken
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            accessToken: expect.any(String),
+            user: expect.any(Object),
+          }))
+          const currentAccessToken = body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
     test('it should GET a fresh token', (done) => {
       request(server)
-        .post(`${url}/exchange`)
+        .post(`${url}/exchange/`)
         .send({
           accessToken
         })
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
+          expect(body).toEqual(expect.objectContaining({
+            token: expect.any(String),
+            user: expect.any(Object),
+          }))
           const currentToken = body.token
           token = currentToken
           done()
         })
-    })
+    }, 10000)
   })
 
   describe('/DELETE/:id conversation', () => {
@@ -65,19 +73,22 @@ describe('*********** CONVERSATIONS_ADMIN ***********', () => {
         .post(`${url}/messages`)
         .set('Authorization', `Bearer ${token}`)
         .send(messagePost)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
           expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['_id', 'hash', 'messages']))
-          chai
-            .request(server)
+          expect(res.body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            hash: expect.any(String),
+            messages: expect.any(Array),
+          }))
+          request(server)
             .delete(`${url}/conversations/${res.body._id}`)
             .set('Authorization', `Bearer ${token}`)
+            .expect(200)
             .end((error, result) => {
               const { body } = result
-              expect(result).have.status(200)
               expect(body).toBeInstanceOf(Object)
-              expect(body).have.property('msg').toBe('DELETED')
+              expect(body).toHaveProperty('msg', 'DELETED')
               done()
             })
         })

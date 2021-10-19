@@ -5,8 +5,8 @@ process.env.NODE_ENV = 'test'
 
 const _ = require('lodash')
 const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const User = require('../../app/models/user')
 const server = require('../../server')
 const loginDetails = {
@@ -145,8 +145,7 @@ describe('*********** USERS_ADMIN ***********', () => {
           expect(body).toBeInstanceOf(Object)
           expect(body).toEqual(expect.arrayContaining(['_id', 'name', 'email', 'verification']))
           const tokenpost = body.accessToken
-          chai
-            .request(server)
+          request(server)
             .post(`${url}/exchange`)
             .send({
               accessToken: tokenpost

@@ -4,8 +4,8 @@ process.env.NODE_ENV = 'test'
 
 const _ = require('lodash')
 const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const reffered = require('../../app/models/referredUsers')
 const server = require('../../server')
 const loginDetails = {
@@ -215,8 +215,7 @@ describe('*********** REFERREDS_ADMIN ***********', () => {
           expect(res).have.status(201)
           expect(res.body).toBeInstanceOf(Object)
           expect(res.body).toEqual(expect.arrayContaining(['_id', 'amountTo', 'amountFrom', 'status']))
-          chai
-            .request(server)
+          request(server)
             .delete(`${url}/referreds/${res.body._id}`)
             .set('Authorization', `Bearer ${token}`)
             .end((error, result) => {

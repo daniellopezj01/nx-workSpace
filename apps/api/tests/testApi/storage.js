@@ -5,8 +5,8 @@ process.env.NODE_ENV = 'test'
 
 const fs = require('fs')
 const _ = require('lodash')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const server = require('../../server')
 const storage = require('../../app/models/storage')
 const loginDetails = {

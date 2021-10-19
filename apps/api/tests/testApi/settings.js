@@ -2,8 +2,8 @@
 /* eslint-disable no-undef */
 process.env.NODE_ENV = 'test'
 
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const server = require('../../server')
 
 const url = process.env.URL_TEST_USER

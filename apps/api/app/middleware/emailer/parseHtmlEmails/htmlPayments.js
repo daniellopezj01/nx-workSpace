@@ -25,7 +25,7 @@ const htmlPayments = (object, template = '', user) => {
     let departure
     if (idReservation) {
       reservation = await db.getItem(idReservation, modelReservation)
-      const { idTour, idDeparture, travelerLastName } = reservation
+      const { idTour, idDeparture } = reservation
       tour = await db.getItem(idTour, modelTour)
       departure = await db.getItem(idDeparture, modelDeparture)
       beginTour = moment(departure?.startDateDeparture, 'DD-MM-YYYY').format(
@@ -47,7 +47,7 @@ const htmlPayments = (object, template = '', user) => {
         const operation = operationType === 'flights' ? 'vuelos' : ''
         data = data.replace(
           /TRAVELER_NAME/g,
-          `${reservation?.travelerFirstName} ${reservation.travelerLastName || ''
+          `${reservation?.travelerFirstName} ${reservation?.travelerLastName || ''
           }`
         )
         data = data.replace(/CODE_RESERVATION/g, reservation?.code)

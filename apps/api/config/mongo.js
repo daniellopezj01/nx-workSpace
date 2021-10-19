@@ -16,7 +16,6 @@ module.exports = () => {
   try {
     const connect = () => {
       mongoose.Promise = global.Promise
-
       mongoose.connect(dbType, optionsConnection, (err) => {
         let dbStatus = ''
         if (err) {

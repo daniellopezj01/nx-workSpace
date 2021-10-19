@@ -4,8 +4,8 @@
 process.env.NODE_ENV = 'test'
 
 const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+
+
 const Tour = require('../../app/models/tour')
 const server = require('../../server')
 const loginDetails = {
@@ -266,8 +266,7 @@ describe('*********** TOURS_ADMIN ***********', () => {
           expect(res.body).toEqual(
             expect.arrayContaining(['_id', 'title', 'subTitle', 'description', 'route'])
           )
-          chai
-            .request(server)
+          request(server)
             .delete(`${url}/tours/${res.body._id}`)
             .set('Authorization', `Bearer ${token}`)
             .end((error, result) => {
