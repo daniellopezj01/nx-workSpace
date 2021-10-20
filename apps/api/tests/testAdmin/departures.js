@@ -149,7 +149,7 @@ describe('*********** DEPARTURES_ADMIN ***********', () => {
           done()
         })
     })
-    it('it should NOT be able to consume the route since no token was sent',
+    test('it should NOT be able to consume the route since no token was sent',
       (done) => {
         const id = createdID.slice(-1).pop()
         request(server)

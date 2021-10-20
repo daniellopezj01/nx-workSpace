@@ -57,7 +57,7 @@ describe('*********** SUPPORT_USERS ***********', () => {
     })
   })
   describe('/GET support', () => {
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         request(server)
@@ -106,7 +106,7 @@ describe('*********** SUPPORT_USERS ***********', () => {
   })
 
   describe('/POST To new support', () => {
-    it('error in params', (done) => {
+    test('error in params', (done) => {
       const messagePost = {
         message: faker.random.words()
       }
@@ -173,7 +173,7 @@ describe('*********** SUPPORT_USERS ***********', () => {
           done()
         })
     })
-    it('new support', (done) => {
+    test('new support', (done) => {
       const messagePost = {
         message: faker.random.words(),
         codeReservation

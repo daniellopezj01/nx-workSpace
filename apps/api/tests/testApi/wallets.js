@@ -54,7 +54,7 @@ describe('*********** WALLETS_USERS ***********', () => {
   })
 
   describe('/GET wallets', () => {
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         request(server)

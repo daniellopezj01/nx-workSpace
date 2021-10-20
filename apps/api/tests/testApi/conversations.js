@@ -60,7 +60,7 @@ describe('*********** CONVERSATIONS_USER ***********', () => {
   })
 
   describe('/GET conversations', () => {
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         request(server)
@@ -122,7 +122,7 @@ describe('*********** CONVERSATIONS_USER ***********', () => {
   })
 
   describe('/POST To new Conversation', () => {
-    it('error in params', (done) => {
+    test('error in params', (done) => {
       const messagePost = {
         message: faker.random.words()
       }
@@ -166,7 +166,7 @@ describe('*********** CONVERSATIONS_USER ***********', () => {
           done()
         })
     })
-    it('new Conversation', (done) => {
+    test('new Conversation', (done) => {
       const messagePost = {
         message: faker.random.words(),
         to: toUser2

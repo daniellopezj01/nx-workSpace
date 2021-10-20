@@ -6,7 +6,6 @@ const fileUpload = require('express-fileupload')
 const initMongo = require('./config/mongo')
 const bodyParser = require('body-parser')
 
-
 require('./app/plugins/index')
 require('./app/services/hookService')
 const server = require('http').createServer(app)
@@ -46,7 +45,6 @@ app.use('/admin', require('./app/routesAdmin'))
 
 server.listen(process.env.PORT)
 // Init MongoDB
-// initMongo()
-
+initMongo()
 
 module.exports = app // for testing

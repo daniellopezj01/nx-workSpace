@@ -3,7 +3,6 @@ const { MONGO_TEST } = process.env
 const mongoose = require('mongoose')
 
 const loadModels = require('../app/models')
-
 const dbType = process.env.NODE_ENV !== 'test' ? DB_URL : MONGO_TEST
 
 const optionsConnection = {
@@ -12,7 +11,7 @@ const optionsConnection = {
   useUnifiedTopology: true
 }
 
-module.exports = () => {
+module.exports = async () => {
   try {
     const connect = () => {
       mongoose.Promise = global.Promise
@@ -21,26 +20,31 @@ module.exports = () => {
         if (err) {
           dbStatus = `*    Error connecting to DB: ${err}\n****************************\n`
         }
-        dbStatus = '*    DB Connection: OK\n****************************\n'
-        // if (process.env.NODE_ENV) {
-        // Prints initialization
-        console.log('****************************')
-        console.log('*    Starting Server')
-        console.log(`*    Port: ${process.env.PORT || 3000}`)
-        console.log(`*    NODE_ENV: ${process.env.NODE_ENV}`)
-        console.log('*    Database: MongoDB')
-        console.log(dbStatus)
-        // }
+        if (process.env.NODE_ENV === 'test') {
+          console.log('db connected')
+        } else {
+          dbStatus = '*    DB Connection: OK\n****************************\n'
+          // if (process.env.NODE_ENV) {
+          // Prints initialization
+          console.log('****************************')
+          console.log('*    Starting Server')
+          console.log(`*    Port: ${process.env.PORT || 3000}`)
+          console.log(`*    NODE_ENV: ${process.env.NODE_ENV}`)
+          console.log('*    Database: MongoDB')
+          console.log(dbStatus)
+          // }
+        }
       })
       mongoose.set('useCreateIndex', true)
       mongoose.set('useFindAndModify', false)
     }
     connect()
-
     mongoose.connection.on('error', console.log)
     mongoose.connection.on('disconnected', connect)
-
     loadModels()
+    // if (process.env.NODE_ENV === 'test') {
+    //   // clean.clean()
+    // }
   } catch (error) {
     console.log('connect mongo', error.message)
   }

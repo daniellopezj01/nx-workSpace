@@ -5,8 +5,9 @@ process.env.NODE_ENV = 'test'
 
 const _ = require('lodash')
 const faker = require('faker')
-// const support = require('../../app/models/supportTicket')
-const server = require('../../server')
+const support = require('../../app/models/supportTicket')
+const server = require('../../superTest')
+const request = require('supertest')
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -27,42 +28,48 @@ describe('*********** SUPPORT_ADMIN ***********', () => {
   describe('/POST login', () => {
     test('it should GET token user', (done) => {
       request(server)
-        .post(`${url}/login`)
+        .post(`${url}/login/`)
         .send(loginDetails)
         .expect(200)
         .end((err, res) => {
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
-          const currentAccessToken = res.body.accessToken
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            accessToken: expect.any(String),
+            user: expect.any(Object),
+          }))
+          const currentAccessToken = body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
     test('it should GET a fresh token', (done) => {
       request(server)
-        .post(`${url}/exchange`)
+        .post(`${url}/exchange/`)
         .send({
           accessToken
         })
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
+          expect(body).toEqual(expect.objectContaining({
+            token: expect.any(String),
+            user: expect.any(Object),
+          }))
           const currentToken = body.token
           token = currentToken
           done()
         })
-    })
+    }, 10000)
   })
   describe('/GET support', () => {
-    it(
-      'it should NOT be able to consume the route since no token was sent',
+    test('it should NOT be able to consume the route since no token was sent',
       (done) => {
         request(server)
           .post(`${url}/support`)
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -71,17 +78,22 @@ describe('*********** SUPPORT_ADMIN ***********', () => {
       request(server)
         .get(`${url}/support`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
           const { body } = res
-          expect(Array.isArray(body.docs)).toBe(true)
-          expect(body.totalDocs).be.a('number').toBe(1)
+          expect(body).toEqual(expect.objectContaining({
+            totalDocs: expect.any(Number),
+            docs: expect.any(Array),
+          }))
+          expect(body).toHaveProperty('totalDocs', 1)
           const { docs } = body
           const firstChat = _.head(docs)
-          expect(firstChat).toEqual(expect.arrayContaining(['_id', 'status', 'hash', 'firstMessage']))
+          expect(firstChat).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            status: expect.any(String),
+          }))
           id = firstChat._id
-          expect(typeof firstChat._id).toBe('string')
-          expect(firstChat.hash).be.a('string').toEqual(hash)
+          expect(firstChat).toHaveProperty('hash', hash)
           done()
         })
     })
@@ -89,18 +101,23 @@ describe('*********** SUPPORT_ADMIN ***********', () => {
       request(server)
         .get(`${url}/support/${id}`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
           const { body } = res
-          expect(body).toEqual(expect.arrayContaining(['_id', 'status', 'hash', 'messages']))
-          expect(body._id).be.a('string').toEqual(id)
-          expect(body.hash).be.a('string').toEqual(hash)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            status: expect.any(String),
+            hash: expect.any(String),
+            messages: expect.any(Array),
+          }))
+          expect(body).toHaveProperty('_id', id)
+          expect(body).toHaveProperty('hash', hash)
           done()
         })
     })
   })
   describe('/POST To new support', () => {
-    it('error in params', (done) => {
+    test('error in params', (done) => {
       const messagePost = {
         message: faker.random.words()
       }
@@ -108,13 +125,11 @@ describe('*********** SUPPORT_ADMIN ***********', () => {
         .post(`${url}/support`)
         .set('Authorization', `Bearer ${token}`)
         .send(messagePost)
+        .expect(422)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(422)
           expect(body).toBeInstanceOf(Object)
           expect(body).toHaveProperty('errors')
-          // res.body.should.include.property('errors').eql({ msg: 'BODY_INCOMPLETE' })
-
           done()
         })
     })
@@ -127,80 +142,30 @@ describe('*********** SUPPORT_ADMIN ***********', () => {
         .post(`${url}/support`)
         .set('Authorization', `Bearer ${token}`)
         .send(messagePost)
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['_id', 'hash']))
-          expect(typeof body._id).toBe('string')
-          expect(typeof body.hash).toBe('string')
-          expect(body.messages).be.a('array').toHaveLength(2)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            hash: expect.any(String),
+          }))
+          expect(body.messages).toHaveLength(2)
           const lastMessage = _.last(body.messages)
-          expect(lastMessage).have.property('message').toEqual(messagePost.message)
+          expect(lastMessage).toHaveProperty('message', messagePost.message)
           createdID.push(res.body._id)
           done()
         })
     })
-    // test('it should POST to with hash', (done) => {
-    //   const messagePost = {
-    //     message: faker.random.words(),
-    //     idReservation,
-    //     hash
-    //   }
-    //   chai
-    //     .request(server)
-    //     .post(`${url}/support`)
-    //     .set('Authorization', `Bearer ${token}`)
-    //     .send(messagePost)
-    //     .end((err, res) => {
-    //       const { body } = res
-    //       res.should.have.status(200)
-    //       body.should.be.a('object')
-    //       body.should.include.keys('_id', 'hash')
-    //       body.should.include.property('hash').eql(hash)
-    //       body._id.should.be.a('string')
-    //       body.hash.should.be.a('string')
-    //       body.messages.should.be.a('array').length(2)
-    //       body.idReservation.should.be.a('string').eql(idReservation)
-    //       const lastMessage = _.last(body.messages)
-    //       lastMessage.should.have.property('message').eql(messagePost.message)
-    //       createdID.push(res.body._id)
-    //       done()
-    //     })
-    // })
-    // it('new support support', (done) => {
-    //   const messagePost = {
-    //     message: faker.random.words(),
-    //     idReservation
-    //   }
-    //   chai
-    //     .request(server)
-    //     .post(`${url}/support`)
-    //     .set('Authorization', `Bearer ${token}`)
-    //     .send(messagePost)
-    //     .end((err, res) => {
-    //       const { body } = res
-    //       res.should.have.status(200)
-    //       body.should.be.a('object')
-    //       body.should.include.keys('_id', 'hash')
-    //       body._id.should.be.a('string')
-    //       body.hash.should.be.a('string')
-    //       body.messages.should.be.a('array').length(1)
-    //       const lastMessage = _.last(body.messages)
-    //       lastMessage.should.have.property('message').eql(messagePost.message)
-    //       body.idReservation.should.be.a('string').eql(idReservation)
-    //       createdID.push(res.body._id)
-    //       done()
-    //     })
-    // })
   })
-  // after(() => {
-  //   createdID.forEach((idSupport) => {
-  //     support.findByIdAndRemove(idSupport, (err) => {
-  //       if (err) {
-  //         // console.log(err)
-  //       }
-  //     })
-  //   })
-  // })
+
+  afterAll(() => {
+    createdID.forEach((idSupport) => {
+      support.findByIdAndRemove(idSupport, (err) => {
+        if (err) {
+          // console.log(err)
+        }
+      })
+    })
+  })
 })

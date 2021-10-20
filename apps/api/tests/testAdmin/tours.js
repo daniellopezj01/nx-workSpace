@@ -7,7 +7,8 @@ const faker = require('faker')
 
 
 const Tour = require('../../app/models/tour')
-const server = require('../../server')
+const server = require('../../superTest')
+const request = require('supertest')
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -20,7 +21,7 @@ const subTitle = faker.random.words()
 const description = faker.random.words()
 const route = faker.random.words()
 const newtour = faker.random.words()
-
+const id = '5fa181b202945b26c456176a'
 const url = process.env.URL_TEST_ADMIN
 
 
@@ -28,33 +29,40 @@ describe('*********** TOURS_ADMIN ***********', () => {
   describe('/POST login', () => {
     test('it should GET token user', (done) => {
       request(server)
-        .post(`${url}/login`)
+        .post(`${url}/login/`)
         .send(loginDetails)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
-          const currentAccessToken = res.body.accessToken
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            accessToken: expect.any(String),
+            user: expect.any(Object),
+          }))
+          const currentAccessToken = body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
     test('it should GET a fresh token', (done) => {
       request(server)
-        .post(`${url}/exchange`)
+        .post(`${url}/exchange/`)
         .send({
           accessToken
         })
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
+          expect(body).toEqual(expect.objectContaining({
+            token: expect.any(String),
+            user: expect.any(Object),
+          }))
           const currentToken = body.token
           token = currentToken
           done()
         })
-    })
+    }, 10000)
   })
 
   describe('/GET tours', () => {
@@ -62,19 +70,21 @@ describe('*********** TOURS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/tours`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           const { docs, totalDocs } = body
           expect(body).toBeInstanceOf(Object)
-          expect(body.hasNextPage).toBeInstanceOf(Boolean)
-          expect(body.hasPrevPage).toBeInstanceOf(Boolean)
-          expect(body.limit).toBeInstanceOf(Number)
-          expect(body.page).toBeInstanceOf(Number)
-          expect(body.pagingCounter).toBeInstanceOf(Number)
-          expect(body.totalPages).toBeInstanceOf(Number)
-          expect(totalDocs).be.a('number').toBe(2)
-          expect(Array.isArray(docs)).toBe(true)
+          expect(body).toEqual(expect.objectContaining({
+            docs: expect.any(Array),
+            totalDocs: expect.any(Number),
+            hasNextPage: expect.any(Boolean),
+            hasPrevPage: expect.any(Boolean),
+            limit: expect.any(Number),
+            page: expect.any(Number),
+            totalPages: expect.any(Number),
+          }))
+          expect(totalDocs).toEqual(2)
           expect(docs).toHaveLength(2)
           done()
         })
@@ -83,11 +93,13 @@ describe('*********** TOURS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/tours?limit=1`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
-          expect(Array.isArray(body.docs)).toBe(true)
+          expect(body).toEqual(expect.objectContaining({
+            docs: expect.any(Array)
+          }))
           expect(body.docs).toHaveLength(1)
           done()
         })
@@ -96,16 +108,18 @@ describe('*********** TOURS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/tours/tour-one`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['_id', 'countries', 'departures', 'itinerary']))
-          expect(body).have.property('slug').toBe('tour-one')
-          expect(body).have.property('status').toBe('publish')
-          expect(body).toHaveProperty('departures').be.a('array').toHaveLength(1)
-          expect(body).toHaveProperty('itinerary').be.a('array').toHaveLength(2)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            countries: expect.any(Array),
+            departures: expect.any(Array),
+            itinerary: expect.any(Array),
+          }))
+          expect(body.departures).toHaveLength(1)
+          expect(body.itinerary).toHaveLength(2)
           done()
         })
     })
@@ -113,10 +127,10 @@ describe('*********** TOURS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/tours/allContinents`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
-          expect(body.docs).be.an('Array').toHaveLength(5)
+          expect(body.docs).toHaveLength(5)
           done()
         })
     })
@@ -125,14 +139,14 @@ describe('*********** TOURS_ADMIN ***********', () => {
   describe('/GET/:id tour', () => {
     test('it should GET a tour by the given id', (done) => {
       request(server)
-        .get(`${url}/tours/5fa181b202945b26c456176a`)
+        .get(`${url}/tours/${id}`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
           expect(body).toHaveProperty('title')
-          expect(body).have.property('_id').toBe('5fa181b202945b26c456176a')
+          expect(body).toHaveProperty('_id', id)
           done()
         })
     })
@@ -140,12 +154,12 @@ describe('*********** TOURS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/tours/tour-one`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
           expect(body).toHaveProperty('title')
-          expect(body).have.property('slug').toBe('tour-one')
+          expect(body).toHaveProperty('slug', 'tour-one')
           done()
         })
     })
@@ -157,9 +171,9 @@ describe('*********** TOURS_ADMIN ***********', () => {
       request(server)
         .post(`${url}/tours`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(422)
         .send(tour)
         .end((err, res) => {
-          expect(res).have.status(422)
           expect(res.body).toBeInstanceOf(Object)
           expect(res.body).toHaveProperty('errors')
           done()
@@ -180,11 +194,17 @@ describe('*********** TOURS_ADMIN ***********', () => {
         .post(`${url}/tours`)
         .set('Authorization', `Bearer ${token}`)
         .send(tour)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining('_id'))
-          expect(res.body).have.property('title').toEqual(title)
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            countries: expect.any(String),
+            continent: expect.any(Array),
+            duration: expect.any(Number),
+          }))
+          expect(body).toHaveProperty('title', title)
           createdID.push(res.body._id)
           done()
         })
@@ -197,10 +217,11 @@ describe('*********** TOURS_ADMIN ***********', () => {
         .post(`${url}/tours`)
         .set('Authorization', `Bearer ${token}`)
         .send(tour)
+        .expect(422)
         .end((err, res) => {
-          expect(res).have.status(422)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toHaveProperty('errors')
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toHaveProperty('errors')
           done()
         })
     })
@@ -208,9 +229,9 @@ describe('*********** TOURS_ADMIN ***********', () => {
 
   describe('/PATCH/:id tour', () => {
     test('it should UPDATE a tour given the id', (done) => {
-      const id = createdID.slice(-1).pop()
+      const currentId = createdID.slice(-1).pop()
       request(server)
-        .patch(`${url}/tours/${id}`)
+        .patch(`${url}/tours/${currentId}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
           title: newtour,
@@ -219,25 +240,25 @@ describe('*********** TOURS_ADMIN ***********', () => {
           route: faker.random.words(),
           video: 'https://hello.io'
         })
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).have.property('_id').toEqual(id)
-          expect(body).have.property('title').toEqual(newtour)
+          expect(body).toHaveProperty('_id', currentId)
+          expect(body).toHaveProperty('title', newtour)
           createdID.push(res.body._id)
           done()
         })
     })
     test('it NOT should UPDATE a tour unauthorized', (done) => {
-      const id = createdID.slice(-1).pop()
+      const currentId = createdID.slice(-1).pop()
       request(server)
-        .patch(`${url}/tours/${id}`)
+        .patch(`${url}/tours/${currentId}`)
         .send({
           title: newtour
         })
+        .expect(401)
         .end((error, res) => {
-          expect(res).have.status(401)
           expect(res.body).toBeInstanceOf(Object)
           done()
         })
@@ -260,19 +281,23 @@ describe('*********** TOURS_ADMIN ***********', () => {
         .post(`${url}/tours`)
         .set('Authorization', `Bearer ${token}`)
         .send(tour)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
           expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(
-            expect.arrayContaining(['_id', 'title', 'subTitle', 'description', 'route'])
-          )
+          expect(res.body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            title: expect.any(String),
+            subTitle: expect.any(String),
+            description: expect.any(String),
+            route: expect.any(String),
+          }))
           request(server)
             .delete(`${url}/tours/${res.body._id}`)
             .set('Authorization', `Bearer ${token}`)
+            .expect(200)
             .end((error, result) => {
-              expect(result).have.status(200)
               expect(result.body).toBeInstanceOf(Object)
-              expect(result.body).have.property('msg').toBe('DELETED')
+              expect(result.body).toHaveProperty('msg', 'DELETED')
               done()
             })
         })
@@ -280,8 +305,8 @@ describe('*********** TOURS_ADMIN ***********', () => {
   })
 
   afterAll(() => {
-    createdID.forEach((id) => {
-      Tour.findByIdAndRemove(id, (err) => {
+    createdID.forEach((currentId) => {
+      Tour.findByIdAndRemove(currentId, (err) => {
         if (err) {
           // console.log(err)
         }

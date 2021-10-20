@@ -7,7 +7,8 @@ const faker = require('faker')
 
 
 const reffered = require('../../app/models/referredUsers')
-const server = require('../../server')
+const server = require('../../superTest')
+const request = require('supertest')
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -26,50 +27,61 @@ describe('*********** REFERREDS_ADMIN ***********', () => {
   describe('/POST login', () => {
     test('it should GET token user', (done) => {
       request(server)
-        .post(`${url}/login`)
+        .post(`${url}/login/`)
         .send(loginDetails)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
-          const currentAccessToken = res.body.accessToken
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            accessToken: expect.any(String),
+            user: expect.any(Object),
+          }))
+          const currentAccessToken = body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
     test('it should GET a fresh token', (done) => {
       request(server)
-        .post(`${url}/exchange`)
+        .post(`${url}/exchange/`)
         .send({
           accessToken
         })
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
+          expect(body).toEqual(expect.objectContaining({
+            token: expect.any(String),
+            user: expect.any(Object),
+          }))
           const currentToken = body.token
           token = currentToken
           done()
         })
-    })
+    }, 10000)
   })
-
   describe('/GET referreds', () => {
     test('it should GET all the referreds', (done) => {
       request(server)
         .get(`${url}/referreds`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((err, res) => {
           const { body } = res
           const { docs } = body
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(docs).be.an('array').toHaveLength(2)
+          expect(docs).toBeInstanceOf(Object)
+          expect(docs).toHaveLength(2)
           const firstorder = _.head(docs)
-          expect(firstorder).toEqual(expect.arrayContaining(['_id', 'amountTo', 'amountFrom']))
+          expect(firstorder).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            amountTo: expect.any(Number),
+            amountFrom: expect.any(Number),
+          }))
           const from = firstorder.userFrom
-          expect(from).have.property('_id').toEqual(userFrom)
+          expect(from).toHaveProperty('_id', userFrom)
           done()
         })
     })
@@ -82,13 +94,13 @@ describe('*********** REFERREDS_ADMIN ***********', () => {
         .post(`${url}/referreds`)
         .set('Authorization', `Bearer ${token}`)
         .send(refferedPostOne)
+        .expect(422)
         .end((err, res) => {
-          expect(res).have.status(422)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
           expect(body).toHaveProperty('errors')
           const { errors } = body
-          expect(Array.isArray(errors)).toBe(true)
+          expect(errors.msg).toBeInstanceOf(Array)
           done()
         })
     })
@@ -105,15 +117,17 @@ describe('*********** REFERREDS_ADMIN ***********', () => {
         .post(`${url}/referreds`)
         .set('Authorization', `Bearer ${token}`)
         .send(refferedPostTwo)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['_id', 'planReferred', 'userTo']))
-          expect(body).have.property('status').toBe('available')
-          expect(body).have
-            .property('amountFrom').toEqual(refferedPostTwo.amountFrom)
-          expect(typeof body).toBe('string')
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            planReferred: expect.any(String),
+            userTo: expect.any(String),
+          }))
+          expect(body).toHaveProperty('status', 'available')
+          expect(body).toHaveProperty('amountFrom', refferedPostTwo.amountFrom)
           createdID.push(res.body._id)
           done()
         })
@@ -126,23 +140,27 @@ describe('*********** REFERREDS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/referreds/${id}`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['_id', 'amountTo', 'amountFrom']))
-          expect(body).have.property('_id').toEqual(id)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            amountTo: expect.any(Number),
+            amountFrom: expect.any(Number),
+          }))
+          expect(body).toHaveProperty('_id', id)
           done()
         })
     })
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         const id = createdID.slice(-1).pop()
         request(server)
           .get(`${url}/referreds/${id}`)
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -159,12 +177,12 @@ describe('*********** REFERREDS_ADMIN ***********', () => {
         .send({
           amountTo: newAmount
         })
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).have.property('_id').toEqual(id)
-          expect(body).have.property('amountTo').toEqual(newAmount)
+          expect(body).toHaveProperty('_id', id)
+          expect(body).toHaveProperty('amountTo', newAmount)
           createdID.push(res.body._id)
           done()
         })
@@ -175,22 +193,22 @@ describe('*********** REFERREDS_ADMIN ***********', () => {
         .patch(`${url}/referreds/${id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({})
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
           done()
         })
     })
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         const id = createdID.slice(-1).pop()
         request(server)
           .patch(`${url}/referreds/${id}`)
           .send({})
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -211,18 +229,24 @@ describe('*********** REFERREDS_ADMIN ***********', () => {
         .post(`${url}/referreds`)
         .set('Authorization', `Bearer ${token}`)
         .send(reffereddelete)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['_id', 'amountTo', 'amountFrom', 'status']))
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            amountTo: expect.any(Number),
+            amountFrom: expect.any(Number),
+            status: expect.any(String),
+          }))
           request(server)
             .delete(`${url}/referreds/${res.body._id}`)
             .set('Authorization', `Bearer ${token}`)
+            .expect(200)
             .end((error, result) => {
-              const { body } = result
-              expect(result).have.status(200)
-              expect(body).toBeInstanceOf(Object)
-              expect(body).have.property('msg').toBe('DELETED')
+              const { body: newBody } = result
+              expect(newBody).toBeInstanceOf(Object)
+              expect(newBody).toHaveProperty('msg', 'DELETED')
               done()
             })
         })

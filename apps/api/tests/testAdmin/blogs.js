@@ -21,7 +21,6 @@ const newDescription = faker.random.words()
 
 const url = process.env.URL_TEST_ADMIN
 
-
 describe('*********** BLOGS_ADMIN ***********', () => {
   describe('/POST login', () => {
     test('it should GET token user', (done) => {
@@ -40,7 +39,7 @@ describe('*********** BLOGS_ADMIN ***********', () => {
           accessToken = currentAccessToken
           done()
         })
-    })
+    }, 1000)
     test('it should GET a fresh token', (done) => {
       request(server)
         .post(`${url}/exchange/`)
@@ -59,7 +58,7 @@ describe('*********** BLOGS_ADMIN ***********', () => {
           token = currentToken
           done()
         })
-    }, 10000)
+    }, 1000)
   })
   describe('/POST blogs', () => {
     test('it should NOT POST a blogs without blogs', (done) => {
@@ -78,7 +77,7 @@ describe('*********** BLOGS_ADMIN ***********', () => {
           expect(errors.msg).toHaveLength(4)
           done()
         })
-    })
+    }, 1000)
     test('it should POST a blogs ', (done) => {
       const blogsPostTwo = {
         title,
@@ -104,8 +103,8 @@ describe('*********** BLOGS_ADMIN ***********', () => {
           createdID.push(body._id)
           done()
         })
-    })
-    it(
+    }, 1000)
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         const blogsPostTwo = {
@@ -151,8 +150,8 @@ describe('*********** BLOGS_ADMIN ***********', () => {
           createdID.push(res.body._id)
           done()
         })
-    })
-    it(
+    }, 1000)
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         const secondId = createdID.slice(-1).pop()
@@ -166,8 +165,7 @@ describe('*********** BLOGS_ADMIN ***********', () => {
           .end((err, res) => {
             done()
           })
-      }
-    )
+      }, 1000)
   })
 
   describe('/DELETE/:id blogs', () => {
@@ -202,7 +200,7 @@ describe('*********** BLOGS_ADMIN ***********', () => {
               done()
             })
         })
-    }, 50000)
+    }, 1000)
   })
 
   afterAll(() => {

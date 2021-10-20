@@ -5,9 +5,9 @@ process.env.NODE_ENV = 'test'
 const _ = require('lodash')
 const faker = require('faker')
 
-
 const reservation = require('../../app/models/reservation')
-const server = require('../../server')
+const server = require('../../superTest')
+const request = require('supertest')
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -24,48 +24,52 @@ const idDeparture = '5f7dd6b56ce74a8e3ff15add'
 const url = process.env.URL_TEST_ADMIN
 const createdID = []
 
-
-
 describe('*********** RESERVATIONS_ADMIN ***********', () => {
   describe('/POST login', () => {
     test('it should GET token user', (done) => {
       request(server)
-        .post(`${url}/login`)
+        .post(`${url}/login/`)
         .send(loginDetails)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
-          const currentAccessToken = res.body.accessToken
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            accessToken: expect.any(String),
+            user: expect.any(Object),
+          }))
+          const currentAccessToken = body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
     test('it should GET a fresh token', (done) => {
       request(server)
-        .post(`${url}/exchange`)
+        .post(`${url}/exchange/`)
         .send({
           accessToken
         })
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
+          expect(body).toEqual(expect.objectContaining({
+            token: expect.any(String),
+            user: expect.any(Object),
+          }))
           const currentToken = body.token
           token = currentToken
           done()
         })
-    })
+    }, 10000)
   })
   describe('/GET reservations', () => {
-    it(
-      'it should NOT be able to consume the route since no token was sent',
+    test('it should NOT be able to consume the route since no token was sent',
       (done) => {
         request(server)
           .get(`${url}/reservations/all`)
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -74,20 +78,24 @@ describe('*********** RESERVATIONS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/reservations/all`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
-          const { docs, totalDocs } = body
-          expect(Array.isArray(docs)).toBe(true)
-          expect(totalDocs).toBeInstanceOf(Number)
+          const { docs } = body
+          expect(body).toEqual(expect.objectContaining({
+            docs: expect.any(Array),
+            totalDocs: expect.any(Number),
+          }))
           const reservationHead = _.head(docs)
-          expect(reservationHead).toEqual(expect.arrayContaining(['code', 'departure', 'idTour']))
-          expect(reservationHead).toBeInstanceOf(Object)
-          expect(typeof reservationHead._id).toBe('string')
-          expect(typeof reservationHead.travelerLastName).toBe('string')
-          expect(reservationHead).have
-            .property('travelerFirstName').toBe('daniel')
+          expect(reservationHead).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            code: expect.any(String),
+            travelerLastName: expect.any(String),
+            idTour: expect.any(String),
+            departure: expect.any(Object),
+          }))
+          expect(reservationHead).toHaveProperty('travelerFirstName', 'daniel')
           done()
         })
     })
@@ -99,13 +107,13 @@ describe('*********** RESERVATIONS_ADMIN ***********', () => {
         .post(`${url}/reservations`)
         .set('Authorization', `Bearer ${token}`)
         .send(reservationsOne)
+        .expect(422)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(422)
           expect(body).toBeInstanceOf(Object)
           expect(body).toHaveProperty('errors')
           const { errors } = body
-          expect(Array.isArray(errors)).toBe(true)
+          expect(errors.msg).toBeInstanceOf(Array)
           done()
         })
     })
@@ -134,16 +142,20 @@ describe('*********** RESERVATIONS_ADMIN ***********', () => {
         .post(`${url}/reservations`)
         .set('Authorization', `Bearer ${token}`)
         .send(reservationsPost)
+        .expect(201)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(201)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['_id', 'amount', 'status', 'code']))
-          expect(body).toBeInstanceOf(Number)
-          expect(body).have.property('amount').toBe(948.99)
-          expect(body).have.property('status').toBe('pending')
-          expect(body).have.property('travelerEmail').toEqual(fackEmail)
-          expect(body).have.property('idTour').toEqual(idTour)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            amount: expect.any(Number),
+            status: expect.any(String),
+            code: expect.any(String),
+          }))
+          expect(body).toHaveProperty('amount', 948.99)
+          expect(body).toHaveProperty('status', 'pending')
+          expect(body).toHaveProperty('travelerEmail', fackEmail)
+          expect(body).toHaveProperty('idTour', idTour)
           createdID.push(body._id)
           done()
         })
@@ -158,18 +170,17 @@ describe('*********** RESERVATIONS_ADMIN ***********', () => {
         .post(`${url}/reservations`)
         .set('Authorization', `Bearer ${token}`)
         .send(reservationsTwo)
+        .expect(422)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(422)
           expect(body).toBeInstanceOf(Object)
           expect(body).toHaveProperty('errors')
           const { errors } = body
-          expect(errors).toBeInstanceOf(Object)
-          expect(Array.isArray(errors)).toBe(true)
+          expect(errors.msg).toBeInstanceOf(Array)
           done()
         })
     })
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         const reservationsTwo = {
@@ -180,8 +191,8 @@ describe('*********** RESERVATIONS_ADMIN ***********', () => {
         request(server)
           .post(`${url}/reservations`)
           .send(reservationsTwo)
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -193,12 +204,11 @@ describe('*********** RESERVATIONS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/reservations/getDetails/000-000`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(404)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(404)
           expect(body).toBeInstanceOf(Object)
-          expect(body).have
-            .property('errors').toEqual({ msg: 'NOT_FOUND_RESERVATION' })
+          expect(body).toHaveProperty('errors', { msg: 'NOT_FOUND_RESERVATION' })
           done()
         })
     })
@@ -206,20 +216,23 @@ describe('*********** RESERVATIONS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/reservations/getDetails/${codeReservation}`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(
-            expect.arrayContaining(['transactions', 'travelerFirstName', 'amount', 'code', '_id'])
-          )
-          expect(body).have.property('_id').toEqual(idReservation)
-          expect(body).have.property('code').toEqual(codeReservation)
-          expect(body.amount).toBeInstanceOf(Number)
-          expect(body.asTour).toBeInstanceOf(Object)
-          expect(body.asDeparture).toBeInstanceOf(Object)
-          expect(body.asUser).toBeInstanceOf(Object)
-          expect(body).have.property('travelerEmail').toEqual(loginDetails.email)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            amount: expect.any(Number),
+            status: expect.any(String),
+            code: expect.any(String),
+            transactions: expect.any(Array),
+            asTour: expect.any(Object),
+            asDeparture: expect.any(Object),
+            asUser: expect.any(Object),
+          }))
+          expect(body).toHaveProperty('_id', idReservation)
+          expect(body).toHaveProperty('code', codeReservation)
+          expect(body).toHaveProperty('travelerEmail', loginDetails.email)
           done()
         })
     })
@@ -227,18 +240,24 @@ describe('*********** RESERVATIONS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/reservations/getDetails/${idReservation}`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(
-            expect.arrayContaining(['transactions', 'travelerFirstName', 'amount', 'code', '_id'])
-          )
-          expect(body).have.property('_id').toEqual(idReservation)
-          expect(body).have.property('code').toEqual(codeReservation)
-          expect(body.amount).toBeInstanceOf(Number)
-          expect(body.transactions).be.a('array').toHaveLength(0)
-          expect(body).have.property('travelerEmail').toEqual(loginDetails.email)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            amount: expect.any(Number),
+            status: expect.any(String),
+            code: expect.any(String),
+            transactions: expect.any(Array),
+            asTour: expect.any(Object),
+            asDeparture: expect.any(Object),
+            asUser: expect.any(Object),
+          }))
+          expect(body).toHaveProperty('_id', idReservation)
+          expect(body).toHaveProperty('code', codeReservation)
+          expect(body.transactions).toHaveLength(0)
+          expect(body).toHaveProperty('travelerEmail', loginDetails.email)
           done()
         })
     })
@@ -288,38 +307,24 @@ describe('*********** RESERVATIONS_ADMIN ***********', () => {
         .patch(`${url}/reservations/${id}`)
         .set('Authorization', `Bearer ${token}`)
         .send(dataUpdate)
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).have.property('_id').toEqual(id)
-          expect(body).toEqual(expect.arrayContaining([
-            'status',
-            'deleted',
-            '_id',
-            'idDeparture',
-            'country',
-            'city',
-            'amount',
-            'idTour',
-            'idUser',
-            'code',
-            'createdAt',
-            'updatedAt',
-            'buyerPhone',
-            'emergencyLastName',
-            'emergencyName',
-            'emergencyPhone',
-            'invoice',
-            'observations'
-          ]))
-          expect(body).have.property('emergencyName').toEqual(emergencyName)
-          expect(body).have.property('emergencyLastName').toEqual(emergencyLastName)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            amount: expect.any(Number),
+            status: expect.any(String),
+            code: expect.any(String),
+          }))
+          expect(body).toHaveProperty('_id', id)
+          expect(body).toHaveProperty('emergencyName', emergencyName)
+          expect(body).toHaveProperty('emergencyLastName', emergencyLastName)
           createdID.push(res.body._id)
           done()
         })
     })
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         const id = createdID.slice(-1).pop()
@@ -332,8 +337,8 @@ describe('*********** RESERVATIONS_ADMIN ***********', () => {
             emergencyLastName: lastName,
             travelerBirthDay: '02-10-2020'
           })
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -346,11 +351,11 @@ describe('*********** RESERVATIONS_ADMIN ***********', () => {
       request(server)
         .delete(`${url}/reservations/${id}`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((error, result) => {
           const { body } = result
-          expect(result).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).have.property('msg').toBe('DELETED')
+          expect(body).toHaveProperty('msg', 'DELETED')
           done()
         })
     })

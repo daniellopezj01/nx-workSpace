@@ -44,7 +44,7 @@ describe('*********** AUTH_USER ***********', () => {
     })
   })
   describe('/POST login', () => {
-    it('error login', (done) => {
+    test('error login', (done) => {
       request(server)
         .post(`${url}/login`)
         .send({ email: 'admin@admin.com', password: 'error password' })
@@ -181,7 +181,7 @@ describe('*********** AUTH_USER ***********', () => {
     })
   })
   describe('/GET token', () => {
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         request(server)

@@ -6,8 +6,6 @@ const modelsPath = './apps/api/app/models'
 const { removeExtensionFromFile } = require('./app/middleware/utils')
 const seed = require('./seed')
 
-initMongo()
-
 
 // Loop models path and loads every file as a model except index file
 const models = fs.readdirSync(modelsPath).filter((file) => {
@@ -45,6 +43,6 @@ const clean = async () => {
   }
 }
 
-module.exports = clean
+module.exports = { clean }
 
 // clean()

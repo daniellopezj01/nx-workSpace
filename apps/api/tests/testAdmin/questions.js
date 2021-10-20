@@ -3,10 +3,9 @@
 process.env.NODE_ENV = 'test'
 const _ = require('lodash')
 const faker = require('faker')
-
-
 const questions = require('../../app/models/questionsReservation')
-const server = require('../../server')
+const server = require('../../superTest')
+const request = require('supertest')
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345678'
@@ -16,40 +15,46 @@ let accessToken = ''
 const createdID = []
 const url = process.env.URL_TEST_ADMIN
 
-
 describe('*********** QUESTIONS_ADMIN ***********', () => {
   describe('/POST login', () => {
     test('it should GET token user', (done) => {
       request(server)
-        .post(`${url}/login`)
+        .post(`${url}/login/`)
         .send(loginDetails)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
-          expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['accessToken', 'user']))
-          const currentAccessToken = res.body.accessToken
+          const { body } = res
+          expect(body).toBeInstanceOf(Object)
+          expect(body).toEqual(expect.objectContaining({
+            accessToken: expect.any(String),
+            user: expect.any(Object),
+          }))
+          const currentAccessToken = body.accessToken
           accessToken = currentAccessToken
           done()
         })
     })
     test('it should GET a fresh token', (done) => {
       request(server)
-        .post(`${url}/exchange`)
+        .post(`${url}/exchange/`)
         .send({
           accessToken
         })
+        .expect(200)
         .end((err, res) => {
           const { body } = res
-          expect(res).have.status(200)
+          console.log(body)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['token', 'user']))
+          expect(body).toEqual(expect.objectContaining({
+            token: expect.any(String),
+            user: expect.any(Object),
+          }))
           const currentToken = body.token
           token = currentToken
           done()
         })
-    })
+    }, 10000)
   })
-
   describe('/POST questions', () => {
     test('it should NOT POST a questions without questions', (done) => {
       const orderPostOne = {}
@@ -57,13 +62,13 @@ describe('*********** QUESTIONS_ADMIN ***********', () => {
         .post(`${url}/questions`)
         .set('Authorization', `Bearer ${token}`)
         .send(orderPostOne)
+        .expect(422)
         .end((err, res) => {
-          expect(res).have.status(422)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
           expect(body).toHaveProperty('errors')
           const { errors } = body
-          expect(Array.isArray(errors)).toBe(true)
+          expect(errors.msg).toBeInstanceOf(Array)
           done()
         })
     })
@@ -75,12 +80,15 @@ describe('*********** QUESTIONS_ADMIN ***********', () => {
         .post(`${url}/questions`)
         .set('Authorization', `Bearer ${token}`)
         .send(questionTwo)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
           const { body } = res
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['_id', 'question']))
-          expect(body).have.property('question').toEqual(questionTwo.question)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            question: expect.any(String)
+          }))
+          expect(body).toHaveProperty('question', questionTwo.question)
           createdID.push(res.body._id)
           done()
         })
@@ -92,15 +100,20 @@ describe('*********** QUESTIONS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/questions`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((err, res) => {
           const { body } = res
           const { docs } = body
           const question = _.head(docs)
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
           expect(docs).toHaveLength(5)
           id = question._id
-          expect(question).toEqual(expect.arrayContaining(['_id', 'status', 'title', 'question']))
+          expect(question).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            question: expect.any(String),
+            title: expect.any(String),
+            status: expect.any(String),
+          }))
           done()
         })
     })
@@ -108,13 +121,15 @@ describe('*********** QUESTIONS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/questions?filter=noexiste&fields=status`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
           expect(res.body).toBeInstanceOf(Object)
           const { body } = res
-          const { docs, totalDocs } = body
-          expect(totalDocs).toBeInstanceOf(Number)
-          expect(body).have.property('totalDocs').toBe(0)
+          const { docs } = body
+          expect(body).toEqual(expect.objectContaining({
+            totalDocs: expect.any(Number),
+            docs: expect.any(Array),
+          }))
           expect(docs).toHaveLength(0)
           done()
         })
@@ -123,16 +138,21 @@ describe('*********** QUESTIONS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/questions?filter=public&fields=status`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((err, res) => {
-          expect(res).have.status(200)
           expect(res.body).toBeInstanceOf(Object)
           const { body } = res
           const { docs } = body
           const question = _.head(docs)
           expect(body).toBeInstanceOf(Object)
           expect(docs).toHaveLength(4)
-          expect(question).toEqual(expect.arrayContaining(['_id', 'title', 'question']))
-          expect(question).have.property('status').toBe('public')
+          expect(question).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            question: expect.any(String),
+            title: expect.any(String),
+            status: expect.any(String),
+          }))
+          expect(question).toHaveProperty('status', 'public')
           done()
         })
     })
@@ -144,24 +164,28 @@ describe('*********** QUESTIONS_ADMIN ***********', () => {
       request(server)
         .get(`${url}/questions/${id}`)
         .set('Authorization', `Bearer ${token}`)
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          console.log(body.errors)
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).toEqual(expect.arrayContaining(['status', '_id', 'question']))
-          expect(body).have.property('_id').toEqual(id)
+          expect(body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            question: expect.any(String),
+            title: expect.any(String),
+            status: expect.any(String),
+          }))
+          expect(body).toHaveProperty('_id', id)
           done()
         })
     })
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         const id = createdID.slice(-1).pop()
         request(server)
           .get(`${url}/questions/${id}`)
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -176,16 +200,16 @@ describe('*********** QUESTIONS_ADMIN ***********', () => {
         .patch(`${url}/questions/${id}`)
         .set('Authorization', `Bearer ${token}`)
         .send(object)
+        .expect(200)
         .end((error, res) => {
           const { body } = res
-          expect(res).have.status(200)
           expect(body).toBeInstanceOf(Object)
-          expect(body).have.property('_id').toEqual(id)
-          expect(body).have.property('question').toEqual(object.question)
+          expect(body).toHaveProperty('_id', id)
+          expect(body).toHaveProperty('question', object.question)
           done()
         })
     })
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         const id = createdID.slice(-1).pop()
@@ -194,8 +218,8 @@ describe('*********** QUESTIONS_ADMIN ***********', () => {
           .send({
             question: faker.random.words()
           })
+          .expect(401)
           .end((err, res) => {
-            expect(res).have.status(401)
             done()
           })
       }
@@ -211,18 +235,20 @@ describe('*********** QUESTIONS_ADMIN ***********', () => {
         .post(`${url}/questions`)
         .set('Authorization', `Bearer ${token}`)
         .send(objectDelete)
+        .expect(201)
         .end((err, res) => {
-          expect(res).have.status(201)
           expect(res.body).toBeInstanceOf(Object)
-          expect(res.body).toEqual(expect.arrayContaining(['_id', 'question']))
+          expect(res.body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            question: expect.any(String),
+          }))
           request(server)
             .delete(`${url}/questions/${res.body._id}`)
             .set('Authorization', `Bearer ${token}`)
             .end((error, result) => {
               const { body } = result
-              expect(result).have.status(200)
               expect(body).toBeInstanceOf(Object)
-              expect(body).have.property('msg').toBe('DELETED')
+              expect(body).toHaveProperty('msg', 'DELETED')
               done()
             })
         })

@@ -125,7 +125,7 @@
 //   })
 
 //   describe('/GET comments', () => {
-//     it('Not found Url', (done) => {
+// test('Not found Url', (done) => {
 //       chai
 //         .request(server)
 //         .get(`${url}/comments`)

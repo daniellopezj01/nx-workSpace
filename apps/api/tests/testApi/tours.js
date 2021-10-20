@@ -152,7 +152,7 @@ describe('*********** TOURS_USERS ***********', () => {
   })
 
   describe('*********** SEARCH TOURS ******************', () => {
-    it('with out params', (done) => {
+    test('with out params', (done) => {
       request(server)
         .get(`${url}/tours/search`)
         .set('Authorization', `Bearer ${token}`)
@@ -164,7 +164,7 @@ describe('*********** TOURS_USERS ***********', () => {
           done()
         })
     })
-    it('search with params', (done) => {
+    test('search with params', (done) => {
       request(server)
         .get(`${url}/tours/search?query=MedeLLIN`)
         .set('Authorization', `Bearer ${token}`)
@@ -179,7 +179,7 @@ describe('*********** TOURS_USERS ***********', () => {
           done()
         })
     })
-    it('empty search', (done) => {
+    test('empty search', (done) => {
       request(server)
         .get(`${url}/tours/search?query=zzzzzzzzzzzzzzzzzz`)
         .set('Authorization', `Bearer ${token}`)

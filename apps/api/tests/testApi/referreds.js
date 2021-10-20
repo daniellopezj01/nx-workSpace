@@ -69,7 +69,7 @@ describe('*********** REFERREDS_USERS ***********', () => {
           done()
         })
     })
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         request(server)

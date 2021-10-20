@@ -65,7 +65,7 @@ describe('*********** RESERVATIONS_USERS ***********', () => {
     })
   })
   describe('/GET reservations', () => {
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         request(server)
@@ -185,7 +185,7 @@ describe('*********** RESERVATIONS_USERS ***********', () => {
           done()
         })
     })
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         const reservationsTwo = {
@@ -349,7 +349,7 @@ describe('*********** RESERVATIONS_USERS ***********', () => {
           done()
         })
     })
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         const id = createdID.slice(-1).pop()

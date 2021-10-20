@@ -220,7 +220,7 @@ describe('*********** ITINERARIES_ADMIN ***********', () => {
           done()
         })
     })
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent rute admin',
       (done) => {
         const id = createdID.slice(-1).pop()

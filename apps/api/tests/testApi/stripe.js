@@ -156,7 +156,7 @@ describe('*********** STRIPE_USERS ***********', () => {
             })
         })
     })
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         request(server)

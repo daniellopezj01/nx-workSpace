@@ -56,7 +56,7 @@ describe('*********** STORAGE_USER ***********', () => {
   })
 
   describe('/GET storage', () => {
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         request(server)
@@ -84,7 +84,7 @@ describe('*********** STORAGE_USER ***********', () => {
           done()
         })
     })
-    it('Error in params ', (done) => {
+    test('Error in params ', (done) => {
       request(server)
         .post(`${url}/storage`)
         .set('Authorization', `Bearer ${token}`)
@@ -99,7 +99,7 @@ describe('*********** STORAGE_USER ***********', () => {
           done()
         })
     })
-    it('Empty Array Files ', (done) => {
+    test('Empty Array Files ', (done) => {
       request(server)
         .post(`${url}/storage`)
         .set('Authorization', `Bearer ${token}`)

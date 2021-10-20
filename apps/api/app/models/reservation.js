@@ -159,15 +159,21 @@ const ReservationSchema = new mongoose.Schema(
 )
 
 ReservationSchema.post('save', () => {
-  console.log('INSERCION EN reservations')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('INSERT RESERVATIONS')
+  }
 })
 
 ReservationSchema.pre('findOneAndRemove', async () => {
-  console.log('DELETE EN reservations')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('DELETE RESERVATIONS')
+  }
 })
 
 ReservationSchema.post('findOneAndUpdate', async () => {
-  console.log('ACTUALIZACION EN reservations')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('UPDATE RESERVATIONS')
+  }
 })
 
 ReservationSchema.plugin(mongoosePaginate)

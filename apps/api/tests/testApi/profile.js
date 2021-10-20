@@ -48,7 +48,7 @@ describe('*********** PROFILE_USERS ***********', () => {
     })
   })
   describe('/GET profile', () => {
-    it(
+    test(
       'it should NOT be able to consume the route since no token was sent',
       (done) => {
         request(server)
