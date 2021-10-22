@@ -7,7 +7,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 // import {ModalUpdateComponent} from './components/modal-update/modal-update.component';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { LocalStorageService } from 'ngx-localstorage';
-import { RestService } from 'src/app/services/rest/rest.service';
 
 @Injectable({
   providedIn: 'root',
@@ -36,13 +35,13 @@ export class SharedService {
   callbackValueTextRich = new EventEmitter<any>();
   setFilesTextRich = new EventEmitter<any>();
 
-  bsModalRef: BsModalRef;
+  bsModalRef?: BsModalRef;
 
-  public loadingButtons: boolean = false;
+  public loadingButtons = false;
 
   result: EventEmitter<any> = new EventEmitter();
 
-  cbResult = (res) => this.result.emit(res);
+  cbResult = (res: any) => this.result.emit(res);
 
   constructor(
     private router: Router,
@@ -74,7 +73,7 @@ export class SharedService {
     this.title.setTitle(`🔔 ${title}`);
   };
 
-  generate = (length) => {
+  generate = (length: any) => {
     let result = '';
     const characters =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -87,8 +86,8 @@ export class SharedService {
 
   public parseData = (data: any, source: string = '') => {
     try {
-      const tmp = [];
-      data.docs.map((a) =>
+      const tmp: any = [];
+      data.docs.map((a: any) =>
         tmp.push({
           ...a,
           ...{
@@ -144,7 +143,7 @@ export class SharedService {
     return q;
   };
 
-  public toBase64 = (file) =>
+  public toBase64 = (file: any) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -152,7 +151,7 @@ export class SharedService {
       reader.onerror = (error) => reject(error);
     });
 
-  public openCopilot = (section = null) =>
+  public openCopilot = (section: any = null) =>
     new Promise((resolve, reject) => {
       try {
         if (section) {
@@ -170,7 +169,7 @@ export class SharedService {
       }
     });
 
-  public saveCopilot = (section = null) =>
+  public saveCopilot = (section: any = null) =>
     new Promise((resolve, reject) => {
       try {
         this.cookie.set(section, '1', 365, '/');
@@ -182,10 +181,9 @@ export class SharedService {
 
   public confirm = () =>
     new Promise((resolve, reject) => {
-      this.translate.get('GENERAL').subscribe((res: string) => {
-        // @ts-ignore
+      this.translate.get('GENERAL').subscribe((res: any) => {
         const { ARE_YOU_SURE, ARE_YOU_SURE_SENTENCE, OK, ANY_ISSUE } = res;
-        Swal.fire({
+        const objectDialog: any = {
           title: ARE_YOU_SURE,
           text: ARE_YOU_SURE_SENTENCE,
           icon: null,
@@ -194,14 +192,15 @@ export class SharedService {
           cancelButtonColor: '#d33',
           confirmButtonText: OK,
           footer: '<a href>' + ANY_ISSUE + '</a>',
+        }
+
+        Swal.fire(objectDialog).then((result) => {
+          if (result.value) {
+            resolve(true);
+          } else {
+            reject(false);
+          }
         })
-          .then((result) => {
-            if (result.value) {
-              resolve(true);
-            } else {
-              reject(false);
-            }
-          })
           .then();
       });
     });
@@ -240,11 +239,11 @@ export class SharedService {
     }
   };
 
-  public checkRole = (roles = []) => {
+  public checkRole = (roles: any = []): boolean => {
     try {
       let data = this.getUserInfo();
       data = data ? data : [];
-      return roles.includes(data.role);
+      return roles.includes(data?.role);
     } catch (e) {
       return false;
     }

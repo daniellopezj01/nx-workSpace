@@ -1,3 +1,4 @@
+import { PaginationServiceService } from './../../../../services/pagination/pagination-service.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -16,8 +17,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { SearchService } from '../../../search/search.service';
 import { catchError, finalize, map, tap } from 'rxjs/operators';
-import { PaginationServiceService } from 'src/app/services/pagination/pagination-service.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
 import { throwError } from 'rxjs';
 
 @Component({
@@ -27,26 +26,26 @@ import { throwError } from 'rxjs';
 })
 export class ListSupportComponent implements OnInit {
 
-  @Input() viewMore: boolean = true;
-  @Input() limit = 15;
-  @Input() mode: string = 'page';
+  @Input() public viewMore = true;
+  @Input() public limit = 15;
+  @Input() public mode = 'page';
   public dataTake: any;
   public loading: any;
   public cbMode: any = null;
   public fields: Array<any> = [];
 
-  faAngleDoubleLeft = faAngleDoubleLeft;
-  faAngleDoubleRight = faAngleDoubleRight;
-  faAngleLeft = faAngleLeft;
-  faAngleRight = faAngleRight;
-  faPhoneAlt = faPhoneAlt;
-  faIndustry = faIndustry;
-  faUser = faUser;
-  faEnvelope = faEnvelope;
-  faUmbrellaBeach = faUmbrellaBeach;
+  public faAngleDoubleLeft = faAngleDoubleLeft;
+  public faAngleDoubleRight = faAngleDoubleRight;
+  public faAngleLeft = faAngleLeft;
+  public faAngleRight = faAngleRight;
+  public faPhoneAlt = faPhoneAlt;
+  public faIndustry = faIndustry;
+  public faUser = faUser;
+  public faEnvelope = faEnvelope;
+  public faUmbrellaBeach = faUmbrellaBeach;
 
   public data: any;
-  public source: string = 'support';
+  public source = 'support';
   public history: any = [
     {
       name: 'Soporte',
@@ -108,7 +107,7 @@ export class ListSupportComponent implements OnInit {
 
   load = (src: string = '?') => {
     this.loading = true;
-    let generalParams = `&page=${this.pagination.page}&limit=${this.limit}`;
+    const generalParams = `&page=${this.pagination.page}&limit=${this.limit}`;
     const url = `${this.source}${src}${generalParams}`;
     this.data = this.pagination.paginationData$(url).pipe(
       tap((b: any) => {
@@ -133,7 +132,7 @@ export class ListSupportComponent implements OnInit {
   }
 
 
-  onSrc = (e) => {
+  onSrc = (e: any) => {
     this.pagination.src = e && e.length ? e : '';
     this.pagination.page = 1;
     this.pagination.limit = this.limit;
@@ -146,7 +145,7 @@ export class ListSupportComponent implements OnInit {
     this.load();
   }
 
-  tooltip({ customData }) {
+  tooltip({ customData }: any) {
     const { travelerFirstName, travelerLastName } = customData
     return `${travelerFirstName} ${travelerLastName || ''}`
   }

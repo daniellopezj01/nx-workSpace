@@ -12,7 +12,6 @@ import { AnimationOptions } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
 import { faHandPointer } from '@fortawesome/free-solid-svg-icons';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SharedService } from '../shared.service';
 
 @Component({
@@ -28,9 +27,9 @@ export class DropGalleryComponent implements OnInit {
   @Input() singleFile = false;
 
   public disabledClick = false;
-  private animationItem: AnimationItem;
+  private animationItem?: AnimationItem;
   public faHandPointer = faHandPointer;
-  public bsModalRef: BsModalRef;
+  public bsModalRef?: BsModalRef;
   public options: AnimationOptions = {
     path: '/assets/images/click.json',
   };
@@ -40,7 +39,7 @@ export class DropGalleryComponent implements OnInit {
     public media: MediaService,
     private ngZone: NgZone,
     private modalService: BsModalService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.media.activeAux = this.activeAuxArray;
@@ -67,12 +66,12 @@ export class DropGalleryComponent implements OnInit {
   };
 
   cbSwipe($event: any): any {
-    this.media.items = this.media.items.filter((a) => {
+    this.media.items = this.media.items.filter((a: any) => {
       return !Object.values(a).includes($event);
     });
   }
 
-  viewImage = (e, data: any = {}) => {
+  viewImage = (e: any, data: any = {}) => {
     e.stopPropagation();
     this.open(data);
   };
@@ -93,7 +92,7 @@ export class DropGalleryComponent implements OnInit {
     // );
   }
 
-  onRemove(event, i): any {
+  onRemove(event: any, i: any): any {
     if (this.media.activeAux) {
       this.media.auxFiles.splice(i, 1);
     } else {
@@ -121,15 +120,15 @@ export class DropGalleryComponent implements OnInit {
     this.animationItem = animationItem;
   }
 
-  loopComplete(e): void {
+  loopComplete(e: any): void {
     this.pause();
   }
 
   stop(): void {
-    this.ngZone.runOutsideAngular(() => this.animationItem.stop());
+    this.ngZone.runOutsideAngular(() => this.animationItem?.stop());
   }
 
   pause(): void {
-    this.ngZone.runOutsideAngular(() => this.animationItem.setSegment(43, 44));
+    this.ngZone.runOutsideAngular(() => this.animationItem?.setSegment(43, 44));
   }
 }

@@ -103,7 +103,7 @@ export class RestService {
         }
       });
     } catch (e) {
-      return 422;
+      console.log(e)
     }
   };
 

@@ -1,4 +1,6 @@
+import { RestService } from './../../../../services/rest/rest.service';
 import {
+  AfterContentChecked,
   ChangeDetectorRef,
   Component,
   Input,
@@ -16,23 +18,22 @@ import {
 } from 'ngx-intl-tel-input';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import * as _ from 'lodash';
-import { RestService } from 'src/app/services/rest/rest.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
 import { TranslateService } from '@ngx-translate/core';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Router } from '@angular/router';
-import { AddMovementComponent } from 'src/app/modules/movements/pages/add-movement/add-movement.component';
-import { ModalsService } from 'src/app/modules/shared/modals.service';
-import { MovementsService } from 'src/app/modules/movements/movements.service';
+import { MovementsService } from '../../../movements/movements.service';
+import { ModalsService } from '../../../shared/modals.service';
+import { SharedService } from '../../../shared/shared.service';
+import { AddMovementComponent } from '../../../movements/pages/add-movement/add-movement.component';
 
 @Component({
   selector: 'app-details-reservation',
   templateUrl: './details-reservation.component.html',
   styleUrls: ['./details-reservation.component.scss'],
 })
-export class DetailsReservationComponent implements OnInit {
+export class DetailsReservationComponent implements OnInit, AfterContentChecked {
   @Input() id: any;
-  @ViewChild('placesRef') placesRef: GooglePlaceDirective;
+  @ViewChild('placesRef') placesRef?: GooglePlaceDirective;
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
   public today = new Date();
@@ -68,11 +69,11 @@ export class DetailsReservationComponent implements OnInit {
   taxList = [];
   taxListOffset = [];
 
-  bsModalRef: BsModalRef;
-  currencies = [];
-  loading: boolean = true;
-  selectedTemplate: any;
-  activeUpdateAmount: boolean = false;
+  public bsModalRef?: BsModalRef;
+  public currencies = [];
+  public loading = true;
+  public selectedTemplate: any;
+  public activeUpdateAmount = false;
 
   constructor(
     public share: SharedService,
@@ -84,10 +85,7 @@ export class DetailsReservationComponent implements OnInit {
     private modalService: ModalsService,
     private movementService: MovementsService,
     private shared: SharedService
-  ) { }
-
-  ngOnInit(): void {
-    this.rest.setActiveConfirmLeave = true;
+  ) {
     this.formBuyer = this.formBuilder.group({
       buyerFirstName: ['', Validators.required],
       buyerLastName: ['', Validators.required],
@@ -104,6 +102,11 @@ export class DetailsReservationComponent implements OnInit {
     this.formPrice = this.formBuilder.group({
       amount: ['', Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    this.rest.setActiveConfirmLeave = true;
+
 
     this.loadGeneral();
     this.share.saveOrder.subscribe((res) => {
@@ -121,7 +124,7 @@ export class DetailsReservationComponent implements OnInit {
     this.cdref.detectChanges();
   }
 
-  searchPlatform(value) {
+  searchPlatform(value: any) {
     return this.movementService?.searchPlatform(value)
   }
 
@@ -151,7 +154,7 @@ export class DetailsReservationComponent implements OnInit {
 
   updateData(Typeform = true) {
     const form = Typeform ? this.formBuyer : this.formEmergency;
-    let reservation = _.clone(form.value);
+    const reservation = _.clone(form.value);
     if (Typeform) {
       reservation.buyerBirthDay = new Date(form.value.buyerBirthDay);
     }
@@ -187,7 +190,7 @@ export class DetailsReservationComponent implements OnInit {
   }
 
   openModalTransactions() {
-    let data = { reservation: this.reservation, saveFromReservation: true };
+    const data = { reservation: this.reservation, saveFromReservation: true };
     this.modalService.openComponent(
       data,
       AddMovementComponent,

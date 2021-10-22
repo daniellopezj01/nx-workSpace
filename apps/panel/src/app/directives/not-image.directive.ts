@@ -1,12 +1,13 @@
+/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
   selector: '[appNotImage]',
 })
 export class NotImageDirective {
-  @Input() urlCustom: string;
+  @Input() urlCustom?: string;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef) { }
 
   @HostListener('error')
   loadImage(): any {

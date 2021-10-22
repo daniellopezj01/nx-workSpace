@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { RestService } from './../../../../services/rest/rest.service';
 import { MediaService } from './../../../shared/drop-galery/media.service';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import {
@@ -6,7 +8,6 @@ import {
   Validators,
 } from '@angular/forms';
 import * as _ from 'lodash';
-import { RestService } from 'src/app/services/rest/rest.service';
 import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import { IncludedService } from '../../services/included.service';
 
@@ -23,7 +24,7 @@ export class ManagerGalleryComponent implements OnInit {
   public optionsVideo = ['save'];
   public apiLoaded = false;
   public idVideo = '';
-  public player: YT.Player;
+  public player?: YT.Player;
   public updateGallery = false
 
   constructor(
@@ -32,14 +33,16 @@ export class ManagerGalleryComponent implements OnInit {
     private rest: RestService,
     private cdref: ChangeDetectorRef,
     private includesService: IncludedService,
-  ) { }
-
-  ngOnInit(): void {
-    var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-    this.media.files = [];
+  ) {
+    const p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
     this.form = this.formBuilder.group({
       urlVideo: ['', [Validators.required, Validators.pattern(p)]],
     });
+  }
+
+  ngOnInit(): void {
+    this.media.files = [];
+
     const { video, attached } = this.tour;
     this.media.files = [...attached];
     this.updateGallery = !attached.length
@@ -59,7 +62,7 @@ export class ManagerGalleryComponent implements OnInit {
     this.cdref.detectChanges();
   }
 
-  parseImage = ({ source }) => {
+  parseImage = ({ source }: any) => {
     if (source) {
       return source?.small
     };
@@ -106,21 +109,21 @@ export class ManagerGalleryComponent implements OnInit {
     });
   }
 
-  handleChangeInputVideo(e) {
-    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-    var match = e.match(regExp);
+  handleChangeInputVideo(e: any) {
+    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    const match = e.match(regExp);
     this.idVideo = match && match[7].length == 11 ? match[7] : false;
     if (this.idVideo && this.player) {
       setTimeout(() => {
-        this.player.loadVideoById(this.idVideo);
+        this.player?.loadVideoById(this.idVideo);
       }, 100);
     }
   }
 
-  ready($event) {
+  ready($event: any) {
     this.player = $event.target;
     if (this.idVideo) {
-      this.player.loadVideoById(this.idVideo);
+      this.player?.loadVideoById(this.idVideo);
     }
   }
 
@@ -145,7 +148,7 @@ export class ManagerGalleryComponent implements OnInit {
       );
       this.idVideo = video;
       this.form.reset();
-      this.player.loadVideoById(this.idVideo);
+      this.player?.loadVideoById(this.idVideo);
       _.remove(this.optionsVideo, (i) => i == 'trash');
     });
   }

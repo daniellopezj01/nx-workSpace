@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/adjacent-overload-signatures */
 import { FilterItemsService } from './filter-items.service';
 import {
   ChangeDetectorRef,
@@ -21,10 +22,10 @@ import {
   faFilePdf,
   faCheck,
 } from '@fortawesome/free-solid-svg-icons';
-import { BsDropdownConfig, BsDropdownDirective } from 'ngx-bootstrap/dropdown';
-import { RestService } from 'src/app/services/rest/rest.service';
+import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 // import {SearchService} from "../../modules/search/search.service";
 import { SharedService } from '../shared.service';
+import { RestService } from '../../../services/rest/rest.service';
 
 @Component({
   selector: 'app-list-items',
@@ -32,48 +33,44 @@ import { SharedService } from '../shared.service';
   styleUrls: ['./list-items.component.scss'],
 })
 export class ListItemsComponent implements OnInit {
-  faFilter = faFilter;
-  faTimes = faTimes;
-  faCheck = faCheck;
-  faArrowLeft = faArrowLeft;
-  faArrowRight = faArrowRight;
-  dataIn: any = [];
-  @Input() filtersMode: boolean = false;
-
-  @Input()
-  get data() {
-    return this.dataIn;
-  }
+  @ViewChild('defaultCustom') defaultCustom?: TemplateRef<any>;
+  @ViewChild('dropdown') dropdown?: BsDropdownDirective;
+  @ViewChild('viewContainerCustom', { static: false, read: ViewContainerRef })
+  viewContainerCustom?: ViewContainerRef;
 
   @Output() dataChange = new EventEmitter();
-
-  set data(val) {
-    this.dataIn = val;
-    this.dataChange.emit(this.dataIn);
-    this.ngAfterViewInit();
-  }
-
-  @Input('customTemplate') customTemplate: TemplateRef<any>;
-  @ViewChild('viewContainerCustom', { static: false, read: ViewContainerRef })
-  viewContainerCustom: ViewContainerRef;
-  @ViewChild('defaultCustom') defaultCustom: TemplateRef<any>;
-  @ViewChild('dropdown') dropdown: BsDropdownDirective;
-  @Input() beginAdd: any = true;
-  @Input() title: any = false;
-  @Input() mode: any = false;
-  @Input() search: any = true;
-  @Input() showIcon: any = true;
-  @Input() options = this.beginAdd ? ['add'] : [];
   @Output() cbSrc = new EventEmitter<any>();
   @Output() cbPdf = new EventEmitter<any>();
   @Output() cbAdd = new EventEmitter<any>();
   @Output() pagination = new EventEmitter<any>();
   @Output() cbFilter = new EventEmitter<any>();
-  faFilePdf = faFilePdf;
-  faPlus = faPlus;
-  faCalendarCheck = faCalendarCheck;
-  faCalendarAlt = faCalendarAlt;
+  @Input() beginAdd: any = true;
+  @Input() customTemplate?: TemplateRef<any>;
+  @Input() title: any = false;
+  @Input() mode: any = false;
+  @Input() search: any = true;
+  @Input() showIcon: any = true;
+  @Input() options = this.beginAdd ? ['add'] : [];
+  @Input() filtersMode = false;
+  @Input() get data() {
+    return this.dataIn;
+  }
+  public faFilter = faFilter;
+  public faTimes = faTimes;
+  public faCheck = faCheck;
+  public faArrowLeft = faArrowLeft;
+  public faArrowRight = faArrowRight;
+  public dataIn: any = [];
+  public faFilePdf = faFilePdf;
+  public faPlus = faPlus;
+  public faCalendarCheck = faCalendarCheck;
+  public faCalendarAlt = faCalendarAlt;
   public src: any = null;
+  set data(val) {
+    this.dataIn = val;
+    this.dataChange.emit(this.dataIn);
+    this.ngAfterViewInit();
+  }
 
   constructor(
     public rest: RestService,
@@ -84,9 +81,9 @@ export class ListItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.options = this.beginAdd ? ['add'] : [];
-    this.filterService.filterCb.subscribe((res) => {
+    this.filterService.filterCb.subscribe((res: any) => {
       this.filterService.filterSelect = this.filterService.filterSelect.filter(
-        (a) => {
+        (a: any) => {
           if (a.pre.label !== res.pre.label) {
             return a;
           }
@@ -103,7 +100,7 @@ export class ListItemsComponent implements OnInit {
   ngAfterViewInit(): void {
     if (this.viewContainerCustom) {
       this.viewContainerCustom.clear();
-      const viewCustomTemplate = this.customTemplate.createEmbeddedView({
+      const viewCustomTemplate: any = this.customTemplate?.createEmbeddedView({
         dat: this.dataIn,
       });
       this.viewContainerCustom.insert(viewCustomTemplate);
@@ -115,7 +112,7 @@ export class ListItemsComponent implements OnInit {
   }
 
   onChange = (src: string = '') => {
-    this.viewContainerCustom.clear();
+    this.viewContainerCustom?.clear();
     this.cbSrc.emit(src);
   };
 
@@ -142,7 +139,7 @@ export class ListItemsComponent implements OnInit {
     this.filterService.secondData = {};
     this.filterService.stepCondition = null;
     if (close) {
-      this.dropdown.hide();
+      this.dropdown?.hide();
     }
   };
 }

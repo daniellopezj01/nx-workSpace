@@ -1,3 +1,4 @@
+import { RestService } from './../../../../services/rest/rest.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import {
@@ -17,7 +18,6 @@ import {
   CountryISO,
 } from 'ngx-intl-tel-input';
 import countriesJson from '../../../../../assets/jsonFiles/countries.json';
-import { RestService } from 'src/app/services/rest/rest.service';
 import {
   catchError,
   distinctUntilChanged,
@@ -27,7 +27,7 @@ import {
 } from 'rxjs/operators';
 import { concat, from, Observable, of, Subject } from 'rxjs';
 import * as _ from 'lodash';
-import { SharedService } from 'src/app/modules/shared/shared.service';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-form-reservation',
@@ -35,8 +35,8 @@ import { SharedService } from 'src/app/modules/shared/shared.service';
   styleUrls: ['./form-reservation.component.scss'],
 })
 export class FormReservationComponent implements OnInit {
-  @ViewChild('inputPhone') inputPhone: ElementRef;
-  @Input() reservation;
+  @ViewChild('inputPhone') inputPhone?: ElementRef;
+  @Input() reservation: any;
   @Input() activeDelete = false;
   @Input() activeUpdate = false;
 
@@ -62,18 +62,18 @@ export class FormReservationComponent implements OnInit {
 
   public SearchCountryField = SearchCountryField;
   public CountryISO = CountryISO;
-  public loading: boolean;
+  public loading = false;
   public reservationForm: FormGroup;
   public subForm = false;
   public today = new Date();
   public genderArray: any = genderJson;
-  public changePhone: boolean;
+  public changePhone = false;
   public countries: string[] = [];
   public genders: Array<any> = [];
   public userInput$ = new Subject<string>();
   public tourInput$ = new Subject<string>();
-  public results$: Observable<any>;
-  public resultsTours$: Observable<any>;
+  public results$?: Observable<any>;
+  public resultsTours$?: Observable<any>;
   public selectLoading = false;
   public departures: any = [];
   public ngSelectClient: any;
@@ -89,10 +89,7 @@ export class FormReservationComponent implements OnInit {
     private rest: RestService,
     private router: Router,
     private shared: SharedService
-  ) { }
-
-  ngOnInit(): void {
-    this.genders = genderJson;
+  ) {
     this.reservationForm = this.formBuilder.group({
       idUser: ['', [Validators.required]],
       idTour: ['', [Validators.required]],
@@ -109,10 +106,15 @@ export class FormReservationComponent implements OnInit {
       city: ['', [Validators.required]],
       travelerAddress: ['', [Validators.required]],
     });
+  }
+
+  ngOnInit(): void {
+    this.genders = genderJson;
+
     this.reservationForm.valueChanges.subscribe(() => {
       this.rest.setActiveConfirmLeave = true;
     });
-    countriesJson.forEach((element) => {
+    countriesJson.forEach((element: any) => {
       this.countries.push(element);
     });
     this.loadInfoSelects()
@@ -129,7 +131,7 @@ export class FormReservationComponent implements OnInit {
     this.resultsTours$ = this.loadSelect(this.tourInput$, 'tours');
   }
 
-  loadSelect(subject, type) {
+  loadSelect(subject: any, type: any) {
     return concat(
       of([]), // default items
       subject.pipe(
@@ -150,7 +152,7 @@ export class FormReservationComponent implements OnInit {
     return item._id;
   }
 
-  selectTour = (e) => {
+  selectTour = (e: any) => {
     if (!e?._id) {
       this.departures = [];
     } else {
@@ -180,8 +182,8 @@ export class FormReservationComponent implements OnInit {
       });
   }
 
-  singleSearch$ = (term, typeUrl) => {
-    let q;
+  singleSearch$ = (term: any, typeUrl: any) => {
+    let q: any;
     switch (typeUrl) {
       case 'users':
         q = [

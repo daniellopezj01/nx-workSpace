@@ -1,3 +1,5 @@
+/* eslint-disable @angular-eslint/component-selector */
+import { RestService } from './../../../../services/rest/rest.service';
 import {
   AfterContentChecked,
   ChangeDetectorRef,
@@ -11,16 +13,15 @@ import { FormGroup, } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
-import { RestService } from 'src/app/services/rest/rest.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
-import { DetailsTourService } from './details-tour.service';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { ModalItineraryComponent } from '../modal-itinerary/modal-itinerary.component';
-import { ModalsService } from 'src/app/modules/shared/modals.service';
 import { FormIncludeComponent } from '../form-include/form-include.component';
-import { MediaService } from 'src/app/modules/shared/drop-galery/media.service';
 import { FormsGenericService } from '../../services/forms-generic.service';
 import { FormDepartureComponent } from '../departures/form-departure/form-departure.component';
+import { SharedService } from '../../../shared/shared.service';
+import { MediaService } from '../../../shared/drop-galery/media.service';
+import { ModalsService } from '../../../shared/modals.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-details-tour',
@@ -29,15 +30,13 @@ import { FormDepartureComponent } from '../departures/form-departure/form-depart
 })
 export class DetailsTourComponent
   implements OnInit, AfterContentChecked, OnDestroy {
-  @ViewChild('placesRef') placesRef: GooglePlaceDirective;
+  @ViewChild('placesRef') placesRef?: GooglePlaceDirective;
   // @ViewChild('player') player: YT.Player;
   @Input() id: any;
   public apiLoaded = false;
-
-  public form: FormGroup;
+  // public form: FormGroup;
   public listSubscribers: any = [];
   public tour: any;
-
   public history: any = [
     {
       name: 'Tours',
@@ -52,7 +51,7 @@ export class DetailsTourComponent
     image: null,
     blob: null,
   };
-  public bsModalRef: BsModalRef;
+  public bsModalRef?: BsModalRef;
   public loading = true;
   public eventFromButton = false;
   public fullView = -1;
@@ -77,27 +76,22 @@ export class DetailsTourComponent
     const observer1$ = this.share.saveItinerary.subscribe((res) => {
       this.tour.itinerary.push(res);
     });
-
     const observer2$ = this.share.saveDeparture.subscribe((res) => {
       this.tour.departures.push(res);
     });
-
     const observer3$ = this.share.updateDeparture.subscribe((res) => {
       const { departures } = this.tour;
-      const newResult = departures.map((item) =>
+      const newResult = departures.map((item: any) =>
         item._id === res._id ? res : item
       );
-
       this.tour.departures = newResult;
       // const index = _.findIndex(departures, { _id: res.id });
       // departures.splice(index, 1, res);
       // this.tour.depatures = departures;
     });
-
     const observer4$ = this.formsGenericService.callback.subscribe((res) => {
       this.tour = { ...this.tour, ...res?.item };
     });
-
     this.listSubscribers = [observer1$, observer2$, observer3$, observer4$];
   };
 
@@ -106,7 +100,7 @@ export class DetailsTourComponent
   }
 
   ngOnDestroy(): any {
-    this.listSubscribers.forEach((a) => a.unsubscribe());
+    this.listSubscribers.forEach((a: Subscription) => a.unsubscribe());
   }
 
   loadGeneral = () => {
@@ -116,7 +110,7 @@ export class DetailsTourComponent
     });
   };
 
-  openModalSave(action): any {
+  openModalSave(action: string): any {
     let data;
     let component: any;
     switch (action) {

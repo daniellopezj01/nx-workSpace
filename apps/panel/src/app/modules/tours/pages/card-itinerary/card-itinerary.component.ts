@@ -1,26 +1,27 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { RestService } from './../../../../services/rest/rest.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ModalsService } from 'src/app/modules/shared/modals.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
-import { RestService } from 'src/app/services/rest/rest.service';
 import { ModalItineraryComponent } from '../modal-itinerary/modal-itinerary.component';
 import {
   faTrashAlt,
   faEdit,
   faPlusSquare,
+
 } from '@fortawesome/free-regular-svg-icons';
 import { faAngleDown, faLock } from '@fortawesome/free-solid-svg-icons';
 import * as _ from 'lodash';
 import { ModalActivityComponent } from '../modal-activity/modal-activity.component';
 import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import { ItineraryService } from '../../services/itinerary.service';
+import { ModalsService } from '../../../shared/modals.service';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-card-itinerary',
   templateUrl: './card-itinerary.component.html',
   styleUrls: ['./card-itinerary.component.scss'],
 })
-export class CardItineraryComponent implements OnInit {
+export class CardItineraryComponent {
   @Input() itinerary: any = {};
   @Input() tour: any = {};
   @Input() index = 0;
@@ -39,9 +40,8 @@ export class CardItineraryComponent implements OnInit {
     private modalService: ModalsService,
     private rest: RestService,
     private itineraryService: ItineraryService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
 
   openModalSave(): any {
     this.eventButton.emit(true);
@@ -53,7 +53,7 @@ export class CardItineraryComponent implements OnInit {
     );
   }
 
-  updateItinerary(itinerary): any {
+  updateItinerary(itinerary: any): any {
     this.eventButton.emit(true);
     const data = { tour: this.tour, updateItem: true, itinerary };
     this.modalService.openComponent(
@@ -63,7 +63,7 @@ export class CardItineraryComponent implements OnInit {
     );
   }
 
-  deleteItinerary(id): any {
+  deleteItinerary(id: any): any {
     this.eventButton.emit(true);
     this.share
       .confirm()
@@ -80,7 +80,7 @@ export class CardItineraryComponent implements OnInit {
       .catch((err) => console.log(err));
   }
 
-  deleteActivity(idActivity): any {
+  deleteActivity(idActivity: any): any {
     this.eventButton.emit(true);
     const details = _.clone(this.itinerary.details);
     _.remove(details, { _id: idActivity });
@@ -100,7 +100,7 @@ export class CardItineraryComponent implements OnInit {
       .catch((err) => console.log(err));
   }
 
-  updateActivity(activity): any {
+  updateActivity(activity: any): any {
     this.eventButton.emit(true);
     const data = { itinerary: this.itinerary, updateItem: true, activity };
     this.modalService.openComponent(

@@ -1,6 +1,6 @@
+import { RestService } from './../../../services/rest/rest.service';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { RestService } from 'src/app/services/rest/rest.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,11 +10,14 @@ export class MediaVideoService {
   public files: any = [];
   public items: any = [];
 
-  constructor(private rest: RestService, private sanitizer: DomSanitizer) {}
+  constructor(
+    private rest: RestService,
+    private sanitizer: DomSanitizer
+  ) { }
 
   public processFile = async (videoInput: any) => {
     await Promise.all(
-      Object.values(videoInput.files).map(async ($event: File) => {
+      Object.values(videoInput.files).map(async ($event: any) => {
         const video = await this.blobFile($event);
         if (video) {
           this.files.push(video);
@@ -25,7 +28,7 @@ export class MediaVideoService {
       .catch((e) => console.log(e));
   };
 
-  public toBase64 = (file) =>
+  public toBase64 = (file: any) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -63,11 +66,11 @@ export class MediaVideoService {
     new Promise((resolve, reject) => {
       try {
         const alreadyUploaded = this.files.filter(
-          (a) => a.source?.original || typeof a === 'string'
+          (a: any) => a.source?.original || typeof a === 'string'
         );
-        if (this.files.filter((i) => i.blob).length) {
+        if (this.files.filter((i: any) => i.blob).length) {
           const formData = new FormData();
-          this.files.forEach((item) => {
+          this.files.forEach((item: any) => {
             if (item.blob) {
               formData.append('file[]', item.blob);
             }

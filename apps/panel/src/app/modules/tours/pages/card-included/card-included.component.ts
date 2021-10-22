@@ -1,24 +1,25 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { RestService } from './../../../../services/rest/rest.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { SharedService } from 'src/app/modules/shared/shared.service';
-import { RestService } from 'src/app/services/rest/rest.service';
-import { ModalsService } from 'src/app/modules/shared/modals.service';
 import { FormIncludeComponent } from '../form-include/form-include.component';
 import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import { faTrashAlt, faEdit } from '@fortawesome/free-regular-svg-icons';
 import * as _ from 'lodash';
 import { IncludedService } from '../../services/included.service';
+import { SharedService } from '../../../shared/shared.service';
+import { ModalsService } from '../../../shared/modals.service';
 
 @Component({
   selector: 'app-card-included',
   templateUrl: './card-included.component.html',
   styleUrls: ['./card-included.component.scss'],
 })
-export class CardIncludedComponent implements OnInit {
-  @Input() item: any;
-  @Input() tour: any;
-  @Input() type: string;
-  @Output() eventButton = new EventEmitter<any>();
+export class CardIncludedComponent {
+  @Input() public item: any;
+  @Input() public tour: any;
+  @Input() public type = '';
+  @Output() public eventButton = new EventEmitter<any>();
 
   faTrashAlt = faTrashAlt;
   faEdit = faEdit;
@@ -29,11 +30,9 @@ export class CardIncludedComponent implements OnInit {
     private rest: RestService,
     public includesService: IncludedService,
     public modalService: ModalsService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
-
-  updateItem(item): any {
+  updateItem(item: any): any {
     const data = { tour: this.tour, updateItem: true, item, type: this.type };
     this.modalService.openComponent(
       data,
@@ -42,7 +41,7 @@ export class CardIncludedComponent implements OnInit {
     );
   }
 
-  deleteItem(idItem): any {
+  deleteItem(idItem: any): any {
     this.share
       .confirm()
       .then((res: any) => {
@@ -93,11 +92,11 @@ export class CardIncludedComponent implements OnInit {
     // this.updateGroup(group?.tickets, group);
   }
 
-  updateItinerary(itinerary: any) {}
+  updateItinerary(itinerary: any) { }
 
-  deleteItinerary(_id: any) {}
+  deleteItinerary(_id: any) { }
 
-  updateValuesFromApi(res) {
+  updateValuesFromApi(res: any) {
     const { included, notIncluded, faq } = res;
     this.tour.included = included;
     this.tour.notIncluded = notIncluded;

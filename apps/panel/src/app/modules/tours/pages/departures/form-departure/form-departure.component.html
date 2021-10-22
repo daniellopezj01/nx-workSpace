@@ -3,8 +3,8 @@
     <h6 class="font-weight-bold">
       {{
         !updateItem
-          ? ("TOUR.DEPARTURE.MAIN_TITLE" | translate)
-          : ("TOUR.DEPARTURE.UPDATE_TITLE" | translate)
+          ? ('TOUR.DEPARTURE.MAIN_TITLE' | translate)
+          : ('TOUR.DEPARTURE.UPDATE_TITLE' | translate)
       }}
     </h6>
   </div>
@@ -13,7 +13,7 @@
     <div class="row">
       <div class="col-6">
         <div class="form-group">
-          <label>{{ "TOUR.DEPARTURE.START_DATE" | translate }}</label>
+          <label>{{ 'TOUR.DEPARTURE.START_DATE' | translate }}</label>
           <input
             type="text"
             autocomplete="off"
@@ -38,7 +38,7 @@
               (change)="flight = !flight"
             >
               <span class="custom-text">
-                {{ "TOUR.DEPARTURE.WITH_FLIGHT" | translate }}
+                {{ 'TOUR.DEPARTURE.WITH_FLIGHT' | translate }}
               </span>
             </p-checkbox>
           </div>
@@ -48,7 +48,7 @@
     <div class="row">
       <div class="col-6">
         <div class="form-group">
-          <label>{{ "TOUR.DEPARTURE.END_DATE" | translate }}</label>
+          <label>{{ 'TOUR.DEPARTURE.END_DATE' | translate }}</label>
           <input
             type="text"
             autocomplete="off"
@@ -64,7 +64,7 @@
       </div>
       <div class="col-6">
         <div class="form-group">
-          <label>{{ "TOUR.DEPARTURE.CLOSE_DATE" | translate }}</label>
+          <label>{{ 'TOUR.DEPARTURE.CLOSE_DATE' | translate }}</label>
           <input
             type="text"
             autocomplete="off"
@@ -83,7 +83,7 @@
     <div class="row">
       <div class="col-6">
         <div class="form-group">
-          <label>{{ "TOUR.DEPARTURE.MIN_STOCK" | translate }}</label>
+          <label>{{ 'TOUR.DEPARTURE.MIN_STOCK' | translate }}</label>
           <input
             type="text"
             class="form-control"
@@ -98,7 +98,7 @@
       </div>
       <div class="col-6">
         <div class="form-group">
-          <label>{{ "TOUR.DEPARTURE.STOCK" | translate }}</label>
+          <label>{{ 'TOUR.DEPARTURE.STOCK' | translate }}</label>
           <input
             type="text"
             class="form-control"
@@ -115,7 +115,7 @@
     <div class="row">
       <div class="col-6">
         <div class="form-group">
-          <label>{{ "TOUR.DEPARTURE.MIN_AGE" | translate }}</label>
+          <label>{{ 'TOUR.DEPARTURE.MIN_AGE' | translate }}</label>
           <input
             type="text"
             class="form-control"
@@ -130,7 +130,7 @@
       </div>
       <div class="col-6">
         <div class="form-group">
-          <label>{{ "TOUR.DEPARTURE.MAX_AGE" | translate }}</label>
+          <label>{{ 'TOUR.DEPARTURE.MAX_AGE' | translate }}</label>
           <input
             type="text"
             class="form-control"
@@ -147,7 +147,7 @@
     <div class="row">
       <div class="col-6">
         <div class="form-group">
-          <label>{{ "TOUR.DEPARTURE.NORMAL_PRICE" | translate }}</label>
+          <label>{{ 'TOUR.DEPARTURE.NORMAL_PRICE' | translate }}</label>
           <input
             type="text"
             class="form-control"
@@ -186,8 +186,8 @@
               >
                 {{
                   updateItem
-                    ? ("TOUR.DEPARTURE.UPDATE_CURRENT_CURRENCIES" | translate)
-                    : ("TOUR.DEPARTURE.CURRENT_CURRENCIES" | translate)
+                    ? ('TOUR.DEPARTURE.UPDATE_CURRENT_CURRENCIES' | translate)
+                    : ('TOUR.DEPARTURE.CURRENT_CURRENCIES' | translate)
                 }}
               </span>
             </p-checkbox>
@@ -196,7 +196,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label>{{ "TOUR.STATUS" | translate }}</label>
+      <label>{{ 'TOUR.STATUS' | translate }}</label>
       <ng-select
         [items]="status"
         bindLabel="name"
@@ -210,7 +210,7 @@
       </ng-select>
     </div>
     <div class="form-group">
-      <label>{{ "TOUR.DESCRIPTION" | translate }}</label>
+      <label>{{ 'TOUR.DESCRIPTION' | translate }}</label>
       <app-text-rich
         class="row"
         formControlName="description"
@@ -225,9 +225,8 @@
         class="btn btn-default hvr-grow btn-radius"
         (click)="modal.close()"
       >
-        {{ "GENERAL.CANCEL" | translate }}
+        {{ 'GENERAL.CANCEL' | translate }}
       </button>
-
       <button
         ngxLoading
         [loadingFlag]="loading"

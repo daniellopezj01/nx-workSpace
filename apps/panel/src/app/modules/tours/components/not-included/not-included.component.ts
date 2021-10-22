@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { IncludedService } from '../../services/included.service';
 import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import { FormsGenericService } from '../../services/forms-generic.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-not-included',
@@ -15,7 +17,7 @@ export class NotIncludedComponent implements OnInit, OnDestroy {
   constructor(
     private includesService: IncludedService,
     private formsGenericService: FormsGenericService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.listObserver();
@@ -35,7 +37,7 @@ export class NotIncludedComponent implements OnInit, OnDestroy {
     const body = { ...this.data, ...{ notIncluded: group } };
     this.includesService
       .updateIncluded(this.data?._id, body)
-      .subscribe((res) => {});
+      .subscribe((res) => { });
   }
 
   onDragged(item: any, list: any[], effect: DropEffect, group: any): any {
@@ -45,9 +47,9 @@ export class NotIncludedComponent implements OnInit, OnDestroy {
     }
   }
 
-  listObserver = () => {};
+  listObserver = () => { };
 
   ngOnDestroy(): any {
-    this.listSubscribers.forEach((a) => a.unsubscribe());
+    this.listSubscribers.forEach((a: Subscription) => a.unsubscribe());
   }
 }

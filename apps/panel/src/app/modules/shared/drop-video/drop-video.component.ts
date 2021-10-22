@@ -11,7 +11,6 @@ import { AnimationOptions } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
 import { faHandPointer } from '@fortawesome/free-solid-svg-icons';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SharedService } from '../shared.service';
 import { MediaVideoService } from './media-video.service';
 
@@ -22,14 +21,14 @@ import { MediaVideoService } from './media-video.service';
 })
 export class DropVideoComponent implements OnInit {
   @Output() cbAdded = new EventEmitter<any>();
-  @Input() removeMargin: boolean = true;
-  @Input() multiple: boolean = false;
-  @Input() singleFile: boolean = true;
+  @Input() public removeMargin = true;
+  @Input() public multiple = false;
+  @Input() public singleFile = true;
 
-  public disabledClick: boolean = false;
-  private animationItem: AnimationItem;
+  public disabledClick = false;
+  private animationItem?: AnimationItem;
   public faHandPointer = faHandPointer;
-  public bsModalRef: BsModalRef;
+  public bsModalRef?: BsModalRef;
   public options: AnimationOptions = {
     path: '/assets/images/click.json',
   };
@@ -39,7 +38,7 @@ export class DropVideoComponent implements OnInit {
     public media: MediaVideoService,
     private ngZone: NgZone,
     private modalService: BsModalService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this.singleFile && this.media.files.length) {
@@ -59,12 +58,12 @@ export class DropVideoComponent implements OnInit {
   };
 
   cbSwipe($event: any) {
-    this.media.items = this.media.items.filter((a) => {
+    this.media.items = this.media.items.filter((a: any) => {
       return !Object.values(a).includes($event);
     });
   }
 
-  viewVideo = (e, data: any = {}) => {
+  viewVideo = (e: any, data: any = {}) => {
     e.stopPropagation();
     this.open(data);
   };
@@ -85,7 +84,7 @@ export class DropVideoComponent implements OnInit {
     // );
   }
 
-  onRemove(event, i) {
+  onRemove(event: any, i: any) {
     this.media.files.splice(i, 1);
     this.cbAdded.emit(event);
     if (this.singleFile && !this.media.files.length) {
@@ -106,16 +105,16 @@ export class DropVideoComponent implements OnInit {
     // this.animationItem.stop();
   }
 
-  loopComplete(e): void {
+  loopComplete(e: any): void {
     // e.stop().then();
     this.pause();
   }
 
   stop(): void {
-    this.ngZone.runOutsideAngular(() => this.animationItem.stop());
+    this.ngZone.runOutsideAngular(() => this.animationItem?.stop());
   }
 
   pause(): void {
-    this.ngZone.runOutsideAngular(() => this.animationItem.setSegment(43, 44));
+    this.ngZone.runOutsideAngular(() => this.animationItem?.setSegment(43, 44));
   }
 }

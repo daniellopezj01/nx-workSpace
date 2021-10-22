@@ -1,3 +1,5 @@
+import { AuthService } from './../../../../services/auth/auth.service';
+import { PaginationServiceService } from './../../../../services/pagination/pagination-service.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -25,12 +27,10 @@ import {
   of,
   zip,
 } from 'rxjs';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { PaginationServiceService } from 'src/app/services/pagination/pagination-service.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
-import { SearchService } from 'src/app/modules/search/search.service';
 import { AddMovementComponent } from '../add-movement/add-movement.component';
-import { ModalsService } from 'src/app/modules/shared/modals.service';
+import { SharedService } from '../../../shared/shared.service';
+import { SearchService } from '../../../search/search.service';
+import { ModalsService } from '../../../shared/modals.service';
 
 @Component({
   selector: 'app-list-movements',
@@ -45,7 +45,7 @@ export class ListMovementsComponent implements OnInit {
   @Input() dataTake: any;
   @Output() cbClick = new EventEmitter<any>();
 
-  @Input() data: Observable<any>;
+  @Input() data: Observable<any> = new Observable<Array<any[]>>();;
   public cbMode: any = null;
   public currency: any = null;
   public currencySymbol: any = null;
@@ -97,10 +97,14 @@ export class ListMovementsComponent implements OnInit {
         this.onSrc(q);
       }
     });
-    this.share.saveOrder.subscribe((res) => {
+    this.share.saveOrder.subscribe((res: any) => {
+      console.log('revisar este saveOrder')
       const s1$ = of([res]);
-      const s2$ = this.data.pipe(map((a) => a));
-      this.data = zip(s1$, s2$).pipe(map((res) => [].concat(...res)));
+      const s2$ = this.data?.pipe(map((a) => a));
+      if (this.data) {
+        // this.data = zip(s1$, s2$).pipe(map((response) => [].concat(...response)));
+        this.data = zip(s1$, s2$).pipe(map((response) => [response]));
+      }
     });
   }
 
@@ -138,7 +142,7 @@ export class ListMovementsComponent implements OnInit {
 
   load = (src: string = '?') => {
     this.loading = true;
-    let generalParams = `&page=${this.pagination.page}&limit=${this.limit}`;
+    const generalParams = `&page=${this.pagination.page}&limit=${this.limit}`;
     const url = `${this.source}${src}${generalParams}`;
     this.data = this.pagination.paginationData$(url).pipe(
       tap((b: any) => {
@@ -161,7 +165,7 @@ export class ListMovementsComponent implements OnInit {
     // modal-light-plan
   };
 
-  onSrc = (e) => {
+  onSrc = (e: any) => {
     this.pagination.src = e && e.length ? e : '';
     this.pagination.page = 1;
     this.pagination.limit = this.limit;

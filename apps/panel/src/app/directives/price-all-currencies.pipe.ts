@@ -9,7 +9,7 @@ import * as _ from 'lodash'
 })
 export class PriceAllCurrenciesPipe implements PipeTransform {
 
-  public currencies
+  public currencies: any
   constructor(private authService: AuthService, private storageService: LocalStorageService) {
     this.loadCurrencies()
   }
@@ -25,7 +25,7 @@ export class PriceAllCurrenciesPipe implements PipeTransform {
     }
   }
 
-  transform(value: string, currenciesDeparture: object[] = []): string {
+  transform(value: string, currenciesDeparture: any[] = []): any {
     if (value) {
       const currentValue = parseFloat(value)
       let string = ''

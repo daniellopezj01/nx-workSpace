@@ -33,27 +33,30 @@ import {
 })
 
 export class TextRichComponent implements OnInit, OnDestroy {
-  @ViewChild(QuillEditorComponent, { static: true }) editor: QuillEditorComponent;
-  faTimes = faTimes;
-  faPaperclip = faPaperclip;
-  modules: any;
+  @ViewChild(QuillEditorComponent, { static: true }) editor?: QuillEditorComponent;
   @Output() returnValue = new EventEmitter<any>();
   @Input() customId: any = false;
   @Input() mode = 'add';
-  @Input() isFull: boolean;
-  @Input() cancelBtn: boolean;
-  @Input() activeLoadFiles: boolean = false;
-  listSubscribers: Subscription[] = [];
-  currentId: any = false;
+  @Input() isFull = false;
+  @Input() cancelBtn = false;
+  @Input() activeLoadFiles = false;
+  public faTimes = faTimes;
+  public faPaperclip = faPaperclip;
+  public modules: any;
+  public listSubscribers: Subscription[] = [];
+  public currentId: any = false;
   // tslint:disable-next-line:variable-name
   public users_subscriptions: any = [];
-  public fullMode: boolean;
-  counter = 0;
-  iconPdf = '../../../../assets/downloadPdf.svg'
-  value: string;
-  isDisabled: boolean;
-  onChange = (change: any) => { };
+  public fullMode = false;
+  public counter = 0;
+  public iconPdf = '../../../../assets/downloadPdf.svg'
+  public value = '';
+  public isDisabled = false;
+  onChange = (change: any) => {
+    console.log('onChange')
+  };
   onTouch = () => {
+    console.log('onTouch')
   };
 
   constructor(public textRich: TextRichService, private shared: SharedService) { }
@@ -116,21 +119,21 @@ export class TextRichComponent implements OnInit, OnDestroy {
     this.modules = {
       mention: {
         allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
-        onSelect: (item, insertItem) => {
+        onSelect: (item: any, insertItem: any) => {
           this.onSelectMention(item, insertItem);
-          const editor = this.editor.quillEditor;
+          const editor = this.editor?.quillEditor;
           insertItem(item);
           editor.insertText(editor.getLength() - 1, '', 'user');
         },
 
-        source: async (searchTerm, renderList) => {
+        source: async (searchTerm: any, renderList: any) => {
           const values = await this.textRich.loadUser(searchTerm) as any;
           if (searchTerm.length === 0) {
             renderList(values, searchTerm);
           } else {
-            const matches = [];
+            const matches: any = [];
 
-            values.forEach((entry) => {
+            values.forEach((entry: any) => {
               if (entry.value.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) {
                 matches.push(entry);
               }
@@ -174,7 +177,7 @@ export class TextRichComponent implements OnInit, OnDestroy {
     }
   }
 
-  setFiles(attached) {
+  setFiles(attached: any) {
     if (attached.length) {
       this.textRich.addAttachments = attached
     }
@@ -183,10 +186,10 @@ export class TextRichComponent implements OnInit, OnDestroy {
   removeMentionUser = (data: string) => {
     try {
       setTimeout(() => {
-        const containerEdit = this.editor.quillEditor.container;
+        const containerEdit = this.editor?.quillEditor.container;
         const listMentions = containerEdit.querySelectorAll('.ql-editor .mention');
-        const really = [];
-        listMentions.forEach((element) => {
+        const really: any = [];
+        listMentions.forEach((element: any) => {
           const { id } = element.dataset;
           really.push(id);
         });
@@ -194,7 +197,6 @@ export class TextRichComponent implements OnInit, OnDestroy {
       }, 200);
     } catch (e) {
       console.log(e);
-      return null;
     }
   };
 

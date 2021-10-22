@@ -1,8 +1,9 @@
+import { AuthService } from './../../../../services/auth/auth.service';
+import { RestService } from './../../../../services/rest/rest.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RestService } from 'src/app/services/rest/rest.service';
 import {
   SearchCountryField,
   CountryISO,
@@ -10,7 +11,6 @@ import {
 import * as _ from 'lodash';
 import genderJson from '../../../../../assets/jsonFiles/gender.json';
 import countriesJson from '../../../../../assets/jsonFiles/countries.json';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -21,7 +21,7 @@ import { finalize } from 'rxjs/operators';
 export class FormUserComponent implements OnInit {
   @Input() mode = 'list';
   @Input() activeUpdate = false;
-  @Input() user;
+  @Input() user: any;
   public optionsButtons: any = ['save', 'list'];
   public SearchCountryField = SearchCountryField;
   public loading = false;
@@ -63,10 +63,7 @@ export class FormUserComponent implements OnInit {
     public translate: TranslateService,
     private rest: RestService,
     private auth: AuthService
-  ) { }
-
-  ngOnInit(): void {
-    this.genders = genderJson;
+  ) {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
@@ -79,10 +76,15 @@ export class FormUserComponent implements OnInit {
       description: [],
       phone: ['', Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    this.genders = genderJson;
+
     this.route.params.subscribe((params) => {
       this.id = params.id === 'add' ? '' : params.id;
     });
-    countriesJson.forEach((element) => {
+    countriesJson.forEach((element: any) => {
       this.countries.push(element);
     });
     if (this.activeUpdate) {
@@ -139,7 +141,7 @@ export class FormUserComponent implements OnInit {
     );
   }
 
-  public exchange = (accessToken) => {
+  public exchange = (accessToken: any) => {
     this.auth
       .exchange({ accessToken })
       .pipe(finalize(() => (this.loading = false)))
@@ -192,7 +194,7 @@ export class FormUserComponent implements OnInit {
     this.form.patchValue(newObject);
   }
 
-  chackError(error) {
+  chackError(error: any) {
     const { msg } = error.errors.msg;
     this.rest.showToast(msg);
   }

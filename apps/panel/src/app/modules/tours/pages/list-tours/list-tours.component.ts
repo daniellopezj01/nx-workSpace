@@ -1,3 +1,6 @@
+import { PaginationServiceService } from './../../../../services/pagination/pagination-service.service';
+/* eslint-disable @angular-eslint/component-selector */
+import { AuthService } from './../../../../services/auth/auth.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -15,10 +18,8 @@ import {
 // import {FilterServiceService} from '../../../../components/list-items/filter-service.service';
 import { finalize, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { PaginationServiceService } from 'src/app/services/pagination/pagination-service.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
-import { SearchService } from 'src/app/modules/search/search.service';
+import { SharedService } from '../../../shared/shared.service';
+import { SearchService } from '../../../search/search.service';
 
 @Component({
   selector: 'app-list-tours',
@@ -26,20 +27,35 @@ import { SearchService } from 'src/app/modules/search/search.service';
   styleUrls: ['./list-tours.component.scss'],
 })
 export class ListToursComponent implements OnInit {
-  @Input() mode: string = 'page';
-  @Input() title: any = false;
-  @Input() limit: any = 15;
-  @Input() viewMore: boolean = true;
-  @Input() simpleView: boolean = false;
-  @Output() cbClick = new EventEmitter<any>();
+  @Input() public mode = 'page';
+  @Input() public title: any = false;
+  @Input() public limit: any = 15;
+  @Input() public viewMore = true;
+  @Input() public simpleView = false;
+  @Input() public dataTake: any;
+  @Input() public data?: Observable<any>;
+  @Output() public cbClick = new EventEmitter<any>();
+
   public cbMode: any = null;
   public currency: any = null;
   public currencySymbol: any = null;
-  @Input() dataTake: any;
-  @Input() data: Observable<any>;
-  loading: any;
-  fields: Array<any> = [];
-
+  public loading: any;
+  public fields: Array<any> = [];
+  public faAngleDoubleLeft = faAngleDoubleLeft;
+  public faAngleDoubleRight = faAngleDoubleRight;
+  public faAngleLeft = faAngleLeft;
+  public faAngleRight = faAngleRight;
+  public faPhoneAlt = faPhoneAlt;
+  public faIndustry = faIndustry;
+  public faUser = faUser;
+  public page = 1;
+  public source = 'tours';
+  private toAdd = 'tours';
+  public history: any = [
+    {
+      name: 'tours',
+    },
+  ];
   constructor(
     private share: SharedService,
     private route: ActivatedRoute,
@@ -48,23 +64,9 @@ export class ListToursComponent implements OnInit {
     public auth: AuthService,
     public search: SearchService,
     private router: Router
-  ) {}
+  ) { }
 
-  faAngleDoubleLeft = faAngleDoubleLeft;
-  faAngleDoubleRight = faAngleDoubleRight;
-  faAngleLeft = faAngleLeft;
-  faAngleRight = faAngleRight;
-  faPhoneAlt = faPhoneAlt;
-  faIndustry = faIndustry;
-  faUser = faUser;
-  public page: number = 1;
-  public source = 'tours';
-  private toAdd = 'tours';
-  public history: any = [
-    {
-      name: 'tours',
-    },
-  ];
+
 
   ngOnInit(): void {
     this.pagination.init();
@@ -115,7 +117,7 @@ export class ListToursComponent implements OnInit {
 
   load = (src: string = '?') => {
     this.loading = true;
-    let generalParams = `&page=${this.pagination.page}&limit=${this.limit}`;
+    const generalParams = `&page=${this.pagination.page}&limit=${this.limit}`;
     const url = `${this.source}${src}${generalParams}`;
     this.data = this.pagination.paginationData$(url).pipe(
       tap((b: any) => {
@@ -130,7 +132,7 @@ export class ListToursComponent implements OnInit {
 
   goTo = () => this.share.goTo(this.toAdd);
 
-  onSrc = (e) => {
+  onSrc = (e: any) => {
     this.pagination.src = e && e.length ? e : '';
     this.pagination.page = 1;
     this.pagination.limit = this.limit;

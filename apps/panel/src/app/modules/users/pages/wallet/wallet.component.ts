@@ -1,5 +1,5 @@
+import { RestService } from './../../../../services/rest/rest.service';
 import { Component, OnInit, HostListener, Input } from '@angular/core';
-import { RestService } from 'src/app/services/rest/rest.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
@@ -18,8 +18,8 @@ export class WalletComponent implements OnInit {
   @Input() id: any;
   public data: any;
   public dataRaw: any;
-  public total: number;
-  public loading: boolean;
+  public total = 0;
+  public loading = false;
   public faCheckCircle = faCheckCircle;
 
   public columns = [

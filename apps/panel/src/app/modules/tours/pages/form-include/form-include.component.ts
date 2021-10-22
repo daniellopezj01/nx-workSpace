@@ -1,14 +1,12 @@
+import { RestService } from './../../../../services/rest/rest.service';
+/* eslint-disable @angular-eslint/component-selector */
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
-import { Address } from 'ngx-google-places-autocomplete/objects/address';
-import { SharedService } from 'src/app/modules/shared/shared.service';
-import { RestService } from 'src/app/services/rest/rest.service';
 import * as _ from 'lodash';
-import { MediaService } from 'src/app/modules/shared/drop-galery/media.service';
 import { finalize } from 'rxjs/operators';
 import { FormsGenericService } from '../../services/forms-generic.service';
-import { ModalsService } from 'src/app/modules/shared/modals.service';
+import { ModalsService } from '../../../shared/modals.service';
+import { MediaService } from '../../../shared/drop-galery/media.service';
 
 @Component({
   selector: 'app-form-include',
@@ -18,13 +16,13 @@ import { ModalsService } from 'src/app/modules/shared/modals.service';
 export class FormIncludeComponent implements OnInit {
   @Input() tour: any;
   @Input() item: any;
-  @Input() type: string;
+  @Input() type: any;
   @Input() updateItem = false;
 
   public form: FormGroup;
   public data: any = {};
   public loadingButton = false;
-  public loading: boolean;
+  public loading = false;
   public isFeatured = false;
 
   constructor(
@@ -34,15 +32,17 @@ export class FormIncludeComponent implements OnInit {
     private rest: RestService,
 
     private formsGenericService: FormsGenericService
-  ) {}
-
-  ngOnInit(): void {
-    this.media.auxFiles = [];
+  ) {
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', [Validators.required, Validators.min(0)]],
       image: [Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    this.media.auxFiles = [];
+
     this.formObjectPatch();
   }
 
@@ -110,7 +110,7 @@ export class FormIncludeComponent implements OnInit {
     }
   }
 
-  updateValuesFromApi(res) {
+  updateValuesFromApi(res: any) {
     console.log('updateValuesFromApi');
     this.modal.close();
     const { included, notIncluded, faq } = res;
@@ -120,7 +120,7 @@ export class FormIncludeComponent implements OnInit {
     this.loadingButton = false;
   }
 
-  checkPropertyObject = (array) => new Promise((resolve) => {});
+  checkPropertyObject = (array: any) => new Promise((resolve) => { console.log('') });
 
   // async update() {
   //   const arrayItems = _.clone(

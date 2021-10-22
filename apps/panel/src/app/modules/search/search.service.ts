@@ -1,3 +1,4 @@
+import { RestService } from './../../services/rest/rest.service';
 import { Injectable } from '@angular/core';
 import { defer, Observable } from 'rxjs';
 import {
@@ -7,8 +8,7 @@ import {
   map,
 } from 'rxjs/operators';
 import * as _ from 'lodash';
-import { PaginationServiceService } from 'src/app/services/pagination/pagination-service.service';
-import { RestService } from 'src/app/services/rest/rest.service';
+import { PaginationServiceService } from '../../services/pagination/pagination-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,15 +16,15 @@ import { RestService } from 'src/app/services/rest/rest.service';
 export class SearchService {
   public fields = [];
   public filters = [];
-  public data$: Observable<any>;
-  public loading: boolean;
-  public src: string;
-  private fieldsByKey = [];
+  public data$?: Observable<any>;
+  public loading = false;
+  public src = '';
+  private fieldsByKey: any = [];
 
   constructor(
     private rest: RestService,
     private paginationService: PaginationServiceService
-  ) {}
+  ) { }
 
   prepare<T>(callback: () => void): (source: Observable<T>) => Observable<T> {
     return (source: Observable<T>): Observable<T> =>
@@ -42,18 +42,16 @@ export class SearchService {
     if (resetPagination) {
       this.paginationService.init();
     }
-    let url = [
+    const url = [
       data.source,
       _.find(this.fieldsByKey, { key: data.source }).fields.join(''),
       `&filter=${this.src}`,
     ];
 
     url.push(
-      `&page=${this.paginationService.page}&limit=${
-        _.find(this.fieldsByKey, { key: data.source }).limit
+      `&page=${this.paginationService.page}&limit=${_.find(this.fieldsByKey, { key: data.source }).limit
       }`
     );
-
     this.data$ = this.rest
       .get(url.join(''), true, { ignoreLoadingBar: '' })
       .pipe(
@@ -99,12 +97,12 @@ export class SearchService {
 }
 
 export class SourceIn {
-  source: string;
+  source?: string;
   query: string | undefined;
 }
 
 export class SourceField {
-  fields: string[];
-  key: string;
-  limit: number;
+  fields?: string[];
+  key?: string;
+  limit?: number;
 }

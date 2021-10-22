@@ -1,12 +1,11 @@
+import { RestService } from './../../../../../services/rest/rest.service';
 import { finalize } from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SharedService } from 'src/app/modules/shared/shared.service';
-import { RestService } from 'src/app/services/rest/rest.service';
-import * as _ from 'lodash';
-import * as moment from 'moment';
-import { ModalsService } from 'src/app/modules/shared/modals.service';
-
+import _ from 'lodash';
+import moment from 'moment';
+import { SharedService } from '../../../../shared/shared.service';
+import { ModalsService } from '../../../../shared/modals.service';
 
 @Component({
   selector: 'app-form-departure',
@@ -18,15 +17,15 @@ export class FormDepartureComponent implements OnInit {
   @Input() tour: any;
   @Input() departure: any;
   @Input() updateItem = false;
-  data: any = {};
-  today = moment().toDate();
-  tags: any = [];
+  public data: any = {};
+  public today = moment().toDate();
+  public tags: any = [];
   public flight = false;
   public currencies = false;
   public loading = false;
   public settings: any;
-  public errorStock: boolean;
-  public errorAge: boolean;
+  public errorStock = false;
+  public errorAge = false;
   public ngSelectStatus: any;
   public status: any = [
     {
@@ -48,9 +47,7 @@ export class FormDepartureComponent implements OnInit {
     public shared: SharedService,
     public modal: ModalsService,
     private rest: RestService
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.form = this.formBuilder.group({
       startDateDeparture: ['', Validators.required],
       endDateDeparture: ['', Validators.required],
@@ -63,13 +60,16 @@ export class FormDepartureComponent implements OnInit {
       status: ['', Validators.required],
       description: [''],
     });
+  }
+
+  ngOnInit(): void {
     if (this.updateItem) {
       this.formObjectPatch();
     }
     this.settings = this.shared.getSettings();
   }
 
-  getDate(formControl): any {
+  getDate(formControl: any): any {
     return moment(this.form.value[formControl]).toDate();
   }
 
@@ -131,7 +131,7 @@ export class FormDepartureComponent implements OnInit {
     });
   }
 
-  transformPrice(num): any {
+  transformPrice(num: number): any {
     try {
       return _.join(_.split(num.toString(), '.'), ',');
     } catch (e) {
@@ -139,11 +139,11 @@ export class FormDepartureComponent implements OnInit {
     }
   }
 
-  stringToDate(str): any {
+  stringToDate(str: string): any {
     return moment(str, 'DD-MM-YYYY').toDate();
   }
 
-  transformDate(date): any {
+  transformDate(date: any): any {
     return moment(date).format('DD-MM-YYYY');
   }
 
@@ -200,7 +200,7 @@ export class FormDepartureComponent implements OnInit {
     }
   };
 
-  check($event) {
+  check($event: any) {
     console.log($event);
   }
 }

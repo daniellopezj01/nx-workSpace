@@ -1,4 +1,6 @@
+import { RestService } from './../../../../services/rest/rest.service';
 import {
+  AfterContentChecked,
   ChangeDetectorRef,
   Component,
   Input,
@@ -8,16 +10,15 @@ import { FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
-import { RestService } from 'src/app/services/rest/rest.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-details-referred',
   templateUrl: './details-referred.component.html',
   styleUrls: ['./details-referred.component.scss'],
 })
-export class DetailsReferredComponent implements OnInit {
+export class DetailsReferredComponent implements OnInit, AfterContentChecked {
   @Input() id: any;
   public history: any = [
     {
@@ -26,7 +27,7 @@ export class DetailsReferredComponent implements OnInit {
     },
   ];
 
-  public loadingButton: boolean = false;
+  public loadingButton = false;
   public loading: any;
   public referred: any;
 
@@ -56,17 +57,17 @@ export class DetailsReferredComponent implements OnInit {
   loadGeneral = () => {
     this.loading = true;
     this.rest.get(`referreds/${this.id}`).subscribe(
-      (res) => {
+      (res: any) => {
         this.referred = res;
         this.loading = false;
       },
-      (err) => {
+      (err: any) => {
         this.router.navigate(['/']);
       }
     );
   };
 
-  eventTypeOperation(event) {
+  eventTypeOperation(event: any) {
     // this.form.patchValue({ valueSelectType: null });
     // console.log(this.selectOperation);
   }

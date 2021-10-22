@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 // import {AddTaskComponent} from '../add-task/add-task.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxCopilotService } from 'ngx-copilot';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { RestService } from 'src/app/services/rest/rest.service';
+import { AuthService } from '../../../services/auth/auth.service';
+import { RestService } from '../../../services/rest/rest.service';
 @Injectable({
   providedIn: 'root',
 })
 export class SideBarService {
-  bsModalRef: BsModalRef;
+  public bsModalRef?: BsModalRef;
 
   constructor(
     private modalService: BsModalService,
@@ -37,7 +37,7 @@ export class SideBarService {
       .patch(`profile/stepper`, {
         stepper: step,
       })
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.auth.updateUser('stepper', res.stepper);
       });
   };

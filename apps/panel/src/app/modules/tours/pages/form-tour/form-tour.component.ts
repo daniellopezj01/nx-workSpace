@@ -1,10 +1,10 @@
+import { RestService } from './../../../../services/rest/rest.service';
+/* eslint-disable @angular-eslint/component-selector */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 // import {ModalUserComponent} from "../modal-user/modal-user.component";
-import { RestService } from 'src/app/services/rest/rest.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
 import * as _ from 'lodash';
 import { environment } from '../../../../../environments/environment';
 import {
@@ -16,6 +16,7 @@ import {
   tap,
 } from 'rxjs/operators';
 import { concat, forkJoin, from, Observable, of, Subject } from 'rxjs';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-form-tour',
@@ -23,26 +24,25 @@ import { concat, forkJoin, from, Observable, of, Subject } from 'rxjs';
   styleUrls: ['./form-tour.component.scss'],
 })
 export class FormTourComponent implements OnInit {
-  @Input() activeDelete = false;
-  @Input() activeUpdate = false;
-  @Input() data;
+  @Input() public activeDelete = false;
+  @Input() public activeUpdate = false;
+  @Input() public data: any;
   public form: FormGroup;
   public users: any = [];
-  private codePaymentMexico: String = environment.codePaymentMexico;
-  public url: String;
-
+  private codePaymentMexico = environment.codePaymentMexico;
+  public url = '';
   public continents: any = [];
   public categories: any = [];
   public payments: any = [];
-  public bsModalRef: BsModalRef;
+  public bsModalRef?: BsModalRef;
   public loading = true;
   public activeAgency = false
   public tagsInput$ = new Subject<string>();
   public userInput$ = new Subject<string>();
   public agencyInput$ = new Subject<string>();
-  public results$: Observable<any>;
-  public resultsAgency$: Observable<any>;
-  public resultsTags$: Observable<any>;
+  public results$?: Observable<any>;
+  public resultsAgency$?: Observable<any>;
+  public resultsTags$?: Observable<any>;
   public selectCategories: any[] = [];
   public selectTags: any[] = [];
   public selectContinents: any[] = [];
@@ -76,7 +76,7 @@ export class FormTourComponent implements OnInit {
       value: 'EN',
     },
   ];
-  public addTagNowRef: (name) => void;
+  public addTagNowRef: (name: any) => void;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -86,20 +86,6 @@ export class FormTourComponent implements OnInit {
     private rest: RestService
   ) {
     this.addTagNowRef = this.addTagNow.bind(this);
-  }
-
-  ngOnInit(): void {
-    const requestCategories = this.rest.get('categories?limit=50');
-    const requestContinents = this.rest.get(`tours/allContinents?limit=50`);
-    const requestPayments = this.rest.get(`paymentMethods`);
-    this.loading = true;
-    forkJoin([requestCategories, requestContinents, requestPayments])
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe((res) => {
-        this.categories = res[0].docs;
-        this.continents = res[1].docs;
-        this.payments = res[2].docs;
-      });
     this.form = this.formBuilder.group({
       idUser: [''],
       title: ['', Validators.required],
@@ -118,6 +104,21 @@ export class FormTourComponent implements OnInit {
       continent: ['', Validators.required],
       lenguages: ['', Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    const requestCategories = this.rest.get('categories?limit=50');
+    const requestContinents = this.rest.get(`tours/allContinents?limit=50`);
+    const requestPayments = this.rest.get(`paymentMethods`);
+    this.loading = true;
+    forkJoin([requestCategories, requestContinents, requestPayments])
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe((res) => {
+        this.categories = res[0].docs;
+        this.continents = res[1].docs;
+        this.payments = res[2].docs;
+      });
+
 
     this.loadInfoSelects()
     if (this.activeUpdate) {
@@ -134,7 +135,7 @@ export class FormTourComponent implements OnInit {
     this.resultsAgency$ = this.loadSelect(this.agencyInput$, 'agency');
   }
 
-  loadSelect(subject, type) {
+  loadSelect(subject: any, type: any) {
     return concat(
       of([]), // default items
       subject.pipe(
@@ -181,7 +182,7 @@ export class FormTourComponent implements OnInit {
     return item._id;
   }
 
-  selectPayment({ codePayment }) {
+  selectPayment({ codePayment }: any) {
     if (codePayment === this.codePaymentMexico) {
       this.activeAgency = true
     } else {
@@ -191,7 +192,7 @@ export class FormTourComponent implements OnInit {
     }
   }
 
-  singleSearch$ = (term, typeUrl) => {
+  singleSearch$ = (term: any, typeUrl: any) => {
     let q;
     switch (typeUrl) {
       case 'users':
@@ -225,7 +226,7 @@ export class FormTourComponent implements OnInit {
         break;
     }
     return this.rest
-      .get(q.join(''), true, { ignoreLoadingBar: '' })
+      .get(q?.join(''), true, { ignoreLoadingBar: '' })
       .pipe(map((a) => a.docs));
   };
 
@@ -234,7 +235,7 @@ export class FormTourComponent implements OnInit {
   };
 
   deleteTour(): any {
-    this.rest.delete(`tours/${this.data._id}`).subscribe((res) => {
+    this.rest.delete(`tours/${this.data._id}`).subscribe((res: any) => {
       this.rest.toastSuccess(
         'Se ha Eliminado el tour exitosamente.',
         'Tour Eliminado'
@@ -257,11 +258,11 @@ export class FormTourComponent implements OnInit {
     this.rest.post(`tours`, body)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe(
-        (res) => {
+        (res: any) => {
           this.rest.toastSuccess('Tour Creado', 'Tour Creado Exitosamente');
           this.router.navigate(['/', 'tours', res._id]);
         },
-        (err) => {
+        (err: any) => {
           console.log(err);
         }
       );
@@ -272,7 +273,7 @@ export class FormTourComponent implements OnInit {
     this.rest
       .patch(`tours/${this.data._id}`, object)
       .subscribe(
-        (res) => {
+        (res: any) => {
           this.rest.toastSuccess(
             'Se ha actualizado el Tour exitosamente.',
             'Tour Actualizado'
@@ -280,13 +281,13 @@ export class FormTourComponent implements OnInit {
           this.loading = false;
           this.shared.updateTour.emit()
         },
-        (err) => {
+        (err: any) => {
           console.log(err);
         }
       );
   }
 
-  trasnformObjectCreate(object) {
+  trasnformObjectCreate(object: any) {
     const { duration } = object;
     object.duration = parseInt(duration)
     if (this.ngSelectAgency) {
@@ -295,7 +296,7 @@ export class FormTourComponent implements OnInit {
     return object;
   }
 
-  trasnformObjectUpdate(object) {
+  trasnformObjectUpdate(object: any) {
     const { duration } = object;
     object.duration = parseInt(duration)
     if (this.ngSelectAgency) {
@@ -308,16 +309,16 @@ export class FormTourComponent implements OnInit {
     console.log($event);
   }
 
-  addTagNow(name): any {
+  addTagNow(name: any): any {
     return new Promise((resolve) => {
       const object = { name }
       this.selectLoading = true;
       this.rest.post('tags', object).subscribe(
-        (res) => {
+        (res: any) => {
           this.selectLoading = false
           resolve(object)
         },
-        (err) => {
+        (err: any) => {
           this.selectLoading = false
           this.rest.showToast('')
         })

@@ -1,5 +1,7 @@
+import { RestService } from './../../../../services/rest/rest.service';
 import { MovementsService } from './../../movements.service';
 import {
+  AfterContentChecked,
   ChangeDetectorRef,
   Component,
   Input,
@@ -7,13 +9,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
-import { CookieService } from 'ngx-cookie-service';
-
-import { RestService } from 'src/app/services/rest/rest.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
 import { TranslateService } from '@ngx-translate/core';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import {
@@ -23,14 +21,15 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { concat, from, iif, Observable, of, Subject } from 'rxjs';
+import { concat, Observable, of, Subject } from 'rxjs';
+import { SharedService } from '../../../shared/shared.service';
 @Component({
   selector: 'app-details-movements',
   templateUrl: './details-movements.component.html',
   styleUrls: ['./details-movements.component.scss'],
 })
-export class DetailsMovementsComponent implements OnInit {
-  @ViewChild('placesRef') placesRef: GooglePlaceDirective;
+export class DetailsMovementsComponent implements OnInit, AfterContentChecked {
+  @ViewChild('placesRef') placesRef?: GooglePlaceDirective;
   @Input() id: any;
 
   public optionsSelect: any = [
@@ -64,15 +63,15 @@ export class DetailsMovementsComponent implements OnInit {
     },
   ];
 
-  public loadingButton: boolean = false;
+  public loadingButton = false;
   /***Users */
-  public results$: Observable<any>;
+  public results$?: Observable<any>;
   public userInput$ = new Subject<string>();
-  public loadingUser: boolean;
+  public loadingUser = false;
   /***Reservations */
-  public resultsReservation$: Observable<any>;
+  public resultsReservation$?: Observable<any>;
   public reservationInput$ = new Subject<string>();
-  public loadingReservations: boolean;
+  public loadingReservations = false;
 
   public form: FormGroup;
   public loading: any;
@@ -88,14 +87,7 @@ export class DetailsMovementsComponent implements OnInit {
     private cdref: ChangeDetectorRef,
     private route: ActivatedRoute,
     private service: MovementsService,
-  ) { }
-
-  ngOnInit(): void {
-    this.rest.setActiveConfirmLeave = true;
-    this.platform = this.service.platform
-    this.route.params.subscribe((params) => {
-      this.id = params.id;
-    });
+  ) {
     this.form = this.formBuilder.group({
       operationType: ['', Validators.required],
       valueSelectType: [''],
@@ -105,6 +97,15 @@ export class DetailsMovementsComponent implements OnInit {
       amount: ['', Validators.required],
       platform: ['', Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    this.rest.setActiveConfirmLeave = true;
+    this.platform = this.service.platform
+    this.route.params.subscribe((params) => {
+      this.id = params.id;
+    });
+
     this.loadUsers();
     this.loadReservations();
     this.loadGeneral();
@@ -148,7 +149,7 @@ export class DetailsMovementsComponent implements OnInit {
     this.form.patchValue(object);
   }
 
-  eventTypeOperation(event) {
+  eventTypeOperation(event: any) {
     this.form.patchValue({ valueSelectType: null });
     // console.log(this.selectOperation);
   }
@@ -183,8 +184,8 @@ export class DetailsMovementsComponent implements OnInit {
       )
     );
   }
-  singleSearch$ = (term, typeUrl) => {
-    let q;
+  singleSearch$ = (term: any, typeUrl: any) => {
+    let q: any;
     switch (typeUrl) {
       case 'users':
         q = [

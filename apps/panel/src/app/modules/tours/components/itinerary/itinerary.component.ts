@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { ItineraryService } from '../../services/itinerary.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-itinerary',
@@ -12,10 +14,10 @@ import { ItineraryService } from '../../services/itinerary.service';
 export class ItineraryComponent implements OnInit, OnDestroy {
   @Input() data: any;
   // data: any;
-  private currentDragEffectMsg: string;
+  private currentDragEffectMsg = '';
   public listSubscribers: any = [];
 
-  constructor(private itineraryService: ItineraryService) {}
+  constructor(private itineraryService: ItineraryService) { }
 
   ngOnInit(): void {
     // this.data = this.dataIn
@@ -46,8 +48,8 @@ export class ItineraryComponent implements OnInit, OnDestroy {
     const index = _.map(group, '_id');
     item = { ...item, ...{ sorts: index } };
     this.itineraryService.updateItinerary(item?._id, item).subscribe(
-      (res) => {},
-      (err) => {}
+      (res) => { },
+      (err) => { }
     );
     // this.updateGroup(group?.tickets, group);
   }
@@ -68,6 +70,6 @@ export class ItineraryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): any {
-    this.listSubscribers.forEach((a) => a.unsubscribe());
+    this.listSubscribers.forEach((a: Subscription) => a.unsubscribe());
   }
 }

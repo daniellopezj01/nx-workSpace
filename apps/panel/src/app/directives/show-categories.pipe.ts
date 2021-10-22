@@ -6,7 +6,7 @@ import * as  _ from 'lodash'
   name: 'showCategories'
 })
 export class ShowCategoriesPipe implements PipeTransform {
-  private categories = []
+  private categories: any = []
   constructor(private service: CommentsService) {
     this.categories = this.service.getCategories()
   }
@@ -18,7 +18,7 @@ export class ShowCategoriesPipe implements PipeTransform {
     })
   }
 
-  transform(value: [String], ...args: unknown[]): any {
+  transform(value: [any], ...args: unknown[]): any {
     const array = _.map(value, i => _.find(this.categories, o => o._id === i))
     console.log(array)
     return array

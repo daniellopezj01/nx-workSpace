@@ -2,7 +2,7 @@ import { AddReferredComponent } from './pages/add-referred/add-referred.componen
 import { ListReferredComponent } from './pages/list-referred/list-referred.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuardGuard } from 'src/app/services/auth/auth-guard.guard';
+import { AuthGuardGuard } from '../../services/auth/auth-guard.guard';
 
 const routes: Routes = [
   { path: '', component: ListReferredComponent },
@@ -22,4 +22,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ReferralsRoutingModule {}
+export class ReferralsRoutingModule { }

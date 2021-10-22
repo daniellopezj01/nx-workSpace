@@ -1,8 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SharedService } from 'src/app/modules/shared/shared.service';
 import { RestService } from '../../../../services/rest/rest.service';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-add-tour',
@@ -21,7 +21,7 @@ export class AddTourComponent implements OnInit {
     private share: SharedService,
     public router: Router,
     private auth: AuthService
-  ) {}
+  ) { }
 
   public history: any = [
     {

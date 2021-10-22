@@ -1,3 +1,4 @@
+import { RestService } from './../../../../services/rest/rest.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,9 +12,8 @@ import {
   tap,
 } from 'rxjs/operators';
 import { concat, from, Observable, of, Subject } from 'rxjs';
-import { RestService } from 'src/app/services/rest/rest.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
 import * as _ from 'lodash';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-form-referred',
@@ -26,16 +26,16 @@ export class FormReferredComponent implements OnInit {
   public form: FormGroup;
   public itemsAsObjects = [];
   public planLoading = false;
-  public loading: boolean = false;
-  public activePlan: boolean = false;
+  public loading = false;
+  public activePlan = false;
   public userLoading = false;
   public optionsButtons: any = ['save', 'list'];
   public userInput$ = new Subject<string>();
   public planInput$ = new Subject<string>();
-  public results$: Observable<any>;
+  public results$?: Observable<any>;
   public id: any = null;
   public data: any = [];
-  public resultsPlan$: Observable<any>;
+  public resultsPlan$?: Observable<any>;
   public ngSelectFrom: any;
   public ngSelectPlan: any;
   public ngSelectTo: any;
@@ -57,9 +57,7 @@ export class FormReferredComponent implements OnInit {
     private shared: SharedService,
     public router: Router,
     private rest: RestService
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.form = this.formBuilder.group({
       userFrom: ['', Validators.required],
       userTo: ['', Validators.required],
@@ -68,6 +66,10 @@ export class FormReferredComponent implements OnInit {
       amountTo: ['', Validators.required],
       status: ['', Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+
 
     this.route.params.subscribe((params) => {
       this.id = params.id === 'add' ? '' : params.id;
@@ -114,8 +116,8 @@ export class FormReferredComponent implements OnInit {
     );
   }
 
-  singleSearch$ = (term, typeUrl) => {
-    let q;
+  singleSearch$ = (term: any, typeUrl: any) => {
+    let q: any;
     switch (typeUrl) {
       case 'users':
         q = [
@@ -144,7 +146,7 @@ export class FormReferredComponent implements OnInit {
       .pipe(map((a) => a.docs));
   };
 
-  selectPlan(e) {
+  selectPlan(e: any) {
     if (e?._id) {
       this.activePlan = true;
       this.form.patchValue(e);

@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable, Output, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { RestService } from 'src/app/services/rest/rest.service';
+import { AuthService } from '../../../services/auth/auth.service';
+import { RestService } from '../../../services/rest/rest.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +12,8 @@ export class TextRichService {
   @Output() mentionUsers = new EventEmitter<any>();
   @Output() userRemoved = new EventEmitter<any>();
   public tmpNameMention = [];
-  public addAttachments = [];
-  public openMention: boolean;
+  public addAttachments: any = [];
+  public openMention = false;
 
   constructor(
     private auth: AuthService,
@@ -21,7 +21,7 @@ export class TextRichService {
     private sanitizer: DomSanitizer
   ) { }
 
-  dataURItoBlob(dataURI) {
+  dataURItoBlob(dataURI: string) {
     let byteString;
     if (dataURI.split(',')[0].indexOf('base64') >= 0) {
       byteString = atob(dataURI.split(',')[1]);
@@ -49,7 +49,7 @@ export class TextRichService {
 
   private parseUser = (data: any) => {
     try {
-      return data.docs.map((u) => {
+      return data.docs.map((u: any) => {
         return {
           ...u,
           ...{
@@ -99,13 +99,13 @@ export class TextRichService {
 
   public removeFile = (data: any) => {
     this.addAttachments = this.addAttachments.filter(
-      (a) => JSON.stringify(a) !== JSON.stringify(data)
+      (a: any) => JSON.stringify(a) !== JSON.stringify(data)
     );
   };
 
   public processFile = async (imageInput: any) => {
     await Promise.all(
-      Object.values(imageInput.files).map(($event: File) => {
+      Object.values(imageInput.files).map(($event: any) => {
         const image = this.blobFile($event);
         if (image) {
           this.addAttachments.push(image);
@@ -116,15 +116,14 @@ export class TextRichService {
       .catch((e) => console.log(e));
   };
 
-  public onPaste($event: ClipboardEvent) {
-    // @ts-ignore
+  public onPaste($event: any) {
     const items = ($event.clipboardData || $event.originalEvent.clipboardData)
       .items;
     let blob = null;
     for (const item of items) {
       if (item.type.indexOf('image') === 0) {
         blob = item.getAsFile();
-        const file = this.blobFile(blob);
+        const file: any = this.blobFile(blob);
         if (file) {
           this.addAttachments.push(file);
         }
@@ -135,20 +134,20 @@ export class TextRichService {
   uploadAttachments = (merge = false) =>
     new Promise((resolve, reject) => {
       try {
-        const alreadyUploaded = this.addAttachments.filter((a) => a.source);
-        if (this.addAttachments.filter((i) => i.blob).length) {
+        const alreadyUploaded = this.addAttachments.filter((a: any) => a.source);
+        if (this.addAttachments.filter((i: any) => i.blob).length) {
           const formData = new FormData();
-          this.addAttachments.forEach((item) =>
+          this.addAttachments.forEach((item: any) =>
             formData.append('file[]', item.blob)
           );
           this.rest.post(`storage`, formData, true, {}).subscribe(
-            (res) => {
+            (res: any) => {
               if (merge) {
                 this.addAttachments = [];
               }
               resolve([...alreadyUploaded, ...res]);
             },
-            (error) => {
+            (error: any) => {
               reject([...alreadyUploaded]);
             }
           );

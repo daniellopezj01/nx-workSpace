@@ -1,9 +1,7 @@
 import {
   Component,
-  ElementRef,
   EventEmitter,
   Input,
-  OnDestroy,
   OnInit,
   Output,
   ViewChild,
@@ -21,13 +19,14 @@ import {
   faPlus,
   faList,
   faUpload,
-  faFileInvoice,
   faReceipt,
   faCoins,
   faPrint,
   faFileExport,
 } from '@fortawesome/free-solid-svg-icons';
-import { RestService } from 'src/app/services/rest/rest.service';
+import { RestService } from '../../../services/rest/rest.service';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-section-btn',
   templateUrl: './section-btn.component.html',
@@ -38,36 +37,39 @@ export class SectionBtnComponent implements OnInit {
   @ViewChild('btnAdd') btnAdd: any;
   @ViewChild('btnTrash') btnTrash: any;
   @ViewChild('btnSave') btnSave: any;
-  @Input() classCustom: string = '';
-  @Input() insideclass: string = '';
-  @Input() options: any = [];
-  @Input() valid: boolean;
-  @Output() validChange = new EventEmitter<any>();
-  @Output() cbSave = new EventEmitter<any>();
-  @Output() cbPay = new EventEmitter<any>();
-  @Output() cbAdd = new EventEmitter<any>();
-  @Output() cbList = new EventEmitter<any>();
-  @Output() cbTrash = new EventEmitter<any>();
-  @Output() cbPdf = new EventEmitter<any>();
-  @Output() cbConvert = new EventEmitter<any>();
-  faFilePdf = faFilePdf;
-  faSave = faSave;
-  faList = faList;
-  faReceipt = faReceipt;
-  faPrint = faPrint;
-  faTrashAlt = faTrashAlt;
-  faUpload = faUpload;
-  faMoneyBillAlt = faMoneyBillAlt;
-  faPlus = faPlus;
-  faExclamation = faExclamation;
-  faShareSquare = faShareSquare;
-  faFileExport = faFileExport;
-  faCoins = faCoins;
-  copilot: any;
+  @Input() public classCustom = '';
+  @Input() public insideclass = '';
+  @Input() public options: any = [];
+  @Input() public valid = false;
+  @Output() public validChange = new EventEmitter<any>();
+  @Output() public cbSave = new EventEmitter<any>();
+  @Output() public cbPay = new EventEmitter<any>();
+  @Output() public cbAdd = new EventEmitter<any>();
+  @Output() public cbList = new EventEmitter<any>();
+  @Output() public cbTrash = new EventEmitter<any>();
+  @Output() public cbPdf = new EventEmitter<any>();
+  @Output() public cbConvert = new EventEmitter<any>();
+  public faFilePdf = faFilePdf;
+  public faSave = faSave;
+  public faList = faList;
+  public faReceipt = faReceipt;
+  public faPrint = faPrint;
+  public faTrashAlt = faTrashAlt;
+  public faUpload = faUpload;
+  public faMoneyBillAlt = faMoneyBillAlt;
+  public faPlus = faPlus;
+  public faExclamation = faExclamation;
+  public faShareSquare = faShareSquare;
+  public faFileExport = faFileExport;
+  public faCoins = faCoins;
+  public copilot: any;
   public listSubscribers: any = [];
   public data: any;
 
-  constructor(public shared: SharedService, private rest: RestService) {}
+  constructor(
+    public shared: SharedService,
+    private rest: RestService
+  ) { }
 
   ngOnInit(): void {
     this.listObserver();
@@ -81,7 +83,7 @@ export class SectionBtnComponent implements OnInit {
   };
 
   ngOnDestroy() {
-    this.listSubscribers.forEach((a) => a.unsubscribe());
+    this.listSubscribers.forEach((a: Subscription) => a.unsubscribe());
   }
 
   private startCopilot = () => {

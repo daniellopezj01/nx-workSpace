@@ -1,11 +1,11 @@
+import { RestService } from './../../../../services/rest/rest.service';
 import {
   ChangeDetectorRef,
   Component,
   OnInit,
   ViewChild,
-  ElementRef, Input,
+  ElementRef, Input, AfterViewChecked,
 } from '@angular/core';
-import { RestService } from 'src/app/services/rest/rest.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
@@ -14,27 +14,28 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
   templateUrl: './conversation.component.html',
   styleUrls: ['./conversation.component.scss']
 })
-export class ConversationComponent implements OnInit {
-  @ViewChild('containerMessage') componentRef: ElementRef;
+export class ConversationComponent implements OnInit, AfterViewChecked {
+  @ViewChild('containerMessage') componentRef?: ElementRef;
   // @ViewChild('#textArea') textArea: ElementRef;
   @Input() ticket: any;
   public user: any;
   public loadingButton = false;
   public mainLoading = true;
-  sendForm: FormGroup;
-  public scroll: number;
+  public sendForm: FormGroup;
+  public scroll = 0;
   public config: PerfectScrollbarConfigInterface = {};
 
   constructor(
     private rest: RestService,
     private cdRef: ChangeDetectorRef,
     private formBuilder: FormBuilder
-  ) { }
-
-  async ngOnInit() {
+  ) {
     this.sendForm = this.formBuilder.group({
       message: ['', Validators.required],
     });
+  }
+
+  async ngOnInit() {
     this.user = this.rest.getCurrentUser();
     this.mainLoading = false;
   }
@@ -54,7 +55,7 @@ export class ConversationComponent implements OnInit {
     return this.sendForm.controls.areaMessage;
   }
 
-  checkMessage = (creator) => {
+  checkMessage = (creator: any) => {
     return creator.role !== 'admin'
   }
 

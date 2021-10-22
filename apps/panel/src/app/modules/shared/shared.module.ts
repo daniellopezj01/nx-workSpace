@@ -4,8 +4,7 @@ import { RandomAvatarPipe } from './../../directives/random-avatar.pipe';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalWizardComponent } from './modal-wizard/modal-wizard.component';
-import { LoadingbuttonDirective } from 'src/app/directives/loadingbutton.directive';
-import { LoadingBtnDirective } from 'src/app/directives/loading-btn.directive';
+
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { SideBarComponent } from './side-bar/side-bar.component';
@@ -26,19 +25,22 @@ import { DropGalleryComponent } from './drop-galery/drop-gallery.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { LottieModule } from 'ngx-lottie';
 import { DropVideoComponent } from './drop-video/drop-video.component';
-import { DatesFormatDeparturePipe } from 'src/app/directives/dates-format-departure.pipe';
+// import { DatesFormatDeparturePipe } from 'src/app/directives/dates-format-departure.pipe';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { StripeHtmlPipe } from '../../pipe/stripe-html.pipe';
 import { LoadingComponent } from './loading/loading.component';
-import { PriceAllCurrenciesPipe } from 'src/app/directives/price-all-currencies.pipe';
-import { FormDepartureComponent } from '../tours/pages/departures/form-departure/form-departure.component';
 import { DndModule } from 'ngx-drag-drop';
 import { NgxMaskModule } from 'ngx-mask';
 import { TimeagoModule } from 'ngx-timeago';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxPrettyCheckboxModule } from 'ngx-pretty-checkbox';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ShowCategoriesPipe } from 'src/app/directives/show-categories.pipe';
+import { LoadingBtnDirective } from '../../directives/loading-btn.directive';
+import { LoadingbuttonDirective } from '../../directives/loadingbutton.directive';
+import { PriceAllCurrenciesPipe } from '../../directives/price-all-currencies.pipe';
+import { DatesFormatDeparturePipe } from '../../directives/dates-format-departure.pipe';
+import { ShowCategoriesPipe } from '../../directives/show-categories.pipe';
+import { FormDepartureComponent } from '../tours/pages/departures/form-departure/form-departure.component';
 
 
 @NgModule({
@@ -59,8 +61,8 @@ import { ShowCategoriesPipe } from 'src/app/directives/show-categories.pipe';
     StripeHtmlPipe,
     LoadingComponent,
     PriceAllCurrenciesPipe,
-    FormDepartureComponent,
-    ShowCategoriesPipe
+    ShowCategoriesPipe,
+    FormDepartureComponent
   ],
   imports: [
     CommonModule,
@@ -103,8 +105,8 @@ import { ShowCategoriesPipe } from 'src/app/directives/show-categories.pipe';
     StripeHtmlPipe,
     LoadingComponent,
     PriceAllCurrenciesPipe,
-    FormDepartureComponent,
-    ShowCategoriesPipe
+    ShowCategoriesPipe,
+    FormDepartureComponent
   ],
 })
 export class SharedModule { }

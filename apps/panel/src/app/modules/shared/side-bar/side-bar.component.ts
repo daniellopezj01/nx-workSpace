@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import {
   AfterViewInit,
   Component,
@@ -31,8 +32,8 @@ import { SideBarService } from './side-bar.service';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { SharedService } from '../shared.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -40,19 +41,20 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./side-bar.component.scss'],
 })
 export class SideBarComponent implements OnInit, AfterViewInit {
-  public logo: null;
-  bsModalRef: BsModalRef;
-  name: any;
-  faSignOutAlt = faSignOutAlt;
-  faAngleRight = faAngleRight;
+  @ViewChild('step1') public step1?: TemplateRef<any>;
+  @ViewChild('step2') public step2?: TemplateRef<any>;
+  @ViewChild('step3') public step3?: TemplateRef<any>;
+  @ViewChild('step4') public step4?: TemplateRef<any>;
+  @ViewChild('step5') public step5?: TemplateRef<any>;
+  @ViewChild('step6') public step6?: TemplateRef<any>;
+
+  public logo: any;
+  public bsModalRef?: BsModalRef;
+  public name: any;
+  public faSignOutAlt = faSignOutAlt;
+  public faAngleRight = faAngleRight;
   public menu: any;
   public currentUser: any;
-  @ViewChild('step1') public step1: TemplateRef<any>;
-  @ViewChild('step2') public step2: TemplateRef<any>;
-  @ViewChild('step3') public step3: TemplateRef<any>;
-  @ViewChild('step4') public step4: TemplateRef<any>;
-  @ViewChild('step5') public step5: TemplateRef<any>;
-  @ViewChild('step6') public step6: TemplateRef<any>;
 
   constructor(
     public auth: AuthService,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DndDropEvent, DropEffect } from 'ngx-drag-drop';
 import * as moment from 'moment';
@@ -5,6 +6,7 @@ import * as _ from 'lodash';
 import { ItineraryService } from '../../services/itinerary.service';
 import { IncludedService } from '../../services/included.service';
 import { FormsGenericService } from '../../services/forms-generic.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-included',
@@ -58,6 +60,6 @@ export class IncludedComponent implements OnInit, OnDestroy {
   };
 
   ngOnDestroy(): any {
-    this.listSubscribers.forEach((a) => a.unsubscribe());
+    this.listSubscribers.forEach((a: Subscription) => a.unsubscribe());
   }
 }

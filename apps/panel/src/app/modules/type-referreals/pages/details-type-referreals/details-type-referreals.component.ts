@@ -1,3 +1,4 @@
+import { RestService } from './../../../../services/rest/rest.service';
 import {
   ChangeDetectorRef,
   Component,
@@ -6,11 +7,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RestService } from 'src/app/services/rest/rest.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
 import { TranslateService } from '@ngx-translate/core';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import * as _ from 'lodash';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-details-type-referreals',
@@ -18,7 +18,7 @@ import * as _ from 'lodash';
   styleUrls: ['./details-type-referreals.component.scss']
 })
 export class DetailsTypeReferrealsComponent implements OnInit {
-  @ViewChild('placesRef') placesRef: GooglePlaceDirective;
+  @ViewChild('placesRef') placesRef?: GooglePlaceDirective;
   @Input() id: any;
   public history: any = [
     {
@@ -27,7 +27,7 @@ export class DetailsTypeReferrealsComponent implements OnInit {
     },
   ];
 
-  public loadingButton: boolean = false;
+  public loadingButton = false;
   public loading: any;
   public typeReferreals: any;
 
@@ -55,17 +55,17 @@ export class DetailsTypeReferrealsComponent implements OnInit {
   loadGeneral = () => {
     this.loading = true;
     this.rest.get(`referredSettings/${this.id}`).subscribe(
-      (res) => {
+      (res: any) => {
         this.typeReferreals = res;
         this.loading = false;
       },
-      (err) => {
+      (err: any) => {
         this.router.navigate(['/']);
       }
     );
   };
 
-  eventTypeOperation(event) {
+  eventTypeOperation(event: any) {
     // this.form.patchValue({ valueSelectType: null });
     // console.log(this.selectOperation);
   }

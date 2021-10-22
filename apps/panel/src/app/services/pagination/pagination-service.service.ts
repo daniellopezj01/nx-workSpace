@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { SharedService } from 'src/app/modules/shared/shared.service';
+import { SharedService } from '../../modules/shared/shared.service';
 import { RestService } from '../rest/rest.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PaginationServiceService {
-  public src: string = '';
-  public totalDocs: number = 0;
-  public totalPages: number = 0;
-  public page: number = 1;
-  public limit: number = 15;
+  public src = '';
+  public totalDocs = 0;
+  public totalPages = 0;
+  public page = 1;
+  public limit = 15;
   public paginationConfig = {};
   public morePage: boolean | number = 0;
   public desktop = false;
@@ -48,7 +48,7 @@ export class PaginationServiceService {
    * @param source
    * @param cbMode
    */
-  public paginationData$ = (url) =>
+  public paginationData$ = (url: string) =>
     this.rest.get(url, true).pipe(
       debounceTime(800),
       distinctUntilChanged(),
@@ -59,7 +59,7 @@ export class PaginationServiceService {
 
   public paginationData = (
     q = [],
-    data = [],
+    data: any = [],
     merge = true,
     source = '',
     cbMode = ''

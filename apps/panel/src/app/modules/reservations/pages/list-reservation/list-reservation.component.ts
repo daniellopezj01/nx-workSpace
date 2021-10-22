@@ -1,3 +1,5 @@
+import { AuthService } from './../../../../services/auth/auth.service';
+import { PaginationServiceService } from './../../../../services/pagination/pagination-service.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -17,11 +19,9 @@ import {
 // import {FilterServiceService} from '../../../../components/list-items/filter-service.service';
 import { finalize, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { PaginationServiceService } from 'src/app/services/pagination/pagination-service.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
-import { SearchService } from 'src/app/modules/search/search.service';
 import { DatePipe } from '@angular/common';
+import { SharedService } from '../../../shared/shared.service';
+import { SearchService } from '../../../search/search.service';
 
 @Component({
   selector: 'app-list-reservation',
@@ -34,7 +34,7 @@ export class ListReservationComponent implements OnInit {
   @Input() limit: any = 15;
   @Input() viewMore = true;
   @Input() dataTake: any;
-  @Input() data: Observable<any>;
+  @Input() data?: Observable<any>;
   @Output() cbClick = new EventEmitter<any>();
 
   private toAdd = 'reservations';
@@ -124,7 +124,7 @@ export class ListReservationComponent implements OnInit {
 
   load = (src: string = '?') => {
     this.loading = true;
-    let generalParams = `&page=${this.pagination.page}&limit=${this.limit}`;
+    const generalParams = `&page=${this.pagination.page}&limit=${this.limit}`;
     const url = `${this.source}${src}${generalParams}`;
     this.data = this.pagination.paginationData$(url).pipe(
       tap((b: any) => {
@@ -139,7 +139,7 @@ export class ListReservationComponent implements OnInit {
 
   goTo = () => this.share.goTo(this.toAdd);
 
-  onSrc = (e) => {
+  onSrc = (e: any) => {
     this.pagination.src = e && e.length ? e : '';
     this.pagination.page = 1;
     this.pagination.limit = this.limit;
@@ -165,7 +165,7 @@ export class ListReservationComponent implements OnInit {
     // this.load(this.pagination.src, false, this.search.snipQuery(this.pagination, [],
     // true));
   }
-  tooltip({ user }) {
+  tooltip({ user }: any) {
     const { name, surname } = user
     return `${name} ${surname || ''}`
   }

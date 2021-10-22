@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuardGuard } from 'src/app/services/auth/auth-guard.guard';
+import { AuthGuardGuard } from '../../services/auth/auth-guard.guard';
 import { AddTypeReferrealsComponent } from './pages/add-type-referreals/add-type-referreals.component';
 import { ListTypeReferrealsComponent } from './pages/list-type-referreals/list-type-referreals.component';
 

@@ -1,19 +1,19 @@
 import { EventEmitter, Injectable, Output, ViewChild } from '@angular/core';
-import { RestService } from 'src/app/services/rest/rest.service';
+import { RestService } from '../../../services/rest/rest.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FilterItemsService {
-  @ViewChild('dropdown') dropdown;
+  @ViewChild('dropdown') dropdown: any;
   @Output() filterCb = new EventEmitter();
-  public filterSelect = [];
-  public listFilter = [];
-  public queryConditional = [];
+  public filterSelect: any = [];
+  public listFilter: any = [];
+  public queryConditional: any = [];
   public stepCondition: any = null;
   public secondData: any = {};
-  public valueQry: string;
-  public loading: boolean;
+  public valueQry: any;
+  public loading = false;
   public preCondition: any = {};
   public preSelect: any = {};
 

@@ -1,8 +1,8 @@
+import { RestService } from './../../../../services/rest/rest.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SharedService } from 'src/app/modules/shared/shared.service';
 import * as _ from 'lodash';
-import { RestService } from 'src/app/services/rest/rest.service';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-details-support',
@@ -12,9 +12,9 @@ import { RestService } from 'src/app/services/rest/rest.service';
 
 export class DetailsSupportComponent implements OnInit {
   public id: any;
-  public loading: boolean;
+  public loading = false;
   public data: any;
-  public customData
+  public customData: any;
   public history: any = [
     {
       name: 'soporte',
@@ -26,7 +26,11 @@ export class DetailsSupportComponent implements OnInit {
     },
   ];
 
-  constructor(public share: SharedService, private active: ActivatedRoute, private rest: RestService) { }
+  constructor(
+    public share: SharedService,
+    private active: ActivatedRoute,
+    private rest: RestService
+  ) { }
 
   ngOnInit(): void {
     this.active.params.subscribe(params => {

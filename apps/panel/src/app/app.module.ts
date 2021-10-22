@@ -21,7 +21,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   DEFAULT_TIMEOUT,
-  TimeoutInterceptor,
 } from './services//TimeOutInterceptor';
 import player from 'lottie-web';
 import { SharedModule } from './modules/shared/shared.module';
@@ -53,7 +52,6 @@ import { ModalPayAmountComponent } from './modules/tours/pages/modal-pay-amount/
 import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { TranslateService } from '@ngx-translate/core';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { FormDepartureComponent } from './modules/tours/pages/departures/form-departure/form-departure.component';
 
 registerLocaleData(es);
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -73,9 +71,9 @@ export function anchorIonicErrorComponent(
   hostElement: Element,
   errorElement: Element
 ) {
-  hostElement.parentElement.insertAdjacentElement('afterend', errorElement);
+  hostElement.parentElement?.insertAdjacentElement('afterend', errorElement);
   return () => {
-    const errorNode = hostElement.parentElement.querySelector(
+    const errorNode = hostElement.parentElement?.querySelector(
       'error-class-tailor'
     );
     if (errorNode) {

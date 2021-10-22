@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/directive-selector */
 import {
   AfterViewInit,
   Directive,
@@ -13,10 +14,10 @@ import {
 export class LoadingbuttonDirective
   implements OnInit, AfterViewInit, OnChanges {
   @Input('LoadingbuttonDirective') loading: any = false;
-  @Input() label: string;
-  originalInnerText: string;
+  @Input() label?: string;
+  public originalInnerText?: string;
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef) { }
 
   ngOnInit() {
     // Save the original button text so I can restore it when waiting ends

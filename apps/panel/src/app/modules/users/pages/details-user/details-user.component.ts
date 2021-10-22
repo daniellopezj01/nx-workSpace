@@ -1,3 +1,4 @@
+import { RestService } from './../../../../services/rest/rest.service';
 import {
   AfterContentChecked,
   ChangeDetectorRef,
@@ -18,15 +19,14 @@ import {
 } from 'ngx-intl-tel-input';
 import * as _ from 'lodash';
 import countriesJson from '../../../../../assets/jsonFiles/countries.json';
-import { RestService } from 'src/app/services/rest/rest.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
 import { TranslateService } from '@ngx-translate/core';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import {
   FilePickerComponent,
 } from 'ngx-awesome-uploader';
-import { MediaService } from 'src/app/modules/shared/drop-galery/media.service';
-import { MediaVideoService } from 'src/app/modules/shared/drop-video/media-video.service';
+import { MediaVideoService } from '../../../shared/drop-video/media-video.service';
+import { MediaService } from '../../../shared/drop-galery/media.service';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-details-user',
@@ -35,10 +35,10 @@ import { MediaVideoService } from 'src/app/modules/shared/drop-video/media-video
 })
 export class DetailsUserComponent implements OnInit, AfterContentChecked {
   @Input() id: any;
-  @ViewChild('placesRef') placesRef: GooglePlaceDirective;
-  @ViewChild('uploader', { static: false }) uploader: FilePickerComponent;
+  @ViewChild('placesRef') placesRef?: GooglePlaceDirective;
+  @ViewChild('uploader', { static: false }) uploader?: FilePickerComponent;
   @ViewChild('uploaderVideo', { static: false })
-  uploaderVideo: FilePickerComponent;
+  public uploaderVideo?: FilePickerComponent;
   public optionsButtons = ['save'];
   public optionsButtonsVideo = ['save'];
   public SearchCountryField = SearchCountryField;
@@ -69,17 +69,13 @@ export class DetailsUserComponent implements OnInit, AfterContentChecked {
     private cdref: ChangeDetectorRef,
     public media: MediaService,
     public mediaVideo: MediaVideoService
-  ) { }
-
-  ngOnInit(): void {
-    this.rest.setActiveConfirmLeave = true;
-    this.media.files = [];
-    this.mediaVideo.files = [];
+  ) {
     this.formLocation = this.formBuilder.group({
       country: ['', Validators.required],
       city: ['', Validators.required],
       address: ['', Validators.required],
     });
+
     this.formSecurity = this.formBuilder.group(
       {
         password: new FormControl(
@@ -103,15 +99,22 @@ export class DetailsUserComponent implements OnInit, AfterContentChecked {
         validators: this.passwordCheck.bind(this),
       }
     );
-    countriesJson.forEach((element) => {
+  }
+
+  ngOnInit(): void {
+    this.rest.setActiveConfirmLeave = true;
+    this.media.files = [];
+    this.mediaVideo.files = [];
+
+    countriesJson.forEach((element: any) => {
       this.countries.push(element);
     });
     this.loadData();
   }
 
   passwordCheck(formGroup: FormGroup) {
-    const { value: password } = formGroup.get('password');
-    const { value: confirmPassword } = formGroup.get('confirmpassword');
+    const { value: password }: any = formGroup.get('password');
+    const { value: confirmPassword }: any = formGroup.get('confirmpassword');
     return password === confirmPassword ? null : { passwordNotMatch: true };
   }
 
@@ -138,7 +141,7 @@ export class DetailsUserComponent implements OnInit, AfterContentChecked {
     });
   };
 
-  update(Typeform) {
+  update(Typeform: any) {
     let objectPatch;
     switch (Typeform) {
       case 'location':
@@ -177,8 +180,8 @@ export class DetailsUserComponent implements OnInit, AfterContentChecked {
     });
   }
 
-  async deleteFile(type: String) {
-    let objectDelete: any = {};
+  async deleteFile(type: string) {
+    const objectDelete: any = {};
     objectDelete[`${type}`] = null;
     this.rest.patch(`users/${this.user._id}`, objectDelete).subscribe((res) => {
       this.rest.toastSuccess(
@@ -197,7 +200,7 @@ export class DetailsUserComponent implements OnInit, AfterContentChecked {
     });
   }
 
-  async updateFile(type: String) {
+  async updateFile(type: string) {
     let urlAvatar, objectUpdate;
     switch (type) {
       case 'avatar':

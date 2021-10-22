@@ -10,7 +10,7 @@
     *ngTemplateOutlet="loadingAll; context: { loading: loading }"
   ></ng-container>
   <div *ngIf="mode === 'home'" class="col-12 mb-2">
-    <b class="text-muted">{{ title }}</b>
+    <!-- <b class="text-muted">{{ title }}</b> -->
   </div>
   <app-list-items
     [(data)]="data"
@@ -59,13 +59,13 @@
   <div class="pagination-row">
     <pagination
       (pageChanged)="pageChanged($event)"
-      [itemsPerPage]="pagination?.limit"
+      [itemsPerPage]="pagination.limit"
       [customFirstTemplate]="firstTemplate"
       [customLastTemplate]="lastTemplate"
       [customPreviousTemplate]="prevTemplate"
       [customNextTemplate]="nextTemplate"
-      [maxSize]="pagination?.limit"
-      [totalItems]="pagination?.paginationConfig?.totalDocs"
+      [maxSize]="pagination.limit"
+      [totalItems]="pagination.paginationConfig?.totalDocs"
     >
     </pagination>
   </div>
@@ -150,7 +150,11 @@
           class="pl-2 pr-2 pt-1 pb-1 col-xl-2 col-lg-4 col-md-4 col-sm-4 col-4"
         >
           <div
-            class="d-flex justify-content-end align-content-center align-items-center"
+            class="
+              d-flex
+              justify-content-end
+              align-content-center align-items-center
+            "
           >
             <div
               [tooltip]="inside?.status"

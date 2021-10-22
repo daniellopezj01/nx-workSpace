@@ -1,10 +1,8 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { RestService } from './../../../../services/rest/rest.service';
+import { AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
-import { SharedService } from 'src/app/modules/shared/shared.service';
-import { RestService } from 'src/app/services/rest/rest.service';
-import * as _ from 'lodash';
-import * as moment from 'moment';
+import _ from 'lodash';
+import moment from 'moment';
 import {
   catchError,
   distinctUntilChanged,
@@ -12,33 +10,34 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { concat, from, iif, Observable, of, Subject } from 'rxjs';
-import { ModalsService } from 'src/app/modules/shared/modals.service';
+import { concat, Observable, of, Subject } from 'rxjs';
 import { MovementsService } from '../../movements.service';
+import { ModalsService } from '../../../shared/modals.service';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-add-movement',
   templateUrl: './add-movement.component.html',
   styleUrls: ['./add-movement.component.scss'],
 })
-export class AddMovementComponent implements OnInit {
-  @Input() saveFromReservation: boolean = false;
+export class AddMovementComponent implements OnInit, AfterViewChecked {
+  @Input() saveFromReservation = false;
   @Input() reservation: any;
   public data: any = {};
   public today = new Date();
   public ngSelectTypeEvent: any;
   public selectOperation: any;
   public form: FormGroup;
-  public loadingButton: boolean = false;
-  public disabledSelect: boolean = false;
+  public loadingButton = false;
+  public disabledSelect = false;
   /***Users */
-  public results$: Observable<any>;
+  public results$: Observable<any> = new Observable<Array<any>>();
   public userInput$ = new Subject<string>();
-  public loadingUser: boolean;
+  public loadingUser = false;
   /***Reservations */
-  public resultsReservation$: Observable<any>;
+  public resultsReservation$: Observable<any> = new Observable<Array<any>>();
   public reservationInput$ = new Subject<string>();
-  public loadingReservations: boolean;
+  public loadingReservations = false;
   public optionsSelect: any = [
     { name: 'Monedero', value: 'wallet' },
     { name: 'Compra', value: 'reservation' },
@@ -69,10 +68,7 @@ export class AddMovementComponent implements OnInit {
     private rest: RestService,
     private cdRef: ChangeDetectorRef,
     private service: MovementsService,
-  ) { }
-
-  ngOnInit(): void {
-    this.platform = this.service.platform
+  ) {
     this.form = this.formBuilder.group({
       operationType: ['', Validators.required],
       valueSelectType: [''],
@@ -82,21 +78,27 @@ export class AddMovementComponent implements OnInit {
       amount: ['', Validators.required],
       platform: ['', Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    this.platform = this.service.platform
+
     if (this.saveFromReservation) {
       this.disabledSelect = true;
       this.selectOperation = 'reservation';
       this.ngSelectTypeEvent = this.reservation;
     }
     this.loadUsers();
+
     this.loadReservations();
   }
   ngAfterViewChecked() {
     this.cdRef.detectChanges();
   }
-  getDate(formControl) {
+  getDate(formControl: any) {
     return moment(this.form.value[formControl]).toDate();
   }
-  eventTypeOperation(event) {
+  eventTypeOperation(event: any) {
     this.form.patchValue({ valueSelectType: null });
     // console.log(this.selectOperation);
   }
@@ -130,8 +132,8 @@ export class AddMovementComponent implements OnInit {
       )
     );
   }
-  singleSearch$ = (term, typeUrl) => {
-    let q;
+  singleSearch$ = (term: any, typeUrl: any) => {
+    let q: any;
     switch (typeUrl) {
       case 'users':
         q = [
@@ -165,7 +167,7 @@ export class AddMovementComponent implements OnInit {
     await this.createObjectPost().then((a) => {
       object = a;
     });
-    this.rest.post('payOrders', object).subscribe((res) => {
+    this.rest.post('payOrders', object).subscribe((res: any) => {
       this.rest.toastSuccess(
         'Se ha creado la operacion exitosamente.',
         'Operacion creada'
@@ -176,7 +178,7 @@ export class AddMovementComponent implements OnInit {
     });
   }
 
-  transformPrice(number) {
+  transformPrice(number: number) {
     const array = _.split(number.toString(), '.');
     return _.map(array).join(',');
   }

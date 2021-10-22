@@ -1,18 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { RestService } from './../../../../services/rest/rest.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-// import {ModalUserComponent} from "../modal-user/modal-user.component";
-import {
-  catchError,
-  distinctUntilChanged,
-  map,
-  switchMap,
-  tap,
-} from 'rxjs/operators';
-import { concat, from, Observable, of, Subject } from 'rxjs';
-import { RestService } from 'src/app/services/rest/rest.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
+import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 
 
@@ -28,10 +18,10 @@ export class FormTypeReferrealsComponent implements OnInit {
   public form: FormGroup;
   public itemsAsObjects = [];
   public planLoading = false;
-  public loading: boolean = false;
+  public loading = false;
   public userLoading = false;
   public optionsButtons: any = ['save', 'list'];
-  public results$: Observable<any>;
+  public results$?: Observable<any>;
   public id: any = null;
   public data: any = [];
 
@@ -40,16 +30,16 @@ export class FormTypeReferrealsComponent implements OnInit {
     private route: ActivatedRoute,
     public router: Router,
     private rest: RestService
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       label: ['', Validators.required],
       amountFrom: ['', Validators.required],
       amountTo: ['', Validators.required],
     });
+  }
 
+  ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = params.id === 'add' ? '' : params.id;
     });

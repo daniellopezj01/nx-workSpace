@@ -4,7 +4,6 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { ToursRoutingModule } from './tours-routing.module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ListToursComponent } from './pages/list-tours/list-tours.component';
-import { SharedModule } from '../shared/shared.module';
 import { AddTourComponent } from './pages/add-tour/add-tour.component';
 import { FormTourComponent } from './pages/form-tour/form-tour.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -21,7 +20,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CardItineraryComponent } from './pages/card-itinerary/card-itinerary.component';
 import { CardDeparturesComponent } from './pages/departures/card-departures/card-departures.component';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
-import { CanLeaveModule } from 'src/app/can-leave/can-leave.module';
 import { CardIncludedComponent } from './pages/card-included/card-included.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { DndModule } from 'ngx-drag-drop';
@@ -32,9 +30,9 @@ import { FaqComponent } from './components/faq/faq.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { ManagerGalleryComponent } from './pages/manager-gallery/manager-gallery.component';
-import { FormDepartureComponent } from './pages/departures/form-departure/form-departure.component';
 import { InfoToReservationComponent } from './pages/departures/info-to-reservation/info-to-reservation.component';
 import { DetailsDepartureComponent } from './pages/departures/details-departure/details-departure.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [

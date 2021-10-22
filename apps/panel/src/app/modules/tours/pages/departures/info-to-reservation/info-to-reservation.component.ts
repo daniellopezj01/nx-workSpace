@@ -1,16 +1,17 @@
+import { RestService } from './../../../../../services/rest/rest.service';
+/* eslint-disable @angular-eslint/component-selector */
 import { SharedService } from './../../../../shared/shared.service';
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalsService } from 'src/app/modules/shared/modals.service';
-import { RestService } from 'src/app/services/rest/rest.service';
 import { finalize } from 'rxjs/operators';
+import { ModalsService } from '../../../../shared/modals.service';
 
 @Component({
   selector: 'app-info-to-reservation',
   templateUrl: './info-to-reservation.component.html',
   styleUrls: ['./info-to-reservation.component.scss']
 })
-export class InfoToReservationComponent implements OnInit, AfterViewInit {
+export class InfoToReservationComponent implements AfterViewInit {
   public form: FormGroup;
   @Input() departure: any;
   textRichId = 'toReservation'
@@ -22,9 +23,6 @@ export class InfoToReservationComponent implements OnInit, AfterViewInit {
     private shared: SharedService,
     private rest: RestService
   ) {
-  }
-
-  ngOnInit(): void {
     this.form = this.formBuilder.group({
       text: ['', Validators.required],
     });
@@ -48,12 +46,12 @@ export class InfoToReservationComponent implements OnInit, AfterViewInit {
     this.shared.callbackValueTextRich.emit({ id: this.textRichId })
   }
 
-  captureData($event) {
+  captureData($event: any) {
     const data = { attached: $event, ...this.form.value }
     this.rest
       .patch(`departures/${this.departure._id}`, { infoToReservation: data })
       .pipe(finalize(() => (this.loading = false)))
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.rest.toastSuccess(
           'Se ha Actualizado la salida exitosamente.',
           'Salida Actualizada'
