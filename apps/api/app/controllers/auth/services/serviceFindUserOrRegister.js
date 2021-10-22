@@ -8,12 +8,13 @@ const {
   returnRegisterToken,
   generateToken, helperDownload
 } = require('../helpers')
+const db = require('../../../middleware/db')
 
 const serviceFindUserOrRegister = (req) => new Promise(async (resolve, reject) => {
   try {
-    const userFind = await user.findOne({ email: req.email }).catch((err) => { console.log(err.message) })
+    const userFind = await user.findOne({ email: req.email }).catch(err => { console.log(err) })
     if (!userFind) {
-      const plan = (await serviceFindReferredPlan()) || null
+      const plan = await serviceFindReferredPlan() || null
       req.typeReferred = plan !== null ? plan._id : null
       const item = await helperRegisterUser(req)
       const userInfo = await setUserInfo(item)
@@ -23,9 +24,10 @@ const serviceFindUserOrRegister = (req) => new Promise(async (resolve, reject) =
         helperDownload(`${req.avatar}`, pathName, item)
       }
       resolve(response)
+    } else {
+      userFind.set('accessToken', req.accessToken)
+      userFind.save()
     }
-    userFind.set('accessToken', req.accessToken)
-    userFind.save()
     resolve({
       token: generateToken(userFind._id),
       user: userFind

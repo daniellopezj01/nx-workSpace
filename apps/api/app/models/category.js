@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 const mongoose = require('mongoose')
 const mongoosePaginate = require('mongoose-paginate-v2')
 // eslint-disable-next-line camelcase
@@ -32,15 +33,21 @@ const categorySchema = new mongoose.Schema(
 )
 
 categorySchema.post('save', () => {
-  console.log('INSERCION EN categories')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('INSERT IN categories')
+  }
 })
 
-categorySchema.pre('findOneAndRemove', async () => {
-  console.log('DELETE EN categories')
+categorySchema.pre('findOneAndRemove', () => {
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('DELETE IN categories')
+  }
 })
 
-categorySchema.post('findOneAndUpdate', async () => {
-  console.log('ACTUALIZACION EN categories')
+categorySchema.post('findOneAndUpdate', () => {
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('UPDATE IN categories')
+  }
 })
 
 categorySchema.plugin(mongoosePaginate)

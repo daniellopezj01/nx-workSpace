@@ -3,7 +3,7 @@ const slugify = require('slugify')
 const cryptoRandomString = require('crypto-random-string')
 const { helperUploadMedia } = require('../helpers')
 
-const router = '/public/media/'
+const router = '/apps/api/public/media/'
 
 const serviceWriteFile = (file = {}) => new Promise(async (resolve) => {
   const ext = path.extname(file.name)

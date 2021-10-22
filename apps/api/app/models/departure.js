@@ -132,15 +132,21 @@ const departureSchema = new mongoose.Schema(
 )
 
 departureSchema.post('save', () => {
-  // console.log('INSERCION EN departures')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('INSERT IN departures')
+  }
 })
 
 departureSchema.pre('findOneAndRemove', async () => {
-  console.log('DELETE EN departures')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('DELETE EN departures')
+  }
 })
 
 departureSchema.post('findOneAndUpdate', async () => {
-  // console.log('ACTUALIZACION EN departures')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('UPDATE IN departures')
+  }
 })
 
 // departureSchema.plugin(mongoosePaginate)

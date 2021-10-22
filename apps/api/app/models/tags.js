@@ -17,15 +17,21 @@ const tagsSchema = new mongoose.Schema(
 )
 
 tagsSchema.post('save', () => {
-  console.log('INSERCION EN tags')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('INSERT TAGS')
+  }
 })
 
 tagsSchema.pre('findOneAndRemove', async () => {
-  console.log('DELETE EN tags')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('REMOVE TAGS')
+  }
 })
 
 tagsSchema.post('findOneAndUpdate', async () => {
-  console.log('ACTUALIZACION EN tags')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('UPDATE TAGS')
+  }
 })
 
 tagsSchema.plugin(mongoosePaginate)

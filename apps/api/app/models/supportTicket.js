@@ -58,15 +58,21 @@ const supportTicketSchema = new mongoose.Schema(
 )
 
 supportTicketSchema.post('save', () => {
-  console.log('INSERCION EN ticket')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('INSERT SUPPORT_TICKET')
+  }
 })
 
 supportTicketSchema.pre('findOneAndRemove', async () => {
-  console.log('DELETE EN ticket')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('REMOVE SUPPORT_TICKET')
+  }
 })
 
 supportTicketSchema.post('findOneAndUpdate', async () => {
-  console.log('ACTUALIZACION EN ticket')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('UPDATE SUPPORT_TICKET')
+  }
 })
 
 supportTicketSchema.plugin(aggregatePaginate)

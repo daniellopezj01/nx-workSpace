@@ -29,7 +29,7 @@ const handleError = (res = {}, err = {}) => {
     console.log(e)
     res.status(500).json({
       errors: {
-        msg: 'UNDEFINED_ERROR_SHOW_LOG',
+        msg: 'UNDEFINED_ERROR_SHOW_LOG_OAUTH',
         err
       }
     })

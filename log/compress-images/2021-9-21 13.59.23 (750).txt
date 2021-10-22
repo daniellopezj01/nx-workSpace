@@ -1,0 +1,7 @@
+File from: [C:\Users\USUARIO\Documents\empresa\nx-work-space/public/media/small_88feb145-e896-488e-a104-dd99f8c87d22.png]
+
+File to: [C:\Users\USUARIO\Documents\empresa\nx-work-space/public/media_compress/small_88feb145-e896-488e-a104-dd99f8c87d22.png]
+
+Compression algorithm: [-]
+
+Description: File does not exist!

@@ -1,33 +1,34 @@
 // /* eslint-disable no-undef */
 // /* eslint-disable import/no-extraneous-dependencies */
 
-// process.env.NODE_ENV = 'test'
-// const _ = require('lodash')
-// const faker = require('faker')
-// const chai = require('chai')
-// const chaiHttp = require('chai-http')
-// const modelComments = require('../../app/models/tour')
-// const server = require('../../server')
-// // eslint-disable-next-line no-unused-vars
-// const should = chai.should()
-// const loginDetails = {
-//   email: 'admin@admin.com',
-//   password: '12345678'
-// }
-// let token = ''
-// let accessToken = ''
-
-// const createdID = []
-// const content = faker.random.words()
-// const idTour = '5fa181b202945b26c456176a'
-// const idReservation = '5fa18bde4087883d305e6800'
-// const slugTour = 'tour-one'
-// const idUser = '5aa1c2c35ef7a4e97b5e995a'
-// const emptyUser = '5fa29a9584b39b13786fbfc2'
-// let globalCommets = []
-// const url = process.env.URL_TEST_USER
+process.env.NODE_ENV = 'test'
+const _ = require('lodash')
+const faker = require('faker')
 
 
+const modelComments = require('../../app/models/tour')
+const request = require('supertest')
+// eslint-disable-next-line no-unused-vars
+const loginDetails = {
+  email: 'admin@admin.com',
+  password: '12345678'
+}
+let token = ''
+let accessToken = ''
+
+const createdID = []
+const content = faker.random.words()
+const idTour = '5fa181b202945b26c456176a'
+const idReservation = '5fa18bde4087883d305e6800'
+const slugTour = 'tour-one'
+const idUser = '5aa1c2c35ef7a4e97b5e995a'
+const emptyUser = '5fa29a9584b39b13786fbfc2'
+let globalCommets = []
+const url = process.env.URL_TEST_USER
+
+module.exports = (server) => {
+
+}
 // describe('*********** COMMENTS_USER ***********', () => {
 //   describe('/POST login', () => {
 //     test('it should GET token user', (done) => {
@@ -125,7 +126,7 @@
 //   })
 
 //   describe('/GET comments', () => {
-//     it('Not found Url', (done) => {
+// test('Not found Url', (done) => {
 //       chai
 //         .request(server)
 //         .get(`${url}/comments`)

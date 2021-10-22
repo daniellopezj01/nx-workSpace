@@ -2,8 +2,8 @@ const sharp = require('sharp')
 const compressImages = require('compress-images')
 const utils = require('../../../middleware/utils')
 
-const router = `${process.cwd()}/public/media/`
-const routerCompress = `${process.cwd()}/public/media_compress/`
+const router = `${process.cwd()}/apps/api/public/media/`
+const routerCompress = `${process.cwd()}/apps/api/public/media_compress/`
 
 const helperCompressImage = (pathInPut, name = '', size = null) => new Promise((resolve, reject) => {
   try {

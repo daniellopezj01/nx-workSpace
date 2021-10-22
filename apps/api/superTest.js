@@ -36,9 +36,6 @@ app.use(
   })
 )
 
-
-
-
 app.use(helmet())
 app.set('view engine', 'html')
 app.use(passport.initialize())
@@ -47,10 +44,7 @@ app.use('/api/1.0', require('./app/routesApi'))
 app.use('/admin', require('./app/routesAdmin'))
 
 server.listen(process.env.PORT)
-
 // Init MongoDB
 initMongo()
-
-// Ejecutar los Cron
 
 module.exports = app // for testing

@@ -3,7 +3,6 @@ const { MONGO_TEST } = process.env
 const mongoose = require('mongoose')
 
 const loadModels = require('../app/models')
-
 const dbType = process.env.NODE_ENV !== 'test' ? DB_URL : MONGO_TEST
 
 const optionsConnection = {
@@ -12,11 +11,10 @@ const optionsConnection = {
   useUnifiedTopology: true
 }
 
-module.exports = () => {
+module.exports = async () => {
   try {
     const connect = () => {
       mongoose.Promise = global.Promise
-
       mongoose.connect(dbType, optionsConnection, (err) => {
         let dbStatus = ''
         if (err) {
@@ -37,11 +35,12 @@ module.exports = () => {
       mongoose.set('useFindAndModify', false)
     }
     connect()
-
     mongoose.connection.on('error', console.log)
     mongoose.connection.on('disconnected', connect)
-
     loadModels()
+    // if (process.env.NODE_ENV === 'test') {
+    //   // clean.clean()
+    // }
   } catch (error) {
     console.log('connect mongo', error.message)
   }

@@ -98,7 +98,7 @@ exports.handleError = (res, err) => {
   } catch (e) {
     res.status(500).json({
       errors: {
-        msg: 'UNDEFINED_ERROR_SHOW_LOG',
+        msg: 'UNDEFINED_ERROR_SHOW_LOG_API',
         err
       }
     })
@@ -223,6 +223,7 @@ exports.itemNotFound = (err, item, reject, message) => {
     reject(this.buildErrObject(422, err.message))
   }
   if (!item) {
+    console.log(message)
     reject(this.buildErrObject(404, message))
   }
 }

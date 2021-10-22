@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 const uuid = require('uuid')
 const User = require('../../../models/user')
 const ReferredUser = require('../../../models/referredUsers')
@@ -11,7 +12,8 @@ const findUserByRefCode = (referredCode) => {
         referredCode
       },
       (err, item) => {
-        utils.itemNotFound(err, item, reject, 'USER_DOES_NOT_EXIST')
+        if (!item) { resolve(false) }
+        // utils.buildErrObjectReject(err, item, reject, 'USER_DOES_NOT_EXIST')
         resolve(item)
       }
     )
@@ -20,13 +22,15 @@ const findUserByRefCode = (referredCode) => {
 
 const registerUserReferred = async (codeRef, userTo) => {
   const referredUser = await findUserByRefCode(codeRef)
-  const body = {
-    userTo: userTo._id,
-    userFrom: referredUser._id,
-    amountFrom: 1,
-    amountTo: 1
+  if (referredUser) {
+    const body = {
+      userTo: userTo._id,
+      userFrom: referredUser._id,
+      amountFrom: 1,
+      amountTo: 1
+    }
+    db.createItem(body, ReferredUser)
   }
-  db.createItem(body, ReferredUser)
 }
 
 const helperRegisterUser = async (req) => {

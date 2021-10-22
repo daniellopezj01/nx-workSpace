@@ -29,7 +29,7 @@ module.exports = [
     _id: new ObjectID('5aa1c2c35ef7a4e97b5e995b'),
     name: 'Simple user',
     email: 'user@user.com',
-    password: '$2a$05$2KOSBnbb0r.0TmMrvefbluTOB735rF/KRZb4pmda4PdvU9iDvUB26',
+    password: '$2b$05$0kdXPRZoQoHxmXrPKG7Q8.fwfxOb4wOJkmrMGlyAIxD2ksPPT2Cq6',
     role: 'user',
     verified: false,
     verification: '3d6e072c-0eaf-4239-bb5e-495e6486148d',
@@ -42,7 +42,7 @@ module.exports = [
     surname: 'test 1',
     referredCode: 'sdcvv',
     typeReferred: new ObjectID('6061e77ada99821b1425b282'),
-    accessToken: 'hEauAkrzyLiasDds353ENYnZ8Adb2JKZHNJyvNKPlRKm3',
+    accessToken: 'vffr1c6HeZVXCNd9eVk8QDvFXQgxs3NaDS1nO_G8elQaJ',
     urlTwitter: faker.internet.url(),
     urlGitHub: faker.internet.url(),
     createdAt: faker.date.past(),
@@ -72,26 +72,3 @@ module.exports = [
     updatedAt: faker.date.recent()
   }
 ]
-
-// {
-//   "_id": ObjectId('5aa1c2c35ef7a4e97b5e995b'),
-//   "name": 'Simple user',
-//   "email": 'user@user.com',
-//   "password": '$2a$05$2KOSBnbb0r.0TmMrvefbluTOB735rF/KRZb4pmda4PdvU9iDvUB26',
-//   "role": 'user',
-//   "verified": false,
-//   "verification": '3d6e072c-0eaf-4239-bb5e-495e6486148d',
-//   "city": 'Bucaramanga',
-//   "country": 'Colombia',
-//   "phone": {
-//     "number": '+34 916 34 39 39',
-//     "code": 'ES'
-//   },
-//   "surname": 'test 1',
-//   "referredCode": 'sdcvv',
-//   "accessToken": 'hEauAkrzyLiasDds353ENYnZ8Adb2JKZHNJyvNKPlRKm3',
-//   "urlTwitter": "",
-//   "urlGitHub": "",
-//   "createdAt": "",
-//   "updatedAt": ""
-// }

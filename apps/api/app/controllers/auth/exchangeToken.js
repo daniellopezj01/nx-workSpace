@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 const { matchedData } = require('express-validator')
 // const {customFind, getItem} = require('../../middleware/db')
 const { helperGenerateBasicAuth } = require('./helpers')
@@ -26,6 +27,7 @@ const exchangeToken = async (req, res) => {
     }
     res.status(200).json(await serviceFindUserOrRegister(user))
   } catch (error) {
+    console.log(error.message)
     utils.handleError(res, error)
   }
 }

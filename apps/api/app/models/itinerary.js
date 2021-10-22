@@ -92,7 +92,9 @@ itinerarySchema.post('save', () => {
 })
 
 itinerarySchema.pre('findOneAndRemove', async () => {
-  console.log('DELETE EN itinerarys')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('DELETE IN itinerarys')
+  }
 })
 
 itinerarySchema.post('findOneAndUpdate', async () => {

@@ -10,18 +10,21 @@ const config = {
   inputPath: path.resolve(__dirname, './data'),
   dropDatabase: false
 }
-const seeder = new Seeder(config)
-const collections = seeder.readCollectionsFromPath(path.resolve('./data'))
 
-const main = async () => {
+const seeder = new Seeder(config)
+
+const collections = seeder.readCollectionsFromPath(path.resolve('./apps/api/data'))
+
+
+module.exports = async () => {
   try {
-    await seeder.import(collections)
+    await seeder.import(collections).catch(err => { console.log(err) })
     console.log('Seed complete!')
-    process.exit(0)
+    // process.exit(0)
   } catch (err) {
     console.log(err)
     process.exit(0)
   }
 }
 
-main()
+// main()

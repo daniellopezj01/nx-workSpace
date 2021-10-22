@@ -4,12 +4,13 @@ module.exports = {
   verbose: true,
   globals: {
     'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json'
+      tsconfig: '<rootDir>/tsconfig.spec.json',
+      isolatedModules: true
     }
   },
   testEnvironment: 'node',
-  // testMatch: ['**/tests/testAdmin/test.js'],
-  testMatch: ['**/tests/testAdmin/auth.js'],
+  testMatch: ['**/tests/app.test.js'],
+  globalSetup: './config/jestBeforeAll.js',
   // testMatch: ['**/tests/**/*.js'],
   // testMatch: ['**/tests/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   transform: {

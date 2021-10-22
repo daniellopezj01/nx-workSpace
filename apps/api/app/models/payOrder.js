@@ -82,15 +82,21 @@ const PayOrderSchema = new mongoose.Schema(
 )
 
 PayOrderSchema.post('save', () => {
-  console.log('INSERCION EN PayOrders')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('INSERT PayOrders')
+  }
 })
 
 PayOrderSchema.pre('findOneAndRemove', async () => {
-  console.log('DELETE EN PayOrders')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('DELETE  PayOrders')
+  }
 })
 
 PayOrderSchema.post('findOneAndUpdate', async () => {
-  console.log('ACTUALIZACION EN PayOrders')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('UPDATE  PayOrders')
+  }
 })
 
 PayOrderSchema.plugin(mongoose_delete, { overrideMethods: true })
