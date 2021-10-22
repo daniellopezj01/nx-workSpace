@@ -18,13 +18,10 @@ const helperCreatePayIntention = async (customer, description, currency, data) =
   const accountAgency = await helperCheckAgency(data?.reference)
   const { value, name: currencyName } = currency
   const setting = await db.findOneBoolean({ key: 'sabreCurrency' }, settingsModel)
-  console.log('original amount', amount)
   amount = operationType ? Number(parseInt(amount / setting.value.exchangeRateUsed, 10)) : amount * value
-  console.log('transform amount', amount)
   let application_fee_amount = amount * parseFloat(process.env.FEED)
   application_fee_amount += (parseFloat(process.env.SAFE) * 100)
   application_fee_amount = application_fee_amount.toString().split('.').join('')
-  console.log('cuenta de agencias', accountAgency)
   const dataTransfer = {
     application_fee_amount,
     transfer_data: {

@@ -4,9 +4,8 @@ const initMongo = require('./config/mongo')
 
 const modelsPath = './apps/api/app/models'
 const { removeExtensionFromFile } = require('./app/middleware/utils')
-const seed = require('./seed')
 
-
+initMongo()
 // Loop models path and loads every file as a model except index file
 const models = fs.readdirSync(modelsPath).filter((file) => {
   return removeExtensionFromFile(file) !== 'index'
@@ -26,7 +25,9 @@ const deleteModelFromDB = (model) => {
   })
 }
 
-const clean = async () => {
+// const clean
+
+module.exports = async () => {
   try {
     const promiseArray = models.map(
       // eslint-disable-next-line no-return-await
@@ -34,15 +35,11 @@ const clean = async () => {
     )
     await Promise.all(promiseArray).catch(err => { console.log(err) })
     console.log('Cleanup complete!')
-    await seed.main()
-
     // process.exit(0)
   } catch (err) {
     console.log(err)
     process.exit(0)
   }
 }
-
-module.exports = { clean }
 
 // clean()

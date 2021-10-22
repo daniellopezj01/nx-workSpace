@@ -4,7 +4,7 @@ const utils = require('../../../middleware/utils')
 
 const { helperCompressImage, helperWriteOriginalImage } = require('../helpers')
 
-const router = '/public/media/'
+const router = '/apps/api/public/media/'
 
 // saveImage
 const serviceWriteResizeImages = (file, buffer = false) => new Promise(async (resolve, reject) => {

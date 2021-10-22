@@ -52,15 +52,21 @@ const conversationSchema = new mongoose.Schema(
 )
 
 conversationSchema.post('save', () => {
-  console.log('INSERCION EN conversations')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('INSERT CONVERSATIONS')
+  }
 })
 
 conversationSchema.pre('findOneAndRemove', async () => {
-  console.log('DELETE EN conversations')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('DELETE CONVERSATIONS')
+  }
 })
 
 conversationSchema.post('findOneAndUpdate', async () => {
-  console.log('ACTUALIZACION EN conversations')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('UPDATE CONVERSATIONS')
+  }
 })
 
 conversationSchema.plugin(aggregatePaginate)

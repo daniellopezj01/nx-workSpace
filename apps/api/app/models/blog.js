@@ -31,6 +31,6 @@ const blogScheman = new mongoose.Schema(
   }
 )
 
-blogScheman.plugin(mongoose_delete, { overrideMethods: true })
 blogScheman.plugin(mongoosePaginate)
+blogScheman.plugin(mongoose_delete, { overrideMethods: true })
 module.exports = mongoose.model('blog', blogScheman)

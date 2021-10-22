@@ -20,20 +20,16 @@ module.exports = async () => {
         if (err) {
           dbStatus = `*    Error connecting to DB: ${err}\n****************************\n`
         }
-        if (process.env.NODE_ENV === 'test') {
-          console.log('db connected')
-        } else {
-          dbStatus = '*    DB Connection: OK\n****************************\n'
-          // if (process.env.NODE_ENV) {
-          // Prints initialization
-          console.log('****************************')
-          console.log('*    Starting Server')
-          console.log(`*    Port: ${process.env.PORT || 3000}`)
-          console.log(`*    NODE_ENV: ${process.env.NODE_ENV}`)
-          console.log('*    Database: MongoDB')
-          console.log(dbStatus)
-          // }
-        }
+        dbStatus = '*    DB Connection: OK\n****************************\n'
+        // if (process.env.NODE_ENV) {
+        // Prints initialization
+        console.log('****************************')
+        console.log('*    Starting Server')
+        console.log(`*    Port: ${process.env.PORT || 3000}`)
+        console.log(`*    NODE_ENV: ${process.env.NODE_ENV}`)
+        console.log('*    Database: MongoDB')
+        console.log(dbStatus)
+        // }
       })
       mongoose.set('useCreateIndex', true)
       mongoose.set('useFindAndModify', false)

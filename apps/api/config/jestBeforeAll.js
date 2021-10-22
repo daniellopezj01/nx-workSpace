@@ -1,7 +1,8 @@
 const clean = require('../clean.js')
-const initMongo = require('./mongo.js')
+const seed = require('../seed')
 
 module.exports = async () => {
-  clean.clean()
-  // initMongo()
+  await clean()
+  await seed()
+  console.log('complete jest BEFORE ALL')
 }

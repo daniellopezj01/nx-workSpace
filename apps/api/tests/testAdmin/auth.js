@@ -18,7 +18,7 @@ let verificationForgot = ''
 const email = faker.internet.email()
 
 const url = process.env.URL_TEST_ADMIN
-const authAdmin = (server) => {
+module.exports = (server) => {
   describe('*********** AUTH_ADMIN ***********', () => {
     describe('/GET /', () => {
       test('it should GET home user url', (done) => {
@@ -246,6 +246,3 @@ const authAdmin = (server) => {
     })
   })
 }
-
-module.exports = { authAdmin }
-

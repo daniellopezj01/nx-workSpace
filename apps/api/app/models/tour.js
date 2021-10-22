@@ -237,15 +237,21 @@ const TourSchema = new mongoose.Schema(
 )
 
 TourSchema.post('save', () => {
-  console.log('INSERCION EN tours')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('INSERT TOURS')
+  }
 })
 
 TourSchema.pre('findOneAndRemove', async () => {
-  console.log('DELETE EN tours')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('DELETE TOURS')
+  }
 })
 
 TourSchema.post('findOneAndUpdate', async () => {
-  console.log('ACTUALIZACION EN tours')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('UPDATE TOURS')
+  }
 })
 
 TourSchema.plugin(aggregatePaginate)

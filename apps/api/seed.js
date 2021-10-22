@@ -15,7 +15,8 @@ const seeder = new Seeder(config)
 
 const collections = seeder.readCollectionsFromPath(path.resolve('./apps/api/data'))
 
-const main = async () => {
+
+module.exports = async () => {
   try {
     await seeder.import(collections).catch(err => { console.log(err) })
     console.log('Seed complete!')
@@ -25,7 +26,5 @@ const main = async () => {
     process.exit(0)
   }
 }
-
-module.exports = { main }
 
 // main()

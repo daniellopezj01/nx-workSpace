@@ -38,15 +38,21 @@ const questionsReservation = new mongoose.Schema(
 )
 
 questionsReservation.post('save', () => {
-  console.log('INSERCION EN questions')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('INSERT QUESTIONS')
+  }
 })
 
 questionsReservation.pre('findOneAndRemove', async () => {
-  console.log('DELETE EN questions')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('DELETE QUESTIONS')
+  }
 })
 
 questionsReservation.post('findOneAndUpdate', async () => {
-  console.log('ACTUALIZACION EN questions')
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('UPDATE QUESTIONS')
+  }
 })
 
 questionsReservation.plugin(mongoosePaginate)
