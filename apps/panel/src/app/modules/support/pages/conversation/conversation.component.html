@@ -1,0 +1,105 @@
+<ng-container *ngTemplateOutlet="loadingAll; context: { loading: mainLoading }">
+</ng-container>
+<div class="main-container-messages p-4">
+  <div class="custom-title">
+    <span>{{ "SUPPORT.CODE_TICKET" | translate }} {{ ticket?.hash }} </span>
+  </div>
+  <div class="cont-messages">
+    <div #containerMessage class="structure-messages">
+      <div class="mb-3" *ngFor="let message of ticket?.messages; let i = index">
+        <div
+          class="single-message"
+          [ngStyle]="{
+            'justify-content': checkMessage(message?.creator)
+              ? 'flex-start'
+              : 'flex-end'
+          }"
+        >
+          <div class="message">
+            <ng-container
+              *ngIf="
+                checkMessage(message?.creator);
+                then sendTemp;
+                else receiveTemp
+              "
+            >
+            </ng-container>
+            <ng-template #sendTemp>
+              <div class="send combinate-style">
+                <div
+                  class="message-in-support"
+                  [innerHTML]="message.message"
+                ></div>
+                <span class="time small text-muted"
+                  >{{ message?.createdAt | date: "dd LLL HH:mm" }}
+                </span>
+              </div>
+            </ng-template>
+            <ng-template #receiveTemp>
+              <div class="receive combinate-style">
+                <div
+                  class="message-in-support"
+                  [innerHTML]="message.message"
+                ></div>
+                <span class="time small text-muted"
+                  >{{ message?.createdAt | date: "dd LLL HH:mm" }}
+                </span>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="send-message">
+    <form [formGroup]="sendForm">
+      <div class="form-group d-flex">
+        <!-- <textarea
+          #textArea
+          rows="1"
+          formControlName="message"
+          spellcheck="false"
+          autosize
+          name=""
+          id=""
+          class="text-not-resize form-control"
+          [placeholder]="'Escribe tu comentario '"
+        ></textarea> -->
+        <app-text-rich
+          class="row w-100 p-2"
+          formControlName="message"
+          [isFull]="false"
+          placeholder="'Escribe tu comentario '"
+          [cancelBtn]="false"
+        ></app-text-rich>
+        <div
+          class="d-flex align-items-center align-content-center justify-content-center pl-2 m-2"
+        >
+          <button
+            name="message"
+            class="btn btn-primary"
+            (click)="send()"
+            type="button"
+            ngxLoading
+            [loadingFlag]="loadingButton"
+            [disabled]="!sendForm.valid"
+            [textInitial]="'GENERAL.SEND' | translate"
+            [textLoading]="'GENERAL.SENDING' | translate"
+          ></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #loadingAll let-loading="loading">
+  <div *ngIf="loading === true" class="w-100 text-center h-100 loading-wrapper">
+    <div class="in">
+      <img
+        [width]="'5rem'"
+        src="../../../../../assets/images/loading-svg.svg"
+        alt="loading"
+      />
+    </div>
+  </div>
+</ng-template>

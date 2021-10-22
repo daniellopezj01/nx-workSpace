@@ -1,0 +1,27 @@
+.custom-body-tour {
+  display: grid;
+}
+
+.container-section {
+  background-color: var(--main-color-body);
+}
+
+.title {
+  font-size: var(--font-size-2);
+  font-weight: 500;
+}
+.subTile,
+.status {
+  font-size: var(--font-size-2);
+  color: var(--color-subtitle);
+}
+
+.badge-success {
+  color: white;
+  background-color: var(--main-color-success);
+}
+
+.badge-draft {
+  color: var(--text-color);
+  background-color: var(--main-color-warning);
+}

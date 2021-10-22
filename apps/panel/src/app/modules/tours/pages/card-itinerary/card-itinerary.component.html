@@ -1,0 +1,131 @@
+<div class="w-100">
+  <accordion [isAnimated]="true">
+    <accordion-group (isOpenChange)="isOpen($event, index)">
+      <div accordion-heading is class="d-flex justify-content-between">
+        <button
+          class="btn-custom col-10 p-0 btn-block text-dark p-1 clearfix text-left"
+          type="button"
+        >
+          <div class="d-flex align-items-center align-content-center">
+            <div class="icon-lock d-none p-2">
+              <fa-icon class="text-muted" [icon]="faLock"></fa-icon>
+            </div>
+            <span class="font-weight-bold text-decoration-none truncate"
+              >{{ itinerary?.itineraryName }},</span
+            >
+            <span class="ml-1 text-muted text-decoration-none truncate">{{
+              itinerary?.stringLocation?.city
+            }}</span>
+          </div>
+        </button>
+        <div class="col-2 pl-2 pr-2 d-flex justify-content-end">
+          <div class="d-flex justify-content-end">
+            <div class="buttons">
+              <button
+                class="pulse-one btn-default btn mr-3"
+                (click)="openModalSave()"
+                type="button"
+              >
+                <fa-icon
+                  size="md"
+                  class="text-dark"
+                  [icon]="faPlusSquare"
+                ></fa-icon>
+              </button>
+              <button
+                class="pulse-one btn-default btn mr-3"
+                (click)="updateItinerary(itinerary)"
+                type="button"
+              >
+                <fa-icon size="md" class="text-info" [icon]="faEdit"></fa-icon>
+              </button>
+              <button
+                class="pulse-one btn-default btn mr-3"
+                (click)="deleteItinerary(itinerary._id)"
+                type="button"
+              >
+                <fa-icon
+                  size="md"
+                  class="text-danger"
+                  [icon]="faTrashAlt"
+                ></fa-icon>
+              </button>
+            </div>
+            <div
+              class="icon-angle d-flex justify-content-between align-content-center align-items-center"
+            >
+              <fa-icon
+                class="text-muted"
+                size="lg"
+                [icon]="faAngleDown"
+              ></fa-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container
+        *ngTemplateOutlet="
+          listActivities;
+          context: { items: itinerary?.details }
+        "
+      ></ng-container>
+    </accordion-group>
+  </accordion>
+</div>
+
+<ng-template #listActivities let-items="items">
+  <div
+    dndDropzone
+    dndEffectAllowed="copyMove"
+    [dndDropzone]="['child']"
+    (dndDrop)="onDrop($event, items)"
+    class="dndList"
+  >
+    <div
+      dndPlaceholderRef
+      class="dndPlaceholder animate__animated animate__fadeIn w-100"
+    ></div>
+    <div class="mt-2">
+      <ul class="list-unstyled tex">
+        <li
+          [dndDraggable]="item"
+          [dndDisableIf]="item?.disabled"
+          [dndEffectAllowed]="'move'"
+          [dndType]="'child'"
+          (dndMoved)="onDragged(item, items, 'move', items)"
+          (dndEnd)="onDragEnd($event, items)"
+          class="m-0 p-2 item-badge mb-2 font-weight-normal truncate text-left"
+          *ngFor="let item of items"
+        >
+          <div>
+            <span class="font-weight-bold"
+              >{{ item?.title }}
+              <span class="text-primary" *ngIf="item?.isNight">{{
+                "TOUR.ITINERARY.ACTIVITY.NIGHT" | translate
+              }}</span></span
+            >
+          </div>
+          <div>
+            <span class="font-size-1 m-0">{{
+              item?.description | stripeHtml
+            }}</span>
+          </div>
+          <div class="pt-2">
+            <button
+              class="btn btn-default text-muted btn-sm mr-1"
+              (click)="updateActivity(item)"
+            >
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+            <button
+              class="btn btn-default text-danger btn-sm mr-1"
+              (click)="deleteActivity(item?._id)"
+            >
+              <fa-icon [icon]="faTrashAlt"></fa-icon>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-template>

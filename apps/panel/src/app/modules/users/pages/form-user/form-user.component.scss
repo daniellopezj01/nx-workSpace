@@ -1,0 +1,45 @@
+.form-group label {
+  font-size: var(--font-size-2);
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+.form-product .label {
+  font-size: var(--font-size-2);
+}
+
+.form-product .name {
+  font-size: 1rem;
+}
+
+.container-form {
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: var(--border-radius-35);
+}
+
+.section-form {
+  padding: 0.75rem;
+  background-color: white;
+  display: grid;
+  margin-bottom: 1rem;
+}
+
+::ng-deep ngx-intl-tel-input input.form-control {
+  padding: 0 !important;
+  margin: -6px -8px 0px -28px;
+  border-width: 0 !important;
+
+  &:focus {
+    box-shadow: 0 0 0 transparent !important;
+    filter: none !important;
+  }
+}
+
+::ng-deep ngx-intl-tel-input .country-dropdown.show {
+  input {
+    margin: 0 !important;
+  }
+}

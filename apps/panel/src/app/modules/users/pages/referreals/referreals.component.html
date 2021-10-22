@@ -1,0 +1,192 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="general-cont">
+  <div class="general">
+    <div class="p-4 d-flex justify-content-start">
+      <h4>{{ "USER.TYPE_REFERREALS.TITLE" | translate }}</h4>
+    </div>
+    <ng-container *ngTemplateOutlet="formTemplate"></ng-container>
+
+    <div class="">
+      <div class="header-title p-3 pl-4 d-flex justify-content-start">
+        <h4>{{ "USER.TYPE_REFERREALS.LIST_REFERREALS" | translate }}</h4>
+      </div>
+      <div
+        class="col-xs-12 animate__animated animate__fadeInDown animation-1 col-xl-12"
+      >
+        <div class="manager-forms">
+          <div class="transactions">
+            <ng-container
+              *ngIf="data?.length; then with; else withOut"
+            ></ng-container>
+            <ng-template #with>
+              <ng-container
+                *ngTemplateOutlet="referrealsTemplate"
+              ></ng-container>
+            </ng-template>
+            <ng-template #withOut>
+              <div class="container-with-out d-flex justify-content-center">
+                <div class="with-out-transaction">
+                  <p class="text-center">
+                    {{
+                      "USER.TYPE_REFERREALS.NOT_LINKING_REFERREALS" | translate
+                    }}
+                  </p>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+          <div class="w-100 d-flex justify-content-center" *ngIf="data?.length">
+            <pagination
+              [itemsPerPage]="referrealService.limitPerPage"
+              [(ngModel)]="referrealService.page"
+              (pageChanged)="pageChanged($event)"
+              [customPreviousTemplate]="pageTemplateLeft"
+              [customNextTemplate]="pageTemplateRight"
+              [maxSize]="referrealService.maxSize"
+              [totalItems]="dataRaw?.totalDocs"
+            ></pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #formTemplate>
+  <form
+    *ngIf="!loading"
+    class="form-product w-100 pl-4 pr-4"
+    [formGroup]="form"
+  >
+    <div class="row m-0">
+      <div class="custom-card-style p-2 col-4">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ "REFERRED.PLAN" | translate }}</label>
+            <ng-select
+              #selectProductRef
+              [items]="resultsPlan$ | async"
+              formControlName="typeReferred"
+              bindLabel="name"
+              (close)="selectProductRef.blur(); selectProductRef.focus()"
+              [addTag]="false"
+              [multiple]="false"
+              [minTermLength]="1"
+              (change)="selectPlan($event)"
+              [required]="true"
+              [loading]="planLoading"
+              [typeToSearchText]="'PURCHASE.SEARCH_PRODUCT' | translate"
+              [typeahead]="planInput$"
+              [(ngModel)]="ngSelectPlan"
+              placeholder="Buscar Plan"
+            >
+              <ng-template ng-label-tmp let-item="item">
+                {{ item?.name }}
+              </ng-template>
+              <ng-template
+                ng-option-tmp
+                let-item="item"
+                let-index="index"
+                let-search="searchTerm"
+              >
+                <div class="card-list d-flex">
+                  <div class="d-grid pl-3 pt-1 pb-1 custom-text">
+                    <span class="font-weight-bold pb-1"> {{ item?.name }}</span>
+                    <span class="font-weight-normal"> {{ item?.label }}</span>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="container-button">
+        <app-section-btn
+          [options]="['save']"
+          (cbSave)="updatePlan()"
+          (cbList)="cbList()"
+          (cbTrash)="cbTrash()"
+          [valid]="form.valid"
+          class=""
+        >
+        </app-section-btn>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #referrealsTemplate>
+  <div class="container-transaction">
+    <div>
+      <table class="table">
+        <thead class="thead">
+          <tr>
+            <th *ngFor="let item of columns" class="text-uppercase" scope="col">
+              {{ item?.key | translate }}
+            </th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+          <tr *ngFor="let item of data; let i = index">
+            <td class="code">
+              {{ item.code }}
+            </td>
+
+            <td class="">
+              <div class="d-flex">
+                <ngx-avatar
+                  [round]="false"
+                  cornerRadius="3"
+                  size="28"
+                  [src]="item?.user?.name?.avatar"
+                  [name]="item?.user?.name"
+                ></ngx-avatar>
+                <div class="pl-2 d-flex flex-column">
+                  <span>{{ item?.user?.name }} {{ item?.user?.surname }}</span>
+                  <span class="muted small">{{ item?.user?.email }} </span>
+                </div>
+              </div>
+            </td>
+            <td class="plan">
+              {{ item.plan[0]?.name }}
+            </td>
+            <td>{{ item?.amountFrom | number }} USD</td>
+            <td>{{ item?.amountTo | number }} USD</td>
+            <td>
+              <span
+                class="status-row badge"
+                [ngClass]="{
+                  'badge-warning': item?.status === 'available',
+                  'badge-success': item?.status === 'unavailable'
+                }"
+              >
+                <span
+                  [tooltip]="
+                    'USER.TYPE_REFERREALS.STATUS_WAIT_TOOLTIP' | translate
+                  "
+                  *ngIf="item?.status === 'available'"
+                >
+                  {{ "USER.TYPE_REFERREALS.STATUS_WAIT" | translate }}</span
+                >
+                <span
+                  [tooltip]="
+                    'USER.TYPE_REFERREALS.STATUS_WAIT_TOOLTIP' | translate
+                  "
+                  *ngIf="item?.status === 'unavailable'"
+                >
+                  {{ "USER.TYPE_REFERREALS.STATUS_SUCCESS" | translate }}</span
+                >
+              </span>
+            </td>
+            <td>
+              <span class="date">{{
+                item?.createdAt | date: "dd-LLL-yyyy"
+              }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>

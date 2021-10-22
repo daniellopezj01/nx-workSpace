@@ -1,0 +1,83 @@
+<div class="p-2">
+  <div class="pb-2">
+    <h6 class="font-weight-bold">
+      {{
+        !updateItem
+          ? ("TOUR.ITINERARY.MAIN_TITLE" | translate)
+          : ("TOUR.ITINERARY.UPDATE_TITLE" | translate)
+      }}
+    </h6>
+  </div>
+
+  <form class="form-product" [formGroup]="form">
+    <div class="form-group">
+      <label>{{ "TOUR.ITINERARY.TITLE" | translate }}</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="itineraryName"
+        placeholder=""
+      />
+    </div>
+    <div class="form-group">
+      <label>{{ "TOUR.ITINERARY.CYTY" | translate }}</label>
+      <input
+        ngx-google-places-autocomplete
+        class="form-control"
+        #placesRef="ngx-places"
+        (onAddressChange)="handleAddressChange($event)"
+        formControlName="place"
+        placeholder=""
+      />
+    </div>
+    <div class="form-group mb-4 mt-4">
+      <div class="d-flex">
+        <p-checkbox
+          animation="smooth"
+          color="primary"
+          shape="curve"
+          [checked]="includedInMap"
+          (change)="includedInMap = !includedInMap"
+        >
+          <span class="custom-text">
+            {{ "TOUR.ITINERARY.INCLUDED_IN_MAP" | translate }}
+          </span>
+        </p-checkbox>
+      </div>
+    </div>
+    <div class="form-group" *ngIf="!updateItem">
+      <label>{{ "TOUR.ITINERARY.ACTIVITY.TITLE" | translate }}</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="titleActivity"
+        placeholder=""
+      />
+    </div>
+    <div class="form-group" *ngIf="!updateItem">
+      <label>{{ "TOUR.ITINERARY.ACTIVITY.DESCRIPTION" | translate }}</label>
+      <app-text-rich
+        class="row"
+        formControlName="descriptionActivity"
+        [mode]="'add'"
+        [isFull]="false"
+        [cancelBtn]="false"
+      ></app-text-rich>
+    </div>
+    <div class="form-group d-flex justify-content-between">
+      <button class="btn btn-default hvr-grow" (click)="modal.close()">
+        {{ "GENERAL.CANCEL" | translate }}
+      </button>
+
+      <button
+        ngxLoading
+        [loadingFlag]="loading"
+        [textInitial]="'GENERAL.SAVE' | translate"
+        [textLoading]="'GENERAL.SENDING' | translate"
+        class="btn btn-primary hvr-grow"
+        (click)="onSubmit()"
+        [disabled]="!form.valid"
+      ></button>
+    </div>
+  </form>
+</div>

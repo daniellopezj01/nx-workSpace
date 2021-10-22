@@ -1,0 +1,149 @@
+.icon-style {
+  margin-bottom: 0.5rem;
+  height: 25px;
+  width: 25px;
+}
+
+.general-cont {
+  width: 100%;
+  min-height: 60vh;
+}
+
+.table thead th {
+  border-bottom: 0 transparent;
+  border-top: 0 transparent;
+}
+
+.table {
+  .tbody td {
+    border-bottom: solid 1px #e9ecef;
+  }
+  .tbody tr:last-child td {
+    border-bottom: solid 1px transparent;
+  }
+}
+
+.table {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+th {
+  font-weight: 500;
+}
+
+.manager-forms {
+  width: 100%;
+  padding: 1.15rem;
+  box-shadow: var(--box-shadow-1);
+}
+
+/***THREE SQUARE TOP */
+.card-top {
+  width: 100%;
+  text-decoration: none !important;
+}
+
+.squeare-three {
+  padding-top: 1rem;
+  text-align: center;
+}
+
+.td-truncate {
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+  // width: 100%;
+  // max-width: 0;
+}
+
+.code {
+  font-weight: bold;
+}
+
+.transacction-small {
+  padding: 0.5rem 0.3rem;
+  border-bottom: 1px solid #dadada;
+}
+
+.description-small {
+  color: #959595;
+  margin-right: 0.5rem;
+}
+
+/******TRANSACTIONS**/
+.container-transaction {
+  background-color: white;
+}
+
+.body-transaction {
+  padding: 0.3em;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.with-out-transaction {
+  width: 80%;
+  height: 3em;
+  padding: 0.5em;
+}
+
+.container-with-out {
+  background-color: white;
+  padding-top: 2em;
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0 0.75rem;
+}
+
+.table td,
+.table th {
+  padding: 0.35rem;
+}
+
+.date-row {
+  font-weight: 400;
+}
+
+.description-row {
+  font-weight: 400;
+}
+
+.amount-row {
+  font-weight: 500;
+}
+
+.platform-row {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-row {
+  font-weight: 600;
+  padding: 0.3rem;
+  text-transform: capitalize;
+}
+
+table,
+tr,
+td {
+  border: transparent;
+  font-weight: 500;
+}
+
+.style-single-row {
+  margin-top: 0.5rem;
+}
+
+.container-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0 0 1rem;
+  margin: auto 0;
+}
+
+//desktop
+@media print, screen and (min-width: 1140px) {
+}

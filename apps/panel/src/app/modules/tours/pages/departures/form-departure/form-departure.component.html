@@ -1,0 +1,242 @@
+<div class="p-2">
+  <div class="pb-2" *ngIf="!updateItem">
+    <h6 class="font-weight-bold">
+      {{
+        !updateItem
+          ? ("TOUR.DEPARTURE.MAIN_TITLE" | translate)
+          : ("TOUR.DEPARTURE.UPDATE_TITLE" | translate)
+      }}
+    </h6>
+  </div>
+
+  <form class="form-product" [formGroup]="form">
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label>{{ "TOUR.DEPARTURE.START_DATE" | translate }}</label>
+          <input
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder=""
+            formControlName="startDateDeparture"
+            class="form-control"
+            placement="bottom left"
+            [minDate]="!updateItem ? today : null"
+            bsDatepicker
+          />
+        </div>
+      </div>
+      <div class="col-6 style-flight">
+        <div class="form-group mb-0">
+          <div class="d-flex">
+            <p-checkbox
+              animation="smooth"
+              color="primary"
+              shape="curve"
+              [checked]="flight"
+              (change)="flight = !flight"
+            >
+              <span class="custom-text">
+                {{ "TOUR.DEPARTURE.WITH_FLIGHT" | translate }}
+              </span>
+            </p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label>{{ "TOUR.DEPARTURE.END_DATE" | translate }}</label>
+          <input
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder=""
+            formControlName="endDateDeparture"
+            class="form-control"
+            [minDate]="getDate('startDateDeparture')"
+            placement="bottom left"
+            bsDatepicker
+          />
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>{{ "TOUR.DEPARTURE.CLOSE_DATE" | translate }}</label>
+          <input
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder=""
+            formControlName="closeDateDeparture"
+            class="form-control"
+            placement="bottom left"
+            [minDate]="!updateItem ? today : null"
+            [maxDate]="getDate('startDateDeparture')"
+            bsDatepicker
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label>{{ "TOUR.DEPARTURE.MIN_STOCK" | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            mask="separator.0"
+            thousandSeparator="."
+            separatorLimit="100"
+            (ngModelChange)="checkStock()"
+            placeholder=""
+            formControlName="minStock"
+          />
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>{{ "TOUR.DEPARTURE.STOCK" | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            mask="separator.0"
+            thousandSeparator="."
+            separatorLimit="100"
+            placeholder=""
+            (ngModelChange)="checkStock()"
+            formControlName="stock"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label>{{ "TOUR.DEPARTURE.MIN_AGE" | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            mask="separator.0"
+            thousandSeparator="."
+            separatorLimit="10"
+            (ngModelChange)="checkAge()"
+            placeholder=""
+            formControlName="minAge"
+          />
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>{{ "TOUR.DEPARTURE.MAX_AGE" | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            mask="separator.0"
+            thousandSeparator="."
+            separatorLimit="10"
+            (ngModelChange)="checkAge()"
+            placeholder=""
+            formControlName="maxAge"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label>{{ "TOUR.DEPARTURE.NORMAL_PRICE" | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            mask="separator.2"
+            thousandSeparator="."
+            separatorLimit="100000"
+            placeholder=""
+            formControlName="normalPrice"
+          />
+          <span class="text-muted small">
+            {{
+              form?.value?.normalPrice
+                | priceAllCurrencies: departure?.currencies
+            }}</span
+          >
+        </div>
+      </div>
+      <div class="col-6 style-flight">
+        <div class="form-group mb-0">
+          <div class="d-flex">
+            <p-checkbox
+              animation="smooth"
+              color="primary"
+              shape="curve"
+              [checked]="currencies"
+              (change)="currencies = !currencies"
+            >
+              <span
+                class="custom-text"
+                [tooltip]="
+                  updateItem
+                    ? ('TOUR.DEPARTURE.UPDATE_CURRENT_CURRENCIES_TOOLTIP'
+                      | translate)
+                    : ('TOUR.DEPARTURE.CURRENT_CURRENCIES_TOOLTIP' | translate)
+                "
+              >
+                {{
+                  updateItem
+                    ? ("TOUR.DEPARTURE.UPDATE_CURRENT_CURRENCIES" | translate)
+                    : ("TOUR.DEPARTURE.CURRENT_CURRENCIES" | translate)
+                }}
+              </span>
+            </p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{ "TOUR.STATUS" | translate }}</label>
+      <ng-select
+        [items]="status"
+        bindLabel="name"
+        bindValue="value"
+        [multiple]="false"
+        [searchable]="false"
+        formControlName="status"
+        [(ngModel)]="ngSelectStatus"
+        placeholder="Seleccionar Estado"
+      >
+      </ng-select>
+    </div>
+    <div class="form-group">
+      <label>{{ "TOUR.DESCRIPTION" | translate }}</label>
+      <app-text-rich
+        class="row"
+        formControlName="description"
+        [mode]="'add'"
+        [isFull]="false"
+        [cancelBtn]="false"
+      ></app-text-rich>
+    </div>
+
+    <div class="form-group d-flex justify-content-between">
+      <button
+        class="btn btn-default hvr-grow btn-radius"
+        (click)="modal.close()"
+      >
+        {{ "GENERAL.CANCEL" | translate }}
+      </button>
+
+      <button
+        ngxLoading
+        [loadingFlag]="loading"
+        [textInitial]="'GENERAL.SAVE' | translate"
+        [textLoading]="'GENERAL.SENDING' | translate"
+        class="btn btn-primary hvr-grow"
+        (click)="onSubmit()"
+        [disabled]="!form.valid"
+      ></button>
+    </div>
+  </form>
+</div>

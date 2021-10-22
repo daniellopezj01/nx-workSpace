@@ -1,0 +1,40 @@
+.city-itinerary {
+  color: var(--color-subtitle);
+  font-size: var(--font-size-2);
+}
+
+.more-info-itinerary {
+  font-size: var(--font-size-2);
+  // background-color: var(--border-color-2);
+  // animation: 0.85s 1;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.align {
+  align-items: center;
+}
+
+.title {
+  color: var(--color-subtitle);
+}
+
+.custom-image {
+  border: 1px solid #ddd;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5%;
+  overflow: hidden;
+  object-fit: cover;
+  height: 120px;
+  width: 120px;
+}
+
+.btn-custom {
+  background-color: transparent;
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+}

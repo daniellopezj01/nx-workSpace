@@ -1,0 +1,232 @@
+<!-- <app-notifications-widget></app-notifications-widget> -->
+<div class="d-flex flex-column h-100 justify-content-between">
+  <div class="menu-wrapper">
+    <div>
+      <div class="pointer" [routerLink]="['/']">
+        <div class="logo">
+          <!--        <fa-icon [icon]="faCrown" [style.color]="'white'" size="lg"></fa-icon>-->
+          <span
+            ><img
+              [style.width]="'2.5rem'"
+              src="../../../assets/images/logo-squared-mochileros.svg"
+              [alt]="name"
+          /></span>
+        </div>
+      </div>
+      <div class="menu-list text-center">
+        <ul class="pt-4">
+          <ng-container *ngFor="let a of menu | async">
+            <ng-container *ngIf="a.role.includes(currentUser?.role)">
+              <!--VA DENTRO DEL LI Siguiente
+               copilot [copilot-template]="a?.copilotTemplate" copilot-class="animate__animated  animate__slideInLeft"
+               [copilot-step]="a?.copilot"
+              -->
+              <li
+                *ngIf="!a?.disable"
+                class="pl-1 pr-1 pt-2 pb-1"
+                [routerLink]="a.route ? a.route : null"
+                (click)="a?.func()"
+                containerClass="customClass"
+              >
+                <span class="badge-counter" *ngIf="a?.count"></span>
+                <div
+                  class="p-2 icon-wrapper custom-icon"
+                  [tooltip]="tolTemplate"
+                  placement="right"
+                  [adaptivePosition]="false"
+                >
+                  <ng-template #tolTemplate>{{
+                    a?.name | translate
+                  }}</ng-template>
+                  <div class="p-1 sub-wrapper" [routerLinkActive]="['active']">
+                    <fa-icon class="icon" [icon]="a.icon"></fa-icon>
+                  </div>
+                </div>
+              </li>
+            </ng-container>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+    <div class="footer mb-3">
+      <div
+        (click)="open()"
+        class="text-center p-2 wrapper-avatar d-flex justify-content-center"
+      >
+        <ngx-avatar
+          [src]="currentUser?.avatar"
+          cornerRadius="5"
+          [round]="false"
+          size="35"
+          [name]="currentUser?.name"
+        ></ngx-avatar>
+      </div>
+      <div class="text-center pt-2">
+        <button
+          placement="right"
+          tooltip="Cerrar Sesion"
+          [adaptivePosition]="false"
+          containerClass="customClass"
+          type="button"
+          (click)="logOut()"
+          class="btn btn-icon"
+        >
+          <fa-icon class="" [icon]="faSignOutAlt"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--- ********************** COPILOT ************************** --->
+<ng-template #step1>
+  <div class="copilot-custom p-3">
+    <h4>{{ "SIDE_BAR.COPILOT_TASK_ONE.TITLE" | translate }}</h4>
+    <p>{{ "SIDE_BAR.COPILOT_TASK_ONE.TEXT" | translate }}</p>
+    <hr class="row" />
+    <div class="footer-btn d-flex justify-content-between w-100">
+      <button
+        class="btn btn-default"
+        (click)="sideBarService.done()"
+        type="button"
+      >
+        {{ "COPILOT.SKIP" | translate }}
+      </button>
+      <button
+        class="btn btn-secondary"
+        (click)="sideBarService.nextStep(2)"
+        type="button"
+      >
+        {{ "COPILOT.OK" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #step2>
+  <div class="copilot-custom p-3">
+    <h4>{{ "SIDE_BAR.COPILOT_TASK_TWO.TITLE" | translate }}</h4>
+    <p>{{ "SIDE_BAR.COPILOT_TASK_TWO.TEXT" | translate }}</p>
+    <hr class="row" />
+    <div class="footer-btn d-flex justify-content-between w-100">
+      <button
+        class="btn btn-default"
+        (click)="sideBarService.done()"
+        type="button"
+      >
+        {{ "COPILOT.SKIP" | translate }}
+      </button>
+      <button
+        class="btn btn-secondary"
+        (click)="sideBarService.nextStep(3)"
+        type="button"
+      >
+        {{ "COPILOT.OK" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #step3>
+  <div class="copilot-custom p-3">
+    <h4>{{ "SIDE_BAR.COPILOT_TASK_THREE.TITLE" | translate }}</h4>
+    <p>{{ "SIDE_BAR.COPILOT_TASK_THREE.TEXT" | translate }}</p>
+    <hr class="row" />
+    <div class="footer-btn d-flex justify-content-between w-100">
+      <button
+        class="btn btn-default"
+        (click)="sideBarService.done()"
+        type="button"
+      >
+        {{ "COPILOT.SKIP" | translate }}
+      </button>
+      <button
+        class="btn btn-secondary"
+        (click)="sideBarService.nextStep(4)"
+        type="button"
+      >
+        {{ "COPILOT.OK" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #step4>
+  <div class="copilot-custom p-3">
+    <h4>{{ "SIDE_BAR.COPILOT_TASK_FOUR.TITLE" | translate }}</h4>
+    <p>{{ "SIDE_BAR.COPILOT_TASK_FOUR.TEXT" | translate }}</p>
+    <hr class="row" />
+    <div
+      class="footer-btn d-flex justify-content-between w-100"
+      *ngIf="['user'].includes(currentUser?.role)"
+    >
+      <button
+        class="btn btn-secondary"
+        (click)="sideBarService.done()"
+        type="button"
+      >
+        {{ "COPILOT.OK" | translate }}
+      </button>
+    </div>
+    <div
+      class="footer-btn d-flex justify-content-between w-100"
+      *ngIf="['admin'].includes(currentUser?.role)"
+    >
+      <button
+        class="btn btn-default"
+        (click)="sideBarService.done()"
+        type="button"
+      >
+        {{ "COPILOT.SKIP" | translate }}
+      </button>
+      <button
+        class="btn btn-secondary"
+        (click)="sideBarService.nextStep(5)"
+        type="button"
+      >
+        {{ "COPILOT.OK" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #step5>
+  <div class="copilot-custom p-3">
+    <h4>{{ "SIDE_BAR.COPILOT_TASK_FIVE.TITLE" | translate }}</h4>
+    <p>{{ "SIDE_BAR.COPILOT_TASK_FIVE.TEXT" | translate }}</p>
+    <hr class="row" />
+    <div class="footer-btn d-flex justify-content-between w-100">
+      <button
+        class="btn btn-default"
+        (click)="sideBarService.done('intro_admin')"
+        type="button"
+      >
+        {{ "COPILOT.SKIP" | translate }}
+      </button>
+      <button
+        class="btn btn-secondary"
+        (click)="sideBarService.nextStep(6)"
+        type="button"
+      >
+        {{ "COPILOT.OK" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #step6>
+  <div class="copilot-custom p-3">
+    <h4>{{ "SIDE_BAR.COPILOT_TASK_SIX.TITLE" | translate }}</h4>
+    <p>{{ "SIDE_BAR.COPILOT_TASK_SIX.TEXT" | translate }}</p>
+    <hr class="row" />
+    <div class="footer-btn d-flex justify-content-between w-100">
+      <button
+        class="btn btn-secondary"
+        (click)="sideBarService.done('intro_admin')"
+        type="button"
+      >
+        {{ "COPILOT.OK" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

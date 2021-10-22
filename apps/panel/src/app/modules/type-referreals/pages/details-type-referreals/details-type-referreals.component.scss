@@ -1,0 +1,105 @@
+.setting-zone {
+  background-color: white;
+  padding: 1rem 1rem;
+  border-radius: var(--border-radius-35);
+  font-weight: 500;
+  font-size: var(--font-size-1);
+  display: block;
+  width: 100%;
+  letter-spacing: 0.6px;
+  box-shadow: var(--box-shadow);
+}
+
+.form-group label {
+  font-size: var(--font-size-2);
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+.form-product .label {
+  font-size: var(--font-size-2);
+}
+
+.form-product .name {
+  font-size: 1rem;
+}
+
+.card-list {
+  font-size: var(--font-size-2);
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgb(183 183 183 / 10%);
+}
+
+.img-product {
+  width: 35px;
+  height: 35px;
+  border-radius: 35px;
+  object-fit: cover;
+}
+
+.avatar-preview {
+  cursor: pointer;
+  width: 150px;
+  height: 150px;
+  border-radius: 10rem;
+  -o-object-fit: cover;
+  object-fit: cover;
+  box-shadow: 0 0 25px rgba(134, 134, 134, 0.28);
+}
+
+.list-taxes ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-taxes ul li {
+  background-color: #fcfcfc;
+  border-bottom: solid 1px #f3f3f3;
+}
+
+.list-taxes ul li:last-child {
+  border-bottom: 0;
+}
+
+.invoice-example {
+  background: white;
+  padding: 0.75rem;
+  min-height: 100px;
+  border: solid 1px #eaeaea;
+}
+::ng-deep .custom-align .tabs-responsive {
+  justify-content: flex-end !important;
+}
+
+.items-itinerary:hover {
+  /*transform: scale(1.01);*/
+  z-index: 9;
+  background-color: var(--background-hover);
+  -webkit-transition: all 100ms;
+  -moz-transition: all 100ms;
+  -o-transition: all 100ms;
+  transition: all 100ms;
+  cursor: pointer;
+}
+
+.items-departures,
+.items-itinerary {
+  border-bottom: 1px solid var(--border-color-4);
+}
+
+.container-places {
+  min-height: 80vh;
+}
+
+.activeOpacity {
+  opacity: 0.4;
+}

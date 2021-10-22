@@ -1,0 +1,33 @@
+.custom-body-reservation {
+  display: grid;
+}
+
+.container-section {
+  background-color: var(--main-color-body);
+}
+
+.date {
+  color: var(--color-subtitle);
+  font-size: var(--font-size-2);
+}
+
+.name-traveler {
+  font-size: var(--font-size-2);
+  font-weight: 500;
+}
+
+.title-tour {
+  font-size: var(--font-size-1);
+  color: var(--color-subtitle);
+}
+
+.code {
+  white-space: nowrap;
+  color: var(--main-color-3);
+  font-size: var(--font-size-1);
+  text-align: center;
+}
+
+.agency-icon {
+  color: green;
+}

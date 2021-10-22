@@ -1,0 +1,197 @@
+<ng-container
+  *ngTemplateOutlet="loadingAll; context: { loading: loading }"
+></ng-container>
+<form class="form-product w-100 flex-wrap d-flex" [formGroup]="form">
+  <div
+    class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 flex-wrap d-flex"
+  >
+    <div class="text-right w-100">
+      <app-section-btn
+        [options]="optionsButtons"
+        (cbSave)="saveOrEdit()"
+        (cbList)="cbList()"
+        (cbTrash)="cbTrash()"
+        [valid]="form.valid"
+      >
+      </app-section-btn>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ "COMMENTS.AUTOR" | translate }}</label>
+            <ng-select
+              #selectProductRef
+              [items]="results$ | async"
+              formControlName="idUser"
+              bindLabel="name"
+              (close)="selectProductRef.blur(); selectProductRef.focus()"
+              [addTag]="false"
+              [multiple]="false"
+              [hideSelected]="true"
+              [minTermLength]="3"
+              [required]="true"
+              [loading]="userLoading"
+              [typeToSearchText]="'PURCHASE.SEARCH_PRODUCT' | translate"
+              [typeahead]="userInput$"
+              [(ngModel)]="ngSelectUser"
+              placeholder="Buscar autor del comentario"
+            >
+              <ng-template ng-label-tmp let-item="item">
+                {{ item?.name }} {{ item?.surname }}
+              </ng-template>
+              <ng-template
+                ng-option-tmp
+                let-item="item"
+                let-index="index"
+                let-search="searchTerm"
+              >
+                <div class="card-list d-flex">
+                  <div class="p-1">
+                    <ngx-avatar
+                      cornerRadius="5"
+                      [round]="false"
+                      size="30"
+                      [name]="item?.name"
+                    ></ngx-avatar>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <span> {{ item?.name }} {{ item?.surname }} </span>
+                    <span class="muted small">
+                      {{ item?.email }}
+                    </span>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex m-0 pw-0">
+      <div class="col-12 flex-wrap">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ "TOUR.TAGS" | translate }}</label>
+            <ng-select
+              class="form-control"
+              [addTag]="addTagNowRef"
+              [items]="resultsTags$ | async"
+              formControlName="tags"
+              [hideSelected]="true"
+              multiple="true"
+              bindValue="name"
+              bindLabel="name"
+              [minTermLength]="2"
+              [(ngModel)]="selectTags"
+              [typeahead]="tagsInput$"
+              placeholder="buscar Tags"
+              [searchable]="true"
+              [loading]="selectLoading"
+            >
+              <ng-template ng-tag-tmp let-search="searchTerm">
+                <b>{{ "TOUR.ADD_TAG" | translate }}</b> "{{ search }}"
+              </ng-template>
+            </ng-select>
+          </div>
+          <!-- <div class="form-group">
+            <label>{{ "TOUR.CATEGORIES" | translate }}</label>
+            <ng-select
+              class="form-control"
+              [items]="categories"
+              formControlName="categories"
+              [hideSelected]="true"
+              multiple="true"
+              bindLabel="name"
+              bindValue="_id"
+              [(ngModel)]="selectCategories"
+              placeholder="seleccionar Categorias"
+            >
+            </ng-select>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ "REFERRED.STATUS" | translate }}</label>
+            <ng-select
+              [items]="statusArray"
+              bindLabel="name"
+              [searchable]="false"
+              [clearable]="false"
+              formControlName="status"
+              bindValue="value"
+              [(ngModel)]="ngSelectStatus"
+              placeholder="Seleccionar Estado"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ "COMMENTS.CALIFICATION" | translate }}</label>
+            <ng-select
+              [items]="calificactionArray"
+              [searchable]="false"
+              [clearable]="false"
+              formControlName="vote"
+              [(ngModel)]="ngSelectVote"
+              placeholder="Seleccionar calificación"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ "COMMENTS.CONTENT" | translate }}</label>
+            <app-text-rich
+              class="row"
+              formControlName="content"
+              [isFull]="false"
+              [cancelBtn]="false"
+            ></app-text-rich>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group custom-item">
+            <label>{{ "TOUR.INCLUDES.IMAGE" | translate }}</label>
+            <app-drop-gallery
+              [multiple]="false"
+              [activeAuxArray]="true"
+              [removeMargin]="true"
+              [singleFile]="true"
+            ></app-drop-gallery>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- ***************** FIN TEMPLATE ************** -->
+<ng-template #loadingAll let-loading="loading">
+  <div *ngIf="loading" class="w-100 text-center h-100 loading-wrapper">
+    <div class="in">
+      <img
+        [width]="'5rem'"
+        src="../../../../../assets/images/loading-svg.svg"
+        alt="loading"
+      />
+    </div>
+  </div>
+</ng-template>

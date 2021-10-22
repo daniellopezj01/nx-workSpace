@@ -1,0 +1,210 @@
+<app-loading [loading]="loading"></app-loading>
+
+<mat-tab-group
+  selectedIndex="0"
+  animationDuration="350ms"
+  color="accent"
+  disableRipple
+  class="w-100"
+  *ngIf="!loading"
+>
+  <!-- ************  TAB FORM DETAIL ************-->
+  <mat-tab [label]="'TOUR.TABS.GENERAL' | translate">
+    <app-form-tour
+      [data]="tour"
+      [activeUpdate]="true"
+      [activeDelete]="true"
+      class="col-12 row m-0 pl-1 pr-1 pt-2"
+    ></app-form-tour>
+  </mat-tab>
+  <!-- ************  TAB ITINERARY ************-->
+  <mat-tab [label]="'TOUR.TABS.ITINERARY' | translate">
+    <div class="">
+      <form class="">
+        <div class="text-right w-100 mb-3">
+          <app-section-btn
+            classCustom="custom-align pb-0"
+            [options]="['add']"
+            (cbAdd)="openModalSave('itinerary')"
+            [valid]="media.files.length"
+          ></app-section-btn>
+        </div>
+        <div class="custom-card-style pl-0 pr-0 mt-2 flex-wrap d-flex">
+          <ng-container
+            *ngTemplateOutlet="
+              emptyRef;
+              context: { data: tour?.itinerary, modal: 'itinerary' }
+            "
+          ></ng-container>
+          <app-itinerary [data]="tour?.itinerary"></app-itinerary>
+        </div>
+      </form>
+    </div>
+  </mat-tab>
+  <!-- ************  TAB INCLUDE ************-->
+  <mat-tab [label]="'TOUR.TABS.INCLUDE' | translate">
+    <div class="">
+      <form class="">
+        <div class="text-right w-100 mb-3">
+          <app-section-btn
+            classCustom="custom-align pb-0"
+            [options]="['add']"
+            (cbAdd)="openModalSave('included')"
+            [valid]="media.files.length"
+          ></app-section-btn>
+        </div>
+        <div class="custom-card-style pl-0 pr-0 mt-2 flex-wrap d-flex">
+          <ng-container
+            *ngTemplateOutlet="
+              emptyRef;
+              context: { data: tour?.included, modal: 'included' }
+            "
+          ></ng-container>
+          <app-included [data]="tour"></app-included>
+        </div>
+      </form>
+    </div>
+  </mat-tab>
+  <!-- ************  TAB NOT_INCLUDE ************-->
+  <mat-tab [label]="'TOUR.TABS.NOT_INCLUDE' | translate">
+    <div class="">
+      <form class="">
+        <div class="text-right w-100 mb-3">
+          <app-section-btn
+            classCustom="custom-align pb-0"
+            [options]="['add']"
+            (cbAdd)="openModalSave('notIncluded')"
+            [valid]="media.files.length"
+          ></app-section-btn>
+        </div>
+        <div class="custom-card-style pl-0 pr-0 mt-2 flex-wrap d-flex">
+          <ng-container
+            *ngTemplateOutlet="
+              emptyRef;
+              context: { data: tour?.notIncluded, modal: 'notIncluded' }
+            "
+          ></ng-container>
+          <app-not-included [data]="tour"></app-not-included>
+        </div>
+      </form>
+    </div>
+  </mat-tab>
+  <!-- ************  TAB DEPARTURES ************-->
+  <mat-tab [label]="'TOUR.TABS.DEPARTURES' | translate">
+    <div class="col-12 row m-0 pl-1 pr-1 pt-2">
+      <form class="form-product w-100 flex-wrap d-flex">
+        <div class="text-right w-100 mb-3">
+          <app-section-btn
+            classCustom="custom-align pb-0"
+            [options]="['add']"
+            (cbAdd)="openModalSave('departure')"
+            [valid]="media.files.length"
+          ></app-section-btn>
+        </div>
+        <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+          <div class="col-12 p-0">
+            <ng-container *ngTemplateOutlet="departuresTemplate"></ng-container>
+          </div>
+        </div>
+      </form>
+    </div>
+  </mat-tab>
+  <!-- ************  TAB GALLERY ************-->
+  <mat-tab [label]="'TOUR.TABS.GALERY' | translate">
+    <ng-container *ngTemplateOutlet="galleryTemplate"></ng-container>
+  </mat-tab>
+  <!-- ************  TAB FAQ ************-->
+  <mat-tab [label]="'TOUR.TABS.FAQ' | translate">
+    <div class="">
+      <form class="">
+        <div class="text-right w-100 mb-3">
+          <app-section-btn
+            classCustom="custom-align pb-0"
+            [options]="['add']"
+            (cbAdd)="openModalSave('faq')"
+          ></app-section-btn>
+        </div>
+        <div class="custom-card-style pl-0 pr-0 mt-2 flex-wrap d-flex">
+          <ng-container
+            *ngTemplateOutlet="
+              emptyRef;
+              context: { data: tour?.faq, modal: 'faq' }
+            "
+          ></ng-container>
+          <app-faq [data]="tour"></app-faq>
+        </div>
+      </form>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+<ng-template #includeTemplate let-type="type">
+  <ng-container
+    *ngTemplateOutlet="
+      emptyRef;
+      context: {
+        data: getPropertyObjectTour(type),
+        modal: type
+      }
+    "
+  ></ng-container>
+  <ng-container
+    *ngIf="type ? tour?.included?.length : tour?.notIncluded?.length"
+  >
+    <div class="col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <app-card-included
+          [item]="include"
+          [tour]="tour"
+          [type]="type"
+          class="row d-flex justify-content-between items-departures pt-3 pb-3 pl-2"
+          *ngFor="let include of getPropertyObjectTour(type); let i = index"
+        ></app-card-included>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #departuresTemplate>
+  <ng-container
+    *ngTemplateOutlet="
+      emptyRef;
+      context: { data: tour?.departures, modal: 'departure' }
+    "
+  ></ng-container>
+  <ng-container *ngIf="tour?.departures?.length">
+    <div class="col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <app-card-departures
+          [departure]="departure"
+          [tour]="tour"
+          [index]="i"
+          class="row d-flex justify-content-between items-departures pt-3 pb-3 pl-2"
+          *ngFor="let departure of tour?.departures; let i = index"
+        ></app-card-departures>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #galleryTemplate>
+  <app-manager-gallery
+    [id]="id"
+    [tour]="tour"
+    *ngIf="tour?._id"
+  ></app-manager-gallery>
+</ng-template>
+
+<!--- ******************* LOADING REF *********************** -->
+
+<!--- ******************* EMPTY REF *********************** -->
+<ng-template #emptyRef let-data="data" let-modal="modal">
+  <div
+    *ngIf="!data?.length"
+    class="w-100 text-center d-flex justify-content-center align-items-center align-content-center p-3"
+  >
+    <button (click)="openModalSave(modal)" class="btn btn-default">
+      {{ "GENERAL.ADD" | translate }}
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,692 @@
+{
+  "GENERAL": {
+    "ROTATE": "Gira tu dispositivo",
+    "LIMIT_ACCOUNT": "Tu membresía ha experido, recuerda activar tu cuenta aquí.",
+    "VIEW_MORE": "Ver más",
+    "NEXT_PAGINATE": "Siguiente",
+    "PREV_PAGINATE": "Anterior",
+    "ERROR_404": "Lo sentimos esta pagina no existe, o estamos trabajando en ella",
+    "CURRENCY": " ",
+    "SHARED": "Compartir",
+    "MORE_OPTIONS": "Más opciones",
+    "CURRENCY_SYMBOL": "",
+    "ERROR_FIELD_REQUIRED": "Campo Requerido",
+    "GO_HOME": "Volver a inicio",
+    "SAVE": "Guardar",
+    "UPDATE": "Actualizar",
+    "FIND": "Buscar",
+    "LOADING": "Cargando información...",
+    "LOADING_SINGLE": "Cargando",
+    "LIST": "Lista",
+    "ADD": "Agregar",
+    "TOTAL": "Total",
+    "PROVIDER": "Proveedor",
+    "DOWNLOAD": "Descargar",
+    "DELETE": "Eliminar",
+    "SEND": "Enviar",
+    "EDIT": "Modificar",
+    "EMPTY": "Sin resultados",
+    "UPGRADE": "Proximamente",
+    "DROP": "Arrastra y suelta las imagenes",
+    "SELECT_VIDEO": "Arrastra y suelta el video de Perfil",
+    "FILES_ALLOW": "Formatos permitidos .jpg .jpeg .png",
+    "FILES_ALLOW_VIDEO": "Formatos permitidos .mp4",
+    "NOT_ALLOWED": "No tienes permisos",
+    "ERROR_CODE": "Código",
+    "ERROR": "¡Algo sucedio!",
+    "ERROR_MORE": "Estamos trabajando para mejorar",
+    "QTY": "Cantidad",
+    "CANCEL": "Cancelar",
+    "PRICES": "Precio",
+    "ERROR_MESSAGE": "Mensaje",
+    "ARE_YOU_SURE": "¿Estas seguro?",
+    "ARE_YOU_SURE_SENTENCE": "Los cambios no pueden revertirse",
+    "OK": "OK",
+    "ANY_ISSUE": "¿Algun problema? Contactanos",
+    "BETA_TITLE": "Versión Beta",
+    "NOTICE_BETA": "Actualmente estás participando en una versión de prueba.",
+    "SUB_NOTICE_BETA": "Gracias por participar",
+    "OR": "ó",
+    "ACCEPT": "Entendido",
+    "SENDING": "Enviando..."
+  },
+  "WIZARD": {
+    "FORM": {
+      "DRAG_ZONE": "Subir logo",
+      "COMPANY": "Nombre de empresa",
+      "COMPANY_PLACEHOLDER": "Ingresa el nombre de tu empresa",
+      "LOGO": "Logo",
+      "LOGO_PLACEHOLDER": "Formatos permitidos .jpg, .jpeg, .png",
+      "CURRENCY": "Divisa",
+      "CURRENCY_SYMBOL": "Simbolo de divisa",
+      "CURRENCY_SYMBOL_PLACEHOLDER": "Dejar vacio de no tener. Ejemplo $, €",
+      "CURRENCY_PLACEHOLDER": "Ingresa la nomenclatura de tu divisa, Ejemplo: (MXN, EUR, USD)"
+    },
+    "TITLE": "Configuración rápida",
+    "CONTENT": "Nuestro asistente te guiará para la configuración rápida de tu panel. Solo tomará 1 minuto"
+  },
+  "HOME": {},
+  "CUSTOM_CARD": {
+    "BOOKING": "Booking",
+    "PRODUCT": "Producto",
+    "ACCOMMODATION": "Vivienda",
+    "CHECK_LIST": "Check List",
+    "ATTRIBUTES": "Atributos",
+    "VIEW_MAP": "Ver mapa"
+  },
+  "LOGIN": {
+    "WELCOME": "Bienvenido",
+    "SUB_TITLE": "Mantén a tu equipo coordinado sin importar dónde estés",
+    "RECOVER": {
+      "TITLE": "Recuperar Contraseña",
+      "SEND_RECOVERY": "¡Hecho, <br> instrucciones enviadas!",
+      "SEND_RECOVERY_SUB": "Revisa tu correo electrónico y sigue las instrucciones."
+    },
+    "RESET": {
+      "TITLE": "Crear contraseña"
+    },
+    "REGISTER": {
+      "GET_START": "Prepárese para comenzar"
+    },
+    "FORM": {
+      "NAME": "Nombre",
+      "NAME_PLACEHOLDER": "Ingresa nombre ",
+      "EMAIL": "Email",
+      "EMAIL_PLACEHOLDER": "Ingresa el email que tienes registrado",
+      "PHONE": "Teléfono",
+      "PHONE_PLACEHOLDER": "Ingresa teléfono incluyendo prefijo de país",
+      "PASSWORD": "Contraseña",
+      "PASSWORD_PLACEHOLDER": "Ingresa tu contraseña, mantén en un lugar seguro tus accesos",
+      "REPEAT_PASSWORD": "Repetir Contraseña",
+      "REPEAT_PASSWORD_PLACEHOLDER": "Repite tu contraseña.",
+      "PASSWORD_HELP": "Tu contraseña debe tener entre 6 y 20 caracteres, contener letras y números, y no debe contener espacios, caracteres especiales o emoji.",
+      "SEND": "Ingresar",
+      "SIGN_IN": "Iniciar sesion",
+      "RECOVER": "Recuperar",
+      "REGISTER": "Registrarse",
+      "PASS": "¿Olvidé mi contraseña?",
+      "REGISTER_PLACEHOLDER": "¿No tienes una cuenta?",
+      "ALREADY_ACCOUNT": "¿Ya tienes una cuenta?"
+    },
+    "BTN_GOOGLE": "Google",
+    "BTN_FACEBOOK": "Facebook",
+    "BTN_SLACK": "Slack",
+    "BTN_LINKEDIN": "Linkedin",
+    "ERRORS": {
+      "USER_DOES_NOT_EXIST": {
+        "TOAST": {
+          "TITLE": "USUARIO NO ENCONTRADO",
+          "TEXT": "El usuario no se encontró en nuestros registros"
+        }
+      }
+    }
+  },
+  "PRODUCT": {
+    "NAME": "Nombre de producto",
+    "PROVIDER": "Proveedor",
+    "SKU": "SKU",
+    "DEPOSIT": "Deposito",
+    "CATEGORIES": "Categorias",
+    "PRICES": "Precios",
+    "TAG": "Etiquetas",
+    "ADD": "Agregar",
+    "AUTHOR": "Subida por",
+    "DESCRIPTION": "Descripcion"
+  },
+  "BOARDS": {
+    "OPTIONS": {
+      "USER_ASSIGNED": "Asignar usuario"
+    },
+    "NOT_TASK": "Agrega tickets",
+    "SEARCH_USER": "Buscar usuario",
+    "SEARCH_USER_PLACEHOLDER": "Tip: Busca por nombre o email",
+    "TOAST": {
+      "TITLE": "TABLERO ACTUALIZADO",
+      "TEXT": "El tablero se actualizo correctamente"
+    }
+  },
+  "PURCHASE": {
+    "CUSTOMER": "Cliente",
+    "SEARCH_PRODUCT": "Escribe...",
+    "ADDRESS": "Dirección de envio",
+    "DELIVERY_TYPE": "Envio",
+    "STATUS": "Estatus",
+    "TAG": "Etiquetas",
+    "ADD": "Agregar",
+    "AUTHOR": "Subida por",
+    "DESCRIPTION": "Descripcion",
+    "TITLE": "Pedido",
+    "TAB": "Detalles",
+    "TOTAL": "TOTAL",
+    "DATE": "Fecha",
+    "ITEM": "Articulo",
+    "PRICE": "Precio",
+    "QTY": "Cantidad",
+    "ADD_PRODUCT": "Agregar producto",
+    "ADD_PRODUCT_PLACEHOLDER": "Haz clik para comenzar agregar articulos al pedido"
+  },
+  "PROVIDER": {
+    "NEW_PROVIDER": "Crear proveedor",
+    "SEARCH_PRODUCT": "Escribe...",
+    "NAME": "Nombre de empresa",
+    "ADDRESS": "Dirección de empresa",
+    "EMAIL": "Email de empresa",
+    "PHONE": "Teléfono de empresa",
+    "DESCRIPTION": "Observación",
+    "MANAGER": "Persona de contacto",
+    "TAG": "Etiquetas",
+    "ADD": "Agregar"
+  },
+  "DEPOSITS": {
+    "SEARCH_PRODUCT": "Escribe...",
+    "NEW_DEPOSITS": "Crear deposito",
+    "NAME": "Nombre de deposito",
+    "ADDRESS": "Dirección de deposito",
+    "EMAIL": "Email de deposito",
+    "PHONE": "Teléfono de deposito",
+    "DESCRIPTION": "Observación",
+    "MANAGER": "Encargado",
+    "TAG": "Etiquetas",
+    "ADD": "Agregar"
+  },
+  "INVENTORY": {
+    "SEARCH_PRODUCT": "Escribe el producto...",
+    "PRODUCT": "Producto",
+    "PROVIDER": "Proveedor",
+    "QTY": "Inventario",
+    "PRICE_BASE": "Precio costo",
+    "DEPOSIT": "Deposito",
+    "DESCRIPTION": "Observación",
+    "TAG": "Etiquetas"
+  },
+  "COPILOT": {
+    "SKIP": "Saltar",
+    "OK": "Entendido",
+    "SWIPE_LEFT_LIST_ITEM": "Desliza hacia la izquierda los elementos de la lista, para acceder a más opciones",
+    "SECTION_BTN": {
+      "ADD": "Agregar un nuevo registro",
+      "LIST": "Pudes ver todos los registros guardados haciendo click en el boton de 'Lista'",
+      "TRASH": "Borra facilmente, desde aquí",
+      "SAVE": "¡No olvides guardar! El icono en <span class='badge badge-danger'>rojo</span> indica que falta algun campo requerido."
+    }
+  },
+  "SEARCH": {
+    "USERS": "Usuarios",
+    "PRODUCTS": "Productos",
+    "DEPOSITS": "Depositos",
+    "PURCHASES": {
+      "TITLE": "Pedidos",
+      "DATE": "Fecha",
+      "CONTROL": "Número de pedido"
+    },
+    "PROVIDERS": "Proveedores",
+    "OPTIONS": {
+      "EXPORT": "Exportar",
+      "EXPORT_EXCEL": "Exportar excel",
+      "DOWNLOAD": "Descargar",
+      "TOTAL_DOCS": "Total"
+    }
+  },
+  "SIDE_BAR": {
+    "HOME": "Inicio",
+    "COPILOT_TASK_ONE": {
+      "TITLE": "\uD83D\uDCC5 Tareas",
+      "TEXT": "Encuentra todas las tareas en las que participas, vigilas o realizas. Puedes filtrar por fecha, estatus y mucho más."
+    },
+    "COPILOT_TASK_TWO": {
+      "TITLE": "\uD83D\uDCDD Crear tarea",
+      "TEXT": "Puedes crear y asignar a una persona, agregar múltiples supervisores, categoría, tags y más. Adjunta documentos, fotos entre otros."
+    },
+    "COPILOT_TASK_THREE": {
+      "TITLE": "\uD83D\uDD0D Buscar",
+      "TEXT": "Encuentra de todo, desde un título, descripción, comentario, tag y más."
+    },
+    "COPILOT_TASK_FOUR": {
+      "TITLE": "\uD83D\uDD14 Notificaciones",
+      "TEXT": "Te notificamos cuando tienes un nuevo ticket, comentarios, novedades y más."
+    },
+    "COPILOT_TASK_FIVE": {
+      "TITLE": "⛏ Flujos",
+      "TEXT": "Diseña flujos de comportamiento relacionados con un ticket. De esta forma puedes automatizar a tu gusto las acciones"
+    },
+    "COPILOT_TASK_SIX": {
+      "TITLE": "\uD83D\uDC4D Usuarios",
+      "TEXT": "Encuentra y lista todos los usuarios del sistema"
+    },
+    "TOURS": "Viajes",
+    "NOTIFICATIONS": "Notificaciones",
+    "FIND": "Buscar",
+    "RESERVATION": "Reservaciones",
+    "MAP": "Mapa",
+    "ANALYTICS": "Estadisticas",
+    "MOVEMENTS": "Movimientos",
+    "USERS": "Usuarios",
+    "SUPPORT": "Tickets",
+    "REFERREALS": "Referidos",
+    "COMMENTS": "Comentarios",
+    "TYPE_REFERREALS": "Plan Referido"
+  },
+  "NOTIFICATIONS": {
+    "TITLE": "Notificaciones",
+    "EMPTY": "No tienes notificaciones",
+    "NEW_PURCHASE": "Nuevo pedido",
+    "TEXT_NEW_PURCHASE": "realizó un pedido"
+  },
+  "TASK": {
+    "DATE_PICKER": {
+      "RANGE": "Finaliza",
+      "TIME": "Hora",
+      "CLEAR": "Limpiar"
+    },
+    "SEARCH_PRODUCT": "Buscar o agregar",
+    "TASKS": "Tareas",
+    "NOT_BINNACLE": "No existen registros",
+    "BTN_TRASH": "Remover",
+    "SORT_BY_DATE_LAST": "Fecha reciente",
+    "SORT_BY_DATE_FIRST": "Fecha anterior",
+    "TITLE": "Nueva tarea",
+    "HELP_TITLE": "¿Cuál es tu nueva tarea?",
+    "EXAMPLE_TITLE": "Ejemplo: Se debe realizar un checkin",
+    "PENDING": "Pendientes",
+    "RUNNING": "En curso",
+    "ADD_MEMBERS": "Agregar miembros",
+    "ADD_FIELD": "Agregar campo",
+    "ADD_TAGS": "Agregar tags",
+    "TASK_COUNTS": "tareas encontrados",
+    "NOT_TASK": "No tienes tareas pendientes. <br> ¡Muy bien!",
+    "LOADING_TASK": "Cargando tareas",
+    "NOT_TASK_DEVELOPING": "Inicia un ticket arrastrandolo a esta zona",
+    "NOT_COMMENTS": "Sin comentarios",
+    "ASSIGNED": "Asginado a",
+    "CATEGORY": "Categoria",
+    "CREATED_BY": "Creado por",
+    "RANGE_DATE": "Antes de",
+    "WRITE": "Añade una descripción mas detallada",
+    "TIME_END": "Fecha establecida ha expirado",
+    "DESCRIPTION": "Descripción",
+    "ATTACHMENTS": "Adjuntos",
+    "SEEN_BY": "Visto por",
+    "TAGS": "Tags",
+    "FLOWCHART": "Flujos",
+    "FLOWCHART_APPLY": "Se aplico un flujo",
+    "pending": "Pendiente",
+    "developing": "En curso",
+    "completed": "Realizada",
+    "COMMENT": "Comentar",
+    "NEW": "Nueva tarea",
+    "EDIT": "Editar",
+    "DELETE": "Borrar",
+    "UPDATE": "Actualizar",
+    "SEND": "Enviar",
+    "START_AT": "Comienza",
+    "END_AT": "Finaliza",
+    "BACK": "Volver",
+    "BINNACLE": "Historial",
+    "MORE": "Más",
+    "TOAST": {
+      "TITLE": "Ticket agregado",
+      "TEXT": "El ticket se agregó de forma correcta"
+    }
+  },
+  "EXPORT_TASK": {
+    "TOAST": {
+      "TITLE": "Informe generado",
+      "TEXT": "La información solicitada se ha enviado a tu email"
+    }
+  },
+  "UPDATE_TASK": {
+    "TOAST": {
+      "TITLE": "Ticket actualizado",
+      "TEXT": "El ticket se actualizó de forma correcta"
+    }
+  },
+  "FILTER": {
+    "SHOULD_START_AT": "fecha",
+    "pending": "Pendientes",
+    "developing": "En curso",
+    "completed": "Completadas",
+    "userCreator": "Mis creados",
+    "assigned": "Mis asignados"
+  },
+  "FLOWCHART": {
+    "ASSIGNED": "Asginado a",
+    "LOGIC": "Completa la frase",
+    "ASSIGN_USER": "Asignar Usuario",
+    "ADD_USER": "Añadir Usuarios",
+    "ADD_TAGS": "Añadir Tags",
+    "UPDATE_INFO": "Actualizar Info",
+    "TITLE": "Nombre de flujo",
+    "NOT_FLOWS": "No tienes flujos de datos creados"
+  },
+  "UPGRADE": {
+    "TITLE": "Actualización disponible",
+    "UPGRADE_OK": "Actualizar",
+    "CONTENT": " <p>Actualizaciones disponibles las cuales mejoraran tu experiencia de usuario y performance de la app. Para aplicar estas actualizaciones solo debes hacer click o esperar unos segundos.</p><p>Si tienes algún problema puedes enviarnos un <a href='#'>ticket</a> en el apartado</p>"
+  },
+  "ERRORS": {
+    "UNDEFINED": {
+      "TITLE": "ALGO OCURRIÓ",
+      "TEXT": "Ocurrió un problema no esperado. Estamos notificando al administrador."
+    },
+    "UNAUTHORIZED": {
+      "TITLE": "NO AUTORIZADO",
+      "TEXT": "El usuario no tiene los permisos necesarios para hacer uso del módulo"
+    },
+    "USER_DOES_NOT_EXIST": {
+      "TITLE": "USUARIO NO ENCONTRADO",
+      "TEXT": "El usuario no se encontró en nuestros registros"
+    },
+    "WRONG_PASSWORD": {
+      "TITLE": "CONTRASEÑA INCORRECTA",
+      "TEXT": "El correo electronico o contraseña son incorrectos. Vuelve a intentarlo"
+    },
+    "EMAIL_ALREADY_EXISTS": {
+      "TITLE": "CORREO YA EXISTE",
+      "TEXT": "Estás intentando usar un correo ya existente, procura usar otro o recuperar tu contraseña"
+    },
+    "CHECK_PENDING": {
+      "TITLE": "Rol en revisión",
+      "TEXT": "El Administrador asignara el rol."
+    }
+  },
+  "COPY_CLIPBOARD": {
+    "TOAST": {
+      "TITLE": "Elemento copiado",
+      "TEXT": "Se ha copiado en el portapapeles con éxito"
+    }
+  },
+  "TOUR": {
+    "TITLE_ADD": "Agregar Tour",
+    "TITLE": "Titulo",
+    "GO_TO_TOUR": "Ir al Tour",
+    "SUBTITLE": "Subtitulo",
+    "ROUTE": "Ruta",
+    "AGENCY": "Agencia",
+    "PAYMENT_DIRECTION": "Dirección de  Pago",
+    "DURATION": "Duracion (Dias)",
+    "COUNTRIES": "Paises",
+    "CITIES": "Ciudades",
+    "DESCRIPTION": "Description",
+    "SPECIAL_INFORMATION": "Informacion Especial",
+    "CATEGORIES": "Categorias",
+    "ADD": "Agregar",
+    "MANAGER": "Encargado",
+    "STATUS": "Estado",
+    "TAGS": "Tags",
+    "ADD_TAG": "Agregar Tag:",
+    "INCLUDES": {
+      "IMAGE": "Imagen",
+      "NEW_INCLUDE": "Nuevo Incluye",
+      "UPDATE_INCLUDE": "Actualizar Incluye",
+      "NEW_NOT_INCLUDE": "Nuevo No Incluye",
+      "UPDATE_NOT_INCLUDE": "Actualizar No Incluye",
+      "NEW_FAQ": "Nuevo Faq",
+      "UPDATE_FAQ": "Actualizar Faq",
+      "STAND_OUT": "Destacar",
+      "IS_STAND_OUT": "Es destacado"
+    },
+    "TABS": {
+      "GENERAL": "General",
+      "ITINERARY": "Itinerarios",
+      "PLACES": "Lugares",
+      "CONTINENTS": "Continentes",
+      "LENGUAGES": "Idiomas",
+      "CITIES": "Lugares",
+      "DEPARTURES": "Salidas",
+      "GALERY": "Galeria",
+      "FAQ": "FAQ",
+      "ACTIVITIES": "Actividades",
+      "INCLUDE": "Incluye",
+      "NOT_INCLUDE": "No Incluye"
+    },
+    "ITINERARY": {
+      "MAIN_TITLE": "Nuevo itinerario",
+      "UPDATE_TITLE": "Actualizar itinerario",
+      "TITLE": "Titulo",
+      "INCLUDED_IN_MAP": "Incluir en mapa",
+      "CYTY": "Ciudad",
+      "ADD_ACTIVITY": "Agregar Actividad",
+      "ACTIVITY": {
+        "TITLE": "Titulo Actividad",
+        "DESCRIPTION": "Descripcion Actividad",
+        "ADD_ACTIVITY": "Nueva Actividad",
+        "UPDATE_ACTIVITY": "Actualizar Actividad",
+        "AS_NIGHT": "Contar como Noche",
+        "NIGHT": "Noche"
+      }
+    },
+    "DEPARTURE": {
+      "GENERAL": "General",
+      "INFO_TO_RESERVATION": "Info en Reservación",
+      "MAIN_TITLE": "Nueva Salida",
+      "UPDATE_TITLE": "Actualizar Salida",
+      "START_DATE": "Fecha de Inicio",
+      "END_DATE": "Fecha de Fin",
+      "CLOSE_DATE": "Fecha de Cierre",
+      "NORMAL_PRICE": "Precio Normal",
+      "SPECIAL_PRICE": "Precio Especial",
+      "WITH_FLIGHT": "Incluye Vuelo",
+      "CURRENT_CURRENCIES": "Almancenar divisas Actuales",
+      "UPDATE_CURRENT_CURRENCIES": "Reemplazar divisas ",
+      "CURRENT_CURRENCIES_TOOLTIP": "Vincular las divisas actuales del sistema a la salida del tour",
+      "UPDATE_CURRENT_CURRENCIES_TOOLTIP": "las divisas relacionadas con la salida tour seran reemplazadas por los valores actuales del sistema ",
+      "IS_VISIBLE": "Es visible",
+      "MIN_STOCK": "Cupo Minimo",
+      "STOCK": "Cupo Maximo",
+      "MIN_AGE": "Edad minima (Años)",
+      "MAX_AGE": "Edad maxima (Años)",
+      "PAYMENT_PORCENTAGE": "Porcentajes de Pago",
+      "PAY_AMOUNT": {
+        "UPDATE": "Actualizar Opcion de Pago",
+        "INSERT": "Insertar Opcion de Pago",
+        "PAY_PERCENTAGE": "Porcentaje de pago (%)",
+        "DISCOUNT_TYPE": "Tipo de descuento",
+        "AMOUNT_DISCOUNT": "Monto a descontar (USD)",
+        "PERCENTAGE_DISCOUNT": "Porcentaje a descontar (%)",
+        "BEGIN_DATE": "Fecha activacion",
+        "END_DATE": "Fecha desactivacion",
+        "IS_ACOMULATIVE": "¿Es Acomulativo?",
+        "P_HDR_PAY_PERCENTAGE": "Escribir Porcentaje de Pago",
+        "P_HDR_BUY_PERCENTAGE": "Seleccionar Porcentage de descuento",
+        "P_HDR_TYPE": "Seleccionar Tipo de descuento",
+        "P_HDR_DISCOUNT_PERCENTAGE": "Escribir Porcentaje a descontar",
+        "P_HDR_DISCOUNT_AMOUNT": "Escribir Monto a descontar",
+        "P_HDR_BEGIN_DATE": "Seleccionar Fecha activacion",
+        "P_HDR_END_DATE": "Seleccionar Fecha desactivacion"
+      },
+      "CARD": {
+        "DATES": "Fechas",
+        "START_DATE": "Inicio",
+        "END_DATE": "Fin",
+        "CLOSE_DATE": "Cierre",
+        "TRAVELERS": "Viajeros: ",
+        "AGES": "Edades: ",
+        "MAX": "minimos",
+        "MIN": "Maximos",
+        "YEARS": " Años",
+        "PRICE": "precio"
+      },
+      "TABLE": {
+        "DISCOUNT": "Descuento",
+        "DISCOUNT_TYPE": "tipo de descuento",
+        "DISCOUNT_AMOUNT": "Valor a descontar",
+        "START_DATE": "Fecha inicio",
+        "END_DATE": "Fecha Final",
+        "STACKABLE": "Acomulable",
+        "IS_STACKABLE": "Acomulable",
+        "NOT_STACKABLE": "No Acomulable",
+        "UPDATE": "Actualizar",
+        "DELETE": "Eliminar",
+        "NOT_APPLY": "No aplica"
+      }
+    }
+  },
+  "RESERVATION": {
+    "TITLE_ADD": "Agregar Reservacion",
+    "TABS": {
+      "GENERAL": "General",
+      "EMERGENCY": "Emergencia",
+      "BUYER": "Facturacion",
+      "MOVEMENTS": "Movimientos",
+      "PASSPORT": "Pasaporte"
+    },
+    "BUYER_DATA": "Datos de Facturacion",
+    "EMERGENCY_DATA": "Datos de Emergencia",
+    "TRANSACTIONS": "Transacciones",
+    "AMOUNT": "Monto",
+    "STATUS": "Estado",
+    "CODE": "Código",
+    "DATE": "Fecha",
+    "PLATFORM": "Plataform",
+    "DESCRIPTION": "Descripcion",
+    "ADD_TRANSACTION": "Agregar transaccion",
+    "BALANCE": "Balance",
+    "NOT_TRANSACTIONS": "No hay transacciones",
+    "DOWNLOAD": "descargar",
+    "EMPTY_PASSPORT": "El usuario no ha cargado su pasaporte de viaje.",
+    "PENDING": "Valor pendiente: ",
+    "PAID": "Valor Pagado: ",
+    "TOTAL": "Valor Total:",
+    "TRAVELER_INFO": "Informacion Viajero",
+    "GENERAL_INFO": "Informacion General",
+    "FORM_ADD": {
+      "CLIENT": "Cliente",
+      "TOUR": "Tour",
+      "DEPARTURE": "Salida",
+      "NAME": "Nombre",
+      "SURNAME": "Apellido",
+      "DOCUMENT": "Documento",
+      "BIRTH_DATE": "Fecha de Nacimiento",
+      "GENDER": "Genero",
+      "EMAIL": "Email",
+      "PHONE": "Telefono",
+      "COUNTRY": "Pais",
+      "CITY": "Ciudad",
+      "ADDRESS": "Direccion",
+      "STATUS": "Estado"
+    }
+  },
+  "MOVEMENTS": {
+    "NEW": "Nueva Operacion",
+    "UPDATE": "Actualizar Operacion",
+    "TYPE": "Tipo de Operacion",
+    "SELECT_TYPE": "Seleccionar Tipo de Operacion",
+    "RESERVATION": "Reservacion",
+    "CLIENT": "Cliente",
+    "SEARCH_CLIENT": "Buscar Cliente",
+    "SEARCH_RESERVATION": "Buscar Reservacion",
+    "DESCRIPTION": "Descripcion",
+    "ID_OPERATION": "Id Operacion",
+    "AMOUNT": "Monto",
+    "PLATFORM": "Plataforma"
+  },
+  "SUPPORT": {
+    "TABS": {
+      "GENERAL": "General",
+      "CONVERSATION": "Conversación"
+    },
+    "CODE_TICKET": "Codigo de Soporte: ",
+    "TICKET_INFO": "Informacion de Conversación",
+    "CODE_RESERVATION": "Codigo de Reservacion:",
+    "STATUS": "Estado:",
+    "TOUR": "Tour:",
+    "START_DATE": "Salida:",
+    "TRAVELER_INFO": "Informacion del Viajero",
+    "TRAVELER": " Viajero:",
+    "EMAIL": "Correo Electronicó:"
+  },
+  "USER": {
+    "TITLE_ADD": "Agregar Usuario",
+    "NAME": "Nombre",
+    "LAST_NAME": "Apellido",
+    "EMAIL": "Email",
+    "NIE": "Numero de identificacion",
+    "TABS": {
+      "GENERAL": "General",
+      "LOCATION": "Ubicacion",
+      "SECURITY": "Seguridad",
+      "GALERY": "Galeria",
+      "REFERRED": "Rederidos",
+      "WALLET": "Monedero"
+    },
+    "FORM_LOCATION": {
+      "COUNTRY": "Pais",
+      "CITY": "Ciudad",
+      "ADDRESS": "Direccion"
+    },
+    "NOT_MATCH": "Contraseñas no coinciden",
+    "STATUS": "Estado",
+    "PHONE": "Teléfono",
+    "AVATAR": "Avatar",
+    "ADDRESS": "Direccion",
+    "BIRTH_DATE": "Fecha de Nacimiento",
+    "ROL": "Rol",
+    "DESCRIPTION": "Observación",
+    "MANAGER": "Encargado",
+    "PASSWORD": "Contraseña",
+    "TAG": "Etiquetas",
+    "ADD": "Agregar",
+    "NEW_PASSWORD": "Nueva Contraseña",
+    "CONFIRM_PASSWORD": "Confirmar Contraseña",
+    "WALLET": {
+      "TITLE": "Monedero electrónico",
+      "KEY_DATE": "Fecha",
+      "KEY_DESCRIPTION": "Descripción",
+      "KEY_AMOUNT": "Cantidad",
+      "KEY_PLATFORM": "Plataforma",
+      "KEY_STATUS": "Estado",
+      "KEY_CODE": "Codigo",
+      "NOT_TRANSACTIONS": "El usuario no tiene pagos registrados"
+    },
+    "TYPE_REFERREALS": {
+      "TITLE": "Plan referido",
+      "LIST_REFERREALS": "Lista de referidos",
+      "LIST_USER": "Usuarios Vinculados",
+      "NOT_LINKING_REFERREALS": "El usuario no tiene referidos vinculados",
+      "STATUS_WAIT": "Esperando",
+      "STATUS_SUCCESS": "Completado",
+      "STATUS_WAIT_TOOLTIP": "Esperando que realice una reserva",
+      "STATUS_SUCCESS_TOOLTIP": "El  referido ha reservado!",
+      "TABLE": {
+        "CODE": "Codigo",
+        "USER": "Usuario",
+        "PLAN": "Plan",
+        "RECEIVE_AMOUN": "Monto recibido",
+        "SEND_AMOUNT": "Monto enviado",
+        "STATUS": "estado",
+        "DATE": "Fecha"
+      }
+    }
+  },
+  "REFERRED": {
+    "TITLE_ADD": "Agregar Referido",
+    "CLIENT_FROM": "Usuario Referidor",
+    "CLIENT_TO": "Usuario a Referir",
+    "STATUS": "Estado",
+    "PLAN": "Plan",
+    "AMOUNT_FROM": "Monto para Referidor USD",
+    "AMOUNT_TO": "Monto para Referido USD"
+  },
+  "COMMENTS": {
+    "TITLE_ADD": "Agregar Comentario",
+    "AUTOR": "Autor",
+    "CONTENT": "Contenido",
+    "STATUS": "Estado",
+    "CALIFICATION": "Calificación"
+  },
+  "TYPE_REFERREALS": {
+    "REFERRER": "Referidor",
+    "REFERRED": "Referido",
+    "TITLE_ADD": "Agregar plan Referido",
+    "CLIENT_FROM": "Usuario Referidor",
+    "CLIENT_TO": "Usuario a Referir",
+    "STATUS": "Estado",
+    "PLAN": "Plan",
+    "FORM": {
+      "TITLE": "Nombre del plan",
+      "DESCRIPTION": "Descripcion Plan"
+    },
+    "AMOUNT_TO": "Monto para Referido USD",
+    "AMOUNT_FROM": "Monto para Referidor USD"
+  }
+}

@@ -1,0 +1,161 @@
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  faSave,
+  faTrashAlt,
+  faFilePdf,
+  faMoneyBillAlt,
+  faShareSquare,
+} from '@fortawesome/free-regular-svg-icons';
+import { SharedService } from '../shared.service';
+import {
+  faExclamation,
+  faPlus,
+  faList,
+  faUpload,
+  faFileInvoice,
+  faReceipt,
+  faCoins,
+  faPrint,
+  faFileExport,
+} from '@fortawesome/free-solid-svg-icons';
+import { RestService } from 'src/app/services/rest/rest.service';
+@Component({
+  selector: 'app-section-btn',
+  templateUrl: './section-btn.component.html',
+  styleUrls: ['./section-btn.component.scss'],
+})
+export class SectionBtnComponent implements OnInit {
+  @ViewChild('btnList') btnList: any;
+  @ViewChild('btnAdd') btnAdd: any;
+  @ViewChild('btnTrash') btnTrash: any;
+  @ViewChild('btnSave') btnSave: any;
+  @Input() classCustom: string = '';
+  @Input() insideclass: string = '';
+  @Input() options: any = [];
+  @Input() valid: boolean;
+  @Output() validChange = new EventEmitter<any>();
+  @Output() cbSave = new EventEmitter<any>();
+  @Output() cbPay = new EventEmitter<any>();
+  @Output() cbAdd = new EventEmitter<any>();
+  @Output() cbList = new EventEmitter<any>();
+  @Output() cbTrash = new EventEmitter<any>();
+  @Output() cbPdf = new EventEmitter<any>();
+  @Output() cbConvert = new EventEmitter<any>();
+  faFilePdf = faFilePdf;
+  faSave = faSave;
+  faList = faList;
+  faReceipt = faReceipt;
+  faPrint = faPrint;
+  faTrashAlt = faTrashAlt;
+  faUpload = faUpload;
+  faMoneyBillAlt = faMoneyBillAlt;
+  faPlus = faPlus;
+  faExclamation = faExclamation;
+  faShareSquare = faShareSquare;
+  faFileExport = faFileExport;
+  faCoins = faCoins;
+  copilot: any;
+  public listSubscribers: any = [];
+  public data: any;
+
+  constructor(public shared: SharedService, private rest: RestService) {}
+
+  ngOnInit(): void {
+    this.listObserver();
+  }
+
+  listObserver = () => {
+    const observer1$ = this.shared.tourData.subscribe((res) => {
+      this.data = res;
+    });
+    this.listSubscribers.push(observer1$);
+  };
+
+  ngOnDestroy() {
+    this.listSubscribers.forEach((a) => a.unsubscribe());
+  }
+
+  private startCopilot = () => {
+    this.copilot = false;
+    this.shared.openCopilot('btnList').then((res) => {
+      if (!res && this.btnList) {
+        this.copilot = true;
+        setTimeout(() => {
+          this.btnList.show();
+        }, 100);
+      }
+    });
+
+    this.shared.openCopilot('btnAdd').then((res) => {
+      if (!res && this.btnAdd) {
+        this.copilot = true;
+        setTimeout(() => {
+          this.btnAdd.show();
+        }, 100);
+      }
+    });
+
+    this.shared.openCopilot('btnSave').then((res) => {
+      if (!res && this.btnSave) {
+        this.copilot = true;
+        setTimeout(() => {
+          this.btnSave.show();
+        }, 100);
+      }
+    });
+
+    this.shared.openCopilot('btnTrash').then((res) => {
+      if (!res && this.btnTrash) {
+        this.copilot = true;
+        setTimeout(() => {
+          this.btnTrash.show();
+        }, 100);
+      }
+    });
+  };
+
+  delete = () => {
+    this.shared
+      .confirm()
+      .then((res) => {
+        this.shared.loadingButtons = true;
+        this.cbTrash.emit(res);
+      })
+      .catch((err) => console.warn(err));
+  };
+
+  callbackAdd = (a: any = {}) => this.cbAdd.emit(a);
+
+  callbackPdf = (a: any = {}) => this.cbPdf.emit(a);
+
+  callbackList = (a: any = {}) => this.cbList.emit(a);
+
+  callbackSave = (a: any = {}) => {
+    this.shared.loadingButtons = true;
+    this.cbSave.emit(a);
+  };
+
+  callbackPay = (a: any = {}) => this.cbPay.emit(a);
+
+  callbackConvert = (a: any = {}) => this.cbConvert.emit(a);
+
+  closeCopilot = (section = null, model: any) => {
+    try {
+      this.shared.saveCopilot(section).then(() => {
+        model.hide();
+        this.startCopilot();
+      });
+    } catch (e) {
+      return null;
+    }
+  };
+}

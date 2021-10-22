@@ -1,0 +1,16 @@
+<app-header [history]="history"></app-header>
+<app-side-bar></app-side-bar>
+
+<div class="container-row d-flex">
+  <div *ngIf="!id || id === 'add'" class="ml-2 mt-2">
+    <h5>{{ "REFERRED.TITLE_ADD" | translate }}</h5>
+  </div>
+  <app-form-referred
+    *ngIf="!id || id === 'add'"
+    class="col-12 row m-0 pl-1 pr-1"
+  >
+  </app-form-referred>
+  <div *ngIf="id && id !== 'add'" class="w-100 pr-3 ml-1 container-wrapper">
+    <app-details-referred [id]="id" class="col-12 pl-2"></app-details-referred>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+<div class="p-2">
+  <div class="pb-2">
+    <h6 class="font-weight-bold">
+      {{
+        !updateItem
+          ? ("TOUR.DEPARTURE.PAY_AMOUNT.INSERT" | translate)
+          : ("TOUR.DEPARTURE.PAY_AMOUNT.UPDATE" | translate)
+      }}
+    </h6>
+  </div>
+
+  <form class="form-product" [formGroup]="form">
+    <div class="form-group">
+      <label>{{
+        "TOUR.DEPARTURE.PAY_AMOUNT.PAY_PERCENTAGE" | translate
+      }}</label>
+      <ng-select
+        [items]="optionPercentage"
+        bindLabel="name"
+        bindValue="value"
+        formControlName="percentageAmount"
+        [searchable]="false"
+        [(ngModel)]="ngSelectPercentage"
+        placeholder=""
+      >
+      </ng-select>
+    </div>
+    <div class="form-group">
+      <label>{{ "TOUR.DEPARTURE.PAY_AMOUNT.DISCOUNT_TYPE" | translate }}</label>
+      <ng-select
+        [items]="typeDiscount"
+        bindLabel="name"
+        bindValue="value"
+        [multiple]="false"
+        formControlName="discount"
+        [searchable]="false"
+        [(ngModel)]="ngSelectType"
+        placeholder=""
+      >
+      </ng-select>
+    </div>
+    <div class="form-group" *ngIf="ngSelectType !== 'none'">
+      <!-- Option PERCENTAGE -->
+      <span *ngIf="ngSelectType === 'percentage'">
+        <label>{{
+          "TOUR.DEPARTURE.PAY_AMOUNT.PERCENTAGE_DISCOUNT" | translate
+        }}</label>
+        <input
+          type="text"
+          class="form-control"
+          mask="separator.2"
+          thousandSeparator="."
+          separatorLimit="10"
+          placeholder=""
+          formControlName="amountDiscount"
+        />
+      </span>
+
+      <!-- OPTION Amount -->
+      <span *ngIf="ngSelectType === 'amount'">
+        <label>{{
+          "TOUR.DEPARTURE.PAY_AMOUNT.AMOUNT_DISCOUNT" | translate
+        }}</label>
+        <input
+          type="text"
+          class="form-control"
+          mask="separator.2"
+          thousandSeparator="."
+          separatorLimit="1000"
+          placeholder=""
+          formControlName="amountDiscount"
+        />
+      </span>
+    </div>
+    <div class="form-group" *ngIf="ngSelectType !== 'none'">
+      <label>{{ "TOUR.DEPARTURE.PAY_AMOUNT.BEGIN_DATE" | translate }}</label>
+      <input
+        type="text"
+        autocomplete="off"
+        spellcheck="false"
+        formControlName="startAt"
+        class="form-control"
+        placeholder=""
+        bsDatepicker
+      />
+    </div>
+    <div class="form-group" *ngIf="ngSelectType !== 'none'">
+      <label>{{ "TOUR.DEPARTURE.PAY_AMOUNT.END_DATE" | translate }}</label>
+      <input
+        type="text"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder=""
+        formControlName="endAt"
+        class="form-control"
+        [minDate]="getDate('startAt')"
+        bsDatepicker
+      />
+    </div>
+    <div class="form-group mb-4 mt-4" *ngIf="ngSelectType !== 'none'">
+      <div class="d-flex">
+        <p-checkbox
+          animation="smooth"
+          color="primary"
+          shape="curve"
+          [checked]="allowToAccumulate"
+          (change)="allowToAccumulate = !allowToAccumulate"
+        >
+          <span class="custom-text">
+            {{ "TOUR.DEPARTURE.PAY_AMOUNT.IS_ACOMULATIVE" | translate }}
+          </span>
+        </p-checkbox>
+      </div>
+    </div>
+    <div class="form-group d-flex justify-content-between">
+      <button class="btn btn-default hvr-grow" (click)="modal.close()">
+        {{ "GENERAL.CANCEL" | translate }}
+      </button>
+      <button
+        ngxLoading
+        [loadingFlag]="loading"
+        [textInitial]="'GENERAL.SAVE' | translate"
+        [textLoading]="'GENERAL.SENDING' | translate"
+        class="btn btn-primary hvr-grow"
+        (click)="onSubmit()"
+        [disabled]="!form.valid"
+      ></button>
+    </div>
+  </form>
+</div>

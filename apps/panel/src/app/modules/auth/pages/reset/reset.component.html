@@ -1,0 +1,69 @@
+<div class="row m-0 col-12 p-0 position-absolute h-100">
+  <div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+    <div class="login-section">
+      <div class="w-100">
+        <div class="title-section animate__animated animate__fadeInDown">
+          <h1 class="title" [innerHTML]="'LOGIN.RESET.TITLE' | translate"></h1>
+          <span class="text-muted">{{ "LOGIN.SUB_TITLE" | translate }}</span>
+        </div>
+
+        <form
+          class="animate__animated animate__fadeInDown"
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()"
+          autocomplete="off"
+        >
+          <div class="form-group">
+            <label for="exampleInputEmail1">{{
+              "LOGIN.FORM.PASSWORD" | translate
+            }}</label>
+            <input
+              type="password"
+              class="form-control"
+              formControlName="password"
+              id="exampleInputEmail1"
+              placeholder=""
+            />
+            <small class="form-text text-muted">{{
+              "LOGIN.FORM.PASSWORD_PLACEHOLDER" | translate
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">{{
+              "LOGIN.FORM.REPEAT_PASSWORD" | translate
+            }}</label>
+            <input
+              type="password"
+              class="form-control"
+              formControlName="confirmPass"
+              id="exampleInputEmail2"
+              placeholder=""
+            />
+            <small class="form-text text-muted">{{
+              "LOGIN.FORM.PASSWORD_HELP" | translate
+            }}</small>
+          </div>
+          <div class="pt-3">
+            <button
+              [disabled]="!form.valid"
+              ngxLoading
+              [textInitial]="'LOGIN.FORM.SEND' | translate"
+              [textLoading]="'GENERAL.LOADING_SINGLE' | translate"
+              [loadingFlag]="loading"
+              type="submit"
+              class="btn btn-primary btn-radius btn-block"
+            ></button>
+          </div>
+          <div class="w-100 mt-4 mb-2">
+            <span class="form-text text-muted">
+              {{ "LOGIN.FORM.ALREADY_ACCOUNT" | translate }}
+              <a class="ml-1" routerLink="/auth/login">
+                {{ "LOGIN.FORM.SIGN_IN" | translate }}</a
+              >
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

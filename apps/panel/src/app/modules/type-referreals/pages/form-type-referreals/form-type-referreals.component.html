@@ -1,0 +1,106 @@
+<ng-container
+  *ngTemplateOutlet="loadingAll; context: { loading: loading }"
+></ng-container>
+<form
+  *ngIf="!loading"
+  class="form-product w-100 flex-wrap d-flex"
+  [formGroup]="form"
+>
+  <div
+    class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 flex-wrap d-flex"
+  >
+    <div class="text-right w-100">
+      <app-section-btn
+        [options]="optionsButtons"
+        (cbSave)="saveOrEdit()"
+        (cbList)="cbList()"
+        (cbTrash)="cbTrash()"
+        [valid]="form.valid"
+      >
+      </app-section-btn>
+    </div>
+
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ "TYPE_REFERREALS.FORM.TITLE" | translate }}</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="name"
+              placeholder="Escribir Nombre"
+              [controlErrorsTpl]="tpl"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ "TYPE_REFERREALS.FORM.DESCRIPTION" | translate }}</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="label"
+              placeholder="Escribir Nombre"
+              [controlErrorsTpl]="tpl"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ "REFERRED.AMOUNT_FROM" | translate }}</label>
+            <input
+              type="text"
+              class="form-control"
+              mask="separator.2"
+              thousandSeparator="."
+              separatorLimit="100000"
+              placeholder="Valor"
+              formControlName="amountFrom"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ "REFERRED.AMOUNT_TO" | translate }}</label>
+            <input
+              type="text"
+              class="form-control"
+              mask="separator.2"
+              thousandSeparator="."
+              separatorLimit="100000"
+              placeholder="Valor"
+              formControlName="amountTo"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- ***************** FIN TEMPLATE ************** -->
+<ng-template #loadingAll let-loading="loading">
+  <div *ngIf="loading" class="w-100 text-center h-100 loading-wrapper">
+    <div class="in">
+      <img
+        [width]="'5rem'"
+        src="../../../../../assets/images/loading-svg.svg"
+        alt="loading"
+      />
+    </div>
+  </div>
+</ng-template>

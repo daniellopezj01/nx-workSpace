@@ -1,0 +1,70 @@
+<div class="pt-2 pb-2 header-wrapper">
+  <div class="d-flex justify-content-between">
+    <div class="col-sm-12 cpl-md-12 col-lg-6 col-xl-6 pl-0 pr-0">
+      <ul class="history-menu" *ngIf="!limitAccount">
+        <li role="menuitem" class="truncate">
+          <div class="logo-small d-flex align-items-center">
+            <div class="ml-2 mr-2 d-block d-lg-none" (click)="openM()">
+              <!-- <img [src]="logo" alt=""> -->
+            </div>
+            <span>{{ title }}</span>
+          </div>
+        </li>
+        <li
+          role="menuitem"
+          class="truncate"
+          *ngFor="let a of history"
+          [routerLink]="a.router"
+        >
+          <fa-icon size="lg" [icon]="faAngleRight"></fa-icon>
+          <span class="ml-1">{{ a?.name }}</span>
+          <a target="_blank" *ngIf="a?.faqUrl" [href]="a?.faqUrl">
+            <span class="ml-2 text-muted font-weight-light">
+              <fa-icon [icon]="faQuestionCircle"></fa-icon>
+            </span>
+          </a>
+        </li>
+      </ul>
+      <div class="notice-account" *ngIf="limitAccount">
+        {{ "GENERAL.LIMIT_ACCOUNT" | translate }}
+      </div>
+    </div>
+    <div class="d-none d-sm-block">
+      <div
+        class="d-flex justify-content-around section-search col-md-12 col-lg-12 col-sm-12"
+      >
+        <!-- <form [formGroup]="form" (submit)="search()" class="w-100">
+          <div class="input-group src-input">
+            <input type="text" formControlName="q" placeholder="Buscar" class="form-control" aria-label="Default"
+                   aria-describedby="inputGroup-sizing-default">
+          </div>
+        </form> -->
+        <div class="list-menu-header">
+          <!-- <ul>
+            <li>
+              <span class="badge-count"></span>
+              <div class="icon-list-menu mr-1 ml-1">
+                <fa-icon [icon]="faBell"></fa-icon>
+              </div>
+            </li>
+            <li
+              [routerLink]="a?.route ? a?.route : null"
+              *ngFor="let a of menu"
+            >
+              <a *ngIf="a?.target" [href]="a?.target" target="_blank">
+                <div class="icon-list-menu mr-1 ml-1">
+                  <fa-icon [icon]="a.icon"></fa-icon>
+                </div>
+              </a>
+              <div *ngIf="a?.route" class="icon-list-menu mr-1 ml-1">
+                <fa-icon [icon]="a.icon"></fa-icon>
+              </div>
+            </li>
+          </ul> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <app-notification-drop></app-notification-drop> -->
