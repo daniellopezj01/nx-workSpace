@@ -157,15 +157,15 @@ module.exports = (server) => {
       })
     })
 
-    afterAll(() => {
-      createdID.forEach((idSupport) => {
-        support.findByIdAndRemove(idSupport, (err) => {
-          if (err) {
-            // console.log(err)
-          }
-        })
-      })
-    })
+    // afterAll(() => {
+    //   createdID.forEach((idSupport) => {
+    //     support.findByIdAndRemove(idSupport, (err) => {
+    //       if (err) {
+    //         // console.log(err)
+    //       }
+    //     })
+    //   })
+    // })
   })
 }
 

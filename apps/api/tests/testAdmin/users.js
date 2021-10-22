@@ -58,7 +58,7 @@ module.exports = (server) => {
             token = currentToken
             done()
           })
-      }, 10000)
+      }, 1500)
     })
     describe('/GET users', () => {
       test('it should NOT be able to consume the route since no token was sent',

@@ -1,80 +1,27 @@
 /* eslint-disable max-statements */
 
 
+const fs = require('fs')
 const server = require('../superTest')
+
 const auth = require('./testAdmin/auth')
-const blogs = require('./testAdmin/blogs')
-const categories = require('./testAdmin/categories')
-const comments = require('./testAdmin/comments')
-const conversations = require('./testAdmin/conversations')
-const departures = require('./testAdmin/departures')
-const itineraries = require('./testAdmin/itineraries')
-const payOrders = require('./testAdmin/payOrders')
-const questions = require('./testAdmin/questions')
-const reffereds = require('./testAdmin/reffereds')
-const refferedSettings = require('./testAdmin/refferedSettings')
-const reservations = require('./testAdmin/reservations')
-const support = require('./testAdmin/support')
-const tags = require('./testAdmin/tags')
-const tours = require('./testAdmin/tours')
-const users = require('./testAdmin/users')
 
-const authApi = require('./testApi/auth')
-const blogsApi = require('./testApi/blogs')
-const categoriesApi = require('./testApi/categories')
-const contractsApi = require('./testApi/contracts')
-const conversationsApi = require('./testApi/conversations')
-const externalApi = require('./testApi/external')
-const hoooksApi = require('./testApi/hooks')
-const payOrdersApi = require('./testApi/payOrders')
-const profileApi = require('./testApi/profile')
-const questionsApi = require('./testApi/questions')
-const refferedsApi = require('./testApi/referreds')
-const reservationsApi = require('./testApi/reservations')
-const storage = require('./testApi/storage')
-// const supportApi = require('./testApi/support')
-// const tagsApi = require('./testApi/tags')
-// const toursApi = require('./testApi/tours')
-// const users = require('./testApi/users')
+const route = `./apps/api/tests/`
 
+const readFolder = async (folder) => {
+  fs.readdirSync(`${route}/${folder}`).filter((file) => {
+    const property = require(`./${folder}${file}`)
+    property(server)
+  })
+}
 describe('*********** app-test ***********', () => {
   // /** ALL FILES ADMIN */
-  auth(server)
-  blogs(server)
-  categories(server)
-  comments(server)
-  conversations(server)
-  departures(server)
-  itineraries(server)
-  payOrders(server)
-  questions(server)
-  reffereds(server)
-  refferedSettings(server)
-  reservations(server)
-  support(server)
-  tags(server)
-  tours(server)
-  users(server)
+  const admin = 'testAdmin/'
+  const api = 'testApi/'
+  readFolder(admin)
+  readFolder(api)
 
-  /** ALL FILES API */
-  authApi(server)
-  blogsApi(server)
-  categoriesApi(server)
-  comments(server)
-  contractsApi(server)
-  conversationsApi(server)
-  externalApi(server)
-  hoooksApi(server)
-  payOrdersApi(server)
-  profileApi(server)
-  questionsApi(server)
-  refferedsApi(server)
-  reservationsApi(server)
-  storage(server)
-  // tags(server)
-  // tours(server)
-  // users(server)
+  // /** SINGLE FILE */
+  // auth(server)
 
-  /** SINGLE FILE */
-  // support(server)
 })

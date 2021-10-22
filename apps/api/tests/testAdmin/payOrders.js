@@ -56,7 +56,7 @@ module.exports = (server) => {
             token = currentToken
             done()
           })
-      }, 10000)
+      }, 1500)
     })
 
     describe('/POST payOrders', () => {
