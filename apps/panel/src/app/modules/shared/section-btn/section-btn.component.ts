@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
@@ -32,7 +33,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './section-btn.component.html',
   styleUrls: ['./section-btn.component.scss'],
 })
-export class SectionBtnComponent implements OnInit {
+export class SectionBtnComponent implements OnInit, OnDestroy {
   @ViewChild('btnList') btnList: any;
   @ViewChild('btnAdd') btnAdd: any;
   @ViewChild('btnTrash') btnTrash: any;
@@ -76,7 +77,7 @@ export class SectionBtnComponent implements OnInit {
   }
 
   listObserver = () => {
-    const observer1$ = this.shared.tourData.subscribe((res) => {
+    const observer1$ = this.shared.tourData.subscribe((res: any) => {
       this.data = res;
     });
     this.listSubscribers.push(observer1$);
@@ -88,7 +89,7 @@ export class SectionBtnComponent implements OnInit {
 
   private startCopilot = () => {
     this.copilot = false;
-    this.shared.openCopilot('btnList').then((res) => {
+    this.shared.openCopilot('btnList').then((res: any) => {
       if (!res && this.btnList) {
         this.copilot = true;
         setTimeout(() => {
@@ -97,7 +98,7 @@ export class SectionBtnComponent implements OnInit {
       }
     });
 
-    this.shared.openCopilot('btnAdd').then((res) => {
+    this.shared.openCopilot('btnAdd').then((res: any) => {
       if (!res && this.btnAdd) {
         this.copilot = true;
         setTimeout(() => {
@@ -106,7 +107,7 @@ export class SectionBtnComponent implements OnInit {
       }
     });
 
-    this.shared.openCopilot('btnSave').then((res) => {
+    this.shared.openCopilot('btnSave').then((res: any) => {
       if (!res && this.btnSave) {
         this.copilot = true;
         setTimeout(() => {
@@ -115,7 +116,7 @@ export class SectionBtnComponent implements OnInit {
       }
     });
 
-    this.shared.openCopilot('btnTrash').then((res) => {
+    this.shared.openCopilot('btnTrash').then((res: any) => {
       if (!res && this.btnTrash) {
         this.copilot = true;
         setTimeout(() => {
@@ -128,7 +129,7 @@ export class SectionBtnComponent implements OnInit {
   delete = () => {
     this.shared
       .confirm()
-      .then((res) => {
+      .then((res: any) => {
         this.shared.loadingButtons = true;
         this.cbTrash.emit(res);
       })
@@ -157,7 +158,7 @@ export class SectionBtnComponent implements OnInit {
         this.startCopilot();
       });
     } catch (e) {
-      return null;
+      console.log(e)
     }
   };
 }

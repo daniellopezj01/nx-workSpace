@@ -21,8 +21,8 @@
             placeholder=""
             formControlName="startDateDeparture"
             class="form-control"
-            placement="bottom left"
-            [minDate]="!updateItem ? today : null"
+            placement="bottom"
+            [minDate]="minDate"
             bsDatepicker
           />
         </div>
@@ -57,9 +57,10 @@
             formControlName="endDateDeparture"
             class="form-control"
             [minDate]="getDate('startDateDeparture')"
-            placement="bottom left"
+            placement="bottom"
             bsDatepicker
           />
+          placement="bottom left"
         </div>
       </div>
       <div class="col-6">
@@ -72,8 +73,8 @@
             placeholder=""
             formControlName="closeDateDeparture"
             class="form-control"
-            placement="bottom left"
-            [minDate]="!updateItem ? today : null"
+            placement="bottom"
+            [minDate]="minDate"
             [maxDate]="getDate('startDateDeparture')"
             bsDatepicker
           />

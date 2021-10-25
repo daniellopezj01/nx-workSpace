@@ -3,7 +3,6 @@ import {
   HttpRequest,
   HttpClient,
   HttpEvent,
-  HttpEventType,
   HttpHeaders,
 } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -53,7 +52,7 @@ export class DemoFilePickerAdapter extends FilePickerAdapter {
     );
   }
 
-  public removeFile(fileItem): Observable<any> {
+  public removeFile(fileItem: any): Observable<any> {
     const removeApi = '';
     return this.http.post(removeApi, {});
   }

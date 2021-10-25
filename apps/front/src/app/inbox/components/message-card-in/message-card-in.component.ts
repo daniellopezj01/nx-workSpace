@@ -35,8 +35,8 @@ export class MessageCardInComponent implements OnInit {
   public listSubscribers: any = [];
   public config: PerfectScrollbarConfigInterface = {};
   @ViewChild(PerfectScrollbarDirective, { static: false })
-  directiveRef?: PerfectScrollbarDirective;
-  loading = false;
+  public directiveRef?: PerfectScrollbarDirective;
+  public loading = false;
 
   constructor(
     private messageInboxService: MessageInboxService,
@@ -61,7 +61,7 @@ export class MessageCardInComponent implements OnInit {
   }
 
   listObserver = () => {
-    const observer1$ = this.webSocketService.outEven.subscribe((res) => {
+    const observer1$ = this.webSocketService.outEven.subscribe((res: any) => {
       if (this.data?.hash === res?.payload?.hash) {
         this.data.openBox = true;
         this.data.list = [...this.data.list, ...[res?.payload?.message]];
@@ -70,7 +70,7 @@ export class MessageCardInComponent implements OnInit {
       }
     });
 
-    const observer2$ = this.messageInboxService.sendInbox.subscribe((res) => {
+    const observer2$ = this.messageInboxService.sendInbox.subscribe((res: any) => {
       if (res?.res?.hash === this.data?.hash) {
         this.data.list.push(_.head(res?.res?.messages));
       }

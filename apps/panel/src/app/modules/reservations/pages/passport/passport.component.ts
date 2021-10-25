@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -6,14 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./passport.component.scss']
 })
 export class PassportComponent implements OnInit {
-  @Input() reservation;
+  @Input() public reservation: any;
   constructor() { }
 
   ngOnInit(): void {
     console.log(this.reservation)
   }
 
-  toDataURL(url) {
+  toDataURL(url: string) {
     return fetch(url)
       .then(response => {
         return response.blob();

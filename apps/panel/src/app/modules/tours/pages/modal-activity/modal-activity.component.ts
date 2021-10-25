@@ -64,7 +64,7 @@ export class ModalActivityComponent implements OnInit {
     };
     this.rest
       .patch(`itineraries/${this.itinerary._id}`, { details: newDetails })
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.itinerary.details = res.details;
         this.rest.toastSuccess(
           'Se ha Actualizado la Actividad exitosamente.',
@@ -80,7 +80,7 @@ export class ModalActivityComponent implements OnInit {
     details.push({ ...this.form.value, isNight: this.isNight });
     this.rest
       .patch(`itineraries/${this.itinerary._id}`, { details })
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.itinerary.details = res.details;
         this.rest.toastSuccess(
           'Se ha creado la actividad exitosamente.',

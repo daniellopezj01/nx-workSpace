@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuardGuard } from 'src/app/services/auth/auth-guard.guard';
+import { AuthGuardGuard } from '../../services/auth/auth-guard.guard';
 import { AddCommentComponent } from './pages/add-comment/add-comment.component';
 import { ListCommentsComponent } from './pages/list-comments/list-comments.component';
 

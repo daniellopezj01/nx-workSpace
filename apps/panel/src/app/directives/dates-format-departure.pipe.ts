@@ -5,7 +5,7 @@ import moment from 'moment';
   name: 'datesFormatDeparture',
 })
 export class DatesFormatDeparturePipe implements PipeTransform {
-  transform(value: any, args: any = null): unknown {
+  transform(value: any, args: any = null): any {
     try {
       return moment(value, 'DD-MM-YYYY').toDate();
     } catch (e) {

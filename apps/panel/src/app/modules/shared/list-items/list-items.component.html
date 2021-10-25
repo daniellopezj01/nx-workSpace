@@ -143,13 +143,13 @@
     </div>
     <div class="d-flex">
       <!-- ******** PDF PLUGIN *** -->
-      <div class="ml-2" appCheckPlugin [namePlugin]="'pdfReport'">
+      <!-- <div class="ml-2" appCheckPlugin [namePlugin]="'pdfReport'">
         <Kit-button-pdf (click)="callPdf()"></Kit-button-pdf>
-      </div>
+      </div> -->
       <!-- ******** EXCEL IMPORT PLUGIN *** -->
-      <div class="ml-2" appCheckPlugin [namePlugin]="'excelImport'">
+      <!-- <div class="ml-2" appCheckPlugin [namePlugin]="'excelImport'">
         <lib-excel-button></lib-excel-button>
-      </div>
+      </div> -->
 
       <div class="ml-2" *ngIf="options.includes('add')">
         <button
@@ -197,7 +197,7 @@
     >
       <small>
         <fa-icon [icon]="faArrowLeft"></fa-icon>
-        <span class="ml-1">{{ "GENERAL.BACK" | translate }}</span>
+        <span class="ml-1">{{ 'GENERAL.BACK' | translate }}</span>
       </small>
     </button>
 

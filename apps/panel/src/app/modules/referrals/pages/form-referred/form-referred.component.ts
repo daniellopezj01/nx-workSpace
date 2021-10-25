@@ -178,7 +178,7 @@ export class FormReferredComponent implements OnInit {
       referred = a;
     });
     this.rest.post(`referreds`, referred).subscribe(
-      (res) => {
+      (res: any) => {
         this.rest.toastSuccess(
           'Se ha creado el referido exitosamente.',
           'Referido Creado'
@@ -198,7 +198,7 @@ export class FormReferredComponent implements OnInit {
       referred = a;
     });
     this.rest.patch(`referreds/${this.referred._id}`, referred).subscribe(
-      (res) => {
+      (res: any) => {
         this.rest.toastSuccess(
           'Se ha actualizado el Referido exitosamente.',
           'Referido Actualizado'
@@ -212,7 +212,7 @@ export class FormReferredComponent implements OnInit {
   }
 
   cbTrash() {
-    this.rest.delete(`referreds/${this.referred._id}`).subscribe((res) => {
+    this.rest.delete(`referreds/${this.referred._id}`).subscribe((res: any) => {
       this.rest.toastSuccess(
         'Se ha Elimando el referido exitosamente.',
         'Referido Eliminada'

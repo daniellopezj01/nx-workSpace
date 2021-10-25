@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuardGuard } from 'src/app/services/auth/auth-guard.guard';
+import { AuthGuardGuard } from '../../services/auth/auth-guard.guard';
 import { AddUserComponent } from './pages/add-user/add-user.component';
 import { ListUserComponent } from './pages/list-user/list-user.component';
 
@@ -22,4 +22,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UsersRoutingModule {}
+export class UsersRoutingModule { }

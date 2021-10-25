@@ -1,3 +1,4 @@
+import { RestService } from './../../../../services/rest/rest.service';
 import {
   ChangeDetectorRef,
   Component,
@@ -6,9 +7,8 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
-import { RestService } from 'src/app/services/rest/rest.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SharedService } from '../../../shared/shared.service';
 
 
 @Component({
@@ -53,11 +53,11 @@ export class DetailsCommentComponent implements OnInit {
   loadGeneral = () => {
     this.loading = true;
     this.rest.get(`comments/${this.id}`).subscribe(
-      (res) => {
+      (res: any) => {
         this.comment = res;
         this.loading = false;
       },
-      (err) => {
+      () => {
         this.router.navigate(['/']);
       }
     );

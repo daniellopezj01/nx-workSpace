@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 import { Component, Inject, NgZone, OnInit } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
@@ -7,28 +8,28 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { catchError } from 'rxjs/operators';
 import { SharedService } from '../shared.service';
-import { DemoFilePickerAdapter } from 'src/app/directives/demo-file-picker.adapter';
 import { TranslateService } from '@ngx-translate/core';
+import { DemoFilePickerAdapter } from '../../../directives/demo-file-picker.adapter';
 
 @Component({
   selector: 'app-modal-wizard',
   templateUrl: './modal-wizard.component.html',
   styleUrls: ['./modal-wizard.component.scss'],
 })
-export class ModalWizardComponent implements OnInit {
+export class ModalWizardComponent {
   adapter = new DemoFilePickerAdapter(this.http, this.cookieService);
   public form: FormGroup;
   faTimes = faTimes;
   options: AnimationOptions = {
     path: '/assets/images/wizard.json',
   };
-  public preview = {
-    image: null,
-    blob: null,
+  public preview: modelPreview = {
+    image: '',
+    blob: ''
   };
 
   constructor(
@@ -40,9 +41,7 @@ export class ModalWizardComponent implements OnInit {
     private cookieService: CookieService,
     private formBuilder: FormBuilder,
     public translate: TranslateService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       currency: ['', Validators.required],
@@ -72,7 +71,7 @@ export class ModalWizardComponent implements OnInit {
     formData.append('currencySymbol', currencySymbol);
 
     this.saveRest(`settings/${_id}`, formData).subscribe(
-      (res) => {
+      (res: any) => {
         this.share.changeSetting.emit(res);
         this.cookieService.set(
           'settings',
@@ -83,7 +82,7 @@ export class ModalWizardComponent implements OnInit {
 
         this.bsModalRef.hide();
       },
-      (error) => console.log('err', error)
+      (error: any) => console.log('err', error)
     );
   };
 
@@ -98,14 +97,14 @@ export class ModalWizardComponent implements OnInit {
 
   parseHeader = () => {
     const token = this.cookieService.get('session');
-    let header = {
+    const header = {
       Accept: 'application/json',
       Authorization: `Bearer ${token}`,
     };
     return new HttpHeaders(header);
   };
 
-  saveRest(path = '', body = {}): Observable<any> {
+  saveRest(path = '', body = {}): any {
     try {
       return this.http
         .patch(`${environment.api}/${path}`, body, {
@@ -120,6 +119,11 @@ export class ModalWizardComponent implements OnInit {
             });
           })
         );
-    } catch (e) {}
+    } catch (e) { }
   }
+}
+
+export class modelPreview {
+  image: any;
+  blob: any;
 }

@@ -61,7 +61,7 @@ export class ContainerHotelComponent
       const parseData = this.hotelService.simulatePagination(dataNew, false, true);
       this.data = [...parseData];
     });
-    const observer3$ = this.hotelService.loadData.pipe(debounceTime(100)).subscribe((res) => {
+    const observer3$ = this.hotelService.loadData.pipe(debounceTime(100)).subscribe((res: any) => {
       console.log('holaaa entre a loadData en hoteles')
       const queryParam = this.mainSearchService.getParamsKey();
       const { C, D, E, F, H } = queryParam;
@@ -97,7 +97,7 @@ export class ContainerHotelComponent
     this.loading = true;
     this.rest.post('plugins/travelpayouts-api-hotels/events/get_hotels_v2', { params: this.params })
       .subscribe(
-        (res) => {
+        (res: any) => {
           const { result } = res;
           this.loading = false;
           if (result) {

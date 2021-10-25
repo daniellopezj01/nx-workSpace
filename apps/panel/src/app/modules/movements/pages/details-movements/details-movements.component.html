@@ -32,11 +32,11 @@
       >
       </app-section-btn>
     </div>
-    <form class="form-product" [formGroup]="form" (ngSubmit)="action()">
+    <form class="form-product" [formGroup]="form">
       <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
         <div class="col-12 p-0">
           <div class="form-group">
-            <label>{{ "MOVEMENTS.TYPE" | translate }}</label>
+            <label>{{ 'MOVEMENTS.TYPE' | translate }}</label>
             <ng-select
               [items]="optionsSelect"
               bindLabel="name"
@@ -57,7 +57,7 @@
       >
         <div class="col-12 p-0">
           <div class="form-group">
-            <label>{{ "MOVEMENTS.CLIENT" | translate }}</label>
+            <label>{{ 'MOVEMENTS.CLIENT' | translate }}</label>
             <ng-select
               #selectProductRef
               [items]="results$ | async"
@@ -67,7 +67,6 @@
               [addTag]="false"
               [multiple]="false"
               [hideSelected]="true"
-              [trackByFn]="trackByFn"
               [minTermLength]="3"
               [required]="true"
               [loading]="loadingUser"
@@ -109,7 +108,7 @@
       >
         <div class="col-12 p-0">
           <div class="form-group">
-            <label>{{ "MOVEMENTS.RESERVATION" | translate }}</label>
+            <label>{{ 'MOVEMENTS.RESERVATION' | translate }}</label>
             <ng-select
               #selectProductRef
               [items]="resultsReservation$ | async"
@@ -119,7 +118,6 @@
               [addTag]="false"
               [multiple]="false"
               [hideSelected]="true"
-              [trackByFn]="trackByFn"
               [minTermLength]="2"
               [required]="true"
               [loading]="loadingReservations"
@@ -150,7 +148,7 @@
       <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
         <div class="col-12 p-0">
           <div class="form-group">
-            <label>{{ "RESERVATION.FORM_ADD.STATUS" | translate }}</label>
+            <label>{{ 'RESERVATION.FORM_ADD.STATUS' | translate }}</label>
             <ng-select
               [items]="status"
               bindLabel="name"
@@ -167,7 +165,7 @@
       <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
         <div class="col-12 p-0">
           <div class="form-group">
-            <label>{{ "MOVEMENTS.PLATFORM" | translate }}</label>
+            <label>{{ 'MOVEMENTS.PLATFORM' | translate }}</label>
             <ng-select
               [items]="platform"
               bindLabel="name"
@@ -184,7 +182,7 @@
       <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
         <div class="col-12 p-0">
           <div class="form-group">
-            <label>{{ "MOVEMENTS.ID_OPERATION" | translate }}</label>
+            <label>{{ 'MOVEMENTS.ID_OPERATION' | translate }}</label>
             <input
               type="text"
               class="form-control"
@@ -197,7 +195,7 @@
       <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
         <div class="col-12 p-0">
           <div class="form-group">
-            <label>{{ "MOVEMENTS.DESCRIPTION" | translate }}</label>
+            <label>{{ 'MOVEMENTS.DESCRIPTION' | translate }}</label>
             <input
               type="text"
               class="form-control"
@@ -210,7 +208,7 @@
       <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
         <div class="col-12 p-0">
           <div class="form-group">
-            <label>{{ "MOVEMENTS.AMOUNT" | translate }}</label>
+            <label>{{ 'MOVEMENTS.AMOUNT' | translate }}</label>
             <input
               type="text"
               class="form-control"

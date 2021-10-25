@@ -1,6 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SharedService } from 'src/app/modules/shared/shared.service';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-add-reservation',
@@ -14,7 +14,7 @@ export class AddReservationComponent implements OnInit {
     private route: ActivatedRoute,
     private share: SharedService,
     public router: Router
-  ) {}
+  ) { }
 
   public history: any = [
     {

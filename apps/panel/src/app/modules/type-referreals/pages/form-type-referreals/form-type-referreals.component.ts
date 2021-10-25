@@ -71,7 +71,7 @@ export class FormTypeReferrealsComponent implements OnInit {
       typeReferreals = a;
     });
     this.rest.post(`referredSettings`, typeReferreals).subscribe(
-      (res) => {
+      (res: any) => {
         this.rest.toastSuccess(
           'Se ha creado el referido exitosamente.',
           'Referido Creado'
@@ -91,7 +91,7 @@ export class FormTypeReferrealsComponent implements OnInit {
       typeReferreals = a;
     });
     this.rest.patch(`referredSettings/${this.typeReferreals._id}`, typeReferreals).subscribe(
-      (res) => {
+      (res: any) => {
         this.rest.toastSuccess(
           'Se ha actualizado el tipo de Referido exitosamente.',
           'typo de referido Actualizado'
@@ -105,7 +105,7 @@ export class FormTypeReferrealsComponent implements OnInit {
   }
 
   cbTrash() {
-    this.rest.delete(`referredSettings/${this.typeReferreals._id}`).subscribe((res) => {
+    this.rest.delete(`referredSettings/${this.typeReferreals._id}`).subscribe((res: any) => {
       this.rest.toastSuccess(
         'Se ha Elimando el tipo referido exitosamente.',
         'typo de Referido Eliminada'

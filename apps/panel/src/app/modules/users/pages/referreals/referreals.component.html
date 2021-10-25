@@ -3,16 +3,21 @@
 <div class="general-cont">
   <div class="general">
     <div class="p-4 d-flex justify-content-start">
-      <h4>{{ "USER.TYPE_REFERREALS.TITLE" | translate }}</h4>
+      <h4>{{ 'USER.TYPE_REFERREALS.TITLE' | translate }}</h4>
     </div>
     <ng-container *ngTemplateOutlet="formTemplate"></ng-container>
 
     <div class="">
       <div class="header-title p-3 pl-4 d-flex justify-content-start">
-        <h4>{{ "USER.TYPE_REFERREALS.LIST_REFERREALS" | translate }}</h4>
+        <h4>{{ 'USER.TYPE_REFERREALS.LIST_REFERREALS' | translate }}</h4>
       </div>
       <div
-        class="col-xs-12 animate__animated animate__fadeInDown animation-1 col-xl-12"
+        class="
+          col-xs-12
+          animate__animated animate__fadeInDown
+          animation-1
+          col-xl-12
+        "
       >
         <div class="manager-forms">
           <div class="transactions">
@@ -29,7 +34,7 @@
                 <div class="with-out-transaction">
                   <p class="text-center">
                     {{
-                      "USER.TYPE_REFERREALS.NOT_LINKING_REFERREALS" | translate
+                      'USER.TYPE_REFERREALS.NOT_LINKING_REFERREALS' | translate
                     }}
                   </p>
                 </div>
@@ -63,7 +68,7 @@
       <div class="custom-card-style p-2 col-4">
         <div class="name">
           <div class="form-group">
-            <label>{{ "REFERRED.PLAN" | translate }}</label>
+            <label>{{ 'REFERRED.PLAN' | translate }}</label>
             <ng-select
               #selectProductRef
               [items]="resultsPlan$ | async"
@@ -105,8 +110,6 @@
         <app-section-btn
           [options]="['save']"
           (cbSave)="updatePlan()"
-          (cbList)="cbList()"
-          (cbTrash)="cbTrash()"
           [valid]="form.valid"
           class=""
         >
@@ -123,7 +126,7 @@
         <thead class="thead">
           <tr>
             <th *ngFor="let item of columns" class="text-uppercase" scope="col">
-              {{ item?.key | translate }}
+              {{ item?.key || '' | translate }}
             </th>
           </tr>
         </thead>
@@ -167,7 +170,7 @@
                   "
                   *ngIf="item?.status === 'available'"
                 >
-                  {{ "USER.TYPE_REFERREALS.STATUS_WAIT" | translate }}</span
+                  {{ 'USER.TYPE_REFERREALS.STATUS_WAIT' | translate }}</span
                 >
                 <span
                   [tooltip]="
@@ -175,13 +178,13 @@
                   "
                   *ngIf="item?.status === 'unavailable'"
                 >
-                  {{ "USER.TYPE_REFERREALS.STATUS_SUCCESS" | translate }}</span
+                  {{ 'USER.TYPE_REFERREALS.STATUS_SUCCESS' | translate }}</span
                 >
               </span>
             </td>
             <td>
               <span class="date">{{
-                item?.createdAt | date: "dd-LLL-yyyy"
+                item?.createdAt | date: 'dd-LLL-yyyy'
               }}</span>
             </td>
           </tr>
@@ -189,4 +192,21 @@
       </table>
     </div>
   </div>
+</ng-template>
+
+<ng-template
+  #pageTemplateLeft
+  let-page
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <i class="uil uil-angle-left-b"></i>
+</ng-template>
+<ng-template
+  #pageTemplateRight
+  let-page
+  let-disabled="disabled"
+  let-currentPage="currentPage"
+>
+  <i class="uil uil-angle-right-b"></i>
 </ng-template>

@@ -1,5 +1,7 @@
+import { RestService } from './../../../../services/rest/rest.service';
+import { AuthService } from './../../../../services/auth/auth.service';
+
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import {
   faPhoneAlt,
   faUser,
@@ -15,10 +17,8 @@ import {
   trigger,
 } from '@angular/animations';
 import { forkJoin, Observable, of } from 'rxjs';
-import { finalize, map, take, tap } from 'rxjs/operators';
-import { SharedService } from 'src/app/modules/shared/shared.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { RestService } from 'src/app/services/rest/rest.service';
+import { finalize, map, tap } from 'rxjs/operators';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-home-page',
@@ -45,8 +45,8 @@ export class HomePageComponent implements OnInit {
   faUser = faUser;
   faLongArrowAltUp = faLongArrowAltUp;
   faLongArrowAltDown = faLongArrowAltDown;
-  private callsHttp = [];
-  public loading: boolean;
+  private callsHttp: any = [];
+  public loading = false;
   public dataResponse: any = {
     one: {
       tap: {},
@@ -62,7 +62,7 @@ export class HomePageComponent implements OnInit {
     },
   };
 
-  private sources = [];
+  private sources: Array<typeSource> = [];
 
   constructor(
     private rest: RestService,
@@ -106,16 +106,23 @@ export class HomePageComponent implements OnInit {
 
   public requestMultipleData(): Observable<any[] | any> {
     this.callsHttp = [];
-    this.sources.forEach((value) => {
+    this.sources.forEach((value: any) => {
       if (value.available) {
         this.callsHttp.push(
           this.rest.get(value.value).pipe(
-            map((b) => b.docs),
-            tap((a) => (this.dataResponse[value.key] = { tap: a }))
+            map((b: any) => b.docs),
+            tap((a: any) => (this.dataResponse[value.key] = { tap: a }))
           )
         );
       }
     });
     return forkJoin(this.callsHttp);
   }
+}
+
+
+export class typeSource {
+  key?: string = '';
+  available: any;
+  value?: string = '';
 }

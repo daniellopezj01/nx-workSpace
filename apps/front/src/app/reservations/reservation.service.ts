@@ -34,7 +34,7 @@ export class ReservationService {
   public async getData() {
     if (!this.data || this.currentCode !== this.codeReservation || this.requireUpdate) {
       await this.callData(`reservations/${this.codeReservation}`)
-        .then((res) => {
+        .then((res: any) => {
           this.currentCode = this.codeReservation;
           this.data = res;
           this.chats = [];
@@ -97,7 +97,7 @@ export class ReservationService {
         request = this.rest.post(url, object);
       }
       request.subscribe(
-        (res) => {
+        (res: any) => {
           resolve(res);
         },
         (err) => {

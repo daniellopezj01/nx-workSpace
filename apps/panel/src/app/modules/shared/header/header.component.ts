@@ -8,32 +8,32 @@ import {
 import {
   faAngleRight,
   faBars,
-  faEllipsisV,
 } from '@fortawesome/free-solid-svg-icons';
 import { faTired } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from '../shared.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
-  @Input() label: string;
-  @Input() history: any = [];
-  public title: null;
-  public logo: null;
+export class HeaderComponent implements OnInit, OnDestroy {
+  @Input() public label = '';
+  @Input() public history: any = [];
+  public title = '';
+  public logo = '';
   public listSubscribers: any = [];
-  public limitAccount: any = null;
-  faTired = faTired;
-  faUserCircle = faUserCircle;
-  faBars = faBars;
-  faLifeRing = faLifeRing;
-  faAngleRight = faAngleRight;
-  faBell = faBell;
-  faQuestionCircle = faQuestionCircle;
+  public limitAccount: any = '';
+  public faTired = faTired;
+  public faUserCircle = faUserCircle;
+  public faBars = faBars;
+  public faLifeRing = faLifeRing;
+  public faAngleRight = faAngleRight;
+  public faBell = faBell;
+  public faQuestionCircle = faQuestionCircle;
   public form: FormGroup;
   public menu: any = [
     {
@@ -47,28 +47,29 @@ export class HeaderComponent implements OnInit {
     private share: SharedService,
     private router: Router,
     private formBuilder: FormBuilder
-  ) {}
+  ) {
+    this.form = this.formBuilder.group({
+      q: [''],
+    });
+  }
 
   ngOnInit(): void {
     this.listObserver();
     const { name } = this.share.getSettings() || { name: null };
     this.title = name;
     // this.logo = logo;
-    this.form = this.formBuilder.group({
-      q: [''],
-    });
-    this.share.changeHistory.subscribe((res) => {
+    this.share.changeHistory.subscribe((res: any) => {
       this.history = res;
     });
   }
 
   listObserver = () => {
-    const observer1$ = this.share.changeSetting.subscribe((res) => {
+    const observer1$ = this.share.changeSetting.subscribe((res: any) => {
       const { name } = res;
       this.title = name;
     });
 
-    const observer2$ = this.share.limitAccount.subscribe((res) => {
+    const observer2$ = this.share.limitAccount.subscribe((res: any) => {
       if (res) {
         this.limitAccount = res;
       }
@@ -78,7 +79,7 @@ export class HeaderComponent implements OnInit {
   };
 
   ngOnDestroy() {
-    this.listSubscribers.forEach((a) => a.unsubscribe());
+    this.listSubscribers.forEach((a: Subscription) => a.unsubscribe());
   }
 
   search = () => {

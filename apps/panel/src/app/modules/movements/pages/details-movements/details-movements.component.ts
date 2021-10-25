@@ -37,6 +37,7 @@ export class DetailsMovementsComponent implements OnInit, AfterContentChecked {
     { name: 'Compra', value: 'reservation' },
   ];
   public ngSelectTypeEvent: any;
+  public selectOperation: any;
   /***Status */
   public ngSelectStatus: any;
   public status: any = [
@@ -118,7 +119,7 @@ export class DetailsMovementsComponent implements OnInit, AfterContentChecked {
   loadGeneral = () => {
     this.loading = true;
     this.rest.get(`payOrders/${this.id}`).subscribe(
-      (res) => {
+      (res: any) => {
         this.order = res;
         this.destructureObject();
         this.loading = false;
@@ -131,7 +132,7 @@ export class DetailsMovementsComponent implements OnInit, AfterContentChecked {
   };
 
   cbTrash() {
-    this.rest.delete(`payOrders/${this.order._id}`).subscribe((res) => {
+    this.rest.delete(`payOrders/${this.order._id}`).subscribe((res: any) => {
       this.rest.toastSuccess(
         'Se ha Elimando la Order exitosamente.',
         'Orden Eliminada'
@@ -215,12 +216,12 @@ export class DetailsMovementsComponent implements OnInit, AfterContentChecked {
 
   async updateGeneralData() {
     let object;
-    await this.transformForUpdate().then((res) => {
+    await this.transformForUpdate().then((res: any) => {
       object = res;
     });
     this.rest
       .patch(`payOrders/fromPanel/${this.order._id}`, object)
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.rest.toastSuccess(
           'Se ha actualizado la Operacion exitosamente.',
           'Operacion Actualizada'

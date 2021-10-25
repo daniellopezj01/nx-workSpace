@@ -28,7 +28,7 @@ export class ContainerSupportComponent implements OnInit {
     this.hash = this.active.snapshot.params.hash;
     this.reservation = await this.service.getData();
     this.loading = false;
-    this.service.selectChat.subscribe((res) => {
+    this.service.selectChat.subscribe((res: any) => {
       this.hash = res;
       this.router.navigate(['/', 'trips', this.code, 'support', res]);
     });

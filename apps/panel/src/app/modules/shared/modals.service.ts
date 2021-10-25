@@ -5,12 +5,12 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   providedIn: 'root',
 })
 export class ModalsService {
-  modalRef: BsModalRef;
+  public modalRef?: BsModalRef;
 
-  constructor(private modalService: BsModalService) {}
+  constructor(private modalService: BsModalService) { }
 
   close() {
-    this.modalRef.hide();
+    this.modalRef?.hide();
   }
 
   openComponent(

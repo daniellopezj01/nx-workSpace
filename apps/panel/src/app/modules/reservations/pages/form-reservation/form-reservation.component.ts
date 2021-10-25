@@ -173,7 +173,7 @@ export class FormReservationComponent implements OnInit {
   deleteReservation() {
     this.rest
       .delete(`reservations/${this.reservation._id}`)
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.rest.toastSuccess(
           'Se ha Elimando la reservacion exitosamente.',
           'Reservacion Eliminada'
@@ -219,7 +219,7 @@ export class FormReservationComponent implements OnInit {
     this.rest
       .patch(`reservations/${this.reservation._id}`, reservation)
       .subscribe(
-        (res) => {
+        (res: any) => {
           this.rest.toastSuccess(
             'Se ha actualizado la reservacion exitosamente.',
             'Reservacion Actualizada'
@@ -239,7 +239,7 @@ export class FormReservationComponent implements OnInit {
       reservation = a;
     });
     this.rest.post(`reservations`, reservation).subscribe(
-      (res) => {
+      (res: any) => {
         this.loading = false;
         this.router.navigate(['/', 'reservations', res._id]);
       },

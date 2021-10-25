@@ -44,7 +44,7 @@ export class CardHotelsComponent implements OnInit {
           currency,
         },
       })
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         const { result } = res;
         const single: any = _.head(result);
         if (isPlatformBrowser(this.platformId)) {

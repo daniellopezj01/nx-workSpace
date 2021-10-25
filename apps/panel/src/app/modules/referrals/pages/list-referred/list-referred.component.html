@@ -64,12 +64,12 @@
   <div class="pagination-row">
     <pagination
       (pageChanged)="pageChanged($event)"
-      [itemsPerPage]="pagination?.limit"
+      [itemsPerPage]="pagination.limit"
       [customFirstTemplate]="firstTemplate"
       [customLastTemplate]="lastTemplate"
       [customPreviousTemplate]="prevTemplate"
       [customNextTemplate]="nextTemplate"
-      [maxSize]="pagination?.limit"
+      [maxSize]="pagination.limit"
       [totalItems]="pagination?.paginationConfig?.totalDocs"
     >
     </pagination>
@@ -130,7 +130,7 @@
           }"
         ></div>
         <span class="date">{{
-          reffered?.createdAt | date: "dd-LLL-yyyy"
+          reffered?.createdAt | date: 'dd-LLL-yyyy'
         }}</span>
       </div>
     </li>
@@ -166,9 +166,9 @@
 
 <!-- ***************** FIN TEMPLATE ************** -->
 <ng-template #templateEmpty let-data="data">
-  <ng-container *ngIf="!loading">
+  <!-- <ng-container *ngIf="!loading">
     <app-box-empty *ngIf="!data?.length"></app-box-empty>
-  </ng-container>
+  </ng-container> -->
 </ng-template>
 
 <ng-template #loadingAll let-loading="loading">

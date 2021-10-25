@@ -53,11 +53,11 @@ export class AppComponent {
           // shared.copilot.subscribe(a => this.copilot = a)
         }
       });
-    this.loader.progress$.subscribe((res) => {
+    this.loader.progress$.subscribe((res: any) => {
       this.progress = res;
     });
 
-    this.rest.catchError.subscribe((res) => {
+    this.rest.catchError.subscribe((res: any) => {
       this.error = res;
     });
 

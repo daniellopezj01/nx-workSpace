@@ -62,12 +62,12 @@
   <div class="pagination-row">
     <pagination
       (pageChanged)="pageChanged($event)"
-      [itemsPerPage]="pagination?.limit"
+      [itemsPerPage]="pagination.limit"
       [customFirstTemplate]="firstTemplate"
       [customLastTemplate]="lastTemplate"
       [customPreviousTemplate]="prevTemplate"
       [customNextTemplate]="nextTemplate"
-      [maxSize]="pagination?.limit"
+      [maxSize]="pagination.limit"
       [totalItems]="pagination?.paginationConfig?.totalDocs"
     >
     </pagination>
@@ -141,7 +141,13 @@
           </div>
           <div class="d-flex">
             <div
-              class="d-flex align-items-center mr-2 badge badge-info font-size-3"
+              class="
+                d-flex
+                align-items-center
+                mr-2
+                badge badge-info
+                font-size-3
+              "
               *ngFor="let tag of comment?.tags"
             >
               <!-- <ngx-avatar
@@ -164,7 +170,7 @@
             'purchase-status-badge-hold': comment?.status === 'draft'
           }"
         ></div>
-        <span class="date">{{ comment?.createdAt | date: "dd-LLL-yyyy" }}</span>
+        <span class="date">{{ comment?.createdAt | date: 'dd-LLL-yyyy' }}</span>
       </div>
     </li>
   </ul>
@@ -172,7 +178,7 @@
 
 <!-- ***************** FIN TEMPLATE ************** -->
 <ng-template #templateEmpty let-data="data">
-  <ng-container *ngIf="!loading">
+  <!-- <ng-container *ngIf="!loading">
     <app-box-empty *ngIf="!data?.length"></app-box-empty>
-  </ng-container>
+  </ng-container> -->
 </ng-template>

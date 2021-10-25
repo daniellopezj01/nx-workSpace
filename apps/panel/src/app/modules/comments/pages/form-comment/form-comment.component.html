@@ -19,7 +19,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "COMMENTS.AUTOR" | translate }}</label>
+            <label>{{ 'COMMENTS.AUTOR' | translate }}</label>
             <ng-select
               #selectProductRef
               [items]="results$ | async"
@@ -72,14 +72,14 @@
       <div class="col-12 flex-wrap">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.TAGS" | translate }}</label>
+            <label>{{ 'TOUR.TAGS' | translate }}</label>
             <ng-select
               class="form-control"
               [addTag]="addTagNowRef"
               [items]="resultsTags$ | async"
               formControlName="tags"
               [hideSelected]="true"
-              multiple="true"
+              [multiple]="true"
               bindValue="name"
               bindLabel="name"
               [minTermLength]="2"
@@ -90,7 +90,7 @@
               [loading]="selectLoading"
             >
               <ng-template ng-tag-tmp let-search="searchTerm">
-                <b>{{ "TOUR.ADD_TAG" | translate }}</b> "{{ search }}"
+                <b>{{ 'TOUR.ADD_TAG' | translate }}</b> "{{ search }}"
               </ng-template>
             </ng-select>
           </div>
@@ -116,7 +116,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "REFERRED.STATUS" | translate }}</label>
+            <label>{{ 'REFERRED.STATUS' | translate }}</label>
             <ng-select
               [items]="statusArray"
               bindLabel="name"
@@ -136,7 +136,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "COMMENTS.CALIFICATION" | translate }}</label>
+            <label>{{ 'COMMENTS.CALIFICATION' | translate }}</label>
             <ng-select
               [items]="calificactionArray"
               [searchable]="false"
@@ -154,7 +154,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "COMMENTS.CONTENT" | translate }}</label>
+            <label>{{ 'COMMENTS.CONTENT' | translate }}</label>
             <app-text-rich
               class="row"
               formControlName="content"
@@ -169,7 +169,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group custom-item">
-            <label>{{ "TOUR.INCLUDES.IMAGE" | translate }}</label>
+            <label>{{ 'TOUR.INCLUDES.IMAGE' | translate }}</label>
             <app-drop-gallery
               [multiple]="false"
               [activeAuxArray]="true"

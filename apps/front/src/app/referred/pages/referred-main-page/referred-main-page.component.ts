@@ -61,7 +61,7 @@ export class ReferredMainPageComponent implements OnInit {
     this.rest
       .get(`profile/referred`)
       .pipe(finalize(() => (this.loading = false)))
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.data = res;
         this.parseData();
       });

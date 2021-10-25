@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -5,13 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './loading.component.html',
   styleUrls: ['./loading.component.scss']
 })
-export class LoadingComponent implements OnInit {
+export class LoadingComponent {
 
-  @Input() loading: boolean;
+  @Input() loading = false;
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 
 }

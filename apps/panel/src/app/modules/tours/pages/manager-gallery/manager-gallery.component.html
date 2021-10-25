@@ -25,7 +25,7 @@
               <div class="form-group">
                 <label>Video</label>
                 <input
-                  (input)="handleChangeInputVideo($event.target.value)"
+                  (input)="handleChangeInputVideo($event.target)"
                   type="text"
                   autocomplete="off"
                   spellcheck="false"
@@ -65,8 +65,7 @@
         [valid]="true"
       ></app-section-btn>
     </div>
-    <div
-      dndDropzone
+    <section
       dndEffectAllowed="copyMove"
       [dndDropzone]="['parent']"
       (dndDrop)="onDrop($event, media.files)"
@@ -78,13 +77,12 @@
       ></div>
       <div
         class="col-3 container-item"
-        [item]="item"
+        *ngFor="let item of media.files; let i = index"
         [dndDraggable]="item"
         [dndEffectAllowed]="'move'"
         [dndType]="'parent'"
         (dndMoved)="onDragged(item, media.files, 'move', media.files)"
-        (dndEnd)="onDragEnd($event, media.files, item)"
-        *ngFor="let item of media.files; let i = index"
+        (dndEnd)="onDragEnd($event, media.files)"
       >
         <span
           class="main-image-home content-destination-card"
@@ -93,7 +91,7 @@
           }"
         ></span>
       </div>
-    </div>
+    </section>
   </div>
 </ng-template>
 <ng-template #templateUpdateGallery>

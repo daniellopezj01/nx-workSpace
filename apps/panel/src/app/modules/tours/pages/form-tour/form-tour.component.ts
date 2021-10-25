@@ -113,7 +113,7 @@ export class FormTourComponent implements OnInit {
     this.loading = true;
     forkJoin([requestCategories, requestContinents, requestPayments])
       .pipe(finalize(() => (this.loading = false)))
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.categories = res[0].docs;
         this.continents = res[1].docs;
         this.payments = res[2].docs;

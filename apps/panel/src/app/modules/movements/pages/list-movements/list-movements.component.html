@@ -63,12 +63,12 @@
   <div class="pagination-row">
     <pagination
       (pageChanged)="pageChanged($event)"
-      [itemsPerPage]="pagination?.limit"
+      [itemsPerPage]="pagination.limit"
       [customFirstTemplate]="firstTemplate"
       [customLastTemplate]="lastTemplate"
       [customPreviousTemplate]="prevTemplate"
       [customNextTemplate]="nextTemplate"
-      [maxSize]="pagination?.limit"
+      [maxSize]="pagination.limit"
       [totalItems]="pagination?.paginationConfig?.totalDocs"
     >
     </pagination>
@@ -141,7 +141,7 @@
               <div>
                 <div class="font-weight-bold">
                   <h6 class="m-0">
-                    {{ inside?.amount | number: "1.2-2" }}
+                    {{ inside?.amount | number: '1.2-2' }}
                     {{ inside?.currency }}
                   </h6>
                 </div>
@@ -154,7 +154,11 @@
       </div>
       <div class="pl-2 pr-2 pt-1 pb-1">
         <div
-          class="d-flex justify-content-end align-content-center align-items-center"
+          class="
+            d-flex
+            justify-content-end
+            align-content-center align-items-center
+          "
         >
           <div
             [tooltip]="inside?.status"
@@ -194,7 +198,7 @@
           <img class="empty-box" src="../../../../../assets/empty.svg" alt="" />
         </div>
         <small
-          ><b>{{ "GENERAL.EMPTY" | translate }}</b></small
+          ><b>{{ 'GENERAL.EMPTY' | translate }}</b></small
         >
       </div>
     </div>

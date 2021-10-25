@@ -63,12 +63,12 @@
   <div class="pagination-row">
     <pagination
       (pageChanged)="pageChanged($event)"
-      [itemsPerPage]="pagination?.limit"
+      [itemsPerPage]="pagination.limit"
       [customFirstTemplate]="firstTemplate"
       [customLastTemplate]="lastTemplate"
       [customPreviousTemplate]="prevTemplate"
       [customNextTemplate]="nextTemplate"
-      [maxSize]="pagination?.limit"
+      [maxSize]="pagination.limit"
       [totalItems]="pagination?.paginationConfig?.totalDocs"
     >
     </pagination>
@@ -117,14 +117,14 @@
           </div>
         </div>
       </div>
-      <span class="date">{{ reffered?.createdAt | date: "dd-LLL-yyyy" }}</span>
+      <span class="date">{{ reffered?.createdAt | date: 'dd-LLL-yyyy' }}</span>
     </li>
   </ul>
 </ng-template>
 
 <ng-template #userTemplate let-user="user" let-amount="amount">
   <div class="d-flex pt-1 title-user">
-    <span>{{ "TYPE_REFERREALS." + user | translate }}</span>
+    <span>{{ 'TYPE_REFERREALS.' + user | translate }}</span>
   </div>
   <span class="amount badge badge-info">
     <fa-icon class="icon-dollar" [icon]="faMoneyBillWave"></fa-icon>
@@ -134,9 +134,9 @@
 
 <!-- ***************** FIN TEMPLATE ************** -->
 <ng-template #templateEmpty let-data="data">
-  <ng-container *ngIf="!loading">
+  <!-- <ng-container *ngIf="!loading">
     <app-box-empty *ngIf="!data?.length"></app-box-empty>
-  </ng-container>
+  </ng-container> -->
 </ng-template>
 
 <ng-template #loadingAll let-loading="loading">

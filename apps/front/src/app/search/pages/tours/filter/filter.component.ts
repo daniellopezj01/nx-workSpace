@@ -170,10 +170,10 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loading = true
-    this.tourService.sharedNumberTotalDocs.subscribe((res) => {
+    this.tourService.sharedNumberTotalDocs.subscribe((res: any) => {
       this.tripsNumber = res
     })
-    const observerOne$ = this.shared.dataTourFilters.subscribe((res) => {
+    const observerOne$ = this.shared.dataTourFilters.subscribe((res: any) => {
       this.setValueInFiltersFromUrl()
       const { continents, categories } = res
       this.continents = continents

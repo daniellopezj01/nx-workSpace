@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SharedService } from 'src/app/modules/shared/shared.service';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-add-user',
@@ -14,7 +14,7 @@ export class AddUserComponent implements OnInit {
     private route: ActivatedRoute,
     private share: SharedService,
     public router: Router
-  ) {}
+  ) { }
 
   public history: any = [
     {

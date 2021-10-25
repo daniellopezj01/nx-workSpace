@@ -18,7 +18,7 @@ export class DemoFilePickerAdapter extends FilePickerAdapter {
 
   parseHeader = () => {
     const token = this.cookieService.get('session');
-    let header = {
+    const header = {
       Accept: 'application/json',
       Authorization: `Bearer ${token}`,
     };
@@ -39,14 +39,16 @@ export class DemoFilePickerAdapter extends FilePickerAdapter {
           return res.body.id.toString();
         } else if (res.type === HttpEventType.UploadProgress) {
           // Compute and show the % done:
-          const UploadProgress = +Math.round((100 * res.loaded) / res.total);
-          return UploadProgress;
+          if (res.total) {
+            const UploadProgress = +Math.round((100 * res.loaded) / res.total);
+            return UploadProgress;
+          }
         }
       })
     );
   }
 
-  public removeFile(fileItem): Observable<any> {
+  public removeFile(fileItem: any): Observable<any> {
     return of({});
   }
 }

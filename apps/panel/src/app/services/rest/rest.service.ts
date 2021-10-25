@@ -67,7 +67,7 @@ export class RestService {
           confirmButtonText: OK,
           footer: '<a href>' + ANY_ISSUE + '</a>',
         }
-        Swal.fire(objectDialog).then((res) => {
+        Swal.fire(objectDialog).then((res: any) => {
           observer.next(res.isConfirmed);
           observer.complete();
         });
@@ -77,7 +77,7 @@ export class RestService {
   showToast = (source: string) => {
     try {
       const match = `ERRORS.${source}`;
-      this.translateService.get(match).subscribe((res) => {
+      this.translateService.get(match).subscribe((res: any) => {
         if (res === match) {
           const matchOne = `${source}.TOAST`;
           this.translateService.get(matchOne).subscribe((resOne) => {

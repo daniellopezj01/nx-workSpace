@@ -63,12 +63,12 @@
   <div class="pagination-row">
     <pagination
       (pageChanged)="pageChanged($event)"
-      [itemsPerPage]="pagination?.limit"
+      [itemsPerPage]="pagination.limit"
       [customFirstTemplate]="firstTemplate"
       [customLastTemplate]="lastTemplate"
       [customPreviousTemplate]="prevTemplate"
       [customNextTemplate]="nextTemplate"
-      [maxSize]="pagination?.limit"
+      [maxSize]="pagination.limit"
       [totalItems]="pagination?.paginationConfig?.totalDocs"
     >
     </pagination>
@@ -146,7 +146,7 @@
           <img class="empty-box" src="../../../../../assets/empty.svg" alt="" />
         </div>
         <small
-          ><b>{{ "GENERAL.EMPTY" | translate }}</b></small
+          ><b>{{ 'GENERAL.EMPTY' | translate }}</b></small
         >
       </div>
     </div>

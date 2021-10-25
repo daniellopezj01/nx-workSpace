@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 @Injectable({
@@ -28,7 +29,7 @@ export class MovementsService {
   ];
   constructor() { }
 
-  public searchPlatform(value) {
+  public searchPlatform(value: any) {
     const item = _.find(this.platform, i => i.value === value)
     return item?.name
   }

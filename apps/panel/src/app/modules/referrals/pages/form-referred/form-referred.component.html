@@ -23,7 +23,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "REFERRED.CLIENT_FROM" | translate }}</label>
+            <label>{{ 'REFERRED.CLIENT_FROM' | translate }}</label>
             <ng-select
               #selectProductRef
               [items]="results$ | async"
@@ -76,7 +76,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "REFERRED.CLIENT_TO" | translate }}</label>
+            <label>{{ 'REFERRED.CLIENT_TO' | translate }}</label>
             <ng-select
               #selectProductRef
               [items]="results$ | async"
@@ -129,7 +129,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "REFERRED.STATUS" | translate }}</label>
+            <label>{{ 'REFERRED.STATUS' | translate }}</label>
             <ng-select
               [items]="statusArray"
               bindLabel="name"
@@ -151,7 +151,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "REFERRED.PLAN" | translate }}</label>
+            <label>{{ 'REFERRED.PLAN' | translate }}</label>
             <ng-select
               #selectProductRef
               [items]="resultsPlan$ | async"
@@ -198,9 +198,9 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "REFERRED.AMOUNT_FROM" | translate }}</label>
+            <label>{{ 'REFERRED.AMOUNT_FROM' | translate }}</label>
             <input
-              disabled="true"
+              [disabled]="true"
               type="text"
               autocomplete="off"
               spellcheck="false"
@@ -218,9 +218,9 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "REFERRED.AMOUNT_TO" | translate }}</label>
+            <label>{{ 'REFERRED.AMOUNT_TO' | translate }}</label>
             <input
-              disabled="true"
+              [disabled]="true"
               type="text"
               autocomplete="off"
               spellcheck="false"

@@ -18,7 +18,7 @@
     <div class="custom-card-style col-12 mt-2 flex-wrap d-flex" *ngIf="data">
       <div class="col-12 p-0">
         <a class="font-weight-bold" [href]="url" target="_blank">{{
-          "TOUR.GO_TO_TOUR" | translate
+          'TOUR.GO_TO_TOUR' | translate
         }}</a>
       </div>
     </div>
@@ -26,7 +26,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.TITLE" | translate }}</label>
+            <label>{{ 'TOUR.TITLE' | translate }}</label>
             <input
               type="text"
               autocomplete="off"
@@ -45,7 +45,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.SUBTITLE" | translate }}</label>
+            <label>{{ 'TOUR.SUBTITLE' | translate }}</label>
             <input
               type="text"
               autocomplete="off"
@@ -63,7 +63,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.ROUTE" | translate }}</label>
+            <label>{{ 'TOUR.ROUTE' | translate }}</label>
             <input
               type="text"
               autocomplete="off"
@@ -81,7 +81,7 @@
       <div class="col-4 flex-wrap">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.DURATION" | translate }}</label>
+            <label>{{ 'TOUR.DURATION' | translate }}</label>
             <input
               type="text"
               class="form-control"
@@ -97,7 +97,7 @@
       <div class="col-4 flex-wrap">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.COUNTRIES" | translate }}</label>
+            <label>{{ 'TOUR.COUNTRIES' | translate }}</label>
             <input
               type="text"
               autocomplete="off"
@@ -113,7 +113,7 @@
       <div class="col-4 flex-wrap">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.CITIES" | translate }}</label>
+            <label>{{ 'TOUR.CITIES' | translate }}</label>
             <input
               type="text"
               autocomplete="off"
@@ -131,14 +131,14 @@
       <div class="col-4 flex-wrap">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.CATEGORIES" | translate }}</label>
+            <label>{{ 'TOUR.CATEGORIES' | translate }}</label>
             <ng-select
               class="form-control"
               [items]="categories"
               [addTag]="addTagFn"
               formControlName="category"
               [hideSelected]="true"
-              multiple="true"
+              [multiple]="true"
               bindLabel="name"
               [(ngModel)]="selectCategories"
               placeholder="seleccionar Categorias"
@@ -150,14 +150,14 @@
       <div class="col-4 flex-wrap">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.TABS.CONTINENTS" | translate }}</label>
+            <label>{{ 'TOUR.TABS.CONTINENTS' | translate }}</label>
             <ng-select
               class="form-control"
               [items]="continents"
               [addTag]="addTagFn"
               formControlName="continent"
               [hideSelected]="true"
-              multiple="true"
+              [multiple]="true"
               bindValue="code"
               bindLabel="name"
               [(ngModel)]="selectContinents"
@@ -170,14 +170,14 @@
       <div class="col-4 flex-wrap">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.TAGS" | translate }}</label>
+            <label>{{ 'TOUR.TAGS' | translate }}</label>
             <ng-select
               class="form-control"
               [addTag]="addTagNowRef"
               [items]="resultsTags$ | async"
               formControlName="tags"
               [hideSelected]="true"
-              multiple="true"
+              [multiple]="true"
               bindValue="name"
               bindLabel="name"
               [minTermLength]="2"
@@ -188,7 +188,7 @@
               [loading]="selectLoading"
             >
               <ng-template ng-tag-tmp let-search="searchTerm">
-                <b>{{ "TOUR.ADD_TAG" | translate }}</b> "{{ search }}"
+                <b>{{ 'TOUR.ADD_TAG' | translate }}</b> "{{ search }}"
               </ng-template>
             </ng-select>
           </div>
@@ -199,7 +199,7 @@
       <div class="col-6 flex-wrap">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.STATUS" | translate }}</label>
+            <label>{{ 'TOUR.STATUS' | translate }}</label>
             <ng-select
               [items]="status"
               bindLabel="name"
@@ -217,14 +217,14 @@
       <div class="col-6 flex-wrap">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.TABS.LENGUAGES" | translate }}</label>
+            <label>{{ 'TOUR.TABS.LENGUAGES' | translate }}</label>
             <ng-select
               class="form-control"
               [items]="lenguages"
               [addTag]="addTagFn"
               formControlName="lenguages"
               [hideSelected]="true"
-              multiple="true"
+              [multiple]="true"
               bindValue="value"
               bindLabel="name"
               [(ngModel)]="ngSelectLenguages"
@@ -240,7 +240,7 @@
       <div class="col-6 flex-wrap">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.PAYMENT_DIRECTION" | translate }}</label>
+            <label>{{ 'TOUR.PAYMENT_DIRECTION' | translate }}</label>
             <ng-select
               class="form-control"
               [items]="payments"
@@ -260,7 +260,7 @@
       <div class="col-6 flex-wrap" *ngIf="activeAgency">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.AGENCY" | translate }}</label>
+            <label>{{ 'TOUR.AGENCY' | translate }}</label>
             <ng-select
               [items]="resultsAgency$ | async"
               formControlName="accountAgency"
@@ -270,7 +270,7 @@
               [hideSelected]="true"
               [trackByFn]="trackByFn"
               [minTermLength]="2"
-              [loading]="tourLoading"
+              [loading]="selectLoading"
               [typeToSearchText]="'PURCHASE.SEARCH_PRODUCT' | translate"
               [typeahead]="agencyInput$"
               [(ngModel)]="ngSelectAgency"
@@ -311,7 +311,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.DESCRIPTION" | translate }}</label>
+            <label>{{ 'TOUR.DESCRIPTION' | translate }}</label>
             <app-text-rich
               class="row"
               formControlName="description"
@@ -327,7 +327,7 @@
       <div class="col-12 p-0">
         <div class="name">
           <div class="form-group">
-            <label>{{ "TOUR.SPECIAL_INFORMATION" | translate }}</label>
+            <label>{{ 'TOUR.SPECIAL_INFORMATION' | translate }}</label>
             <app-text-rich
               class="row"
               formControlName="specialInfo"

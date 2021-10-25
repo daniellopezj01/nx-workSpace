@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { RestService } from 'src/app/services/rest/rest.service';
+import { RestService } from '../../../services/rest/rest.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,15 +9,18 @@ export class MediaService {
   @Output() deleteImage = new EventEmitter<any>();
   public files: any = [];
   public auxFiles: any = [];
-  public activeAux: boolean = false;
+  public activeAux = false;
 
   public items: any = [];
 
-  constructor(private rest: RestService, private sanitizer: DomSanitizer) { }
+  constructor(
+    private rest: RestService,
+    private sanitizer: DomSanitizer
+  ) { }
 
   public processFile = async (imageInput: any) => {
     await Promise.all(
-      Object.values(imageInput.files).map(async ($event: File) => {
+      Object.values(imageInput.files).map(async ($event: any) => {
         const image = await this.blobFile($event);
         if (image) {
           if (this.activeAux) {
@@ -32,7 +35,7 @@ export class MediaService {
       .catch((e) => console.log(e));
   };
 
-  public toBase64 = (file) =>
+  public toBase64 = (file: any) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -62,7 +65,7 @@ export class MediaService {
           });
         };
       } catch (e) {
-        return null;
+        console.log(e)
       }
     });
 
@@ -71,17 +74,17 @@ export class MediaService {
       try {
         const filesToSend = this.activeAux ? this.auxFiles : this.files;
         const alreadyUploaded = filesToSend.filter(
-          (a) => a.source?.original || typeof a === 'string'
+          (a: any) => a.source?.original || typeof a === 'string'
         );
-        if (filesToSend.filter((i) => i.blob).length) {
+        if (filesToSend.filter((i: any) => i.blob).length) {
           const formData = new FormData();
-          filesToSend.forEach((item) => {
+          filesToSend.forEach((item: any) => {
             if (item.blob) {
               formData.append('file[]', item.blob);
             }
           });
           this.rest.post(`storage`, formData, true, {}).subscribe(
-            (res) => {
+            (res: any) => {
               if (merge) {
                 if (this.activeAux) {
                   this.auxFiles = [];
@@ -91,7 +94,7 @@ export class MediaService {
               }
               resolve([...alreadyUploaded, ...res]);
             },
-            (error) => {
+            () => {
               reject([...alreadyUploaded]);
             }
           );

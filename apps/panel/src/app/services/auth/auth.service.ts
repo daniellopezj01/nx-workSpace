@@ -36,7 +36,7 @@ export class AuthService {
         '/'
       );
       this.rest.get(`token`, true, { ignoreLoadingBar: '' }).subscribe(
-        (res) => {
+        (res: any) => {
           this.setterSettings(res);
           this.router.navigate(['/']);
         },
@@ -76,7 +76,7 @@ export class AuthService {
   public login = (data: any) =>
     new Promise((resolve, reject) => {
       this.rest.post(`login`, data).subscribe(
-        (res) => {
+        (res: any) => {
 
           resolve(res);
         },
@@ -143,7 +143,7 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       if (this.cookieService.check('session')) {
         this.rest.get(`token`, true, { ignoreLoadingBar: '' }).subscribe(
-          (res) => {
+          (res: any) => {
             const { user, settings } = res;
             if (
               user &&

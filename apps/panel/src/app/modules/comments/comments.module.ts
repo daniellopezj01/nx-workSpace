@@ -16,7 +16,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { NgxStarsModule } from 'ngx-stars';
-
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -37,6 +37,7 @@ import { NgxStarsModule } from 'ngx-stars';
     AvatarModule,
     NgxStarsModule,
     NgSelectModule,
+    TooltipModule,
     PaginationModule.forRoot(),
     ErrorTailorModule.forRoot({
       errors: {

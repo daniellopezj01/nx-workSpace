@@ -25,7 +25,7 @@ export class ItineraryComponent implements OnInit, OnDestroy {
   }
 
   listObserver = () => {
-    const observer1$ = this.itineraryService.callback.subscribe((res) => {
+    const observer1$ = this.itineraryService.callback.subscribe((res: any) => {
       if (res?.event === 'delete') {
         _.remove(this.data, { _id: res?._id });
       }
@@ -48,7 +48,7 @@ export class ItineraryComponent implements OnInit, OnDestroy {
     const index = _.map(group, '_id');
     item = { ...item, ...{ sorts: index } };
     this.itineraryService.updateItinerary(item?._id, item).subscribe(
-      (res) => { },
+      (res: any) => { },
       (err) => { }
     );
     // this.updateGroup(group?.tickets, group);

@@ -53,7 +53,7 @@ export class FormIncludeComponent implements OnInit {
     this.rest
       .patch(`tours/${_id}`, body)
       .pipe(finalize(() => (this.loading = false)))
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.formsGenericService.callback.emit({ type: this.type, item: res });
         this.modal.close();
         this.rest.toastSuccess(
@@ -144,7 +144,7 @@ export class FormIncludeComponent implements OnInit {
   //   }
   //   const sendObject = {};
   //   sendObject[this.type ? 'included' : 'notIncluded'] = arrayItems;
-  //   this.rest.patch(`tours/${this.tour._id}`, sendObject).subscribe((res) => {
+  //   this.rest.patch(`tours/${this.tour._id}`, sendObject).subscribe((res:any) => {
   //     this.rest.toastSuccess(
   //       'Se ha Actualizado la Actividad exitosamente.',
   //       'Actividad actualizada'
@@ -168,7 +168,7 @@ export class FormIncludeComponent implements OnInit {
   //   array.push(object);
   //   const sendObject = {};
   //   sendObject[this.type ? 'included' : 'notIncluded'] = array;
-  //   this.rest.patch(`tours/${this.tour._id}`, sendObject).subscribe((res) => {
+  //   this.rest.patch(`tours/${this.tour._id}`, sendObject).subscribe((res:any) => {
   //     this.rest.toastSuccess(
   //       'Se ha creado la actividad exitosamente.',
   //       'Actividad creada'

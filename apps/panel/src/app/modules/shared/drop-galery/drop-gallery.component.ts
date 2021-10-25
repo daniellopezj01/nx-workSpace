@@ -52,7 +52,7 @@ export class DropGalleryComponent implements OnInit {
         this.disabledClick = true;
       }
     }
-    this.media.deleteImage.subscribe((res) => {
+    this.media.deleteImage.subscribe((res: any) => {
       this.disabledClick = res;
     });
   }

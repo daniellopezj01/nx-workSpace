@@ -170,7 +170,7 @@ export class ContainerComponent implements OnInit {
     //       });
     //     })
     //   )
-    //   .subscribe((res) => {
+    //   .subscribe((res:any) => {
     //     this.historiesData = res;
     //   });
   }
@@ -192,7 +192,7 @@ export class ContainerComponent implements OnInit {
     //       });
     //     })
     //   )
-    //   .subscribe((res) => {
+    //   .subscribe((res:any) => {
     //     this.communityData = _.compact(res);
     //   });
   }

@@ -79,12 +79,12 @@ export class MainDetailsComponent implements OnInit, OnDestroy {
   listObserver() {
     const observer1 = this.detailService.navigationTour
       .pipe(distinctUntilChanged(), debounceTime(200))
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.showGlobalNavigation = res;
       });
     const observer2 = this.detailService.sectionTour
       .pipe(distinctUntilChanged())
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.activeNavigate = res;
       });
     this.listSubscribers.push(observer1, observer2);
@@ -106,7 +106,7 @@ export class MainDetailsComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(
-        (res) => {
+        (res: any) => {
           this.tour = res;
           this.title.setTitle(`${res?.title} ${environment.title}`);
           const { bestDeparture } = this.tour;

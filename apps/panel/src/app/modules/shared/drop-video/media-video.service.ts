@@ -58,7 +58,7 @@ export class MediaVideoService {
           });
         };
       } catch (e) {
-        return null;
+        console.log(e)
       }
     });
 
@@ -76,7 +76,7 @@ export class MediaVideoService {
             }
           });
           this.rest.post(`storage`, formData, true, {}).subscribe(
-            (res) => {
+            (res: any) => {
               if (merge) {
                 this.files = [];
               }

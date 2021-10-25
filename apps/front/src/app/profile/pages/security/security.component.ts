@@ -113,7 +113,7 @@ export class SecurityComponent {
     }
     this.loading = true;
     this.rest.post('profile/changePassword', this.form.value, false).subscribe(
-      (res) => {
+      (res: any) => {
         this.rest.showToast('SUCCESS_CHANGE');
         this.actions();
         this.router.navigate(['/', 'user']);

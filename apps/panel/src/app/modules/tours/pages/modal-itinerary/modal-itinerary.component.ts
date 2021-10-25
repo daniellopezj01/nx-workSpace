@@ -88,7 +88,7 @@ export class ModalItineraryComponent implements OnInit {
 
     this.itineraryService
       .updateItinerary(this.itinerary?._id, this.itinerary)
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.rest.toastSuccess(
           'Se ha Actualizado el itinerario exitosamente.',
           'Itinerario Actualizado'
@@ -107,7 +107,7 @@ export class ModalItineraryComponent implements OnInit {
     this.itineraryService
       .saveItinerary(this.data)
       .pipe(finalize(() => (this.loading = false)))
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.rest.toastSuccess(
           'Se ha creado el itinerario exitosamente.',
           'Itinerario creado'

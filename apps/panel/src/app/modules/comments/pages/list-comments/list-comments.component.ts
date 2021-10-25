@@ -1,3 +1,5 @@
+import { AuthService } from './../../../../services/auth/auth.service';
+import { PaginationServiceService } from './../../../../services/pagination/pagination-service.service';
 import { CommentsService } from './../../comments.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,14 +18,15 @@ import {
   faAngleDoubleLeft,
   faAngleDoubleRight,
 } from '@fortawesome/free-solid-svg-icons';
-// import {FilterServiceService} from '../../../../components/list-items/filter-service.service';
 import { finalize, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { PaginationServiceService } from 'src/app/services/pagination/pagination-service.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
-import { SearchService } from 'src/app/modules/search/search.service';
+// import { AuthService } from 'src/app/services/auth/auth.service';
+// import { PaginationServiceService } from 'src/app/services/pagination/pagination-service.service';
+// import { SharedService } from 'src/app/modules/shared/shared.service';
+// import { SearchService } from 'src/app/modules/search/search.service';
 import { DatePipe } from '@angular/common';
+import { SharedService } from '../../../shared/shared.service';
+import { SearchService } from '../../../search/search.service';
 
 @Component({
   selector: 'app-list-comments',
@@ -31,12 +34,12 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./list-comments.component.scss']
 })
 export class ListCommentsComponent implements OnInit {
-  @Input() mode: string = 'page';
+  @Input() mode = 'page';
   @Input() title: any = false;
   @Input() limit: any = 15;
-  @Input() viewMore: boolean = true;
+  @Input() viewMore = true;
   @Input() dataTake: any;
-  @Input() data: Observable<any>;
+  @Input() data?: Observable<any>;
   @Output() cbClick = new EventEmitter<any>();
 
   private toAdd = 'comments';
@@ -46,7 +49,7 @@ export class ListCommentsComponent implements OnInit {
   public currencySymbol: any = null;
   public loading: any;
   public fields: Array<any> = [];
-  public page: number = 1;
+  public page = 1;
   public source = 'comments';
   public history: any = [
     {
@@ -55,14 +58,14 @@ export class ListCommentsComponent implements OnInit {
   ];
 
   /***ICONS */
-  faAngleDoubleLeft = faAngleDoubleLeft;
-  faAngleDoubleRight = faAngleDoubleRight;
-  faAngleLeft = faAngleLeft;
-  faAngleRight = faAngleRight;
-  faPhoneAlt = faPhoneAlt;
-  faIndustry = faIndustry;
-  faUser = faUser;
-  faTag = faTag;
+  public faAngleDoubleLeft = faAngleDoubleLeft;
+  public faAngleDoubleRight = faAngleDoubleRight;
+  public faAngleLeft = faAngleLeft;
+  public faAngleRight = faAngleRight;
+  public faPhoneAlt = faPhoneAlt;
+  public faIndustry = faIndustry;
+  public faUser = faUser;
+  public faTag = faTag;
 
   constructor(
     private share: SharedService,
@@ -129,7 +132,7 @@ export class ListCommentsComponent implements OnInit {
 
   load = (src: string = '?') => {
     this.loading = true;
-    let generalParams = `&page=${this.pagination.page}&limit=${this.limit}`;
+    const generalParams = `&page=${this.pagination.page}&limit=${this.limit}`;
     const url = `${this.source}${src}${generalParams}`;
     this.data = this.pagination.paginationData$(url).pipe(
       tap((b: any) => {
@@ -144,7 +147,7 @@ export class ListCommentsComponent implements OnInit {
 
   goTo = () => this.share.goTo(this.toAdd);
 
-  onSrc = (e) => {
+  onSrc = (e: any) => {
     this.pagination.src = e && e.length ? e : '';
     this.pagination.page = 1;
     this.pagination.limit = this.limit;

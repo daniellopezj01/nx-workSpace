@@ -5,7 +5,6 @@ import { MovementsRoutingModule } from './movements-routing.module';
 import { ListMovementsComponent } from './pages/list-movements/list-movements.component';
 import { SharedModule } from '../shared/shared.module';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { AddMovementComponent } from './pages/add-movement/add-movement.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -14,8 +13,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { NgxMaskModule } from 'ngx-mask';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AppModule } from 'src/app/app.module';
-import { CanLeaveModule } from 'src/app/can-leave/can-leave.module';
+
 import { AvatarModule } from 'ngx-avatar';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TimeagoModule } from 'ngx-timeago';
@@ -51,4 +49,4 @@ import { TimeagoModule } from 'ngx-timeago';
   ],
   exports: [ListMovementsComponent],
 })
-export class MovementsModule {}
+export class MovementsModule { }

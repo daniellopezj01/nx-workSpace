@@ -24,7 +24,6 @@
         <div class="d-flex justify-content-center align-items-center">
           <span class="mr-2">
             <fa-icon
-              size="md"
               class="custom-show"
               [ngStyle]="{
                 color: ['visible', 'OK', true].includes(departure?.status)
@@ -45,23 +44,23 @@
           <div class="d-flex flex-column">
             <span class="font-weight-bold">
               <span class="title">
-                {{ "TOUR.DEPARTURE.CARD.DATES" | translate }}
+                {{ 'TOUR.DEPARTURE.CARD.DATES' | translate }}
               </span>
             </span>
             <span class="font-weight-normal">
               <span class="title">
-                {{ "TOUR.DEPARTURE.CARD.START_DATE" | translate }}
+                {{ 'TOUR.DEPARTURE.CARD.START_DATE' | translate }}
               </span>
               <span class="font-weight-bold">
-                {{ departure?.startDateDeparture | date: "MMM dd, YYYY" }}
+                {{ departure?.startDateDeparture | date: 'MMM dd, YYYY' }}
               </span>
             </span>
             <span class="font-weight-normal">
               <span class="title">
-                {{ "TOUR.DEPARTURE.CARD.END_DATE" | translate }}
+                {{ 'TOUR.DEPARTURE.CARD.END_DATE' | translate }}
               </span>
               <span class="font-weight-bold">{{
-                departure?.endDateDeparture | date: "MMM dd, YYYY"
+                departure?.endDateDeparture | date: 'MMM dd, YYYY'
               }}</span>
             </span>
             <span
@@ -69,10 +68,10 @@
               *ngIf="departure?.closeDateDeparture"
             >
               <span class="title">
-                {{ "TOUR.DEPARTURE.CARD.CLOSE_DATE" | translate }}
+                {{ 'TOUR.DEPARTURE.CARD.CLOSE_DATE' | translate }}
               </span>
               <span class="font-weight-bold">{{
-                departure?.closeDateDeparture | date: "MMM dd, YYYY"
+                departure?.closeDateDeparture | date: 'MMM dd, YYYY'
               }}</span>
             </span>
           </div>
@@ -81,7 +80,7 @@
         <div class="d-flex flex-column font-weight-normal">
           <span class="font-weight-bold">
             <span class="title">
-              {{ "TOUR.DEPARTURE.CARD.TRAVELERS" | translate }}
+              {{ 'TOUR.DEPARTURE.CARD.TRAVELERS' | translate }}
               {{ departure?.minStock }} - {{ departure?.stock }}
             </span>
           </span>
@@ -90,16 +89,16 @@
             *ngIf="departure?.minAge && departure?.maxAge"
           >
             <span class="title">
-              {{ "TOUR.DEPARTURE.CARD.AGES" | translate }}
+              {{ 'TOUR.DEPARTURE.CARD.AGES' | translate }}
               {{ departure?.minAge }} - {{ departure?.maxAge }}
-              {{ "TOUR.DEPARTURE.CARD.YEARS" | translate }}
+              {{ 'TOUR.DEPARTURE.CARD.YEARS' | translate }}
             </span>
           </span>
         </div>
         <div class="d-flex flex-column text-right">
           <span class="font-weight-normal">
             <span class="title">
-              {{ "TOUR.DEPARTURE.CARD.PRICE" | translate }}
+              {{ 'TOUR.DEPARTURE.CARD.PRICE' | translate }}
             </span>
             <span class="font-weight-bold">
               {{ departure.normalPrice }} USD
@@ -122,24 +121,29 @@
           [disabled]="!(departure.payAmount.length < tour.setting?.length)"
           type="button"
         >
-          <fa-icon size="md" class="text-dark" [icon]="faPlusSquare"></fa-icon>
+          <fa-icon class="text-dark" [icon]="faPlusSquare"></fa-icon>
         </button>
         <button
           class="pulse-one btn-default btn mr-3"
           (click)="updateDeparture(departure)"
           type="button"
         >
-          <fa-icon size="md" class="text-info" [icon]="faEdit"></fa-icon>
+          <fa-icon class="text-info" [icon]="faEdit"></fa-icon>
         </button>
         <button
           class="pulse-one btn-default btn mr-3"
           (click)="deleteDeparture(departure._id)"
           type="button"
         >
-          <fa-icon size="md" class="text-danger" [icon]="faTrashAlt"></fa-icon>
+          <fa-icon class="text-danger" [icon]="faTrashAlt"></fa-icon>
         </button>
         <div
-          class="icon-angle d-flex justify-content-between align-content-center align-items-center"
+          class="
+            icon-angle
+            d-flex
+            justify-content-between
+            align-content-center align-items-center
+          "
         >
           <fa-icon class="text-muted" size="lg" [icon]="faAngleDown"></fa-icon>
         </div>
@@ -161,7 +165,7 @@
                 class="font-weight-bold"
                 scope="col"
               >
-                {{ item?.key | translate }}
+                {{ item.key | translate }}
               </th>
             </thead>
             <tbody class="tbody">
@@ -176,19 +180,19 @@
                     *ngIf="!item?.amountDiscount"
                     class="badge badge-warning p-2"
                   >
-                    {{ "TOUR.DEPARTURE.TABLE.NOT_APPLY" | translate }}
+                    {{ 'TOUR.DEPARTURE.TABLE.NOT_APPLY' | translate }}
                   </span>
                 </td>
                 <td class="description-style">
-                  {{ item?.startAt | date: "MMM dd, YYYY" }}
+                  {{ item?.startAt | date: 'MMM dd, YYYY' }}
                   <span *ngIf="!item?.startAt" class="badge badge-warning p-2">
-                    {{ "TOUR.DEPARTURE.TABLE.NOT_APPLY" | translate }}
+                    {{ 'TOUR.DEPARTURE.TABLE.NOT_APPLY' | translate }}
                   </span>
                 </td>
                 <td class="description-style">
-                  {{ item?.endAt | date: "MMM dd, YYYY" }}
+                  {{ item?.endAt | date: 'MMM dd, YYYY' }}
                   <span *ngIf="!item?.endAt" class="badge badge-warning p-2">
-                    {{ "TOUR.DEPARTURE.TABLE.NOT_APPLY" | translate }}
+                    {{ 'TOUR.DEPARTURE.TABLE.NOT_APPLY' | translate }}
                   </span>
                 </td>
                 <td class="description-style">
@@ -200,8 +204,8 @@
                     }"
                     >{{
                       item?.allowToAccumulate
-                        ? ("TOUR.DEPARTURE.TABLE.IS_STACKABLE" | translate)
-                        : ("TOUR.DEPARTURE.TABLE.NOT_STACKABLE" | translate)
+                        ? ('TOUR.DEPARTURE.TABLE.IS_STACKABLE' | translate)
+                        : ('TOUR.DEPARTURE.TABLE.NOT_STACKABLE' | translate)
                     }}</span
                   >
                 </td>

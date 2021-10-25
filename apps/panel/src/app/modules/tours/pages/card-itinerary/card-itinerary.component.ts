@@ -86,7 +86,7 @@ export class CardItineraryComponent {
     _.remove(details, { _id: idActivity });
     this.share
       .confirm()
-      .then((res) => {
+      .then((res: any) => {
         this.itineraryService
           .updateItinerary(this.itinerary?._id, { details })
           .subscribe(() => {

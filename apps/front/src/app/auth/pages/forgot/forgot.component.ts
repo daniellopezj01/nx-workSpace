@@ -50,7 +50,7 @@ export class ForgotComponent {
       return;
     }
     this.rest.post('forgot', this.forgetForm.value).subscribe(
-      (res) => {
+      (res: any) => {
         this.showError = false;
         this.loading = false;
         this.router.navigate(['/auth/sendEmail']);

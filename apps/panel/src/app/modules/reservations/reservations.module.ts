@@ -1,5 +1,3 @@
-import { CanLeaveModule } from './../../can-leave/can-leave.module';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 

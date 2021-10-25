@@ -251,7 +251,7 @@ export class SidebarComponent implements OnInit, OnDestroy, AfterContentChecked 
 
   ngOnInit(): void {
     this.loading = true
-    const observerOne$ = this.shared.dataTourFilters.subscribe((res) => {
+    const observerOne$ = this.shared.dataTourFilters.subscribe((res: any) => {
       this.data = res
       this.addPropertiesToData()
 

@@ -44,7 +44,7 @@ export class TextRichService {
           true,
           { ignoreLoadingBar: '' }
         )
-        .subscribe((res) => resolve(this.parseUser(res)));
+        .subscribe((res: any) => resolve(this.parseUser(res)));
     });
 
   private parseUser = (data: any) => {

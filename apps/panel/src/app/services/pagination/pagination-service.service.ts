@@ -13,8 +13,8 @@ export class PaginationServiceService {
   public totalPages = 0;
   public page = 1;
   public limit = 15;
-  public paginationConfig = {};
-  public morePage: boolean | number = 0;
+  public paginationConfig: any = {};
+  public morePage = 0;
   public desktop = false;
   public hasPrevPage = false;
   public hasNextPage = false;
@@ -69,7 +69,7 @@ export class PaginationServiceService {
         .get(q.join(''))
         .pipe(debounceTime(800), distinctUntilChanged())
         .subscribe(
-          (res) => {
+          (res: any) => {
             data = !this.src.length
               ? [...(merge ? data : []), ...this.shared.parseData(res, source)]
               : [...this.shared.parseData(res, source)];

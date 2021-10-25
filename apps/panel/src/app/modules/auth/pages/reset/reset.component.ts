@@ -1,10 +1,10 @@
+import { RestService } from './../../../../services/rest/rest.service';
+import { AuthService } from './../../../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { RestService } from 'src/app/services/rest/rest.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-reset',
@@ -14,7 +14,7 @@ import { SharedService } from 'src/app/modules/shared/shared.service';
 export class ResetComponent implements OnInit {
   public form: FormGroup;
   response: any;
-  loading: boolean;
+  loading = false;
   token: any;
   recover: any = true;
 
@@ -27,9 +27,6 @@ export class ResetComponent implements OnInit {
     private routeActive: ActivatedRoute
   ) {
     this.token = routeActive.snapshot.params.token;
-  }
-
-  ngOnInit(): void {
     this.form = this.formBuilder.group(
       {
         id: ['', Validators.required],
@@ -52,7 +49,9 @@ export class ResetComponent implements OnInit {
       },
       { validator: this.checkPasswords }
     );
+  }
 
+  ngOnInit(): void {
     if (this.token) {
       this.form.patchValue({ id: this.token });
     }
@@ -60,8 +59,8 @@ export class ResetComponent implements OnInit {
 
   checkPasswords(group: FormGroup): any {
     // here we have the 'passwords' group
-    const pass = group.get('password').value;
-    const confirmPass = group.get('confirmPass').value;
+    const pass = group.get('password')?.value;
+    const confirmPass = group.get('confirmPass')?.value;
     return pass === confirmPass ? null : { notSame: true };
   }
 
@@ -69,7 +68,7 @@ export class ResetComponent implements OnInit {
     this.rest
       .post(`reset`, this.form.value)
       .pipe(finalize(() => (this.loading = false)))
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.router.navigate(['/', 'auth', 'login']);
       });
   }

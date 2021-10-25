@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 
 import { ToursRoutingModule } from './tours-routing.module';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ListToursComponent } from './pages/list-tours/list-tours.component';
 import { AddTourComponent } from './pages/add-tour/add-tour.component';
 import { FormTourComponent } from './pages/form-tour/form-tour.component';
@@ -28,7 +27,7 @@ import { IncludedComponent } from './components/included/included.component';
 import { NotIncludedComponent } from './components/not-included/not-included.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { NgxMaskModule } from 'ngx-mask';
 import { ManagerGalleryComponent } from './pages/manager-gallery/manager-gallery.component';
 import { InfoToReservationComponent } from './pages/departures/info-to-reservation/info-to-reservation.component';
 import { DetailsDepartureComponent } from './pages/departures/details-departure/details-departure.component';

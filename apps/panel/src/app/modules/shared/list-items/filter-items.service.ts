@@ -91,7 +91,7 @@ export class FilterItemsService {
         this.loading = true;
         this.rest
           .get(`${data.source}/all`, true, customHeader)
-          .subscribe((res) => {
+          .subscribe((res: any) => {
             this.loading = false;
             this.secondData = res;
           });
@@ -130,6 +130,8 @@ export class FilterItemsService {
     return filterSelect.filter((a) => {
       if (a !== value) {
         return a;
+      } else {
+        return null
       }
     });
   };

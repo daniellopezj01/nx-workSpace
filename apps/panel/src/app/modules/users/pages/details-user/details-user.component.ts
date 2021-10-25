@@ -122,10 +122,11 @@ export class DetailsUserComponent implements OnInit, AfterContentChecked {
     return this.formSecurity.controls;
   }
 
-  validateMessage() {
+  validateMessage(): any {
     if (!this.f.password.errors && !this.f.confirmpassword.errors) {
       return !!this.formSecurity?.errors;
     }
+    return null
   }
 
   ngAfterContentChecked(): any {
@@ -134,7 +135,7 @@ export class DetailsUserComponent implements OnInit, AfterContentChecked {
 
   loadData = () => {
     this.loading = true;
-    this.rest.get(`users/${this.id}`).subscribe((res) => {
+    this.rest.get(`users/${this.id}`).subscribe((res: any) => {
       this.user = res;
       this.loadaDataInforms()
       this.loading = false;
@@ -150,7 +151,7 @@ export class DetailsUserComponent implements OnInit, AfterContentChecked {
       default:
         break;
     }
-    this.rest.patch(`users/${this.user._id}`, objectPatch).subscribe((res) => {
+    this.rest.patch(`users/${this.user._id}`, objectPatch).subscribe((res: any) => {
       this.rest.toastSuccess(
         'Se ha actualizado el Usuario exitosamente.',
         'Usuario Actualizado'
@@ -172,7 +173,7 @@ export class DetailsUserComponent implements OnInit, AfterContentChecked {
 
   updateSecurity() {
     const object = { id: this.user._id, ...this.formSecurity.value };
-    this.rest.post('resetPasswordFromAdmin', object).subscribe((res) => {
+    this.rest.post('resetPasswordFromAdmin', object).subscribe((res: any) => {
       this.rest.toastSuccess(
         'Se ha actualizado la Contraseña exitosamente.',
         'Contraseña Actualizado'
@@ -183,7 +184,7 @@ export class DetailsUserComponent implements OnInit, AfterContentChecked {
   async deleteFile(type: string) {
     const objectDelete: any = {};
     objectDelete[`${type}`] = null;
-    this.rest.patch(`users/${this.user._id}`, objectDelete).subscribe((res) => {
+    this.rest.patch(`users/${this.user._id}`, objectDelete).subscribe((res: any) => {
       this.rest.toastSuccess(
         `Se ha Eliminado el ${type} del Usuario exitosamente.`,
         `${type} Eliminado`
@@ -218,7 +219,7 @@ export class DetailsUserComponent implements OnInit, AfterContentChecked {
         });
         break;
     }
-    this.rest.patch(`users/${this.user._id}`, objectUpdate).subscribe((res) => {
+    this.rest.patch(`users/${this.user._id}`, objectUpdate).subscribe((res: any) => {
       this.rest.toastSuccess(
         `Se ha actualizado el ${type} del Usuario exitosamente.`,
         `${type} Actualizado`

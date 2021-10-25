@@ -67,7 +67,7 @@ export class ContainerFlightComponent implements OnInit, OnDestroy {
       const parseData = this.flightService.simulatePagination(dataNew, false, true);
       this.data = [...parseData];
     });
-    const observer3$ = this.flightService.loadData.pipe(debounceTime(100)).subscribe((res) => {
+    const observer3$ = this.flightService.loadData.pipe(debounceTime(100)).subscribe((res: any) => {
       console.log('entre a loadData en container Flight', res)
       // debugger
       /**

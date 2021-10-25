@@ -1,10 +1,9 @@
-import { Component, OnInit, HostListener, Input } from '@angular/core';
-import { RestService } from 'src/app/services/rest/rest.service';
+import { RestService } from './../../../../services/rest/rest.service';
+import { Component, OnInit, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { concat, from, Observable, of, Subject } from 'rxjs';
+import { concat, Observable, of, Subject } from 'rxjs';
 import {
   catchError,
   distinctUntilChanged,
@@ -25,19 +24,19 @@ import { ReferrealsService } from './referreals.service';
 })
 export class ReferrealsComponent implements OnInit {
 
-  @Input() id: any;
-  @Input() user: any;
+  @Input() public id: any;
+  @Input() public user: any;
   public form: FormGroup;
   public data: any;
   public dataRaw: any;
-  public total: number;
-  public loading: boolean;
+  public total = 0;
+  public loading = false;
   public faCheckCircle = faCheckCircle;
 
   /***PLAN */
   public planLoading = false;
   public planInput$ = new Subject<string>();
-  public resultsPlan$: Observable<any>;
+  public resultsPlan$?: Observable<any>;
   public ngSelectPlan: any;
   /** */
 
@@ -60,12 +59,12 @@ export class ReferrealsComponent implements OnInit {
     public deviceService: DeviceDetectorService,
   ) {
     library.addIcons(faCheckCircle);
-  }
-
-  ngOnInit(): void {
     this.form = this.formBuilder.group({
       typeReferred: ['', Validators.required],
     });
+  }
+
+  ngOnInit(): void {
     this.loadPlanReferred();
     this.getData();
     if (this.user) {
@@ -90,7 +89,7 @@ export class ReferrealsComponent implements OnInit {
         }),
         map((b) => b.docs)
       )
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.data = res;
       });
   }
@@ -111,8 +110,8 @@ export class ReferrealsComponent implements OnInit {
     );
   }
 
-  singleSearch$ = (term, typeUrl) => {
-    let q;
+  singleSearch$ = (term: string, typeUrl: string) => {
+    let q: any;
     switch (typeUrl) {
       case 'plan':
         q = [
@@ -140,7 +139,7 @@ export class ReferrealsComponent implements OnInit {
       console.log(referred)
     });
     this.rest.patch(`users/${this.user._id}`, referred).subscribe(
-      (res) => {
+      () => {
         this.user.plan = this.ngSelectPlan
         this.rest.toastSuccess(
           'Se ha actualizado el plan referido exitosamente.',
@@ -160,7 +159,7 @@ export class ReferrealsComponent implements OnInit {
       resolve({ typeReferred: typeReferred._id });
     });
 
-  selectPlan(e) {
+  selectPlan(e: any) {
     console.log(e)
   }
 

@@ -111,7 +111,7 @@ export class FormUserComponent implements OnInit {
       user = a;
     });
     this.rest.patch(`users/${this.user._id}`, user).subscribe(
-      (res) => {
+      (res: any) => {
         this.user = res
         this.rest.toastSuccess(
           'Se ha actualizado el Usuario exitosamente.',
@@ -131,7 +131,7 @@ export class FormUserComponent implements OnInit {
       user = a;
     });
     this.rest.post(`users`, user).subscribe(
-      (res) => {
+      (res: any) => {
         const { accessToken } = res;
         this.exchange(accessToken);
       },
@@ -202,6 +202,6 @@ export class FormUserComponent implements OnInit {
   cbTrash() {
     this.rest
       .delete(`users/${this.id}`)
-      .subscribe((res) => this.router.navigate(['/', 'users']));
+      .subscribe((res: any) => this.router.navigate(['/', 'users']));
   }
 }

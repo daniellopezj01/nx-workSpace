@@ -37,7 +37,7 @@ export class FaqComponent implements OnInit {
     const body = { ...this.data, ...{ included: group } };
     this.includesService
       .updateIncluded(this.data?._id, body)
-      .subscribe((res) => { });
+      .subscribe((res: any) => { });
   }
 
   onDragged(item: any, list: any[], effect: DropEffect, group: any): any {

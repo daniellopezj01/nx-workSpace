@@ -1,3 +1,4 @@
+import { RestService } from './../../../../services/rest/rest.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,11 +10,11 @@ import {
   tap,
 } from 'rxjs/operators';
 import { concat, from, Observable, of, Subject } from 'rxjs';
-import { RestService } from 'src/app/services/rest/rest.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
+
 import * as _ from 'lodash';
-import { MediaService } from 'src/app/modules/shared/drop-galery/media.service';
 import { CommentsService } from '../../comments.service';
+import { SharedService } from '../../../shared/shared.service';
+import { MediaService } from '../../../shared/drop-galery/media.service';
 
 @Component({
   selector: 'app-form-comment',
@@ -25,14 +26,14 @@ export class FormCommentComponent implements OnInit {
   @Input() comment: any;
   public form: FormGroup;
   public itemsAsObjects = [];
-  public loading: boolean = false;
+  public loading = false;
   public userLoading = false;
   public categories: any;
   public optionsButtons: any = ['save', 'list'];
   public userInput$ = new Subject<string>();
   public tagsInput$ = new Subject<string>();
-  public results$: Observable<any>;
-  public resultsTags$: Observable<any>;
+  public results$?: Observable<any>;
+  public resultsTags$?: Observable<any>;
   public id: any = null;
   public selectLoading = false;
   public data: any = [];
@@ -50,8 +51,8 @@ export class FormCommentComponent implements OnInit {
       value: 'draft',
     },
   ];
-  public calificactionArray: Number[] = [1, 2, 3, 4, 5];
-  public addTagNowRef: (name) => void;
+  public calificactionArray: Array<number> = [1, 2, 3, 4, 5];
+  public addTagNowRef: (name: any) => void;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -63,11 +64,6 @@ export class FormCommentComponent implements OnInit {
     private service: CommentsService
   ) {
     this.addTagNowRef = this.addTagNow.bind(this);
-
-  }
-
-  ngOnInit(): void {
-    this.media.auxFiles = [];
     this.form = this.formBuilder.group({
       idUser: ['', Validators.required],
       tags: [''],
@@ -75,13 +71,16 @@ export class FormCommentComponent implements OnInit {
       vote: ['', Validators.required],
       content: ['', Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    this.media.auxFiles = [];
     this.route.params.subscribe((params) => {
       this.id = params.id === 'add' ? '' : params.id;
     });
     this.form.valueChanges.subscribe(() => {
       this.rest.setActiveConfirmLeave = true;
     });
-
     if (this.activeUpdate) {
       this.beforeUpdate();
       this.optionsButtons.push('trash');
@@ -95,13 +94,13 @@ export class FormCommentComponent implements OnInit {
     this.resultsTags$ = this.loadSelect(this.tagsInput$, 'tags');
   }
 
-  loadSelect(subject, type) {
+  loadSelect(subject: any, type: any) {
     return concat(
       of([]), // default items
       subject.pipe(
         distinctUntilChanged(),
         tap(() => (this.selectLoading = true)),
-        switchMap((term) =>
+        switchMap((term: any) =>
           this.singleSearch$(term, type).pipe(
             catchError(() => of([])), // empty list on error
             tap(() => (this.selectLoading = false))
@@ -111,8 +110,8 @@ export class FormCommentComponent implements OnInit {
     );
   }
 
-  singleSearch$ = (term, typeUrl) => {
-    let q;
+  singleSearch$ = (term: string, typeUrl: string) => {
+    let q: any;
     switch (typeUrl) {
       case 'users':
         q = [
@@ -154,9 +153,9 @@ export class FormCommentComponent implements OnInit {
   }
 
   async saveComments() {
-    let comments = await this.trasnformObject()
+    const comments = await this.trasnformObject()
     this.rest.post(`comments`, comments).subscribe(
-      (res) => {
+      (res: any) => {
         this.rest.toastSuccess(
           'Se ha creado el comentario exitosamente.',
           'comentario Creado'
@@ -164,37 +163,37 @@ export class FormCommentComponent implements OnInit {
         this.loading = false;
         this.router.navigate(['/', 'comments', res._id]);
       },
-      (err) => {
+      (err: any) => {
         this.loading = false
       }
     );
   }
 
   async updateComments() {
-    let comments = await this.trasnformObject()
+    const comments = await this.trasnformObject()
     this.rest.patch(`comments/${this.comment._id}`, comments).subscribe(
-      (res) => {
+      (res: any) => {
         this.rest.toastSuccess(
           'Se ha actualizado el comentario exitosamente.',
           'comentario Actualizado'
         );
         this.loading = false;
       },
-      (err) => {
+      (err: any) => {
         console.log(err);
       }
     );
   }
 
   cbTrash() {
-    this.rest.delete(`comments/${this.comment._id}`).subscribe((res) => {
+    this.rest.delete(`comments/${this.comment._id}`).subscribe((res: any) => {
       this.rest.toastSuccess(
         'Se ha Elimando el comentario exitosamente.',
         'comentario Eliminada'
       );
       this.router.navigate(['/', 'comments']);
     },
-      (err) => {
+      (err: any) => {
         this.loading = false;
         console.log(err);
       });
@@ -229,16 +228,16 @@ export class FormCommentComponent implements OnInit {
     return object
   };
 
-  addTagNow(name): any {
+  addTagNow(name: any): any {
     return new Promise((resolve) => {
       const object = { name }
       this.selectLoading = true;
       this.rest.post('tags', object).subscribe(
-        (res) => {
+        (res: any) => {
           this.selectLoading = false
           resolve(object)
         },
-        (err) => {
+        (err: any) => {
           this.selectLoading = false
           this.rest.showToast('')
         })

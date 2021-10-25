@@ -40,7 +40,7 @@ export class IncludedComponent implements OnInit, OnDestroy {
     const body = { ...this.data, ...{ included: group } };
     this.includesService
       .updateIncluded(this.data?._id, body)
-      .subscribe((res) => { });
+      .subscribe((res: any) => { });
   }
 
   onDragged(item: any, list: any[], effect: DropEffect, group: any): any {
@@ -51,7 +51,7 @@ export class IncludedComponent implements OnInit, OnDestroy {
   }
 
   listObserver = () => {
-    const observer1$ = this.formsGenericService.callback.subscribe((res) => {
+    const observer1$ = this.formsGenericService.callback.subscribe((res: any) => {
       if (res?.type === 'included') {
         this.data.included = res?.item?.included;
       }

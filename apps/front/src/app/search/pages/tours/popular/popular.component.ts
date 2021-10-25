@@ -37,7 +37,7 @@ export class PopularComponent implements OnInit {
 
   ngOnInit(): void {
     this.rest.get('tours?limit=10').subscribe(
-      (res) => {
+      (res: any) => {
         const { docs } = res;
         this.data = docs.reverse();
         this.loading = false;

@@ -44,7 +44,7 @@ export class DropVideoComponent implements OnInit {
     if (this.singleFile && this.media.files.length) {
       this.disabledClick = true;
     }
-    this.media.deleteVideo.subscribe((res) => {
+    this.media.deleteVideo.subscribe((res: any) => {
       this.disabledClick = res;
     });
   }

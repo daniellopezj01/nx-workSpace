@@ -187,9 +187,9 @@
 </ng-template>
 <!-- ***************** FIN TEMPLATE ************** -->
 <ng-template #templateEmpty let-data="data">
-  <ng-container *ngIf="!loading"
-    ><app-box-empty *ngIf="!data?.length"></app-box-empty
-  ></ng-container>
+  <ng-container *ngIf="!loading">
+    <!-- <app-box-empty *ngIf="!data?.length"></app-box-empty> -->
+  </ng-container>
 </ng-template>
 <ng-template #loadingAll let-loading="loading">
   <div *ngIf="loading === true" class="w-100 text-center h-100 loading-wrapper">

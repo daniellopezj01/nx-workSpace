@@ -109,7 +109,7 @@ export class DetailsReservationComponent implements OnInit, AfterContentChecked 
 
 
     this.loadGeneral();
-    this.share.saveOrder.subscribe((res) => {
+    this.share.saveOrder.subscribe((res: any) => {
       this.reservation.transactions.push(res);
       this.reservation.pendingAmount = parseFloat(
         (this.reservation.pendingAmount - res.amount).toFixed(2)
@@ -130,7 +130,7 @@ export class DetailsReservationComponent implements OnInit, AfterContentChecked 
 
   loadGeneral = () => {
     this.rest.get(`reservations/getDetails/${this.id}`).subscribe(
-      (res) => {
+      (res: any) => {
         this.reservation = res;
         const { buyerBirthDay } = res;
         if (buyerBirthDay) {
@@ -167,7 +167,7 @@ export class DetailsReservationComponent implements OnInit, AfterContentChecked 
     };
     this.rest
       .patch(`reservations/${this.reservation._id}`, reservation)
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.rest.toastSuccess(
           'Se ha actualizado la Reservacion exitosamente.',
           'Reserva Actualizada'

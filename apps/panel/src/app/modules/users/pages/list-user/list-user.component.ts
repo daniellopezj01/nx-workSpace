@@ -1,3 +1,4 @@
+import { PaginationServiceService } from './../../../../services/pagination/pagination-service.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -15,8 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { SearchService } from '../../../search/search.service';
 import { finalize, map, tap } from 'rxjs/operators';
-import { PaginationServiceService } from 'src/app/services/pagination/pagination-service.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-list-user',
@@ -24,13 +24,28 @@ import { SharedService } from 'src/app/modules/shared/shared.service';
   styleUrls: ['./list-user.component.scss'],
 })
 export class ListUserComponent implements OnInit {
-  @Input() viewMore: boolean = true;
-  @Input() limit = 15;
-  @Input() mode: string = 'page';
+  @Input() public viewMore = true;
+  @Input() public limit = 15;
+  @Input() public mode = 'page';
   public dataTake: any;
   public loading: any;
   public cbMode: any = null;
   public fields: Array<any> = [];
+  public data: any;
+  public source = 'users';
+  public history: any = [
+    {
+      name: 'Usuarios',
+    },
+  ];
+
+  public faAngleDoubleLeft = faAngleDoubleLeft;
+  public faAngleDoubleRight = faAngleDoubleRight;
+  public faAngleLeft = faAngleLeft;
+  public faAngleRight = faAngleRight;
+  public faPhoneAlt = faPhoneAlt;
+  public faIndustry = faIndustry;
+  public faUser = faUser;
 
   constructor(
     public pagination: PaginationServiceService,
@@ -38,22 +53,6 @@ export class ListUserComponent implements OnInit {
     private route: ActivatedRoute,
     private share: SharedService
   ) { }
-
-  faAngleDoubleLeft = faAngleDoubleLeft;
-  faAngleDoubleRight = faAngleDoubleRight;
-  faAngleLeft = faAngleLeft;
-  faAngleRight = faAngleRight;
-  faPhoneAlt = faPhoneAlt;
-  faIndustry = faIndustry;
-  faUser = faUser;
-  public data: any;
-  public source: string = 'users';
-
-  public history: any = [
-    {
-      name: 'Usuarios',
-    },
-  ];
 
   ngOnInit(): void {
     this.pagination.init();
@@ -70,7 +69,6 @@ export class ListUserComponent implements OnInit {
       key: this.source,
       limit: this.limit,
     });
-
     this.search.setConfig({
       fields: this.fields,
       key: this.source,
@@ -110,7 +108,7 @@ export class ListUserComponent implements OnInit {
 
   load = (src: string = '?') => {
     this.loading = true;
-    let generalParams = `&page=${this.pagination.page}&limit=${this.limit}`;
+    const generalParams = `&page=${this.pagination.page}&limit=${this.limit}`;
     const url = `${this.source}${src}${generalParams}`;
     this.data = this.pagination.paginationData$(url).pipe(
       tap((b: any) => {
@@ -132,7 +130,7 @@ export class ListUserComponent implements OnInit {
 
   goTo = () => this.share.goTo(this.source);
 
-  onSrc = (e) => {
+  onSrc = (e: any) => {
     this.pagination.src = e && e.length ? e : '';
     this.pagination.page = 1;
     this.pagination.limit = this.limit;

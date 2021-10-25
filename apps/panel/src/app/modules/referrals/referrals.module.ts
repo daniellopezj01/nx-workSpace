@@ -15,6 +15,7 @@ import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormReferredComponent } from './pages/form-referred/form-referred.component';
 import { DetailsReferredComponent } from './pages/details-referred/details-referred.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { DetailsReferredComponent } from './pages/details-referred/details-refer
     ReactiveFormsModule,
     FontAwesomeModule,
     AvatarModule,
+    TooltipModule,
     NgSelectModule,
     PaginationModule.forRoot(),
     ErrorTailorModule.forRoot({
@@ -48,4 +50,4 @@ import { DetailsReferredComponent } from './pages/details-referred/details-refer
   ],
   providers: [DatePipe],
 })
-export class ReferralsModule {}
+export class ReferralsModule { }

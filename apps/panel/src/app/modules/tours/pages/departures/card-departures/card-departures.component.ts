@@ -1,8 +1,6 @@
+import { RestService } from './../../../../../services/rest/rest.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ModalsService } from 'src/app/modules/shared/modals.service';
-import { SharedService } from 'src/app/modules/shared/shared.service';
-import { RestService } from 'src/app/services/rest/rest.service';
 import {
   faTrashAlt,
   faEdit,
@@ -13,10 +11,12 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { faAngleDown, faLock } from '@fortawesome/free-solid-svg-icons';
 import * as _ from 'lodash';
-import * as moment from 'moment';
+import moment from 'moment';
 import { DatePipe } from '@angular/common';
 import { ModalPayAmountComponent } from '../../modal-pay-amount/modal-pay-amount.component';
 import { DetailsDepartureComponent } from '../details-departure/details-departure.component';
+import { SharedService } from '../../../../shared/shared.service';
+import { ModalsService } from '../../../../shared/modals.service';
 
 @Component({
   selector: 'app-card-departures',
@@ -57,7 +57,7 @@ export class CardDeparturesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let {
+    const {
       startDateDeparture,
       endDateDeparture,
       closeDateDeparture,
@@ -70,7 +70,7 @@ export class CardDeparturesComponent implements OnInit {
     };
   }
 
-  updateDeparture(departure) {
+  updateDeparture(departure: any) {
     const data = { tour: this.tour, updateItem: true, departure };
     this.modalService.openComponent(
       data,
@@ -79,11 +79,11 @@ export class CardDeparturesComponent implements OnInit {
     );
   }
 
-  deleteDeparture(id) {
+  deleteDeparture(id: string) {
     this.share
       .confirm()
-      .then((res) => {
-        this.rest.delete(`departures/${id}`).subscribe((res) => {
+      .then(() => {
+        this.rest.delete(`departures/${id}`).subscribe(() => {
           _.remove(this.tour.departures, { _id: id });
         });
         this.rest.toastSuccess(
@@ -94,7 +94,7 @@ export class CardDeparturesComponent implements OnInit {
       .catch((err) => console.log(err));
   }
 
-  stringToDate(string) {
+  stringToDate(string: string) {
     return moment(string, 'DD-MM-YYYY').toDate();
   }
 
@@ -112,7 +112,7 @@ export class CardDeparturesComponent implements OnInit {
     );
   }
 
-  updateAmount(item) {
+  updateAmount(item: any) {
     const { setting } = this.tour;
     const data = {
       departure: this.departure,
@@ -127,12 +127,12 @@ export class CardDeparturesComponent implements OnInit {
     );
   }
 
-  deleteAmount(id) {
+  deleteAmount(id: string) {
     const payAmount = _.clone(this.departure.payAmount);
     _.remove(payAmount, { _id: id });
     this.share
       .confirm()
-      .then((res) => {
+      .then(() => {
         this.rest
           .patch(`departures/${this.departure?._id}`, { payAmount })
           .subscribe(() => {

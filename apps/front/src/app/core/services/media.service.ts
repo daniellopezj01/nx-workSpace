@@ -86,7 +86,7 @@ export class MediaService {
           formData.append('file[]', item);
         });
         this.rest.post(`storage`, formData, true, {}).subscribe(
-          (res) => {
+          (res: any) => {
             resolve([...res]);
           },
           (error) => {

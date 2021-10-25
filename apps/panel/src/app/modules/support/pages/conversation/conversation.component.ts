@@ -67,7 +67,7 @@ export class ConversationComponent implements OnInit, AfterViewChecked {
       id: this.ticket._id,
     };
     this.rest.post('Support', object).subscribe(
-      (res) => {
+      (res: any) => {
         this.ticket = res;
         this.loadingButton = false;
         this.sendForm.reset();

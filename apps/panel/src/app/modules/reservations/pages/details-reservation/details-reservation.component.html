@@ -25,7 +25,7 @@
         <div class="col-12 p-0">
           <div class="form-group">
             <label class="mt-4">{{
-              "RESERVATION.BUYER_DATA" | translate
+              'RESERVATION.BUYER_DATA' | translate
             }}</label>
             <div class="text-right w-100">
               <app-section-btn
@@ -47,7 +47,7 @@
         <div class="col-12 p-0">
           <div class="form-group">
             <label class="mt-4">{{
-              "RESERVATION.EMERGENCY_DATA" | translate
+              'RESERVATION.EMERGENCY_DATA' | translate
             }}</label>
             <div class="text-right w-100">
               <app-section-btn
@@ -69,14 +69,14 @@
         <div class="col-12 p-0">
           <div class="d-flex justify-content-between">
             <label class="mt-4">{{
-              "RESERVATION.TRANSACTIONS" | translate
+              'RESERVATION.TRANSACTIONS' | translate
             }}</label>
             <button
               class="btn btn-sm btn-default btn-sm font-weight-bold"
               type="button"
               (click)="openModalTransactions()"
             >
-              {{ "RESERVATION.ADD_TRANSACTION" | translate }}
+              {{ 'RESERVATION.ADD_TRANSACTION' | translate }}
             </button>
           </div>
           <div class="form-group">
@@ -105,14 +105,19 @@
     [formGroup]="formBuyer"
   >
     <div
-      class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 flex-wrap d-flex"
+      class="
+        col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12
+        p-0
+        flex-wrap
+        d-flex
+      "
     >
       <div class="row w-100 mr-0 ml-0">
         <div class="col-6 custom-card-style mt-2 flex-wrap d-flex">
           <div class="col-12 p-0">
             <div class="name">
               <div class="form-group">
-                <label>{{ "RESERVATION.FORM_ADD.NAME" | translate }}</label>
+                <label>{{ 'RESERVATION.FORM_ADD.NAME' | translate }}</label>
                 <input
                   type="text"
                   autocomplete="off"
@@ -130,7 +135,7 @@
           <div class="col-12 p-0">
             <div class="name">
               <div class="form-group">
-                <label>{{ "RESERVATION.FORM_ADD.SURNAME" | translate }}</label>
+                <label>{{ 'RESERVATION.FORM_ADD.SURNAME' | translate }}</label>
                 <input
                   type="text"
                   autocomplete="off"
@@ -149,7 +154,7 @@
         <div class="col-12 p-0">
           <div class="name">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.DOCUMENT" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.DOCUMENT' | translate }}</label>
               <input
                 type="text"
                 autocomplete="off"
@@ -167,7 +172,7 @@
         <div class="col-12 p-0">
           <div class="name">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.EMAIL" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.EMAIL' | translate }}</label>
               <input
                 type="text"
                 class="form-control"
@@ -183,7 +188,7 @@
         <div class="col-12 p-0">
           <div class="name">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.PHONE" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.PHONE' | translate }}</label>
               <ngx-intl-tel-input
                 [enableAutoCountrySelect]="true"
                 [enablePlaceholder]="false"
@@ -195,9 +200,7 @@
                 [searchCountryFlag]="true"
                 [searchCountryPlaceholder]="''"
                 [selectedCountryISO]="CountryISO.Mexico"
-                [maxLength]="15"
-                [tooltipField]="TooltipLabel.Name"
-                [controlErrorsTpl]="tpl"
+                [maxLength]="'15'"
                 [spellcheck]="false"
                 #inputPhone
                 inputmode="search"
@@ -215,7 +218,7 @@
         <div class="col-12 p-0">
           <div class="name">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.BIRTH_DATE" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.BIRTH_DATE' | translate }}</label>
               <input
                 #dp="bsDatepicker"
                 bsDatepicker
@@ -240,14 +243,19 @@
     [formGroup]="formEmergency"
   >
     <div
-      class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 flex-wrap d-flex"
+      class="
+        col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12
+        p-0
+        flex-wrap
+        d-flex
+      "
     >
       <div class="row w-100 mr-0 ml-0">
         <div class="col-6 custom-card-style mt-2 flex-wrap d-flex">
           <div class="col-12 p-0">
             <div class="name">
               <div class="form-group">
-                <label>{{ "RESERVATION.FORM_ADD.NAME" | translate }}</label>
+                <label>{{ 'RESERVATION.FORM_ADD.NAME' | translate }}</label>
                 <input
                   type="text"
                   autocomplete="off"
@@ -265,7 +273,7 @@
           <div class="col-12 p-0">
             <div class="name">
               <div class="form-group">
-                <label>{{ "RESERVATION.FORM_ADD.SURNAME" | translate }}</label>
+                <label>{{ 'RESERVATION.FORM_ADD.SURNAME' | translate }}</label>
                 <input
                   type="text"
                   autocomplete="off"
@@ -285,7 +293,7 @@
         <div class="col-12 p-0">
           <div class="name">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.PHONE" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.PHONE' | translate }}</label>
               <ngx-intl-tel-input
                 [enableAutoCountrySelect]="true"
                 [enablePlaceholder]="false"
@@ -297,9 +305,7 @@
                 [searchCountryFlag]="true"
                 [searchCountryPlaceholder]="''"
                 [selectedCountryISO]="CountryISO.Mexico"
-                [maxLength]="15"
-                [tooltipField]="TooltipLabel.Name"
-                [controlErrorsTpl]="tpl"
+                [maxLength]="'15'"
                 [spellcheck]="false"
                 inputmode="search"
                 controlErrorsClass="error-class-tailor"
@@ -331,7 +337,7 @@
                 class="font-weight-bold"
                 scope="col"
               >
-                {{ item?.key | translate }}
+                {{ item?.key || '' | translate }}
               </th>
             </thead>
             <tbody class="tbody">
@@ -340,7 +346,7 @@
                   {{ item?.code }}
                 </td>
                 <td class="date-row">
-                  {{ item?.createdAt | date: "medium" }}
+                  {{ item?.createdAt | date: 'medium' }}
                 </td>
                 <td class="description-style">
                   {{ item?.description }}
@@ -360,7 +366,7 @@
                   >
                 </td>
                 <td class="amount-row">
-                  {{ item?.amount | number: "1.2-2" }} USD
+                  {{ item?.amount | number: '1.2-2' }} USD
                 </td>
                 <td class="platform-row" *ngIf="item?.attached">
                   <div class="icon-style">
@@ -383,7 +389,7 @@
       <div class="container-with-out d-flex justify-content-center">
         <div class="with-out-transaction">
           <p class="text-center">
-            {{ "RESERVATION.NOT_TRANSACTIONS" | translate }}
+            {{ 'RESERVATION.NOT_TRANSACTIONS' | translate }}
           </p>
         </div>
       </div>
@@ -391,25 +397,25 @@
   </div>
 
   <div class="balance">
-    <label class="mt-4">{{ "RESERVATION.BALANCE" | translate }}</label>
+    <label class="mt-4">{{ 'RESERVATION.BALANCE' | translate }}</label>
     <div class="section-balance">
       <span class="pb-2 pt-2"
-        >{{ "RESERVATION.PAID" | translate }}
+        >{{ 'RESERVATION.PAID' | translate }}
         <span class="text-success font-weight-bold">
           {{
-            reservation?.amount - reservation?.pendingAmount | number: "1.2-2"
+            reservation?.amount - reservation?.pendingAmount | number: '1.2-2'
           }}
           USD
         </span>
       </span>
       <span class="pb-2 pt-2"
-        >{{ "RESERVATION.PENDING" | translate }}
+        >{{ 'RESERVATION.PENDING' | translate }}
         <span class="text-danger font-weight-bold">
-          {{ reservation?.pendingAmount | number: "1.2-2" }} USD</span
+          {{ reservation?.pendingAmount | number: '1.2-2' }} USD</span
         ></span
       >
       <div class="pb-2 pt-2 d-flex container-total-price">
-        <span class="total-price">{{ "RESERVATION.TOTAL" | translate }}</span>
+        <span class="total-price">{{ 'RESERVATION.TOTAL' | translate }}</span>
         <ng-container
           *ngIf="
             activeUpdateAmount;
@@ -443,7 +449,7 @@
       class="ml-1 btn btn-default"
       (click)="activeUpdateAmount = !activeUpdateAmount"
     >
-      {{ "GENERAL.CANCEL" | translate }}
+      {{ 'GENERAL.CANCEL' | translate }}
     </button>
     <button
       ngxLoading
@@ -458,13 +464,13 @@
 </ng-template>
 <ng-template #templateNormalAmount>
   <span class="font-weight-bold">
-    {{ reservation?.amount | number: "1.2-2" }} USD
+    {{ reservation?.amount | number: '1.2-2' }} USD
   </span>
   <button
     class="ml-1 btn btn-link"
     (click)="activeUpdateAmount = !activeUpdateAmount"
   >
-    {{ "TASK.EDIT" | translate }}
+    {{ 'TASK.EDIT' | translate }}
   </button>
 </ng-template>
 

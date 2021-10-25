@@ -102,7 +102,7 @@ export class ModalPayAmountComponent implements OnInit {
     };
     this.rest
       .patch(`departures/${this.departure._id}`, { payAmount: newPayAmount })
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.departure.payAmount = res.payAmount;
         this.rest.toastSuccess(
           'Se ha actualizado el Porcentaje Exitosamente',
@@ -120,7 +120,7 @@ export class ModalPayAmountComponent implements OnInit {
     payAmount.push(body);
     this.rest
       .patch(`departures/${this.departure._id}`, { payAmount })
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.departure.payAmount = res.payAmount;
         this.rest.toastSuccess(
           'Se ha creado el porcentaje de pago  exitosamente.',

@@ -3,7 +3,16 @@
     <accordion-group (isOpenChange)="isOpen($event, index)">
       <div accordion-heading is class="d-flex justify-content-between">
         <button
-          class="btn-custom col-10 p-0 btn-block text-dark p-1 clearfix text-left"
+          class="
+            btn-custom
+            col-10
+            p-0
+            btn-block
+            text-dark
+            p-1
+            clearfix
+            text-left
+          "
           type="button"
         >
           <div class="d-flex align-items-center align-content-center">
@@ -26,33 +35,30 @@
                 (click)="openModalSave()"
                 type="button"
               >
-                <fa-icon
-                  size="md"
-                  class="text-dark"
-                  [icon]="faPlusSquare"
-                ></fa-icon>
+                <fa-icon class="text-dark" [icon]="faPlusSquare"></fa-icon>
               </button>
               <button
                 class="pulse-one btn-default btn mr-3"
                 (click)="updateItinerary(itinerary)"
                 type="button"
               >
-                <fa-icon size="md" class="text-info" [icon]="faEdit"></fa-icon>
+                <fa-icon class="text-info" [icon]="faEdit"></fa-icon>
               </button>
               <button
                 class="pulse-one btn-default btn mr-3"
                 (click)="deleteItinerary(itinerary._id)"
                 type="button"
               >
-                <fa-icon
-                  size="md"
-                  class="text-danger"
-                  [icon]="faTrashAlt"
-                ></fa-icon>
+                <fa-icon class="text-danger" [icon]="faTrashAlt"></fa-icon>
               </button>
             </div>
             <div
-              class="icon-angle d-flex justify-content-between align-content-center align-items-center"
+              class="
+                icon-angle
+                d-flex
+                justify-content-between
+                align-content-center align-items-center
+              "
             >
               <fa-icon
                 class="text-muted"
@@ -75,7 +81,6 @@
 
 <ng-template #listActivities let-items="items">
   <div
-    dndDropzone
     dndEffectAllowed="copyMove"
     [dndDropzone]="['child']"
     (dndDrop)="onDrop($event, items)"
@@ -101,7 +106,7 @@
             <span class="font-weight-bold"
               >{{ item?.title }}
               <span class="text-primary" *ngIf="item?.isNight">{{
-                "TOUR.ITINERARY.ACTIVITY.NIGHT" | translate
+                'TOUR.ITINERARY.ACTIVITY.NIGHT' | translate
               }}</span></span
             >
           </div>

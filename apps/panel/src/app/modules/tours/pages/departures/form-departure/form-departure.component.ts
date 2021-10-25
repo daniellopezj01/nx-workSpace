@@ -19,6 +19,7 @@ export class FormDepartureComponent implements OnInit {
   @Input() updateItem = false;
   public data: any = {};
   public today = moment().toDate();
+  public minDate = new Date(0)
   public tags: any = [];
   public flight = false;
   public currencies = false;
@@ -60,6 +61,9 @@ export class FormDepartureComponent implements OnInit {
       status: ['', Validators.required],
       description: [''],
     });
+    if (!this.updateItem) {
+      this.minDate = this.today
+    }
   }
 
   ngOnInit(): void {
@@ -83,7 +87,7 @@ export class FormDepartureComponent implements OnInit {
     this.rest
       .patch(`departures/${this.departure._id}`, body)
       .pipe(finalize(() => (this.loading = false)))
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.rest.toastSuccess(
           'Se ha Actualizado la salida exitosamente.',
           'Salida Actualizada'
@@ -98,7 +102,7 @@ export class FormDepartureComponent implements OnInit {
     this.rest
       .post('departures', body)
       .pipe(finalize(() => (this.loading = false)))
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.rest.toastSuccess(
           'Se ha creado la salida exitosamente.',
           'Salida creada'
@@ -199,6 +203,8 @@ export class FormDepartureComponent implements OnInit {
       return {};
     }
   };
+
+
 
   check($event: any) {
     console.log($event);

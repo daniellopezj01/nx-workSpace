@@ -30,10 +30,17 @@
 <ng-template #emptyRef let-data="data" let-modal="modal">
   <div
     *ngIf="!data?.length"
-    class="w-100 text-center d-flex justify-content-center align-items-center align-content-center p-3"
+    class="
+      w-100
+      text-center
+      d-flex
+      justify-content-center
+      align-items-center align-content-center
+      p-3
+    "
   >
-    <button (click)="openModalSave(modal)" class="btn btn-default">
+    <!-- <button (click)="openModalSave(modal)" class="btn btn-default">
       {{ "GENERAL.ADD" | translate }}
-    </button>
+    </button> -->
   </div>
 </ng-template>

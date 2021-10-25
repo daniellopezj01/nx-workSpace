@@ -95,7 +95,7 @@ export class FormReservationComponent
       this.reservationForm.patchValue({ travelerEmail: email });
       this.reservationForm.controls.travelerEmail.disable();
     });
-    this.rest.get('questions').subscribe((res) => {
+    this.rest.get('questions').subscribe((res: any) => {
       this.questions = res.docs;
       if (_.find(this.questions, i => i.specialKey === 'agent')) {
         this.rest.get('users/agents').subscribe((resAgent) => {
@@ -150,7 +150,7 @@ export class FormReservationComponent
 
   errorDate() {
     let message;
-    this.translate.get('GENERAL.ALERT_AGE').subscribe((res) => {
+    this.translate.get('GENERAL.ALERT_AGE').subscribe((res: any) => {
       const { minAge, maxAge } = this.departure;
       message = `${res} ${minAge} - ${maxAge || '∞'} `;
     });
@@ -195,7 +195,7 @@ export class FormReservationComponent
   saveReservation() {
     this.loading = true;
     this.rest.post(`reservations`, this.reservation, false).subscribe(
-      (res) => {
+      (res: any) => {
         this.router.navigate([`payment/${res.code}`]);
         this.loading = false;
       },

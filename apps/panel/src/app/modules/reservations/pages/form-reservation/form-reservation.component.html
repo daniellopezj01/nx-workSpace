@@ -14,11 +14,11 @@
     </div>
     <form [formGroup]="reservationForm">
       <div class="section-form">
-        <h6 class="mb-4">{{ "RESERVATION.GENERAL_INFO" | translate }}</h6>
+        <h6 class="mb-4">{{ 'RESERVATION.GENERAL_INFO' | translate }}</h6>
         <div class="row">
           <div class="col-lg-3">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.CLIENT" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.CLIENT' | translate }}</label>
               <ng-select
                 #selectProductRef
                 [items]="results$ | async"
@@ -71,7 +71,7 @@
           </div>
           <div class="col-lg-3">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.TOUR" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.TOUR' | translate }}</label>
               <ng-select
                 #selectProductRef
                 [items]="resultsTours$ | async"
@@ -115,7 +115,7 @@
           </div>
           <div class="col-lg-3">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.DEPARTURE" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.DEPARTURE' | translate }}</label>
               <ng-select
                 [items]="departures"
                 bindLabel="startDateDeparture"
@@ -129,13 +129,13 @@
                   {{
                     item?.startDateDeparture
                       | datesFormatDeparture
-                      | date: "d MMM YYYY"
+                      | date: 'd MMM YYYY'
                   }}
                   /
                   {{
                     item?.endDateDeparture
                       | datesFormatDeparture
-                      | date: "d MMM YYYY"
+                      | date: 'd MMM YYYY'
                   }}
                 </ng-template>
                 <ng-template
@@ -150,13 +150,13 @@
                         {{
                           item?.startDateDeparture
                             | datesFormatDeparture
-                            | date: "d MMM YYYY"
+                            | date: 'd MMM YYYY'
                         }}
                         /
                         {{
                           item?.endDateDeparture
                             | datesFormatDeparture
-                            | date: "d MMM YYYY"
+                            | date: 'd MMM YYYY'
                         }}
                       </div>
                     </div>
@@ -167,7 +167,7 @@
           </div>
           <div class="col-lg-3">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.STATUS" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.STATUS' | translate }}</label>
               <ng-select
                 [items]="status"
                 bindLabel="name"
@@ -184,11 +184,11 @@
         </div>
       </div>
       <div class="section-form">
-        <h6 class="mb-4">{{ "RESERVATION.TRAVELER_INFO" | translate }}</h6>
+        <h6 class="mb-4">{{ 'RESERVATION.TRAVELER_INFO' | translate }}</h6>
         <div class="row">
           <div class="col-lg-6">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.NAME" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.NAME' | translate }}</label>
               <input
                 type="text"
                 class="form-control"
@@ -201,7 +201,7 @@
 
           <div class="col-lg-6">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.SURNAME" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.SURNAME' | translate }}</label>
               <input
                 type="text"
                 class="form-control"
@@ -215,7 +215,7 @@
         <div class="row">
           <div class="col-lg-4">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.DOCUMENT" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.DOCUMENT' | translate }}</label>
               <input
                 type="text"
                 class="form-control"
@@ -227,7 +227,7 @@
           </div>
           <div class="col-lg-4">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.BIRTH_DATE" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.BIRTH_DATE' | translate }}</label>
               <input
                 #dp="bsDatepicker"
                 bsDatepicker
@@ -242,7 +242,7 @@
           </div>
           <div class="col-lg-4">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.GENDER" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.GENDER' | translate }}</label>
               <ng-select
                 [items]="genders"
                 bindLabel="name"
@@ -261,7 +261,7 @@
         <div class="row">
           <div class="col-lg-6 col-md-6 input-container">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.EMAIL" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.EMAIL' | translate }}</label>
               <input
                 type="text"
                 class="form-control"
@@ -274,7 +274,7 @@
           </div>
           <div class="col-lg-6 input-container phone-reservation">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.PHONE" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.PHONE' | translate }}</label>
               <ngx-intl-tel-input
                 [enableAutoCountrySelect]="true"
                 [enablePlaceholder]="false"
@@ -287,8 +287,7 @@
                 [searchCountryFlag]="true"
                 [searchCountryPlaceholder]="''"
                 [selectedCountryISO]="CountryISO.Mexico"
-                [maxLength]="15"
-                [controlErrorsTpl]="tpl"
+                [maxLength]="'15'"
                 [spellcheck]="false"
                 #inputPhone
                 inputmode="search"
@@ -305,7 +304,7 @@
         <div class="row">
           <div class="col-lg-6 col-md-6">
             <div class="form-group position-relative">
-              <label>{{ "RESERVATION.FORM_ADD.COUNTRY" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.COUNTRY' | translate }}</label>
               <ng-select
                 #selectProductRef
                 [items]="countries"
@@ -328,7 +327,7 @@
           </div>
           <div class="col-lg-6 col-md-6">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.CITY" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.CITY' | translate }}</label>
               <input
                 type="text"
                 class="form-control"
@@ -343,7 +342,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="form-group">
-              <label>{{ "RESERVATION.FORM_ADD.ADDRESS" | translate }}</label>
+              <label>{{ 'RESERVATION.FORM_ADD.ADDRESS' | translate }}</label>
               <input
                 type="text"
                 [controlErrorsTpl]="tpl"
@@ -361,7 +360,7 @@
   <ng-template let-error let-text="text" #tpl>
     <ng-container *ngIf="error">
       <label class="control-error">{{
-        "GENERAL.ERROR_FIELD_REQUIRED" | translate
+        'GENERAL.ERROR_FIELD_REQUIRED' | translate
       }}</label>
     </ng-container>
   </ng-template>
@@ -369,12 +368,12 @@
   <ng-template #loadingRef let-loading="loading">
     <div
       class="w-100 loading-wrap animate__animated animate__fadeIn"
-      *ngIf="loading == true"
+      *ngIf="loading"
     >
       <div class="in">
         <img class="circle" src="/assets/loading.svg" alt="loading" />
         <div>
-          <small>{{ "GENERAL.LOADING" | translate }}</small>
+          <small>{{ 'GENERAL.LOADING' | translate }}</small>
         </div>
       </div>
     </div>
@@ -390,7 +389,7 @@
           alt="loading"
         />
         <div>
-          <small>{{ "GENERAL.ERROR" | translate }}</small>
+          <small>{{ 'GENERAL.ERROR' | translate }}</small>
         </div>
       </div>
     </div>

@@ -73,13 +73,13 @@ export class DetailsTourComponent
   }
 
   listObserver = () => {
-    const observer1$ = this.share.saveItinerary.subscribe((res) => {
+    const observer1$ = this.share.saveItinerary.subscribe((res: any) => {
       this.tour.itinerary.push(res);
     });
-    const observer2$ = this.share.saveDeparture.subscribe((res) => {
+    const observer2$ = this.share.saveDeparture.subscribe((res: any) => {
       this.tour.departures.push(res);
     });
-    const observer3$ = this.share.updateDeparture.subscribe((res) => {
+    const observer3$ = this.share.updateDeparture.subscribe((res: any) => {
       const { departures } = this.tour;
       const newResult = departures.map((item: any) =>
         item._id === res._id ? res : item
@@ -89,7 +89,7 @@ export class DetailsTourComponent
       // departures.splice(index, 1, res);
       // this.tour.depatures = departures;
     });
-    const observer4$ = this.formsGenericService.callback.subscribe((res) => {
+    const observer4$ = this.formsGenericService.callback.subscribe((res: any) => {
       this.tour = { ...this.tour, ...res?.item };
     });
     this.listSubscribers = [observer1$, observer2$, observer3$, observer4$];
@@ -104,7 +104,7 @@ export class DetailsTourComponent
   }
 
   loadGeneral = () => {
-    this.rest.get(`tours/${this.id}`).subscribe((res) => {
+    this.rest.get(`tours/${this.id}`).subscribe((res: any) => {
       this.tour = res;
       this.loading = false;
     });
@@ -141,7 +141,7 @@ export class DetailsTourComponent
   }
 
   deleteTour(): any {
-    this.rest.delete(`tours/${this.tour._id}`).subscribe((res) => {
+    this.rest.delete(`tours/${this.tour._id}`).subscribe((res: any) => {
       this.rest.toastSuccess(
         'Se ha Eliminado el tour exitosamente.',
         'Tour Eliminado'

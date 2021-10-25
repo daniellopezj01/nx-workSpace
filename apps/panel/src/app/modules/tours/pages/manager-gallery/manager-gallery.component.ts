@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { RestService } from './../../../../services/rest/rest.service';
 import { MediaService } from './../../../shared/drop-galery/media.service';
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -16,7 +16,7 @@ import { IncludedService } from '../../services/included.service';
   templateUrl: './manager-gallery.component.html',
   styleUrls: ['./manager-gallery.component.scss']
 })
-export class ManagerGalleryComponent implements OnInit {
+export class ManagerGalleryComponent implements OnInit, AfterContentChecked {
 
   @Input() id: any;
   @Input() tour: any;
@@ -91,7 +91,7 @@ export class ManagerGalleryComponent implements OnInit {
     console.log(body)
     this.includesService
       .updateIncluded(this.tour?._id, body)
-      .subscribe((res) => { });
+      .subscribe((res: any) => { });
 
   }
 
@@ -100,7 +100,7 @@ export class ManagerGalleryComponent implements OnInit {
     await this.media.loadImages().then((res: any) => {
       attached = _.concat(res, []);
     });
-    this.rest.patch(`tours/${this.tour._id}`, { attached }).subscribe((res) => {
+    this.rest.patch(`tours/${this.tour._id}`, { attached }).subscribe((res: any) => {
       this.rest.toastSuccess(
         'Se ha actualizado la galeria del Tour exitosamente.',
         'Tour Actualizado'
@@ -109,9 +109,10 @@ export class ManagerGalleryComponent implements OnInit {
     });
   }
 
-  handleChangeInputVideo(e: any) {
+  handleChangeInputVideo(target: any) {
+    const { value } = target
     const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-    const match = e.match(regExp);
+    const match = value.match(regExp);
     this.idVideo = match && match[7].length == 11 ? match[7] : false;
     if (this.idVideo && this.player) {
       setTimeout(() => {
@@ -129,7 +130,7 @@ export class ManagerGalleryComponent implements OnInit {
 
   saveVideo() {
     const object = { video: this.idVideo };
-    this.rest.patch(`tours/${this.id}`, object).subscribe((res) => {
+    this.rest.patch(`tours/${this.id}`, object).subscribe((res: any) => {
       this.rest.toastSuccess(
         'Se ha actualizado el tour del Tour exitosamente.',
         'Tour Actualizado'
@@ -140,7 +141,7 @@ export class ManagerGalleryComponent implements OnInit {
 
   deleteVideo() {
     const object = { video: '' };
-    this.rest.patch(`tours/${this.id}`, object).subscribe((res) => {
+    this.rest.patch(`tours/${this.id}`, object).subscribe((res: any) => {
       const { video } = res;
       this.rest.toastSuccess(
         'Se ha actualizado el tour del Tour exitosamente.',
