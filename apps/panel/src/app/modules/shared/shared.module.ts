@@ -42,7 +42,6 @@ import { DatesFormatDeparturePipe } from '../../directives/dates-format-departur
 import { ShowCategoriesPipe } from '../../directives/show-categories.pipe';
 import { FormDepartureComponent } from '../tours/pages/departures/form-departure/form-departure.component';
 
-
 @NgModule({
   declarations: [
     ModalWizardComponent,

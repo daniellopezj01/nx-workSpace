@@ -13,10 +13,7 @@ export class MediaService {
 
   public items: any = [];
 
-  constructor(
-    private rest: RestService,
-    private sanitizer: DomSanitizer
-  ) { }
+  constructor(private rest: RestService, private sanitizer: DomSanitizer) { }
 
   public processFile = async (imageInput: any) => {
     await Promise.all(
@@ -84,7 +81,7 @@ export class MediaService {
             }
           });
           this.rest.post(`storage`, formData, true, {}).subscribe(
-            (res: any) => {
+            (res) => {
               if (merge) {
                 if (this.activeAux) {
                   this.auxFiles = [];
@@ -94,7 +91,7 @@ export class MediaService {
               }
               resolve([...alreadyUploaded, ...res]);
             },
-            () => {
+            (error) => {
               reject([...alreadyUploaded]);
             }
           );

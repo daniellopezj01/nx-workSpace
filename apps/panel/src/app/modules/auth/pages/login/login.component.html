@@ -1,12 +1,19 @@
 <div class="row m-0 col-12 p-0 position-absolute h-100">
   <div
-    class="col-sm-12 col-md-12 col-lg-6 offset-lg-3 col-xl-4 pl-0 pr-0 offset-xl-4"
+    class="
+      col-sm-12 col-md-12 col-lg-6
+      offset-lg-3
+      col-xl-4
+      pl-0
+      pr-0
+      offset-xl-4
+    "
   >
     <div class="login-section">
       <div class="w-100">
         <div class="title-section animate__animated animate__fadeInDown">
-          <h1 class="title">{{ "LOGIN.WELCOME" | translate }}</h1>
-          <span class="text-muted">{{ "LOGIN.SUB_TITLE" | translate }}</span>
+          <h1 class="title">{{ 'LOGIN.WELCOME' | translate }}</h1>
+          <span class="text-muted">{{ 'LOGIN.SUB_TITLE' | translate }}</span>
         </div>
         <form
           class="animate__animated animate__fadeInDown"
@@ -16,7 +23,7 @@
         >
           <div class="form-group">
             <label for="exampleInputEmail1">{{
-              "LOGIN.FORM.EMAIL" | translate
+              'LOGIN.FORM.EMAIL' | translate
             }}</label>
             <input
               type="text"
@@ -27,12 +34,12 @@
               placeholder=""
             />
             <small class="form-text text-muted">{{
-              "LOGIN.FORM.EMAIL_PLACEHOLDER" | translate
+              'LOGIN.FORM.EMAIL_PLACEHOLDER' | translate
             }}</small>
           </div>
           <div class="form-group pt-2">
             <label for="exampleInputPassword1">{{
-              "LOGIN.FORM.PASSWORD" | translate
+              'LOGIN.FORM.PASSWORD' | translate
             }}</label>
             <div class="position-relative">
               <input
@@ -50,27 +57,27 @@
             <small
               class="form-text text-muted w-100 d-flex justify-content-between"
             >
-              {{ "LOGIN.FORM.PASSWORD_PLACEHOLDER" | translate }}
+              {{ 'LOGIN.FORM.PASSWORD_PLACEHOLDER' | translate }}
               <small
                 ><a routerLink="/auth/forgot">{{
-                  "LOGIN.FORM.PASS" | translate
+                  'LOGIN.FORM.PASS' | translate
                 }}</a></small
               >
             </small>
           </div>
           <div class="pt-3 pb-3">
             <button
-              [disabled]="!form.valid"
               ngxLoading
               [textInitial]="'LOGIN.FORM.SEND' | translate"
               [textLoading]="'GENERAL.LOADING_SINGLE' | translate"
+              [disabled]="!form.valid"
               [loadingFlag]="loading"
               type="submit"
               class="btn btn-primary btn-radius btn-block"
             ></button>
           </div>
           <div class="separator text-muted text-center">
-            {{ "GENERAL.OR" | translate }}
+            {{ 'GENERAL.OR' | translate }}
           </div>
           <!-- <div class="row pt-3">
             <div class="col-6">
@@ -119,9 +126,9 @@
 
           <div class="w-100 mt-4 mb-2">
             <span class="form-text text-muted">
-              {{ "LOGIN.FORM.REGISTER_PLACEHOLDER" | translate }}
+              {{ 'LOGIN.FORM.REGISTER_PLACEHOLDER' | translate }}
               <a class="ml-1" routerLink="/auth/register">
-                {{ "LOGIN.FORM.REGISTER" | translate }}</a
+                {{ 'LOGIN.FORM.REGISTER' | translate }}</a
               >
             </span>
           </div>

@@ -52,7 +52,7 @@ export class DropGalleryComponent implements OnInit {
         this.disabledClick = true;
       }
     }
-    this.media.deleteImage.subscribe((res: any) => {
+    this.media.deleteImage.subscribe((res) => {
       this.disabledClick = res;
     });
   }
@@ -120,7 +120,7 @@ export class DropGalleryComponent implements OnInit {
     this.animationItem = animationItem;
   }
 
-  loopComplete(e: any): void {
+  loopComplete(): void {
     this.pause();
   }
 

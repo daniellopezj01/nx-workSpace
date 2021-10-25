@@ -18,17 +18,20 @@ export class LoadingBtnDirective implements OnChanges {
 
   constructor(private elem: ElementRef) { }
 
+
   ngOnChanges(changes: any): void {
-    if (changes?.condition && changes?.condition?.currentValue) {
-      const { currentValue } = changes.condition;
-      this.loadingFlag = currentValue;
+    if (changes.condition && changes.condition.currentValue) {
+      this.loadingFlag = changes.condition.currentValue;
     }
     this.elem.nativeElement.innerText = this.loadingFlag
       ? this.textLoading
       : this.textInitial;
 
-    if ([undefined, false].includes(this.loadingFlag)) {
-      this.elem.nativeElement.disabled = !!this.disabled;
+    if (![undefined, false].includes(this.loadingFlag)) {
+      console.log(this.disabled)
+      this.elem.nativeElement.disabled = this.loadingFlag
+        ? this.loadingFlag
+        : !!this.disabled;
     }
   }
 }

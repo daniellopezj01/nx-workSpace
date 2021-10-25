@@ -45,7 +45,7 @@ export class ListMovementsComponent implements OnInit {
   @Input() dataTake: any;
   @Output() cbClick = new EventEmitter<any>();
 
-  @Input() data: Observable<any> = new Observable<Array<any[]>>();;
+  @Input() data?: Observable<any>;
   public cbMode: any = null;
   public currency: any = null;
   public currencySymbol: any = null;
@@ -81,9 +81,6 @@ export class ListMovementsComponent implements OnInit {
 
   ngOnInit(): void {
     this.pagination.init();
-    // this.search.fields = [];
-    // this.search.filters = [];
-    // this.filterService.filterSelect = [];
     this.fields = ['description', 'idOperation', 'status', 'platform', 'code'];
     this.search.setConfig({
       fields: this.fields,
@@ -98,12 +95,11 @@ export class ListMovementsComponent implements OnInit {
       }
     });
     this.share.saveOrder.subscribe((res: any) => {
-      console.log('revisar este saveOrder')
       const s1$ = of([res]);
-      const s2$ = this.data?.pipe(map((a) => a));
+      const s2$: any = this.data?.pipe(map((a) => a));
       if (this.data) {
+        this.data = zip(s1$, s2$);
         // this.data = zip(s1$, s2$).pipe(map((response) => [].concat(...response)));
-        this.data = zip(s1$, s2$).pipe(map((response) => [response]));
       }
     });
   }
@@ -130,7 +126,6 @@ export class ListMovementsComponent implements OnInit {
   };
 
   emitCbClick = (inside: any = {}) => {
-    console.log(inside);
     this.router.navigate(['/', 'movements', inside?._id]);
   };
 

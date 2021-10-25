@@ -14,7 +14,7 @@ export class LoadingBtnDirective implements OnChanges {
   @Input() textLoading?: string;
   @Input() textInitial?: string;
   @Input() disabled = false;
-  @Input() loadingFlag: boolean | undefined = undefined;
+  @Input() loadingFlag: boolean | undefined = false;
 
   constructor(private elem: ElementRef) { }
 
@@ -27,10 +27,9 @@ export class LoadingBtnDirective implements OnChanges {
       ? this.textLoading
       : this.textInitial;
 
-    if (![undefined, false].includes(this.loadingFlag)) {
-      this.elem.nativeElement.disabled = this.loadingFlag
-        ? this.loadingFlag
-        : !!this.disabled;
+    this.elem.nativeElement.disabled = this.disabled;
+    if (this.loadingFlag) {
+      this.elem.nativeElement.disabled = true;
     }
   }
 }
