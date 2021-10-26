@@ -1,0 +1,24 @@
+<div
+  dndEffectAllowed="copyMove"
+  [dndDropzone]="['parent']"
+  (dndDrop)="onDrop($event, data?.included)"
+  class="dndList"
+>
+  <div
+    dndPlaceholderRef
+    class="dndPlaceholder animate__animated animate__fadeIn w-100"
+  ></div>
+
+  <app-card-included
+    [item]="item"
+    [dndDraggable]="item"
+    [dndEffectAllowed]="'move'"
+    [dndType]="'parent'"
+    (dndMoved)="onDragged(item, data?.included, 'move', data?.included)"
+    (dndEnd)="onDragEnd($event, data?.included, item)"
+    [tour]="data"
+    [type]="'included'"
+    class="d-flex justify-content-between items-itinerary pt-2 pb-2"
+    *ngFor="let item of data?.included; let i = index"
+  ></app-card-included>
+</div>

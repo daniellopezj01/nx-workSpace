@@ -1,0 +1,194 @@
+<form
+  [autocomplete]="'nope'"
+  class="form-product w-100 flex-wrap d-flex"
+  [formGroup]="form"
+>
+  <!--{{shared.findInvalidControls(form) | json}}-->
+  <div class="col-12 p-0 flex-wrap d-flex">
+    <div class="text-right w-100">
+      <app-section-btn
+        [options]="optionsButtons"
+        (cbTrash)="cbTrash()"
+        (cbList)="cbList()"
+        (cbSave)="onSubmit()"
+        [valid]="form.valid"
+      ></app-section-btn>
+    </div>
+    <div class="row w-100 custom-card-style m-0 pw-0">
+      <div class="col-6 flex-wrap">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'USER.NAME' | translate }}</label>
+            <input
+              [autocomplete]="'nope'"
+              type="text"
+              formControlName="name"
+              class="form-control"
+              placeholder="Escribir Nombre"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-6 flex-wrap">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'USER.LAST_NAME' | translate }}</label>
+            <input
+              [autocomplete]="'nope'"
+              type="text"
+              formControlName="surname"
+              class="form-control"
+              placeholder="Escribir Apellido"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row w-100 custom-card-style m-0 pw-0">
+      <div class="col-6 flex-wrap">
+        <div class="form-group">
+          <label>{{ 'USER.ROL' | translate }}</label>
+          <ng-select
+            formControlName="role"
+            [items]="roles"
+            bindLabel="name"
+            bindValue="value"
+            [searchable]="false"
+            placeholder="Seleccionar Rol"
+            [(ngModel)]="ngSelectRol"
+          >
+          </ng-select>
+        </div>
+      </div>
+      <div class="col-6 flex-wrap">
+        <div class="form-group">
+          <label>{{ 'USER.STATUS' | translate }}</label>
+          <ng-select
+            [items]="status"
+            bindLabel="name"
+            bindValue="value"
+            [multiple]="false"
+            formControlName="status"
+            placeholder="Seleccionar Estado"
+            [(ngModel)]="ngSelectStatus"
+          >
+          </ng-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-card-style col-12 mt-2 flex-wrap">
+      <div class="col-12 p-0">
+        <div class="form-group">
+          <label>{{ 'RESERVATION.FORM_ADD.GENDER' | translate }}</label>
+          <ng-select
+            [items]="genders"
+            bindLabel="name"
+            [searchable]="false"
+            [clearable]="false"
+            formControlName="gender"
+            bindValue="value"
+            [(ngModel)]="ngSelectGender"
+            placeholder="Seleccionar Genero"
+          >
+          </ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'USER.NIE' | translate }}</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="document"
+              placeholder="Escribir Documento"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap">
+      <div class="col-12 p-0">
+        <div class="form-group">
+          <label>{{ 'USER.BIRTH_DATE' | translate }}</label>
+          <input
+            #dp="bsDatepicker"
+            bsDatepicker
+            readonly
+            formControlName="birthDate"
+            [maxDate]="today"
+            class="form-control dp-dd"
+            placeholder="Escribir Fecha de Nacimiento"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'USER.EMAIL' | translate }}</label>
+            <input
+              [autocomplete]="'nope'"
+              type="text"
+              formControlName="email"
+              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+              class="form-control"
+              placeholder="Escribir Email"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'USER.PHONE' | translate }}</label>
+            <ngx-intl-tel-input
+              [enableAutoCountrySelect]="true"
+              [enablePlaceholder]="false"
+              [searchCountryField]="[
+                SearchCountryField.Iso2,
+                SearchCountryField.Name
+              ]"
+              class="form-control"
+              [selectFirstCountry]="false"
+              [searchCountryFlag]="true"
+              [searchCountryPlaceholder]="''"
+              [selectedCountryISO]="CountryISO.Mexico"
+              [maxLength]="'15'"
+              [spellcheck]="false"
+              #inputPhone
+              inputmode="search"
+              [separateDialCode]="true"
+              placeholder="Escribir Numero Telefonico"
+              formControlName="phone"
+            >
+            </ngx-intl-tel-input>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.DESCRIPTION' | translate }}</label>
+            <app-text-rich
+              class="row"
+              formControlName="description"
+              [mode]="'add'"
+              [isFull]="false"
+              [cancelBtn]="false"
+            ></app-text-rich>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

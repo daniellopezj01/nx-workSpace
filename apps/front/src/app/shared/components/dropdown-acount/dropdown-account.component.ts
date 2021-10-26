@@ -42,7 +42,7 @@ export class DropdownAccountComponent implements OnInit, OnDestroy {
   }
 
   listObserver = () => {
-    const observer1$ = this.update.cookieUser.subscribe((res) => {
+    const observer1$ = this.update.cookieUser.subscribe((res: any) => {
       this.user = this.rest.getCurrentUser();
     });
     this.listSubscribers.push(observer1$);

@@ -86,7 +86,7 @@ export class MessageSupportComponent implements OnInit, AfterViewChecked {
       codeReservation: code,
     };
     this.rest.post('Support', object).subscribe(
-      (res) => {
+      (res: any) => {
         this.chat = res;
         this.service.setCurrentChat(this.chat);
         this.loadingButton = false;

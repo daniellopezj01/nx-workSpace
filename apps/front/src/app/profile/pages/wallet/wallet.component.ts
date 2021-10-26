@@ -58,7 +58,7 @@ export class WalletComponent implements OnInit {
         }),
         map((b) => b.docs)
       )
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.data = res;
       });
   }

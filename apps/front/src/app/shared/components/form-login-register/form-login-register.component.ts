@@ -137,7 +137,7 @@ export class FormLoginRegisterComponent implements OnInit {
       .exchange({ accessToken })
       .pipe(finalize(() => (this.loading = false)))
       .subscribe(
-        (res) => {
+        (res: any) => {
           this.userInStorage(res);
           if (key === 'login') {
             this.actionLogin.emit(res);
@@ -163,7 +163,7 @@ export class FormLoginRegisterComponent implements OnInit {
       .register(this.registerForm.value)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe(
-        (res) => {
+        (res: any) => {
           const { accessToken } = res;
           this.change(true);
           this.exchange(accessToken, 'register');

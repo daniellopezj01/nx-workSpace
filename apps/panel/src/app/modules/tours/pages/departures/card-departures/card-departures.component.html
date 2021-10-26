@@ -1,0 +1,240 @@
+<div class="w-100">
+  <accordion [isAnimated]="true">
+    <accordion-group (isOpenChange)="isOpen($event, index)">
+      <div accordion-heading is class="d-flex justify-content-between w-100">
+        <ng-container *ngTemplateOutlet="templateHeader"></ng-container>
+      </div>
+      <ng-container
+        *ngTemplateOutlet="
+          listPayAmount;
+          context: { items: departure?.payAmount }
+        "
+      ></ng-container>
+    </accordion-group>
+  </accordion>
+</div>
+
+<ng-template #templateHeader>
+  <button
+    class="btn-custom col-12 p-0 btn-block text-dark p-1 clearfix text-left"
+    type="button"
+  >
+    <div class="d-flex justify-content-between w-100">
+      <div class="d-flex justify-content-between w-100 align pr-3">
+        <div class="d-flex justify-content-center align-items-center">
+          <span class="mr-2">
+            <fa-icon
+              class="custom-show"
+              [ngStyle]="{
+                color: ['visible', 'OK', true].includes(departure?.status)
+                  ? 'blue'
+                  : departure?.status === 'not_visible'
+                  ? 'gray'
+                  : 'red'
+              }"
+              [icon]="
+                ['visible', 'OK', true].includes(departure?.status)
+                  ? faEye
+                  : departure?.status === 'not_visible'
+                  ? faEyeSlash
+                  : faLock
+              "
+            ></fa-icon>
+          </span>
+          <div class="d-flex flex-column">
+            <span class="font-weight-bold">
+              <span class="title">
+                {{ 'TOUR.DEPARTURE.CARD.DATES' | translate }}
+              </span>
+            </span>
+            <span class="font-weight-normal">
+              <span class="title">
+                {{ 'TOUR.DEPARTURE.CARD.START_DATE' | translate }}
+              </span>
+              <span class="font-weight-bold">
+                {{ departure?.startDateDeparture | date: 'MMM dd, YYYY' }}
+              </span>
+            </span>
+            <span class="font-weight-normal">
+              <span class="title">
+                {{ 'TOUR.DEPARTURE.CARD.END_DATE' | translate }}
+              </span>
+              <span class="font-weight-bold">{{
+                departure?.endDateDeparture | date: 'MMM dd, YYYY'
+              }}</span>
+            </span>
+            <span
+              class="font-weight-normal"
+              *ngIf="departure?.closeDateDeparture"
+            >
+              <span class="title">
+                {{ 'TOUR.DEPARTURE.CARD.CLOSE_DATE' | translate }}
+              </span>
+              <span class="font-weight-bold">{{
+                departure?.closeDateDeparture | date: 'MMM dd, YYYY'
+              }}</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="d-flex flex-column font-weight-normal">
+          <span class="font-weight-bold">
+            <span class="title">
+              {{ 'TOUR.DEPARTURE.CARD.TRAVELERS' | translate }}
+              {{ departure?.minStock }} - {{ departure?.stock }}
+            </span>
+          </span>
+          <span
+            class="font-weight-bold"
+            *ngIf="departure?.minAge && departure?.maxAge"
+          >
+            <span class="title">
+              {{ 'TOUR.DEPARTURE.CARD.AGES' | translate }}
+              {{ departure?.minAge }} - {{ departure?.maxAge }}
+              {{ 'TOUR.DEPARTURE.CARD.YEARS' | translate }}
+            </span>
+          </span>
+        </div>
+        <div class="d-flex flex-column text-right">
+          <span class="font-weight-normal">
+            <span class="title">
+              {{ 'TOUR.DEPARTURE.CARD.PRICE' | translate }}
+            </span>
+            <span class="font-weight-bold">
+              {{ departure.normalPrice }} USD
+            </span>
+          </span>
+          <span *ngIf="departure?.currencies" class="d-flex">
+            <span
+              *ngFor="let currency of departure?.currencies"
+              class="text-muted small pl-1"
+            >
+              {{ currency?.name }} {{ currency?.value }}
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="buttons">
+        <button
+          class="pulse-one btn-default btn mr-3"
+          (click)="openModalSave()"
+          [disabled]="!(departure.payAmount.length < tour.setting?.length)"
+          type="button"
+        >
+          <fa-icon class="text-dark" [icon]="faPlusSquare"></fa-icon>
+        </button>
+        <button
+          class="pulse-one btn-default btn mr-3"
+          (click)="updateDeparture(departure)"
+          type="button"
+        >
+          <fa-icon class="text-info" [icon]="faEdit"></fa-icon>
+        </button>
+        <button
+          class="pulse-one btn-default btn mr-3"
+          (click)="deleteDeparture(departure._id)"
+          type="button"
+        >
+          <fa-icon class="text-danger" [icon]="faTrashAlt"></fa-icon>
+        </button>
+        <div
+          class="
+            icon-angle
+            d-flex
+            justify-content-between
+            align-content-center align-items-center
+          "
+        >
+          <fa-icon class="text-muted" size="lg" [icon]="faAngleDown"></fa-icon>
+        </div>
+      </div>
+    </div>
+  </button>
+</ng-template>
+
+<ng-template #listPayAmount let-items="items">
+  <div class="transactions mt-3 mb-3">
+    <ng-container *ngIf="items?.length; then with; else withOut"></ng-container>
+    <ng-template #with>
+      <div class="container-transaction">
+        <div>
+          <table class="table">
+            <thead class="thead head-table">
+              <th
+                *ngFor="let item of columns"
+                class="font-weight-bold"
+                scope="col"
+              >
+                {{ item.key | translate }}
+              </th>
+            </thead>
+            <tbody class="tbody">
+              <tr *ngFor="let item of items; let i = index">
+                <td class="date-row">{{ item?.percentageAmount }} %</td>
+                <td class="description-style">
+                  {{ item?.discount }}
+                </td>
+                <td class="description-style">
+                  {{ item?.amountDiscount }}
+                  <span
+                    *ngIf="!item?.amountDiscount"
+                    class="badge badge-warning p-2"
+                  >
+                    {{ 'TOUR.DEPARTURE.TABLE.NOT_APPLY' | translate }}
+                  </span>
+                </td>
+                <td class="description-style">
+                  {{ item?.startAt | date: 'MMM dd, YYYY' }}
+                  <span *ngIf="!item?.startAt" class="badge badge-warning p-2">
+                    {{ 'TOUR.DEPARTURE.TABLE.NOT_APPLY' | translate }}
+                  </span>
+                </td>
+                <td class="description-style">
+                  {{ item?.endAt | date: 'MMM dd, YYYY' }}
+                  <span *ngIf="!item?.endAt" class="badge badge-warning p-2">
+                    {{ 'TOUR.DEPARTURE.TABLE.NOT_APPLY' | translate }}
+                  </span>
+                </td>
+                <td class="description-style">
+                  <span
+                    class="status-row badge p-2"
+                    [ngClass]="{
+                      'badge-danger': !item?.allowToAccumulate,
+                      'badge-success': item?.allowToAccumulate
+                    }"
+                    >{{
+                      item?.allowToAccumulate
+                        ? ('TOUR.DEPARTURE.TABLE.IS_STACKABLE' | translate)
+                        : ('TOUR.DEPARTURE.TABLE.NOT_STACKABLE' | translate)
+                    }}</span
+                  >
+                </td>
+                <td class="description-style">
+                  <button
+                    class="btn btn-default text-muted btn-sm mr-1"
+                    (click)="updateAmount(item)"
+                  >
+                    <fa-icon [icon]="faEdit"></fa-icon>
+                  </button>
+                </td>
+                <td class="description-style">
+                  <button
+                    class="btn btn-default text-danger btn-sm mr-1"
+                    (click)="deleteAmount(item?._id)"
+                  >
+                    <fa-icon [icon]="faTrashAlt"></fa-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #withOut>
+      <div class="container-with-out d-flex justify-content-center pt-3">
+        <button class="btn" (click)="openModalSave()">Agregar</button>
+      </div>
+    </ng-template>
+  </div>
+</ng-template>

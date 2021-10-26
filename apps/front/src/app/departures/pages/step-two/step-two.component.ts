@@ -132,7 +132,7 @@ export class StepTwoComponent implements OnInit, OnDestroy {
     this.service.selectIndexPercentage = event;
     const object: any = this.createObject(event);
     this.rest.post('contracts', object).subscribe(
-      (res) => {
+      (res: any) => {
         this.loading = false;
         this.contracts = res;
       },

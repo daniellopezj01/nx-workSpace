@@ -129,7 +129,7 @@ export class SharedService {
   getContinents() {
     if (!this.continents?.length || this.loadContinents) {
       this.loadContinents = true;
-      this.rest.get('tours/forContinents').subscribe((res) => {
+      this.rest.get('tours/forContinents').subscribe((res: any) => {
         this.continents = res;
         this.dataContinents.emit(res);
         this.loadContinents = false;
@@ -142,7 +142,7 @@ export class SharedService {
   getFilters() {
     if (!this.toursFilters?.length || this.loadFilters) {
       this.loadFilters = true;
-      this.rest.get('tours/getFilters').subscribe((res) => {
+      this.rest.get('tours/getFilters').subscribe((res: any) => {
         this.toursFilters = res
         this.dataTourFilters.emit(res);
         this.loadFilters = false;
@@ -179,7 +179,7 @@ export class SharedService {
       if (isPlatformBrowser(this.platformId)) {
         let currency: any = this.cookieService.get('currencySelect');
         if (!currency) {
-          this.currencies$?.subscribe((res) => {
+          this.currencies$?.subscribe((res: any) => {
             this.setCurrency(_.head(res));
           });
         }
@@ -196,7 +196,7 @@ export class SharedService {
   getCategories() {
     if (!this.categories?.length || this.loadCategories) {
       this.loadCategories = true;
-      this.rest.get('categories?limit=100').subscribe((res) => {
+      this.rest.get('categories?limit=100').subscribe((res: any) => {
         const { docs } = res;
         this.categories = docs;
         this.dataCategories.emit(docs);
@@ -212,7 +212,7 @@ export class SharedService {
       if (isPlatformBrowser(this.platformId)) {
         let lenguage: any = this.cookieService.get('languageSelect');
         if (!lenguage) {
-          this.languages$?.subscribe((res) => {
+          this.languages$?.subscribe((res: any) => {
             this.setLanguage(_.head(res));
 
           });

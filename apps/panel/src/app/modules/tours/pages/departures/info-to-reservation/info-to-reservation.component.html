@@ -1,0 +1,29 @@
+<form class="form-product" [formGroup]="form">
+  <div class="form-group">
+    <label>{{ "TOUR.DESCRIPTION" | translate }}</label>
+    <app-text-rich
+      class="row"
+      formControlName="text"
+      [mode]="'add'"
+      [isFull]="false"
+      [cancelBtn]="false"
+      [customId]="textRichId"
+      [activeLoadFiles]="true"
+      (returnValue)="captureData($event)"
+    ></app-text-rich>
+  </div>
+  <div class="form-group d-flex justify-content-between">
+    <button class="btn btn-default hvr-grow btn-radius" (click)="modal.close()">
+      {{ "GENERAL.CANCEL" | translate }}
+    </button>
+    <button
+      ngxLoading
+      [loadingFlag]="loading"
+      [textInitial]="'GENERAL.SAVE' | translate"
+      [textLoading]="'GENERAL.SENDING' | translate"
+      class="btn btn-primary hvr-grow"
+      (click)="updateInfo()"
+      [disabled]="!form.valid"
+    ></button>
+  </div>
+</form>

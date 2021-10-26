@@ -59,7 +59,7 @@ export class ResetComponent {
     this.subReset = true;
     this.loading = true;
     this.rest.post('reset', this.data).subscribe(
-      (res) => {
+      (res: any) => {
         this.router.navigate(['/auth/successChange']);
         this.loading = false;
       },

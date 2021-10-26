@@ -1,0 +1,39 @@
+<ngx-dropzone
+  [ngClass]="{ 'mt-3': !removeMargin }"
+  class="justify-content-center drop-gallery"
+  (change)="onSelect($event)"
+  [multiple]="multiple"
+  [disableClick]="disabledClick"
+  [accept]="'video/mp4'"
+>
+  <ngx-dropzone-label>
+    <div class="d-flex flex-column align-items-center">
+      <div class="label">{{ "GENERAL.SELECT_VIDEO" | translate }}</div>
+      <div class="label">
+        <small>{{ "GENERAL.FILES_ALLOW_VIDEO" | translate }}</small>
+      </div>
+      <div>
+        <ng-lottie
+          class="margin-auto"
+          width="100px"
+          [options]="options"
+          (animationCreated)="animationCreated($event)"
+        >
+        </ng-lottie>
+      </div>
+    </div>
+  </ngx-dropzone-label>
+  <ngx-dropzone-preview
+    *ngFor="let f of media?.files; let index = index"
+    [removable]="true"
+    (removed)="onRemove(f, index)"
+    class="ngx-dropzone-preview-video"
+  >
+    <ngx-dropzone-label (click)="viewVideo($event, f)">
+      <video width="250" height="250" controls>
+        <source src="{{ parseImage(f) }}" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </ngx-dropzone-label>
+  </ngx-dropzone-preview>
+</ngx-dropzone>

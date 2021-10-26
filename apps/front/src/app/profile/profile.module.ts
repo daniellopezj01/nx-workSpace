@@ -73,5 +73,5 @@ import { AgencyCallbackComponent } from './pages/agency-callback/agency-callback
   ],
   providers: [DatePipe, CurrencyPipe],
 })
-// @ts-ignore
-export class ProfileModule {}
+
+export class ProfileModule { }

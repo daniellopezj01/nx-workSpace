@@ -1,0 +1,66 @@
+:host {
+  display: block;
+  background-color: var(--main-color);
+  min-height: 100vh;
+  position: absolute;
+  width: 100%;
+  /*background-image: url("../../../../../assets/images/wave.svg");*/
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 100% 120px;
+}
+.container-login {
+  background-color: #ffffff;
+  margin-top: 5%;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  border: solid 1px #e7e6ed;
+  box-shadow: 1px 3px 10px rgba(205, 208, 227, 0.65);
+}
+
+.img-section {
+  /*background-image: url("https://i.imgur.com/JO0XCRR.png");*/
+  height: 100vh;
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-color: var(--main-color);
+  border-left: solid 1px var(--border-color-2);
+}
+
+.wrapper-show-pass {
+  cursor: pointer;
+  position: absolute;
+  top: 0.5rem;
+  color: var(--text-color-3);
+  right: 0.5rem;
+}
+
+.wrapper-screen img {
+  width: 80%;
+  image-rendering: -webkit-optimize-contrast;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 19px #102b61;
+}
+
+.login-section {
+  padding: 25% 3rem 0;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
+.login-section .form-control {
+  filter: var(--filter-shadow-1);
+}
+
+.login-section label {
+  font-weight: 500;
+}
+
+.login-section .title {
+  font-weight: 600 !important;
+}
+
+.login-section .title-section {
+  margin-bottom: 2rem;
+}

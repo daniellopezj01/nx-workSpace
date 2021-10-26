@@ -204,7 +204,7 @@ export class EmergencyComponent implements OnInit, AfterViewChecked {
           return throwError(err);
         })
       )
-      .subscribe(async (res) => {
+      .subscribe(async (res: any) => {
         this.data = res;
         this.auxData = _.clone(this.data);
         this.showInfo = [];

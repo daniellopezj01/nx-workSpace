@@ -27,7 +27,7 @@ export class CurrencyCurrentPipe implements PipeTransform, OnDestroy {
   }
 
   listObserver = () => {
-    const observer1$ = this.sharedService.changeCurrency.subscribe((res) => {
+    const observer1$ = this.sharedService.changeCurrency.subscribe((res: any) => {
       this.transform(this.value, this.args);
     });
 

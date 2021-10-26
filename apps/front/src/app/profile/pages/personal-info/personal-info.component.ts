@@ -109,7 +109,7 @@ export class PersonalInfoComponent implements OnInit, AfterViewChecked {
         })
       )
       .subscribe(
-        async (res) => {
+        async (res: any) => {
           this.user = res;
           this.auxUser = await this.createAuxUser(this.user);
           this.transformObject(this.user);
@@ -229,7 +229,7 @@ export class PersonalInfoComponent implements OnInit, AfterViewChecked {
     }
     this.loading = true;
     this.rest.patch(`profile`, form.value).subscribe(
-      async (res) => {
+      async (res: any) => {
         this.user = res;
         this.auxUser = await this.createAuxUser(this.user);
         this.showInfo = [];

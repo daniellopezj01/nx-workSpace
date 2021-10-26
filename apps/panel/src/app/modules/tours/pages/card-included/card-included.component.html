@@ -1,0 +1,61 @@
+<div class="w-100">
+  <accordion [isAnimated]="true">
+    <accordion-group [isDisabled]="true">
+      <div accordion-heading is class="d-flex justify-content-between">
+        <button
+          class="
+            btn-custom
+            col-10
+            p-0
+            btn-block
+            text-dark
+            p-1
+            clearfix
+            text-left
+          "
+          type="button"
+        >
+          <div class="d-flex align-items-center align-content-center">
+            <span class="font-weight-bold text-decoration-none truncate">{{
+              item?.title
+            }}</span>
+            <span
+              class="
+                ml-1
+                text-muted text-decoration-none
+                truncate
+                text-primary
+                font-weight-bold
+              "
+              *ngIf="item?.isFeatured"
+              >{{ 'TOUR.INCLUDES.IS_STAND_OUT' | translate }}</span
+            >
+          </div>
+          <span class="text-muted text-decoration-none truncate">{{
+            item?.description | stripeHtml
+          }}</span>
+        </button>
+        <div class="col-2 pl-2 pr-2 d-flex justify-content-end">
+          <div class="d-flex justify-content-end">
+            <div class="buttons">
+              <button
+                class="pulse-one btn-default btn mr-3"
+                (click)="updateItem(item)"
+                type="button"
+              >
+                <fa-icon class="text-info" [icon]="faEdit"></fa-icon>
+              </button>
+              <button
+                class="pulse-one btn-default btn mr-3"
+                (click)="deleteItem(item?._id)"
+                type="button"
+              >
+                <fa-icon class="text-danger" [icon]="faTrashAlt"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </accordion-group>
+  </accordion>
+</div>

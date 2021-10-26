@@ -1,0 +1,397 @@
+<ng-container
+  *ngTemplateOutlet="loadingRef; context: { loading: loading }"
+></ng-container>
+<div class="main-container-form">
+  <div class="container-form pt-2 pb-2">
+    <div class="text-right w-100">
+      <app-section-btn
+        [options]="optionsButtons"
+        (cbSave)="saveOrEdit()"
+        (cbTrash)="deleteReservation()"
+        [valid]="reservationForm.valid"
+        (cbList)="cbList()"
+      ></app-section-btn>
+    </div>
+    <form [formGroup]="reservationForm">
+      <div class="section-form">
+        <h6 class="mb-4">{{ 'RESERVATION.GENERAL_INFO' | translate }}</h6>
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.CLIENT' | translate }}</label>
+              <ng-select
+                #selectProductRef
+                [items]="results$ | async"
+                formControlName="idUser"
+                bindLabel="name"
+                [controlErrorsTpl]="tpl"
+                (close)="selectProductRef.blur(); selectProductRef.focus()"
+                [addTag]="false"
+                [multiple]="false"
+                [hideSelected]="true"
+                [trackByFn]="trackByFn"
+                [minTermLength]="3"
+                [required]="true"
+                [loading]="selectLoading"
+                [typeToSearchText]="'PURCHASE.SEARCH_PRODUCT' | translate"
+                [typeahead]="userInput$"
+                [(ngModel)]="ngSelectClient"
+                placeholder="Buscar Cliente"
+              >
+                <ng-template ng-label-tmp let-item="item">
+                  {{ item?.name }} {{ item?.surname }}
+                </ng-template>
+                <ng-template
+                  ng-option-tmp
+                  let-item="item"
+                  let-index="index"
+                  let-search="searchTerm"
+                >
+                  <div class="card-list d-flex">
+                    <div class="p-1">
+                      <ngx-avatar
+                        cornerRadius="5"
+                        [round]="false"
+                        size="30"
+                        [name]="item?.name"
+                      ></ngx-avatar>
+                    </div>
+                    <div class="pl-1 pr-1 d-flex flex-column">
+                      <span class="truncate"
+                        >{{ item?.name }} {{ item?.surname }}</span
+                      >
+                      <span class="truncate text-muted small"
+                        >{{ item?.email }}
+                      </span>
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.TOUR' | translate }}</label>
+              <ng-select
+                #selectProductRef
+                [items]="resultsTours$ | async"
+                formControlName="idTour"
+                bindLabel="title"
+                (close)="selectProductRef.blur(); selectProductRef.focus()"
+                [addTag]="false"
+                [controlErrorsTpl]="tpl"
+                [multiple]="false"
+                [hideSelected]="true"
+                [trackByFn]="trackByFn"
+                [minTermLength]="2"
+                [required]="true"
+                (change)="selectTour($event)"
+                [loading]="selectLoading"
+                [typeToSearchText]="'PURCHASE.SEARCH_PRODUCT' | translate"
+                [typeahead]="tourInput$"
+                [(ngModel)]="ngSelectTour"
+                placeholder="Buscar Tour"
+              >
+                <ng-template ng-label-tmp let-item="item">
+                  <div class="d-grid">
+                    <span class="font-weight-bold"> {{ item?.title }}</span>
+                  </div>
+                </ng-template>
+                <ng-template
+                  ng-option-tmp
+                  let-item="item"
+                  let-index="index"
+                  let-search="searchTerm"
+                >
+                  <div class="d-grid">
+                    <span class="font-weight-bold"> {{ item?.title }}</span>
+                    <span class="font-weight-normal">
+                      {{ item?.subTitle }}</span
+                    >
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.DEPARTURE' | translate }}</label>
+              <ng-select
+                [items]="departures"
+                bindLabel="startDateDeparture"
+                [multiple]="false"
+                formControlName="idDeparture"
+                [(ngModel)]="ngSelectDeparture"
+                [controlErrorsTpl]="tpl"
+                placeholder="Seleccionar Salida"
+              >
+                <ng-template ng-label-tmp let-item="item">
+                  {{
+                    item?.startDateDeparture
+                      | datesFormatDeparture
+                      | date: 'd MMM YYYY'
+                  }}
+                  /
+                  {{
+                    item?.endDateDeparture
+                      | datesFormatDeparture
+                      | date: 'd MMM YYYY'
+                  }}
+                </ng-template>
+                <ng-template
+                  ng-option-tmp
+                  let-item="item"
+                  let-index="index"
+                  let-search="searchTerm"
+                >
+                  <div class="card-list d-flex">
+                    <div class="custom-text">
+                      <div>
+                        {{
+                          item?.startDateDeparture
+                            | datesFormatDeparture
+                            | date: 'd MMM YYYY'
+                        }}
+                        /
+                        {{
+                          item?.endDateDeparture
+                            | datesFormatDeparture
+                            | date: 'd MMM YYYY'
+                        }}
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.STATUS' | translate }}</label>
+              <ng-select
+                [items]="status"
+                bindLabel="name"
+                bindValue="value"
+                [controlErrorsTpl]="tpl"
+                [multiple]="false"
+                formControlName="status"
+                [(ngModel)]="ngSelectStatus"
+                placeholder="Seleccionar Estado"
+              >
+              </ng-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section-form">
+        <h6 class="mb-4">{{ 'RESERVATION.TRAVELER_INFO' | translate }}</h6>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.NAME' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="travelerFirstName"
+                placeholder="Escribir Nombre"
+                [controlErrorsTpl]="tpl"
+              />
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.SURNAME' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                [controlErrorsTpl]="tpl"
+                formControlName="travelerLastName"
+                placeholder="Escribir Apellido+"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.DOCUMENT' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                [controlErrorsTpl]="tpl"
+                formControlName="travelerDocument"
+                placeholder="Escribir Documento"
+              />
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.BIRTH_DATE' | translate }}</label>
+              <input
+                #dp="bsDatepicker"
+                bsDatepicker
+                readonly
+                formControlName="travelerBirthDay"
+                [maxDate]="today"
+                [controlErrorsTpl]="tpl"
+                class="form-control dp-dd"
+                placeholder="Escribir Fecha de Nacimiento"
+              />
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.GENDER' | translate }}</label>
+              <ng-select
+                [items]="genders"
+                bindLabel="name"
+                [searchable]="false"
+                [clearable]="false"
+                formControlName="travelerGender"
+                bindValue="value"
+                [controlErrorsTpl]="tpl"
+                [(ngModel)]="ngSelectGender"
+                placeholder="Seleccionar Genero"
+              >
+              </ng-select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 input-container">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.EMAIL' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                formControlName="travelerEmail"
+                [controlErrorsTpl]="tpl"
+                placeholder="Escribir Email"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 input-container phone-reservation">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.PHONE' | translate }}</label>
+              <ngx-intl-tel-input
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="false"
+                [searchCountryField]="[
+                  SearchCountryField.Iso2,
+                  SearchCountryField.Name
+                ]"
+                class="form-control"
+                [selectFirstCountry]="false"
+                [searchCountryFlag]="true"
+                [searchCountryPlaceholder]="''"
+                [selectedCountryISO]="CountryISO.Mexico"
+                [maxLength]="'15'"
+                [spellcheck]="false"
+                #inputPhone
+                inputmode="search"
+                controlErrorsClass="error-class-tailor"
+                [separateDialCode]="true"
+                placeholder="Escribir Numero Telefonico"
+                formControlName="travelerPhone"
+              >
+              </ngx-intl-tel-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6">
+            <div class="form-group position-relative">
+              <label>{{ 'RESERVATION.FORM_ADD.COUNTRY' | translate }}</label>
+              <ng-select
+                #selectProductRef
+                [items]="countries"
+                formControlName="country"
+                bindLabel="name"
+                bindValue="name"
+                [addTag]="false"
+                [multiple]="false"
+                [hideSelected]="true"
+                [required]="true"
+                [typeToSearchText]="'PURCHASE.SEARCH_PRODUCT' | translate"
+                [searchable]="true"
+                [controlErrorsTpl]="tpl"
+                [clearable]="false"
+                [(ngModel)]="ngSelectCountry"
+                placeholder="Buscar Pais"
+              >
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.CITY' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="city"
+                [controlErrorsTpl]="tpl"
+                placeholder="Escribir Ciudad"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.ADDRESS' | translate }}</label>
+              <input
+                type="text"
+                [controlErrorsTpl]="tpl"
+                class="form-control"
+                formControlName="travelerAddress"
+                placeholder="Escribir Direccion"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <ng-template let-error let-text="text" #tpl>
+    <ng-container *ngIf="error">
+      <label class="control-error">{{
+        'GENERAL.ERROR_FIELD_REQUIRED' | translate
+      }}</label>
+    </ng-container>
+  </ng-template>
+
+  <ng-template #loadingRef let-loading="loading">
+    <div
+      class="w-100 loading-wrap animate__animated animate__fadeIn"
+      *ngIf="loading"
+    >
+      <div class="in">
+        <img class="circle" src="/assets/loading.svg" alt="loading" />
+        <div>
+          <small>{{ 'GENERAL.LOADING' | translate }}</small>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="w-100 error-wrap animate__animated animate__fadeIn"
+      *ngIf="loading?.status"
+    >
+      <div class="in">
+        <img
+          class="img"
+          src="/assets/extra/drawkit-grape-pack-illustration-7.svg"
+          alt="loading"
+        />
+        <div>
+          <small>{{ 'GENERAL.ERROR' | translate }}</small>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

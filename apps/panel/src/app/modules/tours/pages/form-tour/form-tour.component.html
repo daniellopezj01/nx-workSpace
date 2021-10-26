@@ -1,0 +1,356 @@
+<ng-container
+  *ngTemplateOutlet="loadingAll; context: { loading: loading }"
+></ng-container>
+<form class="form-product w-100 flex-wrap d-flex" [formGroup]="form">
+  <div
+    class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 flex-wrap d-flex"
+  >
+    <div class="text-right w-100">
+      <app-section-btn
+        [options]="optionsButtons"
+        (cbSave)="onSubmit()"
+        (cbTrash)="deleteTour()"
+        (cbList)="cbList()"
+        [valid]="form.valid"
+      >
+      </app-section-btn>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex" *ngIf="data">
+      <div class="col-12 p-0">
+        <a class="font-weight-bold" [href]="url" target="_blank">{{
+          'TOUR.GO_TO_TOUR' | translate
+        }}</a>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.TITLE' | translate }}</label>
+            <input
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              formControlName="title"
+              class="form-control"
+              aria-describedby="title"
+              placeholder="Agregar titulo"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.SUBTITLE' | translate }}</label>
+            <input
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              formControlName="subTitle"
+              class="form-control"
+              aria-describedby="title"
+              placeholder="Agregar Subtitulo"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.ROUTE' | translate }}</label>
+            <input
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              formControlName="route"
+              class="form-control"
+              aria-describedby="title"
+              placeholder="Agregar Ruta"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex m-0 pw-0">
+      <div class="col-4 flex-wrap">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.DURATION' | translate }}</label>
+            <input
+              type="text"
+              class="form-control"
+              mask="separator.0"
+              thousandSeparator="."
+              separatorLimit="100"
+              placeholder="Duracion del Tour en dias"
+              formControlName="duration"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-4 flex-wrap">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.COUNTRIES' | translate }}</label>
+            <input
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              formControlName="countries"
+              class="form-control"
+              aria-describedby="title"
+              placeholder="Numero de Paises a Visitar"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-4 flex-wrap">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.CITIES' | translate }}</label>
+            <input
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              formControlName="cities"
+              class="form-control"
+              aria-describedby="title"
+              placeholder="Numero de Ciudades a Visitar"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex m-0 pw-0">
+      <div class="col-4 flex-wrap">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.CATEGORIES' | translate }}</label>
+            <ng-select
+              class="form-control"
+              [items]="categories"
+              [addTag]="addTagFn"
+              formControlName="category"
+              [hideSelected]="true"
+              [multiple]="true"
+              bindLabel="name"
+              [(ngModel)]="selectCategories"
+              placeholder="seleccionar Categorias"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 flex-wrap">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.TABS.CONTINENTS' | translate }}</label>
+            <ng-select
+              class="form-control"
+              [items]="continents"
+              [addTag]="addTagFn"
+              formControlName="continent"
+              [hideSelected]="true"
+              [multiple]="true"
+              bindValue="code"
+              bindLabel="name"
+              [(ngModel)]="selectContinents"
+              placeholder="seleccionar Continentes"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 flex-wrap">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.TAGS' | translate }}</label>
+            <ng-select
+              class="form-control"
+              [addTag]="addTagNowRef"
+              [items]="resultsTags$ | async"
+              formControlName="tags"
+              [hideSelected]="true"
+              [multiple]="true"
+              bindValue="name"
+              bindLabel="name"
+              [minTermLength]="2"
+              [(ngModel)]="selectTags"
+              [typeahead]="tagsInput$"
+              placeholder="buscar Tags"
+              [searchable]="true"
+              [loading]="selectLoading"
+            >
+              <ng-template ng-tag-tmp let-search="searchTerm">
+                <b>{{ 'TOUR.ADD_TAG' | translate }}</b> "{{ search }}"
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex m-0 pw-0">
+      <div class="col-6 flex-wrap">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.STATUS' | translate }}</label>
+            <ng-select
+              [items]="status"
+              bindLabel="name"
+              bindValue="value"
+              [multiple]="false"
+              [searchable]="false"
+              formControlName="status"
+              [(ngModel)]="ngSelectStatus"
+              placeholder="Seleccionar Estado"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 flex-wrap">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.TABS.LENGUAGES' | translate }}</label>
+            <ng-select
+              class="form-control"
+              [items]="lenguages"
+              [addTag]="addTagFn"
+              formControlName="lenguages"
+              [hideSelected]="true"
+              [multiple]="true"
+              bindValue="value"
+              bindLabel="name"
+              [(ngModel)]="ngSelectLenguages"
+              placeholder="seleccionar Idiomas"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex m-0 pw-0">
+      <div class="col-6 flex-wrap">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.PAYMENT_DIRECTION' | translate }}</label>
+            <ng-select
+              class="form-control"
+              [items]="payments"
+              formControlName="paymentMethod"
+              [multiple]="false"
+              [searchable]="false"
+              bindLabel="name"
+              (change)="selectPayment($event)"
+              bindValue="codePayment"
+              [(ngModel)]="ngSelectPayments"
+              placeholder="seleccionar dirección de pago"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 flex-wrap" *ngIf="activeAgency">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.AGENCY' | translate }}</label>
+            <ng-select
+              [items]="resultsAgency$ | async"
+              formControlName="accountAgency"
+              bindLabel="name"
+              [addTag]="false"
+              [multiple]="false"
+              [hideSelected]="true"
+              [trackByFn]="trackByFn"
+              [minTermLength]="2"
+              [loading]="selectLoading"
+              [typeToSearchText]="'PURCHASE.SEARCH_PRODUCT' | translate"
+              [typeahead]="agencyInput$"
+              [(ngModel)]="ngSelectAgency"
+              placeholder="Buscar Agencia"
+            >
+              <ng-template ng-label-tmp let-item="item">
+                {{ item?.name }} {{ item?.surname }}
+                <span class="small">{{ item?.email }}</span>
+              </ng-template>
+              <ng-template
+                ng-option-tmp
+                let-item="item"
+                let-index="index"
+                let-search="searchTerm"
+              >
+                <div class="card-list d-flex">
+                  <div class="p-1">
+                    <ngx-avatar
+                      cornerRadius="5"
+                      [round]="false"
+                      size="30"
+                      [name]="item?.name"
+                    ></ngx-avatar>
+                  </div>
+                  <div class="custom-text">
+                    <div>{{ item?.name }} {{ item?.surname }}</div>
+                    <span class="small">{{ item?.email }}</span>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.DESCRIPTION' | translate }}</label>
+            <app-text-rich
+              class="row"
+              formControlName="description"
+              [mode]="'add'"
+              [isFull]="false"
+              [cancelBtn]="false"
+            ></app-text-rich>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+      <div class="col-12 p-0">
+        <div class="name">
+          <div class="form-group">
+            <label>{{ 'TOUR.SPECIAL_INFORMATION' | translate }}</label>
+            <app-text-rich
+              class="row"
+              formControlName="specialInfo"
+              [mode]="'add'"
+              [isFull]="false"
+              [cancelBtn]="false"
+            ></app-text-rich>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- ***************** FIN TEMPLATE ************** -->
+<ng-template #loadingAll let-loading="loading">
+  <div *ngIf="loading" class="w-100 text-center h-100 loading-wrapper">
+    <div class="in">
+      <img
+        [width]="'5rem'"
+        src="../../../../../assets/images/loading-svg.svg"
+        alt="loading"
+      />
+    </div>
+  </div>
+</ng-template>

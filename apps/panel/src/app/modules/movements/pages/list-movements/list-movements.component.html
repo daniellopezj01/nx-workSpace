@@ -1,0 +1,206 @@
+<ng-container *ngIf="mode === 'page'">
+  <app-header [history]="history"></app-header>
+  <app-side-bar></app-side-bar>
+</ng-container>
+<div
+  class="w-100 container-section"
+  [ngClass]="{ 'container-row d-flex': mode === 'page' }"
+>
+  <app-loading [loading]="loading"></app-loading>
+  <div *ngIf="mode === 'home'" class="col-12 mb-2">
+    <b class="text-muted">{{ title }}</b>
+  </div>
+  <app-list-items
+    (cbAdd)="goTo()"
+    [(data)]="data"
+    [options]="[
+      ['admin', 'manager'].includes(auth.getCurrentUser()?.role) ? 'add' : ''
+    ]"
+    [mode]="cbMode"
+    [filtersMode]="viewMore"
+    [customTemplate]="customTemplateSrc"
+    (cbPdf)="cbPdf()"
+    (cbFilter)="cbFilter($event)"
+    (cbSrc)="onSrc($event)"
+    class="col-12 row m-0 pl-1 pr-1"
+  >
+  </app-list-items>
+  <ng-container
+    *ngTemplateOutlet="templateEmpty; context: { data: dataTake }"
+  ></ng-container>
+</div>
+
+<!-- ************ PAGINATE BUTTON ************  -->
+<div *ngIf="viewMore" class="w-100" [style.opacity]="loading ? '0' : '1'">
+  <ng-template
+    #firstTemplate
+    let-disabled="disabled"
+    let-currentPage="currentPage"
+  >
+    <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>
+  </ng-template>
+  <ng-template
+    #lastTemplate
+    let-disabled="disabled"
+    let-currentPage="currentPage"
+  >
+    <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+  </ng-template>
+  <ng-template
+    #prevTemplate
+    let-disabled="disabled"
+    let-currentPage="currentPage"
+  >
+    <fa-icon [icon]="faAngleLeft"></fa-icon>
+  </ng-template>
+  <ng-template
+    #nextTemplate
+    let-disabled="disabled"
+    let-currentPage="currentPage"
+  >
+    <fa-icon [icon]="faAngleRight"></fa-icon>
+  </ng-template>
+  <div class="pagination-row">
+    <pagination
+      (pageChanged)="pageChanged($event)"
+      [itemsPerPage]="pagination.limit"
+      [customFirstTemplate]="firstTemplate"
+      [customLastTemplate]="lastTemplate"
+      [customPreviousTemplate]="prevTemplate"
+      [customNextTemplate]="nextTemplate"
+      [maxSize]="pagination.limit"
+      [totalItems]="pagination?.paginationConfig?.totalDocs"
+    >
+    </pagination>
+  </div>
+</div>
+
+<!-- ************ PAGINATE BUTTON ************  -->
+
+<!-- ***************** TEMPLATE ************** -->
+<ng-template #customTemplateSrc let-dat="dat">
+  <ul>
+    <li
+      *ngFor="let inside of dat | async"
+      (click)="emitCbClick(inside)"
+      class="d-flex"
+    >
+      <div
+        class="row ml-0 mr-0 item-list-single col-12 pl-0 pr-0 flex-shrink-1"
+      >
+        <!--Blocked CUSTOMER 1-->
+
+        <div class="pl-2 pr-2 pt-1 pb-1 col">
+          <div class="d-flex">
+            <div class="pr-2 d-flex align-content-center align-items-center">
+              <fa-icon
+                class="text-success"
+                *ngIf="inside?.amount > 0"
+                [icon]="faArrowUp"
+              ></fa-icon>
+              <fa-icon
+                class="text-danger"
+                *ngIf="inside?.amount < 0"
+                [icon]="faArrowDown"
+              ></fa-icon>
+              <!--              <ngx-avatar [tooltip]="inside?.creator?.name + inside?.creator?.surname" [round]="false" [cornerRadius]="4"-->
+              <!--                          [size]="35" [name]="inside?.creator?.name"></ngx-avatar>-->
+            </div>
+            <div class="code m-2 mr-3">
+              <span class="text-muted truncate font-weight-bold">
+                <fa-icon size="sm" [icon]="faMoneyBillAlt"></fa-icon>
+                {{ inside?.code }}</span
+              >
+            </div>
+          </div>
+        </div>
+        <!--Blocked-->
+        <!--Blocked 1-->
+        <div class="pl-2 pr-2 pt-1 pb-1 col">
+          <div class="w-100">
+            <div>
+              <span class="truncate font-weight-bold">
+                {{ inside?.creator?.name }}
+                {{ inside?.creator?.surname }}</span
+              >
+            </div>
+
+            <div
+              [tooltip]="inside?.createdAt | timeago: true"
+              class="mr-2 w-75 truncate small text-muted"
+            >
+              {{ inside?.createdAt | date }}
+            </div>
+          </div>
+        </div>
+        <!--Blocked-->
+        <!--Blocked 1-->
+        <div class="pl-2 pr-2 pt-1 pb-1 col">
+          <div class="d-flex align-items-center align-content-center">
+            <div>
+              <div>
+                <div class="font-weight-bold">
+                  <h6 class="m-0">
+                    {{ inside?.amount | number: '1.2-2' }}
+                    {{ inside?.currency }}
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Blocked-->
+        <!--Blocked 1-->
+      </div>
+      <div class="pl-2 pr-2 pt-1 pb-1">
+        <div
+          class="
+            d-flex
+            justify-content-end
+            align-content-center align-items-center
+          "
+        >
+          <div
+            [tooltip]="inside?.status"
+            containerClass=""
+            [ngClass]="{
+              'purchase-status-badge-paid': inside.status === 'succeeded',
+              'purchase-status-badge-hold': inside.status === 'await',
+              'badge-process': inside.status === 'progress',
+              'badge-exceptional': inside.status === 'exceptional',
+              'badge-credit': inside.status === 'credit',
+              'badge-pre-paid ': inside.status === 'pre-paid ',
+              'badge-delivery-paid': inside.status === 'delivery-paid'
+            }"
+          ></div>
+          <!-- ******** PDF PLUGIN *** -->
+
+          <!--            <div class="ml-2" appCheckPlugin [namePlugin]="'pdfReport'">-->
+          <!--              <Kit-button-pdf [id]="inside?._id"></Kit-button-pdf>-->
+          <!--            </div>-->
+
+          <!-- ******** PDF PLUGIN *** -->
+        </div>
+      </div>
+    </li>
+  </ul>
+</ng-template>
+<!-- ***************** FIN TEMPLATE ************** -->
+
+<ng-template #templateEmpty let-data="data">
+  <ng-container *ngIf="!loading">
+    <div
+      class="text-center pl-0 pr-0 pt-4 pb-4 ml-1 mr-1 wrapper-box"
+      *ngIf="!data.length"
+    >
+      <div class="text-center">
+        <div class="pb-2">
+          <img class="empty-box" src="../../../../../assets/empty.svg" alt="" />
+        </div>
+        <small
+          ><b>{{ 'GENERAL.EMPTY' | translate }}</b></small
+        >
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

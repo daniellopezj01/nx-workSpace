@@ -1,0 +1,32 @@
+.custom-body-order {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-section {
+  background-color: var(--main-color-body);
+}
+
+.description {
+  font-size: var(--font-size-2);
+  font-weight: 500;
+}
+
+.operation {
+  font-size: var(--font-size-2);
+  color: var(--color-subtitle);
+}
+
+.price {
+  font-size: var(--font-size-1);
+  color: var(--main-color-5);
+  font-weight: 500;
+}
+
+.status {
+  font-size: var(--font-size-2);
+}
+
+.price-secction {
+  text-align: end;
+}

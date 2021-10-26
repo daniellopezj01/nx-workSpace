@@ -86,7 +86,7 @@ export class ProfileComponent implements OnInit {
         })
       )
       .subscribe(
-        (res) => {
+        (res: any) => {
           this.user = res;
           this.checkVerified(res);
           if (isPlatformBrowser(this.platformId)) {

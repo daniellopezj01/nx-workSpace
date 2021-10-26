@@ -1,0 +1,110 @@
+<div class="row mt-3">
+  <ng-container
+    *ngIf="
+      updateGallery;
+      then templateUpdateGallery;
+      else templateUpdatePosition
+    "
+  ></ng-container>
+
+  <div class="col-6">
+    <form class="form-product w-100 flex-wrap d-flex" [formGroup]="form">
+      <div class="text-right w-100">
+        <app-section-btn
+          classCustom="custom-align pb-0"
+          [options]="optionsVideo"
+          (cbSave)="saveVideo()"
+          (cbTrash)="deleteVideo()"
+          [valid]="form.valid"
+        ></app-section-btn>
+      </div>
+      <div class="mt-3 w-100">
+        <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+          <div class="col-12 p-0">
+            <div class="name">
+              <div class="form-group">
+                <label>Video</label>
+                <input
+                  (input)="handleChangeInputVideo($event.target)"
+                  type="text"
+                  autocomplete="off"
+                  spellcheck="false"
+                  formControlName="urlVideo"
+                  class="form-control"
+                  aria-describedby="title"
+                  placeholder="url de youtube"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+          <div class="col-12 p-0">
+            <div class="name">
+              <youtube-player
+                [ngStyle]="{ opacity: !idVideo ? '0' : 1 }"
+                (ready)="ready($event)"
+                videoId="idVideo"
+                [width]="500"
+              ></youtube-player>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #templateUpdatePosition>
+  <div class="col-6">
+    <div class="text-right w-100">
+      <app-section-btn
+        classCustom=" pb-0"
+        [options]="['list']"
+        (cbList)="updateGallery = !updateGallery"
+        [valid]="true"
+      ></app-section-btn>
+    </div>
+    <section
+      dndEffectAllowed="copyMove"
+      [dndDropzone]="['parent']"
+      (dndDrop)="onDrop($event, media.files)"
+      class="dndList custom-list"
+    >
+      <div
+        dndPlaceholderRef
+        class="dndPlaceholder animate__animated animate__fadeIn w-100"
+      ></div>
+      <div
+        class="col-3 container-item"
+        *ngFor="let item of media.files; let i = index"
+        [dndDraggable]="item"
+        [dndEffectAllowed]="'move'"
+        [dndType]="'parent'"
+        (dndMoved)="onDragged(item, media.files, 'move', media.files)"
+        (dndEnd)="onDragEnd($event, media.files)"
+      >
+        <span
+          class="main-image-home content-destination-card"
+          [ngStyle]="{
+            'background-image': 'url(' + parseImage(item) + ')'
+          }"
+        ></span>
+      </div>
+    </section>
+  </div>
+</ng-template>
+<ng-template #templateUpdateGallery>
+  <div class="col-6">
+    <div class="text-right w-100">
+      <app-section-btn
+        classCustom="pb-0"
+        [options]="['save', 'list']"
+        (cbSave)="updateImages()"
+        (cbList)="updateGallery = !updateGallery"
+        [valid]="true"
+      ></app-section-btn>
+    </div>
+    <app-drop-gallery></app-drop-gallery>
+  </div>
+</ng-template>

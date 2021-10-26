@@ -102,7 +102,7 @@ export class PersonalInfoComponent implements OnInit, OnDestroy {
   }
 
   listObserver = () => {
-    const observer1$ = this.service.uploadPassport.subscribe((res) => {
+    const observer1$ = this.service.uploadPassport.subscribe((res: any) => {
       this.responseSubscribe(res);
     });
     this.listSubscribers.push(observer1$);
@@ -253,7 +253,7 @@ export class PersonalInfoComponent implements OnInit, OnDestroy {
           return throwError(err);
         })
       )
-      .subscribe(async (res) => {
+      .subscribe(async (res: any) => {
         this.data = res;
         this.auxUser = await this.createAuxUser(this.data);
         this.showInfo = [];

@@ -44,11 +44,11 @@ export class ModalCropComponent implements OnInit, OnDestroy {
   }
 
   listObserver = () => {
-    const observer1$ = this.modalCropMediaService.eventIn.subscribe((res) => {
+    const observer1$ = this.modalCropMediaService.eventIn.subscribe((res: any) => {
       this.imageChangedEvent = res;
     });
 
-    const observer2$ = this.modalCropMediaService.dataIn.subscribe((res) => {
+    const observer2$ = this.modalCropMediaService.dataIn.subscribe((res: any) => {
       this.croppedImage = res.base64;
     });
 

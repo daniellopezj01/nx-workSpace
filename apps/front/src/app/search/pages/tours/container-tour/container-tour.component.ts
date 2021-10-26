@@ -85,7 +85,7 @@ export class ContainerTourComponent implements OnInit, OnDestroy {
           return throwError(err);
         })
       )
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.tourService.sharedNumberTotalDocs.emit(this.response.totalDocs)
         this.data$ = res ? [...this.data$, ...res] : []
         this.percentage = this.data$.length / this.totalDocs * 100

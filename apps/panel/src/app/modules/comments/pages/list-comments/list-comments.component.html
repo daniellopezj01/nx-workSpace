@@ -1,0 +1,184 @@
+<ng-container *ngIf="mode === 'page'">
+  <app-header [history]="history"></app-header>
+  <app-side-bar></app-side-bar>
+</ng-container>
+<div
+  class="w-100 container-section"
+  [ngClass]="{ 'container-row d-flex': mode === 'page' }"
+>
+  <app-loading [loading]="loading"></app-loading>
+  <div *ngIf="mode === 'home'" class="col-12 mb-2">
+    <b class="text-muted">{{ title }}</b>
+  </div>
+  <app-list-items
+    (cbAdd)="goTo()"
+    [(data)]="data"
+    [options]="[
+      ['admin', 'manager'].includes(auth.getCurrentUser()?.role) ? 'add' : ''
+    ]"
+    [mode]="cbMode"
+    [filtersMode]="viewMore"
+    [customTemplate]="customTemplateSrc"
+    (cbPdf)="cbPdf()"
+    (cbFilter)="cbFilter($event)"
+    (cbSrc)="onSrc($event)"
+    class="col-12 row m-0 pl-1 pr-1"
+  >
+  </app-list-items>
+  <ng-container
+    *ngTemplateOutlet="templateEmpty; context: { data: dataTake }"
+  ></ng-container>
+</div>
+<!-- ************ PAGINATE BUTTON ************  -->
+<div *ngIf="viewMore" class="w-100" [style.opacity]="loading ? '0' : '1'">
+  <ng-template
+    #firstTemplate
+    let-disabled="disabled"
+    let-currentPage="currentPage"
+  >
+    <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>
+  </ng-template>
+  <ng-template
+    #lastTemplate
+    let-disabled="disabled"
+    let-currentPage="currentPage"
+  >
+    <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+  </ng-template>
+  <ng-template
+    #prevTemplate
+    let-disabled="disabled"
+    let-currentPage="currentPage"
+  >
+    <fa-icon [icon]="faAngleLeft"></fa-icon>
+  </ng-template>
+  <ng-template
+    #nextTemplate
+    let-disabled="disabled"
+    let-currentPage="currentPage"
+  >
+    <fa-icon [icon]="faAngleRight"></fa-icon>
+  </ng-template>
+  <div class="pagination-row">
+    <pagination
+      (pageChanged)="pageChanged($event)"
+      [itemsPerPage]="pagination.limit"
+      [customFirstTemplate]="firstTemplate"
+      [customLastTemplate]="lastTemplate"
+      [customPreviousTemplate]="prevTemplate"
+      [customNextTemplate]="nextTemplate"
+      [maxSize]="pagination.limit"
+      [totalItems]="pagination?.paginationConfig?.totalDocs"
+    >
+    </pagination>
+  </div>
+</div>
+
+<!-- ***************** TEMPLATE ************** -->
+<ng-template #customTemplateSrc let-dat="dat">
+  <ul>
+    <li
+      *ngFor="let comment of data | async"
+      (click)="emitCbClick(comment)"
+      class="row ml-0 mr-0 p-3 d-flex w-100 justify-content-between"
+    >
+      <div class="col-2 d-flex align-items-center">
+        <div class="w-100">
+          <ngx-stars
+            [readonly]="true"
+            [size]="1"
+            [color]="'#f9c74f'"
+            [initialStars]="comment?.vote"
+          >
+          </ngx-stars>
+        </div>
+        <div class="d-flex mr-2 flex-column w-500">
+          <span class="text-muted truncate font-weight-bold">
+            <fa-icon size="sm" [icon]="faTag"></fa-icon>
+            {{ comment?.code }}</span
+          >
+        </div>
+      </div>
+      <div class="col-2 d-flex align-items-center">
+        <div class="d-flex small text-muted">
+          <div class="d-none d-md-block pt-2 pb-2">
+            <ngx-avatar
+              cornerRadius="5"
+              [round]="false"
+              size="35"
+              [name]="comment?.user?.name"
+            ></ngx-avatar>
+          </div>
+          <div class="pl-2 pr-2 pt-1 pb-1">
+            <div class="d-flex custom-line">
+              <div class="name font-weight-bold mr-2">
+                {{ comment?.user?.name }}
+                {{ comment?.user?.surname }}
+              </div>
+            </div>
+            <div class="d-flex pt-1">
+              <span class="text-muted">
+                {{ comment?.user?.email }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 d-flex align-items-center">
+        <div class="d-flex mr-2" *ngIf="comment?.attachment?.source">
+          <div class="d-none d-md-block pt-2 pb-2">
+            <ngx-avatar
+              cornerRadius="5"
+              [round]="false"
+              size="50"
+              [src]="comment?.attachment?.source?.small"
+            ></ngx-avatar>
+          </div>
+        </div>
+        <div class="d-flex flex-column truncate">
+          <div class="text-muted small truncate">
+            <span [innerHTML]="comment?.content"></span>
+          </div>
+          <div class="d-flex">
+            <div
+              class="
+                d-flex
+                align-items-center
+                mr-2
+                badge badge-info
+                font-size-3
+              "
+              *ngFor="let tag of comment?.tags"
+            >
+              <!-- <ngx-avatar
+                cornerRadius="5"
+                [round]="false"
+                size="20"
+                [src]="tag?.icon?.source?.small"
+              ></ngx-avatar> -->
+              <span class="mr-1"> {{ tag }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 d-flex status-style">
+        <div
+          [tooltip]="comment?.status"
+          class="mr-2"
+          [ngClass]="{
+            'purchase-status-badge-paid': comment?.status === 'publish',
+            'purchase-status-badge-hold': comment?.status === 'draft'
+          }"
+        ></div>
+        <span class="date">{{ comment?.createdAt | date: 'dd-LLL-yyyy' }}</span>
+      </div>
+    </li>
+  </ul>
+</ng-template>
+
+<!-- ***************** FIN TEMPLATE ************** -->
+<ng-template #templateEmpty let-data="data">
+  <!-- <ng-container *ngIf="!loading">
+    <app-box-empty *ngIf="!data?.length"></app-box-empty>
+  </ng-container> -->
+</ng-template>

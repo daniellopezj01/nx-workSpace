@@ -40,7 +40,7 @@ export class HeaderEmptyComponent implements OnInit, OnDestroy {
       .catch((e) => {
         this.withUser = false;
       });
-    this.channelSubscribe = this.update.cookieUser.subscribe((res) => {
+    this.channelSubscribe = this.update.cookieUser.subscribe((res: any) => {
       this.user = this.rest.getCurrentUser();
     });
   }

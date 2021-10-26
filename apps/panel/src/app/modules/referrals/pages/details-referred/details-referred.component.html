@@ -1,0 +1,32 @@
+<ng-container *ngTemplateOutlet="loadingAll; context: { loading: loading }">
+</ng-container>
+
+<mat-tab-group
+  selectedIndex="0"
+  animationDuration="350ms"
+  color="accent"
+  disableRipple
+  class="w-100"
+  *ngIf="!loading"
+>
+  <mat-tab [label]="'TOUR.TABS.GENERAL' | translate">
+    <div class="container-places pt-2">
+      <app-form-referred
+        [activeUpdate]="true"
+        [referred]="referred"
+      ></app-form-referred>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+<ng-template #loadingAll let-loading="loading">
+  <div *ngIf="loading === true" class="w-100 text-center h-100 loading-wrapper">
+    <div class="in">
+      <img
+        [width]="'5rem'"
+        src="../../../../../assets/images/loading-svg.svg"
+        alt="loading"
+      />
+    </div>
+  </div>
+</ng-template>

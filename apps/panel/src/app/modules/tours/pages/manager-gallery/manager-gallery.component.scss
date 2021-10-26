@@ -1,0 +1,84 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.dndList {
+  transition: all 300ms ease;
+
+  &.dndDragover {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+.dndDragging {
+  border: 1px solid green;
+}
+
+.dndDraggingSource {
+  display: none;
+}
+
+.dndPlaceholder {
+  min-height: 10rem;
+  max-width: 25%;
+  border: 1px dashed green;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+::ng-deep {
+  .panel-group {
+    border-bottom: solid 1px var(--border-color-1);
+  }
+}
+
+.custom-item {
+  background-color: white;
+  // width: 50%;
+}
+
+.custom-list {
+  background-color: white;
+  padding: 1rem 0 !important;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+  display: flex;
+  width: 100%;
+}
+
+.container-item {
+  background-color: white;
+  margin: 0.5rem 0;
+}
+
+.custom-item {
+  background-color: white;
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+}
+
+.main-image-home {
+  position: relative;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+
+  .image-block {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.content-destination-card {
+  min-height: 10rem;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  align-content: center;
+  cursor: move;
+}

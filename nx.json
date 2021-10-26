@@ -39,6 +39,13 @@
     },
     "oauth": {
       "tags": []
+    },
+    "panel": {
+      "tags": []
+    },
+    "panel-e2e": {
+      "tags": [],
+      "implicitDependencies": ["panel"]
     }
   }
 }

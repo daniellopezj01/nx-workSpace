@@ -139,7 +139,7 @@ export class TextRichService {
             formData.append('file[]', item?.blob)
           );
           this.rest.post(`storage`, formData, true, {}).subscribe(
-            (res) => {
+            (res: any) => {
               if (merge) {
                 this.addAttachments = [];
               }

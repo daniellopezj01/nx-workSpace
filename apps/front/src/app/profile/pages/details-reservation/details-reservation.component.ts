@@ -17,7 +17,7 @@ export class DetailsReservationComponent implements OnInit {
   ngOnInit(): void {
     const id = this.active.snapshot.params.id;
     this.rest.get(`reservations/${id}`).subscribe(
-      (res) => {
+      (res: any) => {
         this.loading = false;
         this.data = res;
       },

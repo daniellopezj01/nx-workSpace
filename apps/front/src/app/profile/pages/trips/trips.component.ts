@@ -58,7 +58,7 @@ export class TripsComponent implements OnInit {
         })
       )
       .subscribe(
-        (res) => {
+        (res: any) => {
           this.data = [...res?.docs];
           this.data = _.map(this.data, (a) => {
             const { startDateDeparture } = a?.departure;

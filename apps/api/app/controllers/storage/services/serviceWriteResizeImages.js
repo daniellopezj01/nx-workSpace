@@ -4,7 +4,7 @@ const utils = require('../../../middleware/utils')
 
 const { helperCompressImage, helperWriteOriginalImage } = require('../helpers')
 
-const router = '/apps/api/public/media/'
+const router = '/apps/api/src/assets/public/media/'
 
 // saveImage
 const serviceWriteResizeImages = (file, buffer = false) => new Promise(async (resolve, reject) => {
@@ -20,6 +20,7 @@ const serviceWriteResizeImages = (file, buffer = false) => new Promise(async (re
       const bufferOrPath = !buffer ? pathOriginal : file
       filesWebp.originalPath = await helperCompressImage(bufferOrPath, `original_${filesWebp.fileName}`)
         .catch(() => { throw new Error('error in load file') })
+      console.log(filesWebp.originalPath)
       filesWebp.smallPath = await helperCompressImage(bufferOrPath, `small_${filesWebp.fileName}`, 200)
         .catch(() => { throw new Error('error in load file') })
       filesWebp.smPath = await helperCompressImage(bufferOrPath, `sm_${filesWebp.fileName}`, 360)

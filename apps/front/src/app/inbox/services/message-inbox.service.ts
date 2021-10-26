@@ -33,7 +33,7 @@ export class MessageInboxService {
       this.rest
         .post(`messages`, { message, to }, true, { ignoreLoadingBar: '' })
         .subscribe(
-          (res) => {
+          (res: any) => {
             this.sendInbox.emit({ _id, res });
             resolve({ _id, res });
           },

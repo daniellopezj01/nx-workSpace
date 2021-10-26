@@ -1,0 +1,183 @@
+.filters-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.items {
+  background-color: white;
+}
+
+.filter-icon {
+  padding: 0.25rem;
+  background: #d5cef9;
+  border-radius: 4rem;
+  width: 1.5rem;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-filter {
+  z-index: 9;
+  background: #ffffffe3;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  height: 100%;
+}
+
+.loading-filter .in {
+  position: relative;
+  text-align: center;
+  margin: auto;
+  width: 100px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.loading-filter .in img {
+  width: 30px;
+}
+
+.badge-filter {
+  color: #505050;
+}
+
+.badge-filter:hover {
+  color: white;
+}
+
+.items .header {
+  background-color: white;
+  padding: 0.5rem;
+  border-top-left-radius: var(--border-radius-35);
+  border-top-right-radius: var(--border-radius-35);
+  font-weight: 600;
+  font-size: var(--font-size);
+  letter-spacing: 0.6px;
+  border-top: solid 1px var(--border-color-6);
+  border-left: solid 1px var(--border-color-6);
+  border-right: solid 1px var(--border-color-6);
+}
+
+.title {
+  margin-bottom: 0.25rem;
+}
+
+.input-date {
+  padding: 0.25rem !important;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #808291;
+  letter-spacing: 1px;
+  border: solid 0px;
+  cursor: pointer;
+}
+
+.input-src {
+  padding: 0.5rem 0.5rem !important;
+  font-size: var(--font-size-1);
+  font-weight: 400;
+  color: var(--text-color-2);
+  letter-spacing: 1px;
+  border: solid 0px;
+  cursor: pointer;
+  border-radius: var(--border-radius-35);
+  background-color: white;
+  width: 100%;
+}
+
+.badge-red {
+  background-color: #e93751;
+  color: #ffffff;
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.35rem;
+  border-radius: 1rem;
+}
+
+.badge-red-1 {
+  background-color: #ff9b79;
+  color: #ffffff;
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.35rem;
+  border-radius: 1rem;
+}
+
+.badge-green {
+  color: #30a032;
+  margin-left: 0.5rem;
+}
+
+.badge-green:before {
+  content: "";
+  background-color: #30a032;
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  margin-right: 0.3rem;
+  margin-left: -11px;
+  margin-top: 1px;
+  border-radius: 12px;
+}
+
+.badge-blue {
+  color: #01b1ff;
+  margin-left: 0.5rem;
+}
+
+.badge-blue:before {
+  content: "";
+  background-color: #01b1ff;
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  margin-right: 0.3rem;
+  margin-left: -11px;
+  margin-top: 1px;
+  border-radius: 12px;
+}
+
+.badge-purple {
+  color: #221cc5;
+  margin-left: 0.5rem;
+}
+
+.badge-purple:before {
+  content: "";
+  background-color: #221cc5;
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  margin-right: 0.3rem;
+  margin-left: -11px;
+  margin-top: 1px;
+  border-radius: 12px;
+}
+
+.badge-orange {
+  color: #fdac90;
+  margin-left: 0.5rem;
+}
+
+.badge-orange:before {
+  content: "";
+  background-color: #fdac90;
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  margin-right: 0.3rem;
+  margin-left: -11px;
+  margin-top: 1px;
+  border-radius: 12px;
+}
+
+.price-main {
+  color: #6d6d6d;
+}
+
+.item-list-single:hover .badge,
+.item-list-single:hover .arrow-icon-colors {
+  color: rgba(255, 255, 255, 0.8) !important;
+}

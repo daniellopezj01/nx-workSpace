@@ -1,0 +1,46 @@
+<app-loading [loading]="loading"></app-loading>
+
+<mat-tab-group
+  selectedIndex="0"
+  animationDuration="350ms"
+  color="accent"
+  disableRipple
+  class="w-100"
+  *ngIf="!loading"
+>
+  <!-- ************  TAB FORM DETAIL ************-->
+  <mat-tab [label]="'TOUR.DEPARTURE.GENERAL' | translate">
+    <app-form-departure
+      [tour]="tour"
+      [departure]="departure"
+      [updateItem]="true"
+      class="col-12 pl-1 pr-1 pt-2"
+    ></app-form-departure>
+  </mat-tab>
+  <!-- ************  TAB INFO__RESERVATION ************-->
+  <mat-tab [label]="'TOUR.DEPARTURE.INFO_TO_RESERVATION' | translate">
+    <app-info-to-reservation
+      class="col-12 pl-1 pr-1 pt-2"
+      [departure]="departure"
+    ></app-info-to-reservation>
+  </mat-tab>
+</mat-tab-group>
+
+<!--- ******************* EMPTY REF *********************** -->
+<ng-template #emptyRef let-data="data" let-modal="modal">
+  <div
+    *ngIf="!data?.length"
+    class="
+      w-100
+      text-center
+      d-flex
+      justify-content-center
+      align-items-center align-content-center
+      p-3
+    "
+  >
+    <!-- <button (click)="openModalSave(modal)" class="btn btn-default">
+      {{ "GENERAL.ADD" | translate }}
+    </button> -->
+  </div>
+</ng-template>

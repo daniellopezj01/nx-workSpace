@@ -38,7 +38,7 @@ export class NewMessageComponent {
     const { message } = this.form.value;
     const object = { codeReservation: this.code, message };
     this.rest.post('support', object).subscribe(
-      (res) => {
+      (res: any) => {
         this.service.setCurrentChat(res);
         const { hash } = res;
         this.router.navigate(['/', 'trips', this.code, 'support', hash]);
