@@ -30,7 +30,7 @@ export class TemplateDealsComponent implements OnInit, AfterContentChecked {
 
   ngOnInit(): void {
     this.loading = true
-    this.rest.get('tours?limit=4').subscribe((res) => {
+    this.rest.get('tours?limit=4').subscribe((res: any) => {
       this.tours = res.docs;
       this.loading = false;
     });

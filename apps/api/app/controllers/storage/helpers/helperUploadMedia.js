@@ -1,12 +1,13 @@
 const { StorageS3 } = require('../../../services/storage-s3.service')
 const utils = require('../../../middleware/utils')
 
-const router = '/public/media/'
+const router = '/media/'
 
 const helperUploadMedia = (name) => new Promise(async (resolve) => {
   const cloudFront = process.env.AWS_CLOUDFRONT_STORAGE || null
   const absolute = `${process.cwd()}${router}${name}`
-  const errorFile = `${process.env.API_URL}/media/${name}`
+  // const absolute = `${process.cwd()}${router}${name}`
+  const errorFile = `${process.env.API_URL}${router}${name}`
   if (process.env.NODE_ENV === 'production') {
     await StorageS3.uploadMedia(absolute, name)
       .then(async (res) => {

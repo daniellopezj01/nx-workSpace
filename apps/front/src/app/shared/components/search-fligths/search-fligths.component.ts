@@ -85,7 +85,7 @@ export class SearchFligthsComponent implements OnInit, OnDestroy {
     if (!this.fromHome) {
       this.listObserver();
     }
-    const observer = this.shared.changeInputFlight.subscribe((res) => {
+    const observer = this.shared.changeInputFlight.subscribe((res: any) => {
       if (res) {
         this.focusSearch = res === 'idInputFrom' ? 'from' : 'to'
       } else {

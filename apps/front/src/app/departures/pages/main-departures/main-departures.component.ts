@@ -84,7 +84,7 @@ export class MainDeparturesComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(
-        (res) => {
+        (res: any) => {
           this.data = res;
           this.generatePaginate();
         },

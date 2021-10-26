@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Subscription } from 'rxjs';
 import { InputSearchService } from './../input-search/input-search.service';
 import { ToursService } from './../../../search/pages/tours/services/tours.service';
@@ -199,7 +200,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterContentChecked {
 
   ngOnInit(): void {
     this.accountMenu = this.service.accountMenu
-    const observerTwo$ = this.service.dataTourFilters.subscribe((res) => {
+    const observerTwo$ = this.service.dataTourFilters.subscribe((res: any) => {
       this.data = res
       this.addPropertiesToData()
     });

@@ -61,7 +61,7 @@ export class TransactionsComponent implements OnInit {
         })
       )
       .subscribe(
-        (res) => {
+        (res: any) => {
           this.data = res;
           const { departure } = this.data;
           this.departure = departure;

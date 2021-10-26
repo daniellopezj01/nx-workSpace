@@ -1,0 +1,487 @@
+<ng-container *ngTemplateOutlet="loadingAll; context: { loading: loading }">
+</ng-container>
+
+<mat-tab-group
+  selectedIndex="0"
+  animationDuration="350ms"
+  color="accent"
+  disableRipple
+  class="w-100"
+  *ngIf="!loading"
+>
+  <mat-tab [label]="'RESERVATION.TABS.GENERAL' | translate">
+    <ng-template matTabContent>
+      <app-form-reservation
+        class="col-12 row m-0 pl-1 pr-1"
+        [reservation]="reservation"
+        [activeUpdate]="true"
+        [activeDelete]="true"
+      ></app-form-reservation>
+    </ng-template>
+  </mat-tab>
+  <mat-tab [label]="'RESERVATION.TABS.BUYER' | translate">
+    <div class="container-places sss">
+      <div class="col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="form-group">
+            <label class="mt-4">{{
+              'RESERVATION.BUYER_DATA' | translate
+            }}</label>
+            <div class="text-right w-100">
+              <app-section-btn
+                classCustom="custom-align pb-0"
+                [options]="['save']"
+                (cbSave)="updateData()"
+                [valid]="formBuyer.valid"
+              ></app-section-btn>
+            </div>
+            <ng-container *ngTemplateOutlet="buyerTemplate"></ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab [label]="'RESERVATION.TABS.EMERGENCY' | translate">
+    <div class="container-places">
+      <div class="col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="form-group">
+            <label class="mt-4">{{
+              'RESERVATION.EMERGENCY_DATA' | translate
+            }}</label>
+            <div class="text-right w-100">
+              <app-section-btn
+                classCustom="custom-align pb-0"
+                [options]="['save']"
+                (cbSave)="updateData(false)"
+                [valid]="formEmergency.valid"
+              ></app-section-btn>
+            </div>
+            <ng-container *ngTemplateOutlet="emergencyTemplate"></ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab [label]="'RESERVATION.TABS.MOVEMENTS' | translate">
+    <div class="container-places">
+      <div class="col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="d-flex justify-content-between">
+            <label class="mt-4">{{
+              'RESERVATION.TRANSACTIONS' | translate
+            }}</label>
+            <button
+              class="btn btn-sm btn-default btn-sm font-weight-bold"
+              type="button"
+              (click)="openModalTransactions()"
+            >
+              {{ 'RESERVATION.ADD_TRANSACTION' | translate }}
+            </button>
+          </div>
+          <div class="form-group">
+            <ng-container
+              *ngTemplateOutlet="transactionTemplate"
+            ></ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab [label]="'RESERVATION.TABS.PASSPORT' | translate">
+    <ng-template matTabContent>
+      <app-passport
+        class="col-12 row m-0 pl-1 pr-1"
+        [reservation]="reservation"
+      ></app-passport>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
+
+<ng-template #buyerTemplate>
+  <form
+    *ngIf="!loading"
+    class="form-product w-100 flex-wrap d-flex"
+    [formGroup]="formBuyer"
+  >
+    <div
+      class="
+        col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12
+        p-0
+        flex-wrap
+        d-flex
+      "
+    >
+      <div class="row w-100 mr-0 ml-0">
+        <div class="col-6 custom-card-style mt-2 flex-wrap d-flex">
+          <div class="col-12 p-0">
+            <div class="name">
+              <div class="form-group">
+                <label>{{ 'RESERVATION.FORM_ADD.NAME' | translate }}</label>
+                <input
+                  type="text"
+                  autocomplete="off"
+                  spellcheck="false"
+                  formControlName="buyerFirstName"
+                  class="form-control"
+                  aria-describedby="title"
+                  placeholder="Escribir Nombre"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 custom-card-style mt-2 flex-wrap d-flex">
+          <div class="col-12 p-0">
+            <div class="name">
+              <div class="form-group">
+                <label>{{ 'RESERVATION.FORM_ADD.SURNAME' | translate }}</label>
+                <input
+                  type="text"
+                  autocomplete="off"
+                  spellcheck="false"
+                  formControlName="buyerLastName"
+                  class="form-control"
+                  aria-describedby="title"
+                  placeholder="Escribir Apellido"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="name">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.DOCUMENT' | translate }}</label>
+              <input
+                type="text"
+                autocomplete="off"
+                spellcheck="false"
+                formControlName="buyerDocument"
+                class="form-control"
+                aria-describedby="title"
+                placeholder="Escribir Documento"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="name">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.EMAIL' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                formControlName="buyerEmail"
+                placeholder="Escribir Email"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="name">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.PHONE' | translate }}</label>
+              <ngx-intl-tel-input
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="false"
+                [searchCountryField]="[
+                  SearchCountryField.Iso2,
+                  SearchCountryField.Name
+                ]"
+                [selectFirstCountry]="false"
+                [searchCountryFlag]="true"
+                [searchCountryPlaceholder]="''"
+                [selectedCountryISO]="CountryISO.Mexico"
+                [maxLength]="'15'"
+                [spellcheck]="false"
+                #inputPhone
+                inputmode="search"
+                controlErrorsClass="error-class-tailor"
+                [separateDialCode]="true"
+                placeholder="Escribir Numero Telefonico"
+                formControlName="buyerPhone"
+              >
+              </ngx-intl-tel-input>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="name">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.BIRTH_DATE' | translate }}</label>
+              <input
+                #dp="bsDatepicker"
+                bsDatepicker
+                readonly
+                formControlName="buyerBirthDay"
+                [maxDate]="today"
+                class="form-control dp-dd"
+                placeholder="Escribir Fecha de Nacimiento"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #emergencyTemplate>
+  <form
+    *ngIf="!loading"
+    class="form-product w-100 flex-wrap d-flex"
+    [formGroup]="formEmergency"
+  >
+    <div
+      class="
+        col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12
+        p-0
+        flex-wrap
+        d-flex
+      "
+    >
+      <div class="row w-100 mr-0 ml-0">
+        <div class="col-6 custom-card-style mt-2 flex-wrap d-flex">
+          <div class="col-12 p-0">
+            <div class="name">
+              <div class="form-group">
+                <label>{{ 'RESERVATION.FORM_ADD.NAME' | translate }}</label>
+                <input
+                  type="text"
+                  autocomplete="off"
+                  spellcheck="false"
+                  formControlName="emergencyName"
+                  class="form-control"
+                  aria-describedby="title"
+                  placeholder="Escribir Nombre"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 custom-card-style mt-2 flex-wrap d-flex">
+          <div class="col-12 p-0">
+            <div class="name">
+              <div class="form-group">
+                <label>{{ 'RESERVATION.FORM_ADD.SURNAME' | translate }}</label>
+                <input
+                  type="text"
+                  autocomplete="off"
+                  spellcheck="false"
+                  formControlName="emergencyLastName"
+                  class="form-control"
+                  aria-describedby="title"
+                  placeholder="Escribir Apellido"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="name">
+            <div class="form-group">
+              <label>{{ 'RESERVATION.FORM_ADD.PHONE' | translate }}</label>
+              <ngx-intl-tel-input
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="false"
+                [searchCountryField]="[
+                  SearchCountryField.Iso2,
+                  SearchCountryField.Name
+                ]"
+                [selectFirstCountry]="false"
+                [searchCountryFlag]="true"
+                [searchCountryPlaceholder]="''"
+                [selectedCountryISO]="CountryISO.Mexico"
+                [maxLength]="'15'"
+                [spellcheck]="false"
+                inputmode="search"
+                controlErrorsClass="error-class-tailor"
+                [separateDialCode]="true"
+                placeholder="Escribir Numero Telefonico"
+                formControlName="emergencyPhone"
+              >
+              </ngx-intl-tel-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #transactionTemplate>
+  <div class="transactions">
+    <ng-container
+      *ngIf="reservation?.transactions?.length; then with; else withOut"
+    ></ng-container>
+    <ng-template #with>
+      <div class="container-transaction">
+        <div>
+          <table class="table">
+            <thead class="thead">
+              <th
+                *ngFor="let item of columns"
+                class="font-weight-bold"
+                scope="col"
+              >
+                {{ item?.key || '' | translate }}
+              </th>
+            </thead>
+            <tbody class="tbody">
+              <tr *ngFor="let item of reservation?.transactions; let i = index">
+                <td class="date-row">
+                  {{ item?.code }}
+                </td>
+                <td class="date-row">
+                  {{ item?.createdAt | date: 'medium' }}
+                </td>
+                <td class="description-style">
+                  {{ item?.description }}
+                </td>
+                <td class="platform-row">
+                  {{ searchPlatform(item?.platform) }}
+                </td>
+                <td class="">
+                  <span
+                    class="status-row badge"
+                    [ngClass]="{
+                      'badge-info': item?.status === 'await',
+                      'badge-danger': item?.status === 'failure',
+                      'badge-success': item?.status === 'succeeded'
+                    }"
+                    >{{ item?.status }}</span
+                  >
+                </td>
+                <td class="amount-row">
+                  {{ item?.amount | number: '1.2-2' }} USD
+                </td>
+                <td class="platform-row" *ngIf="item?.attached">
+                  <div class="icon-style">
+                    <a href="{{ item.attached }}" target="_blank">
+                      <img
+                        [src]="'../../../../../assets/downloadPdf.svg'"
+                        class="lazyload img-fluid"
+                        alt="download pdf"
+                      />
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #withOut>
+      <div class="container-with-out d-flex justify-content-center">
+        <div class="with-out-transaction">
+          <p class="text-center">
+            {{ 'RESERVATION.NOT_TRANSACTIONS' | translate }}
+          </p>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="balance">
+    <label class="mt-4">{{ 'RESERVATION.BALANCE' | translate }}</label>
+    <div class="section-balance">
+      <span class="pb-2 pt-2"
+        >{{ 'RESERVATION.PAID' | translate }}
+        <span class="text-success font-weight-bold">
+          {{
+            reservation?.amount - reservation?.pendingAmount | number: '1.2-2'
+          }}
+          USD
+        </span>
+      </span>
+      <span class="pb-2 pt-2"
+        >{{ 'RESERVATION.PENDING' | translate }}
+        <span class="text-danger font-weight-bold">
+          {{ reservation?.pendingAmount | number: '1.2-2' }} USD</span
+        ></span
+      >
+      <div class="pb-2 pt-2 d-flex container-total-price">
+        <span class="total-price">{{ 'RESERVATION.TOTAL' | translate }}</span>
+        <ng-container
+          *ngIf="
+            activeUpdateAmount;
+            then templateUpdateAmount;
+            else templateNormalAmount
+          "
+        ></ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #templateUpdateAmount>
+  <form
+    *ngIf="!loading"
+    class="w-100 d-flex form-price"
+    [formGroup]="formPrice"
+  >
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        mask="separator.2"
+        thousandSeparator="."
+        separatorLimit="100000"
+        placeholder="Monto"
+        formControlName="amount"
+      />
+    </div>
+
+    <button
+      class="ml-1 btn btn-default"
+      (click)="activeUpdateAmount = !activeUpdateAmount"
+    >
+      {{ 'GENERAL.CANCEL' | translate }}
+    </button>
+    <button
+      ngxLoading
+      [loadingFlag]="loading"
+      [textInitial]="'GENERAL.SAVE' | translate"
+      [textLoading]="'GENERAL.SENDING' | translate"
+      class="btn btn-link ml-1"
+      (click)="updateAMount()"
+      [disabled]="!formPrice.valid"
+    ></button>
+  </form>
+</ng-template>
+<ng-template #templateNormalAmount>
+  <span class="font-weight-bold">
+    {{ reservation?.amount | number: '1.2-2' }} USD
+  </span>
+  <button
+    class="ml-1 btn btn-link"
+    (click)="activeUpdateAmount = !activeUpdateAmount"
+  >
+    {{ 'TASK.EDIT' | translate }}
+  </button>
+</ng-template>
+
+<ng-template #loadingAll let-loading="loading">
+  <div *ngIf="loading === true" class="w-100 text-center h-100 loading-wrapper">
+    <div class="in">
+      <img
+        [width]="'5rem'"
+        src="../../../../../assets/images/loading-svg.svg"
+        alt="loading"
+      />
+    </div>
+  </div>
+</ng-template>

@@ -46,7 +46,7 @@ export class MessageInboxComponent implements OnInit, OnDestroy {
   }
 
   listObserver = () => {
-    const observer1$ = this.messageInboxService.newTap.subscribe((res) => {
+    const observer1$ = this.messageInboxService.newTap.subscribe((res: any) => {
       const match = _.find(this.inbox, (o) => {
         return _.find(o.membersOmit, { _id: res?._id });
       });
@@ -71,7 +71,7 @@ export class MessageInboxComponent implements OnInit, OnDestroy {
       }
     });
 
-    const observer2$ = this.messageInboxService.sendInbox.subscribe((res) => {
+    const observer2$ = this.messageInboxService.sendInbox.subscribe((res: any) => {
       // if (res?._id?.length) {
       //   _.forEach(this.inbox, (o) => {
       //     if (res?.res?._id === o?._id) {
@@ -95,7 +95,7 @@ export class MessageInboxComponent implements OnInit, OnDestroy {
       // }
     });
 
-    const observer3$ = this.webSocketService.outEven.subscribe((res) => {
+    const observer3$ = this.webSocketService.outEven.subscribe((res: any) => {
       if (!_.find(this.inbox, { hash: res?.payload?.hash })) {
         const firstMessage = this.messageInboxService.firstConversation(
           res?.payload,
@@ -121,7 +121,7 @@ export class MessageInboxComponent implements OnInit, OnDestroy {
         finalize(() => (this.loading = false)),
         map((a) => a.docs)
       )
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         _.forEach(res, (o) => {
           o.membersOmit = _.filter(o.members, (p) => {
             return p._id !== this.user?._id;

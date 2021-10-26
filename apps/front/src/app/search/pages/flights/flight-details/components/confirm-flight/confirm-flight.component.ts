@@ -57,7 +57,7 @@ export class ConfirmFlightComponent implements OnInit {
     this.loadingButton = true
     const params = { code: this.code }
     this.rest.post('plugins/sabre/events/createOrderPnr', { params }).subscribe(
-      (res) => {
+      (res: any) => {
         console.log(res)
         this.loadingButton = false
         this.router.navigate(['payment', 'flights', this.code])

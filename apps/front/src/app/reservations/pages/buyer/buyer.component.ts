@@ -171,7 +171,7 @@ export class BuyerComponent implements OnInit {
           return throwError(err);
         })
       )
-      .subscribe(async (res) => {
+      .subscribe(async (res: any) => {
         this.data = res;
         this.auxUser = _.clone(this.data);
         this.showInfo = [];

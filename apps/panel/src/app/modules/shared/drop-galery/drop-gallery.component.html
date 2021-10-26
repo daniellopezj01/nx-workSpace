@@ -1,0 +1,47 @@
+<ngx-dropzone
+  [ngClass]="{ 'mt-3': !removeMargin }"
+  class="drop-gallery"
+  [accept]="'image/png,image/jpeg,image/jpg'"
+  (change)="onSelect($event)"
+  [multiple]="multiple"
+  [disableClick]="disabledClick"
+>
+  <ngx-dropzone-label>
+    <div class="d-flex flex-column align-items-center">
+      <div class="label">{{ "GENERAL.DROP" | translate }}</div>
+      <div class="label">
+        <small>{{ "GENERAL.FILES_ALLOW" | translate }}</small>
+      </div>
+      <div>
+        <ng-lottie
+          class="margin-auto"
+          width="100px"
+          [options]="options"
+          (animationCreated)="animationCreated($event)"
+        >
+        </ng-lottie>
+      </div>
+    </div>
+  </ngx-dropzone-label>
+  <ngx-dropzone-preview
+    [style.backgroundImage]="'url(' + parseImage(f) + ')'"
+    *ngFor="
+      let f of activeAuxArray ? media?.auxFiles : media?.files;
+      let index = index
+    "
+    [removable]="true"
+    (removed)="onRemove(f, index)"
+  >
+    <ngx-dropzone-label (click)="viewImage($event, f)">
+      <div class="zoom-icon">
+        <div>
+          <fa-icon
+            [style.color]="'white'"
+            [icon]="faHandPointer"
+            size="lg"
+          ></fa-icon>
+        </div>
+      </div>
+    </ngx-dropzone-label>
+  </ngx-dropzone-preview>
+</ngx-dropzone>

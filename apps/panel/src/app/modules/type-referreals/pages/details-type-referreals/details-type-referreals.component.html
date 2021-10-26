@@ -1,0 +1,19 @@
+<app-loading [loading]="loading"></app-loading>
+
+<mat-tab-group
+  selectedIndex="0"
+  animationDuration="350ms"
+  color="accent"
+  disableRipple
+  class="w-100"
+  *ngIf="!loading"
+>
+  <mat-tab [label]="'TOUR.TABS.GENERAL' | translate">
+    <div class="container-places pt-2">
+      <app-form-type-referreals
+        [activeUpdate]="true"
+        [typeReferreals]="typeReferreals"
+      ></app-form-type-referreals>
+    </div>
+  </mat-tab>
+</mat-tab-group>

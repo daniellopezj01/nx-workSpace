@@ -1,0 +1,135 @@
+.menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 65px;
+  height: 100%;
+  z-index: 12;
+  /*overflow-y: scroll;*/
+  border-right: solid 1px var(--border-color-6);
+  filter: var(--filter-shadow);
+}
+
+.logo {
+  display: table-cell;
+  vertical-align: middle;
+  height: 58px;
+  width: 100px;
+  cursor: pointer;
+  text-align: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.menu-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-list ul li {
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  position: relative;
+  border-top: solid 1px #f7f7f7;
+}
+
+.menu-list ul li:first-child,
+.menu-list ul li:last-child {
+  border-top-color: transparent;
+}
+
+.menu-list .icon-wrapper {
+  margin: auto;
+  border-radius: var(--border-radius-75);
+  width: 50px;
+  height: 50px;
+}
+
+.menu-list ul li .icon {
+  color: var(--text-color);
+  /*color: white;*/
+}
+
+.menu-list ul li:hover .icon,
+.menu-list ul li .active .icon {
+  color: var(--main-color-1);
+  -webkit-transition: all 100ms;
+  -moz-transition: all 100ms;
+  -o-transition: all 100ms;
+  transition: all 100ms;
+}
+
+.menu-list ul li:hover .icon-wrapper {
+  background-color: #0c2ccc14;
+  -webkit-transition: all 100ms;
+  -moz-transition: all 100ms;
+  -o-transition: all 100ms;
+  transition: all 100ms;
+}
+
+.menu-list ul li:hover .sub-wrapper,
+.menu-list ul li .active {
+  /*transform: scale(1.1);*/
+  margin-top: 0.2rem;
+  border-radius: var(--border-radius-75);
+  background-color: #0c2ccc33;
+  -webkit-transition: all 100ms;
+  -moz-transition: all 100ms;
+  -o-transition: all 100ms;
+  transition: all 100ms;
+}
+
+/*}*/
+.footer .avatar {
+  border-radius: 6rem;
+  height: 35px;
+  width: 35px;
+  object-fit: cover;
+}
+
+.footer .wrapper-avatar {
+  cursor: pointer;
+}
+
+.footer .wrapper-avatar:before {
+  content: "";
+  position: absolute;
+  background: #ed3552;
+  margin-left: 25px;
+  margin-top: 0px;
+  width: 11px;
+  height: 11px;
+  border: solid 2px white;
+  border-radius: 14px;
+}
+
+.footer {
+  /*margin-top: 3rem;*/
+}
+
+.footer .btn-icon {
+  color: var(--text-color);
+  background-color: #f3f5f9;
+  border-radius: var(--border-radius-75);
+}
+
+.footer .btn-icon:hover {
+  background-color: #ed3552;
+}
+
+.footer .btn-icon:hover fa-icon {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  /*:host{*/
+  /*  display: none !important;*/
+  /*}*/
+}

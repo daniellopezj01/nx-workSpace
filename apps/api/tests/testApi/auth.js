@@ -118,7 +118,7 @@ module.exports = (server) => {
           name: faker.random.words(),
           surname: faker.random.words(),
           email,
-          password: faker.random.words()
+          password: 'sadkasnd askdjn asdkj'
         }
         request(server)
           .post(`${url}/register`)

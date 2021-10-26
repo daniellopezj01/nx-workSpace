@@ -23,7 +23,7 @@ export class SettingsGuardGuard implements CanActivate {
   getSettings() {
     return new Promise((resolve, reject) => {
       this.rest.get(`settings/check`).subscribe(
-        (res) => {
+        (res: any) => {
           resolve(res);
         },
         (error) => {

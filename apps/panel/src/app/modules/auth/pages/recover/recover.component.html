@@ -1,0 +1,77 @@
+<div class="row m-0 col-12 p-0 position-absolute h-100">
+  <div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+    <div class="login-section">
+      <div class="w-100">
+        <div
+          *ngIf="!response"
+          class="title-section animate__animated animate__fadeInDown"
+        >
+          <h1 class="title" [innerHTML]="'LOGIN.FORM.PASS' | translate"></h1>
+          <span class="text-muted">{{ "LOGIN.SUB_TITLE" | translate }}</span>
+        </div>
+        <ng-container *ngIf="response">
+          <div class="title-section animate__animated animate__fadeInDown">
+            <h1
+              class="title"
+              [innerHTML]="'LOGIN.RECOVER.SEND_RECOVERY' | translate"
+            ></h1>
+            <span class="text-muted">{{
+              "LOGIN.RECOVER.SEND_RECOVERY_SUB" | translate
+            }}</span>
+          </div>
+          <div class="animate__animated animate__fadeInDown text-center p-4">
+            <img
+              class="wrapper-image"
+              src="../../../../../assets/icons-svg/drawkit-grape-pack-illustration-9.svg"
+              alt="recover"
+            />
+          </div>
+        </ng-container>
+
+        <form
+          class="animate__animated animate__fadeInDown"
+          *ngIf="!response"
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()"
+          autocomplete="off"
+        >
+          <div class="form-group">
+            <label for="exampleInputEmail1">{{
+              "LOGIN.FORM.EMAIL" | translate
+            }}</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="email"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder=""
+            />
+            <small class="form-text text-muted">{{
+              "LOGIN.FORM.EMAIL_PLACEHOLDER" | translate
+            }}</small>
+          </div>
+          <div class="pt-3">
+            <button
+              [disabled]="!form.valid"
+              ngxLoading
+              [textInitial]="'LOGIN.FORM.SEND' | translate"
+              [textLoading]="'GENERAL.LOADING_SINGLE' | translate"
+              [loadingFlag]="loading"
+              type="submit"
+              class="btn btn-primary btn-radius btn-block"
+            ></button>
+          </div>
+          <div class="w-100 mt-4 mb-2">
+            <span class="form-text text-muted">
+              {{ "LOGIN.FORM.ALREADY_ACCOUNT" | translate }}
+              <a class="ml-1" routerLink="/auth/login">
+                {{ "LOGIN.FORM.SIGN_IN" | translate }}</a
+              >
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

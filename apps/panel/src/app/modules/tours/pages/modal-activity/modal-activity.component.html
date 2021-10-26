@@ -1,0 +1,69 @@
+<div class="p-2">
+  <div class="pb-2">
+    <h6 class="font-weight-bold">
+      {{
+        !updateItem
+          ? ("TOUR.ITINERARY.ACTIVITY.ADD_ACTIVITY" | translate)
+          : ("TOUR.ITINERARY.ACTIVITY.UPDATE_ACTIVITY" | translate)
+      }}
+    </h6>
+  </div>
+
+  <form class="form-product" [formGroup]="form">
+    <div class="form-group">
+      <label>{{ "TOUR.ITINERARY.TITLE" | translate }}</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="title"
+        placeholder="Primera Actividad"
+      />
+    </div>
+    <div class="form-group mb-4 mt-4">
+      <div class="d-flex">
+        <p-checkbox
+          animation="smooth"
+          color="primary"
+          shape="curve"
+          [checked]="isNight"
+          (change)="isNight = !isNight"
+        >
+          <span class="custom-text">
+            {{ "TOUR.ITINERARY.ACTIVITY.AS_NIGHT" | translate }}
+          </span>
+        </p-checkbox>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{ "TOUR.DESCRIPTION" | translate }}</label>
+      <app-text-rich
+        class="row"
+        formControlName="description"
+        [mode]="'add'"
+        [isFull]="false"
+        [cancelBtn]="false"
+      ></app-text-rich>
+    </div>
+
+    <div class="form-group d-flex justify-content-between">
+      <button class="btn btn-default hvr-grow" (click)="modal.close()">
+        {{ "GENERAL.CANCEL" | translate }}
+      </button>
+      <button
+        ngxLoading
+        [loadingFlag]="loadingButton"
+        [textInitial]="'GENERAL.SAVE' | translate"
+        [textLoading]="'GENERAL.SENDING' | translate"
+        class="btn btn-primary hvr-grow"
+        [disabled]="!form.valid"
+        (click)="action()"
+      >
+        {{
+          !updateItem
+            ? ("GENERAL.SAVE" | translate)
+            : ("GENERAL.UPDATE" | translate)
+        }}
+      </button>
+    </div>
+  </form>
+</div>

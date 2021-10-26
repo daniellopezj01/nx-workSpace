@@ -112,7 +112,7 @@ export class PassportComponent implements OnInit, AfterViewChecked, OnDestroy {
         const { source } = response.body[0];
         const body = { imagePassPort: source };
         this.rest.patch(`reservations/${this.data._id}`, body).subscribe(
-          (res) => {
+          (res: any) => {
             this.data = res;
             this.service.setData(res);
             this.updateService.hideLoading();

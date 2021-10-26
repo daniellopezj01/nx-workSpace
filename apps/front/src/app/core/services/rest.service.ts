@@ -118,7 +118,7 @@ export class RestService {
     try {
       const match = `ERRORS.${source}`.toUpperCase();
       // console.log('---------->', match)
-      this.translateService.get(match).subscribe((res) => {
+      this.translateService.get(match).subscribe((res: any) => {
         if (res === match) {
           const matchOne = `${source}.TOAST`;
           this.translateService.get(matchOne).subscribe((resOne) => {
@@ -182,7 +182,7 @@ export class RestService {
   //     control: AbstractControl
   //   ): Observable<{ [key: string]: any } | null> => {
   //     return this.searchEmailExist(control.value).pipe(
-  //       map((res) => {
+  //       map((res:any) => {
   //         if (res) {
   //           return { email: true };
   //         }
@@ -195,7 +195,7 @@ export class RestService {
     //   control: AbstractControl
     // ): Observable<{ [key: string]: any } | null> => {
     //   return this.searchEmailExist(control.value).pipe(
-    //     map((res) => {
+    //     map((res:any) => {
     //       if (res) {
     //         return { email: true };
     //       }

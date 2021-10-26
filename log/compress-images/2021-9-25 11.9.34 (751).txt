@@ -1,0 +1,13 @@
+File from: [C:\Users\USUARIO\Documents\empresa\nx-work-space/apps/api/src/public/media/small_9aed2687-d218-433c-af83-7a4b67815726.png]
+
+File to: [C:\Users\USUARIO\Documents\empresa\nx-work-space/apps/api/src/public/media_compress/small_9aed2687-d218-433c-af83-7a4b67815726.png]
+
+Compression algorithm: [-]
+
+Description: File does not exist!File from: [C:\Users\USUARIO\Documents\empresa\nx-work-space/apps/api/src/public/media/small_7458baab-b706-45e8-8403-4d4d09282326.png]
+
+File to: [C:\Users\USUARIO\Documents\empresa\nx-work-space/apps/api/src/public/media_compress/small_7458baab-b706-45e8-8403-4d4d09282326.png]
+
+Compression algorithm: [-]
+
+Description: File does not exist!

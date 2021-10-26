@@ -1,0 +1,214 @@
+<div class="items w-100">
+  <div *ngIf="search" class="header d-flex justify-content-between">
+    <div class="w-50">
+      <div *ngIf="title" class="title">
+        {{ title }}
+      </div>
+      <div class="d-flex">
+        <!-- **** BUTTON FILTER AND DROPDOWN *** -->
+
+        <div
+          *ngIf="filtersMode"
+          class="btn-group"
+          dropdown
+          #dropdown="bs-dropdown"
+        >
+          <!-- <div class="mr-2">
+            <button
+              id="button-basic"
+              dropdownToggle
+              type="button"
+              class="btn btn-default btn-radius btn-sm"
+            >
+              <fa-icon [icon]="faFilter"></fa-icon>
+            </button>
+          </div> -->
+          <ul
+            id="dropdown-basic"
+            *dropdownMenu
+            class="dropdown-menu filter-dropdown"
+            role="menu"
+            aria-labelledby="button-basic"
+          >
+            <div class="loading-filter" *ngIf="filterService.loading">
+              <div class="in">
+                <img
+                  src="../../../assets/images/loading-circle.svg"
+                  alt="loading"
+                />
+              </div>
+            </div>
+
+            <!-- ******** INITIAL ******* -->
+
+            <ng-container
+              *ngIf="
+                !filterService.stepCondition &&
+                !filterService.secondData?.length
+              "
+            >
+              <ng-container *ngTemplateOutlet="backButton"></ng-container>
+              <li
+                class="mt-2 item-list-filter"
+                (click)="filterService.loadFilter(filter)"
+                role="menuitem"
+                *ngFor="let filter of filterService.listFilter"
+              >
+                <span>{{ filter?.label | translate }}</span>
+              </li>
+            </ng-container>
+
+            <!-- ******** END INITIAL ******* -->
+
+            <!-- ******** SECOND LEVEL ******* -->
+
+            <ng-container
+              *ngIf="
+                !filterService.stepCondition && filterService.secondData?.length
+              "
+            >
+              <ng-container *ngTemplateOutlet="backButton"></ng-container>
+
+              <ng-container *ngFor="let filter of filterService.secondData">
+                <li
+                  class="mt-2 item-list-filter"
+                  (click)="callFilter(filter); dropdown.hide()"
+                  role="menuitem"
+                >
+                  <span>{{ filter?.name }}</span>
+                </li>
+              </ng-container>
+            </ng-container>
+
+            <!-- ******** END SECOND LEVEL ******* -->
+
+            <!-- ******** CONDITIONAL LEVEL ******* -->
+
+            <ng-container *ngIf="filterService.stepCondition === 'list'">
+              <ng-container *ngTemplateOutlet="backButton"></ng-container>
+
+              <li
+                class="mt-2 item-list-filter"
+                (click)="callFilter(filter)"
+                role="menuitem"
+                *ngFor="let filter of filterService.queryConditional"
+              >
+                <span>{{ filter?.name }}</span>
+              </li>
+            </ng-container>
+
+            <!-- ******** END CONDITIONAL LEVEL ******* -->
+
+            <!-- ******** INPUT CONDITIONAL LEVEL ******* -->
+
+            <ng-container *ngIf="filterService.stepCondition === 'input'">
+              <ng-container *ngTemplateOutlet="backButton"></ng-container>
+
+              <li class="mt-2 item-list-filter" role="menuitem">
+                <div class="input-group input-group-sm">
+                  <input
+                    type="text"
+                    spellcheck="false"
+                    class="form-control"
+                    [(ngModel)]="filterService.valueQry"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary"
+                      (click)="filterService.selectFilterQry(); dropdown.hide()"
+                      type="button"
+                    >
+                      <fa-icon [icon]="faCheck"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </li>
+            </ng-container>
+
+            <!-- ******** END INPUT CONDITIONAL LEVEL ******* -->
+          </ul>
+        </div>
+
+        <!-- **** END  BUTTON FILTER *** -->
+
+        <input
+          type="text"
+          [(ngModel)]="src"
+          spellcheck="false"
+          (ngModelChange)="onChange($event)"
+          placeholder="Buscar"
+          class="form-control input-date input-src"
+        />
+      </div>
+    </div>
+    <div class="d-flex">
+      <!-- ******** PDF PLUGIN *** -->
+      <!-- <div class="ml-2" appCheckPlugin [namePlugin]="'pdfReport'">
+        <Kit-button-pdf (click)="callPdf()"></Kit-button-pdf>
+      </div> -->
+      <!-- ******** EXCEL IMPORT PLUGIN *** -->
+      <!-- <div class="ml-2" appCheckPlugin [namePlugin]="'excelImport'">
+        <lib-excel-button></lib-excel-button>
+      </div> -->
+
+      <div class="ml-2" *ngIf="options.includes('add')">
+        <button
+          (click)="callbackAdd()"
+          type="button"
+          class="btn btn-primary hvr-grow btn-radius btn-sm"
+        >
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- ************ BADGES FILTERS ************************-->
+  <div class="" *ngIf="filtersMode">
+    <ul class="d-flex flex-wrap filters-list">
+      <li
+        class="badge badge-filter mr-1"
+        *ngFor="let a of filterService.filterSelect"
+      >
+        <span class="text-muted"
+          ><b>{{ a?.pre?.label | translate }} :</b>
+          {{ a?.value?.name ? a?.value?.name : a?.value }}</span
+        >
+        <span (click)="clearFilter(a)" class="filter-icon ml-1">
+          <fa-icon size="sm" [icon]="faTimes"></fa-icon>
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <!--- TEMPLATE ---->
+  <ng-template #viewContainerCustom> </ng-template>
+  <!--- END TEMPLATE ---->
+</div>
+
+<!-- TEMPLATE -->
+<ng-template #defaultCustom> </ng-template>
+
+<ng-template #backButton>
+  <div class="d-flex justify-content-between">
+    <button
+      class="btn btn-link btn-sm"
+      (click)="closeFilter(false)"
+      type="button"
+    >
+      <small>
+        <fa-icon [icon]="faArrowLeft"></fa-icon>
+        <span class="ml-1">{{ 'GENERAL.BACK' | translate }}</span>
+      </small>
+    </button>
+
+    <button
+      class="btn btn-link btn-sm"
+      (click)="closeFilter(true)"
+      type="button"
+    >
+      <small>
+        <fa-icon [icon]="faTimes"></fa-icon>
+      </small>
+    </button>
+  </div>
+</ng-template>

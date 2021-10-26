@@ -1,0 +1,220 @@
+<ng-container *ngTemplateOutlet="loadingAll; context: { loading: loading }">
+</ng-container>
+
+<mat-tab-group
+  selectedIndex="0"
+  animationDuration="350ms"
+  color="accent"
+  disableRipple
+  class="w-100"
+  *ngIf="!loading"
+>
+  <mat-tab [label]="'USER.TABS.GENERAL' | translate">
+    <ng-template matTabContent>
+      <app-form-user
+        class="col-12 row m-0 pl-1 pr-1 mt-2"
+        [user]="user"
+        [activeUpdate]="true"
+      ></app-form-user>
+    </ng-template>
+  </mat-tab>
+  <mat-tab [label]="'USER.TABS.LOCATION' | translate">
+    <ng-container *ngTemplateOutlet="locationTemplate"></ng-container>
+  </mat-tab>
+  <mat-tab [label]="'USER.TABS.SECURITY' | translate">
+    <ng-container *ngTemplateOutlet="securityTemplate"></ng-container>
+  </mat-tab>
+  <mat-tab [label]="'USER.TABS.GALERY' | translate">
+    <ng-container *ngTemplateOutlet="galeryTemplate"></ng-container>
+  </mat-tab>
+  <mat-tab [label]="'USER.TABS.WALLET' | translate">
+    <app-wallet [id]="user._id"></app-wallet>
+  </mat-tab>
+  <mat-tab [label]="'USER.TABS.REFERRED' | translate">
+    <app-referreals [id]="user._id" [user]="user"></app-referreals>
+  </mat-tab>
+  <!-- <mat-tab [label]="'USER.TABS.REFERRED' | translate">
+    <div class="container-places">
+      <div class="col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="form-group">
+            <label class="mt-4">{{
+              "RESERVATION.TRANSACTIONS" | translate
+            }}</label>
+            <ng-container
+              *ngTemplateOutlet="transactionTemplate"
+            ></ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab> -->
+</mat-tab-group>
+<ng-template #loadingAll let-loading="loading">
+  <div *ngIf="loading === true" class="w-100 text-center h-100 loading-wrapper">
+    <div class="in">
+      <img
+        [width]="'5rem'"
+        src="../../../../../assets/images/loading-svg.svg"
+        alt="loading"
+      />
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #locationTemplate>
+  <form [autocomplete]="'nope'" [formGroup]="formLocation">
+    <div class="text-right w-100 mb-3">
+      <app-section-btn
+        classCustom="custom-align pb-0"
+        [options]="['save']"
+        (cbSave)="update('location')"
+        [valid]="formLocation.valid"
+      ></app-section-btn>
+    </div>
+    <div class="col-12 p-0 flex-wrap d-flex">
+      <div class="custom-card-style col-12 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="name">
+            <div class="form-group">
+              <label>{{ "USER.FORM_LOCATION.COUNTRY" | translate }}</label>
+              <ng-select
+                #selectProductRef
+                [items]="countries"
+                formControlName="country"
+                bindLabel="name"
+                bindValue="name"
+                [addTag]="false"
+                [multiple]="false"
+                [hideSelected]="true"
+                [required]="true"
+                [typeToSearchText]="'PURCHASE.SEARCH_PRODUCT' | translate"
+                [searchable]="true"
+                [clearable]="false"
+                [(ngModel)]="ngSelectCountry"
+                placeholder="Buscar Pais"
+              >
+              </ng-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="name">
+            <div class="form-group">
+              <label>{{ "USER.FORM_LOCATION.CITY" | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="city"
+                placeholder="Escribir Ciudad"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="custom-card-style col-12 mt-2 flex-wrap">
+        <div class="col-12 p-0">
+          <div class="form-group">
+            <label>{{ "USER.FORM_LOCATION.ADDRESS" | translate }}</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="address"
+              placeholder="Escribir Direccion"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #securityTemplate>
+  <form
+    [autocomplete]="'nope'"
+    class="form-product w-100 flex-wrap d-flex row m-0 mt-2"
+    [formGroup]="formSecurity"
+  >
+    <!--{{shared.findInvalidControls(form) | json}}-->
+    <div class="col-12 p-0 flex-wrap d-flex">
+      <div class="text-right w-100 mb-3">
+        <app-section-btn
+          [options]="['save']"
+          (cbSave)="updateSecurity()"
+          [valid]="formSecurity.valid"
+          classCustom="custom-align pb-0"
+        ></app-section-btn>
+      </div>
+      <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="name">
+            <div class="form-group">
+              <label>{{ "USER.NEW_PASSWORD" | translate }}</label>
+              <input
+                type="password"
+                class="form-control"
+                formControlName="password"
+                placeholder="Escribir Nueva Contraseña"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="custom-card-style col-12 mt-2 flex-wrap">
+        <div class="col-12 p-0">
+          <div class="form-group">
+            <label>{{ "USER.CONFIRM_PASSWORD" | translate }}</label>
+            <input
+              type="password"
+              class="form-control"
+              formControlName="confirmpassword"
+              placeholder="Repetir Nueva Contraseña"
+            />
+            <div *ngIf="validateMessage()" class="control-error">
+              <p>{{ "USER.NOT_MATCH" | translate }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #galeryTemplate>
+  <div class="row">
+    <div class="col-6">
+      <div class="text-right w-100 mb-3">
+        <app-section-btn
+          classCustom="custom-align pb-0"
+          [options]="optionsButtons"
+          (cbSave)="updateFile('avatar')"
+          (cbTrash)="deleteFile('avatar')"
+          [valid]="media.files.length"
+        ></app-section-btn>
+      </div>
+      <div>
+        <app-drop-gallery
+          [removeMargin]="true"
+          [multiple]="false"
+          [singleFile]="true"
+        ></app-drop-gallery>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="text-right w-100 mb-3">
+        <app-section-btn
+          classCustom="custom-align pb-0"
+          [options]="optionsButtonsVideo"
+          (cbSave)="updateFile('video')"
+          (cbTrash)="deleteFile('video')"
+          [valid]="mediaVideo.files.length"
+        ></app-section-btn>
+      </div>
+      <div>
+        <app-drop-video></app-drop-video>
+      </div>
+    </div>
+  </div>
+</ng-template>

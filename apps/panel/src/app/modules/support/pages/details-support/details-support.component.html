@@ -1,0 +1,118 @@
+<app-header [history]="history"></app-header>
+<app-side-bar></app-side-bar>
+
+<div class="container-row d-flex">
+  <div class="w-100 pr-3 ml-1 container-wrapper">
+    <ng-container *ngTemplateOutlet="templateDetails"></ng-container>
+  </div>
+</div>
+
+<ng-template #templateDetails>
+  <!-- <ng-container *ngTemplateOutlet="loadingAll; context: { loading: loading }"> -->
+  <!-- </ng-container> -->
+  <mat-tab-group
+    selectedIndex="0"
+    animationDuration="350ms"
+    color="accent"
+    disableRipple
+    class="w-100"
+    *ngIf="!loading"
+  >
+    <mat-tab [label]="'SUPPORT.TABS.GENERAL' | translate">
+      <ng-template matTabContent>
+        <ng-container *ngTemplateOutlet="generalTemplate"></ng-container>
+      </ng-template>
+    </mat-tab>
+    <mat-tab [label]="'SUPPORT.TABS.CONVERSATION' | translate">
+      <ng-template matTabContent>
+        <app-conversation [ticket]="data"></app-conversation>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</ng-template>
+
+<ng-template #generalTemplate>
+  <div class="mt-4 p-4">
+    <div class="row p-0">
+      <div class="col-xl-6 col-lg-6 col-md-12">
+        <div class="pb-2">
+          <h6 class="font-weight-bold">
+            {{ 'SUPPORT.TICKET_INFO' | translate }}
+          </h6>
+        </div>
+
+        <div class="form-group">
+          <span> {{ 'SUPPORT.CODE_TICKET' | translate }}</span>
+          <span class="font-weight-bold"> {{ data.hash }}</span>
+        </div>
+        <div class="form-group">
+          <span>{{ 'SUPPORT.CODE_RESERVATION' | translate }} </span>
+          <span class="font-weight-bold"> {{ data.codeReservation }}</span>
+        </div>
+        <!-- <div class="form-group">
+          <span>{{ "SUPPORT.STATUS" | translate }} </span>
+          <span class="font-weight-bold"> Aqui va el ng select</span>
+        </div> -->
+        <div class="form-group">
+          <span>{{ 'SUPPORT.TOUR' | translate }} </span>
+          <span class="font-weight-bold"> {{ customData.tourTitle }}</span>
+        </div>
+        <div class="form-group">
+          <span>{{ 'SUPPORT.START_DATE' | translate }} </span>
+          <span class="font-weight-bold">
+            {{
+              customData.StartDate | datesFormatDeparture | date: 'MMM dd, YYYY'
+            }}</span
+          >
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-12">
+        <div class="pb-2">
+          <h6 class="font-weight-bold">
+            {{ 'SUPPORT.TRAVELER_INFO' | translate }}
+          </h6>
+        </div>
+
+        <div class="form-group">
+          <span>{{ 'SUPPORT.TRAVELER' | translate }} </span>
+          <span class="font-weight-bold"> {{ travelerName() }}</span>
+        </div>
+        <div class="form-group">
+          <span>{{ 'SUPPORT.EMAIL' | translate }} </span>
+          <span class="font-weight-bold"> {{ customData.travelerEmail }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--- ******************* LOADING REF *********************** -->
+<ng-template #loadingRef let-loading="loading">
+  <div
+    class="w-100 loading-wrap animate__animated animate__fadeIn"
+    *ngIf="loading"
+  >
+    <div class="in">
+      <img class="circle" src="/assets/loading.svg" alt="loading" />
+      <div>
+        <small>{{ 'GENERAL.LOADING' | translate }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-100 error-wrap animate__animated animate__fadeIn"
+    *ngIf="loading?.status"
+  >
+    <div class="in">
+      <img
+        class="img"
+        src="/assets/extra/drawkit-grape-pack-illustration-7.svg"
+        alt="loading"
+      />
+      <div>
+        <small>{{ 'GENERAL.ERROR' | translate }}</small>
+      </div>
+    </div>
+  </div>
+</ng-template>

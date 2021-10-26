@@ -21,7 +21,7 @@ export class TemplatesHeadersService {
   }
 
   loadDeals() {
-    // this.rest.get('tours?limit=5').subscribe((res) => {
+    // this.rest.get('tours?limit=5').subscribe((res:any) => {
     //   this.allTours = res.docs;
     //   this.loading = false;
     //   this.service.loadDataHeaders.emit(this.allTours);

@@ -1,0 +1,204 @@
+<div *ngIf="copilot" class="overlay-copilot"></div>
+<div
+  class="custom-card-style-section pl-0 pr-0 col-12 flex-wrap d-flex {{
+    classCustom
+  }}"
+>
+  <div
+    class="col-12 p-0 text-right tabs tabs-responsive custom-section-buttons"
+  >
+    <button
+      type="button"
+      class="pulse-one btn-default btn"
+      [ngClass]="{ 'pulse overlay-copilot-focus': copilot }"
+      *ngIf="options.includes('list')"
+      (click)="callbackList()"
+    >
+      <fa-icon [icon]="faList"></fa-icon>
+    </button>
+
+    <div class="overlay-copilot-focus d-flex">
+      <!-- PLUGIN ZONE -->
+      <div class="d-flex wrapper-plugins-zone">
+        <!-- ***** PDF PLUGIN *** -->
+        <button
+          class="pulse-one btn-default btn"
+          *ngIf="options.includes('plugin.pdfReport')"
+          (click)="callbackPdf()"
+          [ngClass]="{ 'pulse overlay-copilot-focus': copilot }"
+          type="button"
+        >
+          <fa-icon [icon]="faFilePdf"></fa-icon>
+        </button>
+        <!-- ***** PDF PLUGIN *** -->
+
+        <!-- ***** PDF STRIPE *** -->
+        <button
+          class="pulse-one btn-default btn"
+          *ngIf="options.includes('pays')"
+          (click)="callbackPay()"
+          [ngClass]="{ 'pulse overlay-copilot-focus': copilot }"
+          type="button"
+        >
+          <fa-icon [icon]="faCoins"></fa-icon>
+        </button>
+        <!-- ***** PDF STRIPE *** -->
+      </div>
+
+      <button
+        class="pulse-one btn-default btn"
+        *ngIf="options.includes('add')"
+        (click)="callbackAdd()"
+        type="button"
+      >
+        <fa-icon [icon]="faPlus"></fa-icon>
+      </button>
+
+      <div
+        *ngIf="options.includes('add_purchase')"
+        class="btn-group vertical-align"
+        dropdown
+        placement="left"
+      >
+        <button
+          id="button-basic-1"
+          dropdownToggle
+          type="button"
+          containerClass="customToolTip"
+          class="pulse-one not-arrow btn-default btn dropdown-toggle"
+          aria-controls="dropdown-basic"
+        >
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+        <ul
+          id="dropdown-basic-1"
+          *dropdownMenu
+          class="
+            dropdown-menu dropdown-menu-convert
+            animate__animated animate__bounceIn
+          "
+          role="menu"
+          aria-labelledby="button-basic"
+        >
+          <li
+            [ngClass]="{ disabled: data?.convert?.includes('order_invoice') }"
+            role="menuitem"
+            (click)="callbackAdd('add_product')"
+            class="dropdown-item p-2 cursor-pointer"
+          >
+            <div class="d-flex">
+              <div>{{ 'PURCHASE.ADD_PRODUCT' | translate }}</div>
+            </div>
+          </li>
+          <li
+            role="menuitem"
+            [ngClass]="{ disabled: data?.convert?.includes('order_invoice') }"
+            (click)="callbackAdd('add_pay')"
+            class="dropdown-item p-2 cursor-pointer"
+          >
+            <div class="d-flex">
+              <div>{{ 'PURCHASE.ADD_PAY' | translate }}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <button
+        class="pulse-one btn-default btn"
+        *ngIf="options.includes('trash')"
+        (click)="delete()"
+        [ngClass]="{ 'pulse overlay-copilot-focus': copilot }"
+        type="button"
+      >
+        <fa-icon class="text-danger" [icon]="faTrashAlt"></fa-icon>
+      </button>
+
+      <div
+        *ngIf="options.includes('convert')"
+        class="btn-group vertical-align"
+        dropdown
+        placement="left"
+      >
+        <button
+          id="button-basic"
+          dropdownToggle
+          type="button"
+          containerClass="customToolTip"
+          class="pulse-one not-arrow btn-default btn dropdown-toggle"
+          aria-controls="dropdown-basic"
+        >
+          <fa-icon [icon]="faFileExport"></fa-icon>
+        </button>
+        <ul
+          id="dropdown-basic"
+          *dropdownMenu
+          class="
+            dropdown-menu dropdown-menu-convert
+            animate__animated animate__bounceIn
+          "
+          role="menu"
+          aria-labelledby="button-basic"
+        >
+          <li
+            role="menuitem"
+            (click)="callbackConvert('order_pay')"
+            [ngClass]="{ disabled: !data?.convert?.includes('order_purchase') }"
+            class="dropdown-item p-2 cursor-pointer disabled"
+          >
+            <div class="d-flex">
+              <div>{{ 'PURCHASE.CONVERT.ORDER_PAY' | translate }}</div>
+            </div>
+          </li>
+          <li
+            role="menuitem"
+            (click)="callbackConvert('order_invoice')"
+            [ngClass]="{ disabled: !data?.convert?.includes('order_pay') }"
+            class="dropdown-item p-2 cursor-pointer"
+          >
+            <div class="d-flex">
+              <div>{{ 'PURCHASE.CONVERT.INVOICE' | translate }}</div>
+            </div>
+          </li>
+
+          <!--          {{data?.download | json}}-->
+          <li
+            role="menuitem"
+            *ngIf="data?.download"
+            class="divider dropdown-divider"
+          ></li>
+          <li
+            *ngIf="data?.download"
+            role="menuitem"
+            (click)="callbackConvert('order_generate_invoice')"
+            class="dropdown-item p-2 cursor-pointer"
+          >
+            <div class="d-flex">
+              <div class="pr-2">
+                <fa-icon [icon]="faPrint"></fa-icon>
+              </div>
+              <div>{{ 'PURCHASE.DOWNLOAD_INVOICE' | translate }}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <button
+        [disabled]="!valid"
+        (click)="callbackSave()"
+        class="pulse-one btn-default btn"
+        [ngClass]="{
+          'pulse overlay-copilot-focus': copilot
+        }"
+        *ngIf="options.includes('save')"
+        containerClass="customToolTip"
+      >
+        <fa-icon *ngIf="valid" class="text-success" [icon]="faSave"></fa-icon>
+        <fa-icon
+          class="text-danger"
+          *ngIf="!valid"
+          [icon]="faExclamation"
+        ></fa-icon>
+      </button>
+    </div>
+  </div>
+</div>

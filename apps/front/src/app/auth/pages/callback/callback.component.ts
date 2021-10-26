@@ -36,7 +36,7 @@ export class CallbackComponent implements OnInit {
       //   '/'
       // );
       this.rest.post(`exchange`, objectAccessToken, true, { ignoreLoadingBar: '' }).subscribe(
-        (res) => {
+        (res: any) => {
           this.rest.setterSettings(res);
           this.rest.redirectAfterLogin();
         },

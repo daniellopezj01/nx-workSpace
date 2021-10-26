@@ -90,7 +90,7 @@ export class InputSearchComponent
   }
 
   listObserver = () => {
-    const observer2$ = this.shared.dataContinents.subscribe((res) => {
+    const observer2$ = this.shared.dataContinents.subscribe((res: any) => {
       const list = _.orderBy(res, ['count'], ['desc'])
       this.squareContinents = list.slice(0, 3);
       this.listContinents = list.slice(3);

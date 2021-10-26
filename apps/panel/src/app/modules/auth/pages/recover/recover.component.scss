@@ -1,0 +1,58 @@
+:host {
+  display: block;
+  background-color: var(--bg-white);
+  min-height: 100%;
+  position: absolute;
+  width: 100%;
+  /*background-image: url("../../../../../assets/images/wave.svg");*/
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 100% 120px;
+}
+.container-login {
+  background-color: #ffffff;
+  margin-top: 5%;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  border: solid 1px #e7e6ed;
+  box-shadow: 1px 3px 10px rgba(205, 208, 227, 0.65);
+}
+
+.img-section {
+  padding-top: 10%;
+  height: 100vh;
+  background-color: #fffafb;
+}
+.login-section {
+  padding: 25% 3rem 0;
+}
+
+.login-section .form-control {
+  filter: var(--filter-shadow-1);
+}
+
+.login-section label {
+  font-weight: 500;
+}
+
+.login-section .title {
+  font-weight: 600 !important;
+}
+.login-section .title-section {
+  margin-bottom: 1rem;
+}
+
+.wrapper-image {
+  width: 15rem;
+  object-fit: contain;
+}
+
+.custom-shape-divider-bottom-1603832524 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}

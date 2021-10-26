@@ -136,7 +136,7 @@ export class PayComponent implements OnInit {
           })
         )
         .subscribe(
-          (res) => {
+          (res: any) => {
             // aqui se debe cargar el formulario de tarjeta de credito
             this.data = res;
             const { status, totalPayment, totalWallet, pk, departure } = res;
@@ -370,7 +370,7 @@ export class PayComponent implements OnInit {
     }
     this.loading = true;
     this.rest.post(`stripe`, object).subscribe(
-      (res) => {
+      (res: any) => {
         this.handlePi(res.client_secret).then((r: any) => {
           const obj = r.paymentIntent;
           this.rest

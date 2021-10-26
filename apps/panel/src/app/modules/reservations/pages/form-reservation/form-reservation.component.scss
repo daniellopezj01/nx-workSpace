@@ -1,0 +1,133 @@
+.main-container-form {
+  border-radius: var(--border-radius-15);
+  width: 100%;
+}
+
+.dp-dd {
+  background-color: white !important;
+}
+
+.main-title {
+  margin: 4rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.main-title span {
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+.style-input {
+  height: 2.5125rem;
+  line-height: 2.5125rem;
+  width: 100%;
+  border: none;
+  font-size: 1rem;
+  background-color: white;
+  border-bottom: 0.0625rem solid #302a3d;
+}
+
+.style-input:focus {
+  outline-width: 0;
+  border-bottom: 0.0625rem solid #302a3d;
+}
+
+.inside-message-error {
+  margin-bottom: 1rem;
+}
+
+.message-error {
+  color: var(--text-color-error);
+  position: relative;
+  //min-height: 3rem;
+  //font-weight: bold;
+  //display: inline-flex;
+  text-align: left;
+  font-size: var(--font-size-2);
+}
+
+.symbol-required span {
+  top: 1.2rem;
+  height: 0.2rem;
+  width: 0.2rem;
+  margin-left: -0.5rem;
+  position: absolute;
+  background-color: #fb0051;
+  border-radius: 50%;
+}
+
+.container-form {
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: var(--border-radius-35);
+}
+
+::ng-deep .custom-align .tabs-responsive {
+  justify-content: flex-end !important;
+}
+
+.section-form {
+  padding: 0.75rem;
+  background-color: white;
+  display: grid;
+  margin-bottom: 1rem;
+}
+.btn-style {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-style button:hover {
+  background: #ca0444;
+}
+
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+.btn-style button {
+  // width: 8.75rem;
+  color: #fff;
+  background: #fb0051;
+  // height: 2.8125rem;
+  font-size: 1rem;
+  text-transform: none;
+  text-decoration: none;
+  border-radius: 2px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0;
+  padding: 0.7rem 1.5rem;
+  border: transparent;
+}
+
+.phone-reservation {
+  //margin-top: -10px;
+}
+
+::ng-deep ngx-intl-tel-input input.form-control {
+  padding: 0 !important;
+  margin: -6px -8px 0px -28px;
+  border-width: 0 !important;
+
+  &:focus {
+    box-shadow: 0 0 0 transparent !important;
+    filter: none !important;
+  }
+}
+
+::ng-deep ngx-intl-tel-input .country-dropdown.show {
+  input {
+    margin: 0 !important;
+  }
+}
+
+.custom-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0.5rem;
+}

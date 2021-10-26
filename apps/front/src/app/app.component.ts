@@ -21,7 +21,7 @@ export class AppComponent {
   ) {
     this.checkLanguage();
     this.sharedService.checkLanguage();
-    this.sharedService.changeLanguage.subscribe((res) => {
+    this.sharedService.changeLanguage.subscribe((res: any) => {
       translate.setDefaultLang(res?.language);
     });
   }

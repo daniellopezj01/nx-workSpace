@@ -89,7 +89,7 @@ export class MediaComponent implements OnInit, AfterViewChecked, OnDestroy {
           return throwError(err);
         })
       )
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.user = res;
       });
   }
@@ -133,7 +133,7 @@ export class MediaComponent implements OnInit, AfterViewChecked, OnDestroy {
             ? { avatar: source.small }
             : { video: source.original };
         this.rest.patch(`profile`, body).subscribe(
-          (res) => {
+          (res: any) => {
             this.user = res;
             this.cookies.delete('user', '/');
             this.updateService.hideLoading();

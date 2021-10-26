@@ -39,7 +39,7 @@ export class MainCreateReservationComponent implements OnInit {
     this.loading = true;
     this.rest
       .get(`tours/reservation/${slug}/${idIntention}`)
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         const { intention, tour, departure } = res;
         this.tour = tour;
         this.departure = departure;

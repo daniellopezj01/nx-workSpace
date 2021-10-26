@@ -1,0 +1,26 @@
+.form-group label {
+  font-size: var(--font-size-2);
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+.form-product .label {
+  font-size: var(--font-size-2);
+}
+
+.form-product .name {
+  font-size: 1rem;
+}
+
+.card-list {
+  font-size: var(--font-size-2);
+}
+
+.img-product {
+  width: 35px;
+  height: 35px;
+  border-radius: 35px;
+  object-fit: cover;
+}

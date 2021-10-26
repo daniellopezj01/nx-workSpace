@@ -1,0 +1,239 @@
+<ng-container *ngTemplateOutlet="loadingAll; context: { loading: loading }">
+</ng-container>
+
+<app-header [history]="history"></app-header>
+<app-side-bar></app-side-bar>
+
+<div class="container-row d-flex">
+  <div class="w-100 pr-3 ml-1 container-wrapper">
+    <mat-tab-group
+      selectedIndex="0"
+      animationDuration="350ms"
+      color="accent"
+      disableRipple
+      class="w-100"
+    >
+      <mat-tab [label]="'TOUR.TABS.GENERAL' | translate">
+        <ng-container *ngTemplateOutlet="formGeneralTemplate"></ng-container>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+
+<ng-template #formGeneralTemplate>
+  <div class="p-2">
+    <div class="text-right w-100">
+      <app-section-btn
+        class="float-right"
+        [options]="['trash', 'save']"
+        (cbTrash)="cbTrash()"
+        (cbSave)="updateGeneralData()"
+        [valid]="form.valid"
+      >
+      </app-section-btn>
+    </div>
+    <form class="form-product" [formGroup]="form">
+      <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="form-group">
+            <label>{{ 'MOVEMENTS.TYPE' | translate }}</label>
+            <ng-select
+              [items]="optionsSelect"
+              bindLabel="name"
+              bindValue="value"
+              [multiple]="false"
+              formControlName="operationType"
+              (change)="eventTypeOperation($event)"
+              [(ngModel)]="selectOperation"
+              placeholder="{{ 'MOVEMENTS.SELECT_TYPE' | translate }}"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div
+        class="custom-card-style col-12 mt-2 flex-wrap d-flex"
+        *ngIf="selectOperation === 'wallet'"
+      >
+        <div class="col-12 p-0">
+          <div class="form-group">
+            <label>{{ 'MOVEMENTS.CLIENT' | translate }}</label>
+            <ng-select
+              #selectProductRef
+              [items]="results$ | async"
+              formControlName="valueSelectType"
+              bindLabel="name"
+              (close)="selectProductRef.blur(); selectProductRef.focus()"
+              [addTag]="false"
+              [multiple]="false"
+              [hideSelected]="true"
+              [minTermLength]="3"
+              [required]="true"
+              [loading]="loadingUser"
+              [typeToSearchText]="'PURCHASE.SEARCH_PRODUCT' | translate"
+              [typeahead]="userInput$"
+              [(ngModel)]="ngSelectTypeEvent"
+              placeholder="{{ 'MOVEMENTS.SEARCH_CLIENT' | translate }}"
+            >
+              <ng-template ng-label-tmp let-item="item">
+                {{ item?.name }} {{ item?.surname }}
+              </ng-template>
+              <ng-template
+                ng-option-tmp
+                let-item="item"
+                let-index="index"
+                let-search="searchTerm"
+              >
+                <div class="card-list d-flex">
+                  <div class="p-1">
+                    <ngx-avatar
+                      cornerRadius="5"
+                      [round]="false"
+                      size="30"
+                      [name]="item?.name"
+                    ></ngx-avatar>
+                  </div>
+                  <div class="custom-text">
+                    <div>{{ item?.name }} {{ item?.surname }}</div>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div
+        class="custom-card-style col-12 mt-2 flex-wrap d-flex"
+        *ngIf="selectOperation === 'reservation'"
+      >
+        <div class="col-12 p-0">
+          <div class="form-group">
+            <label>{{ 'MOVEMENTS.RESERVATION' | translate }}</label>
+            <ng-select
+              #selectProductRef
+              [items]="resultsReservation$ | async"
+              formControlName="valueSelectType"
+              bindLabel="name"
+              (close)="selectProductRef.blur(); selectProductRef.focus()"
+              [addTag]="false"
+              [multiple]="false"
+              [hideSelected]="true"
+              [minTermLength]="2"
+              [required]="true"
+              [loading]="loadingReservations"
+              [typeToSearchText]="'PURCHASE.SEARCH_PRODUCT' | translate"
+              [typeahead]="reservationInput$"
+              [(ngModel)]="ngSelectTypeEvent"
+              placeholder="{{ 'MOVEMENTS.SEARCH_RESERVATION' | translate }}"
+            >
+              <ng-template ng-label-tmp let-item="item">
+                {{ item?.code }}
+              </ng-template>
+              <ng-template
+                ng-option-tmp
+                let-item="item"
+                let-index="index"
+                let-search="searchTerm"
+              >
+                <div class="card-list d-flex">
+                  <div class="custom-text pl-2 pr-2">
+                    <div>{{ item?.code }}</div>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="form-group">
+            <label>{{ 'RESERVATION.FORM_ADD.STATUS' | translate }}</label>
+            <ng-select
+              [items]="status"
+              bindLabel="name"
+              bindValue="value"
+              [multiple]="false"
+              formControlName="status"
+              [(ngModel)]="ngSelectStatus"
+              placeholder="Seleccionar Estado"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="form-group">
+            <label>{{ 'MOVEMENTS.PLATFORM' | translate }}</label>
+            <ng-select
+              [items]="platform"
+              bindLabel="name"
+              bindValue="value"
+              [multiple]="false"
+              formControlName="platform"
+              [(ngModel)]="ngSelectPlatform"
+              placeholder="Seleccionar Plataforma"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="form-group">
+            <label>{{ 'MOVEMENTS.ID_OPERATION' | translate }}</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="idOperation"
+              placeholder="Escribir ID operacion"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="form-group">
+            <label>{{ 'MOVEMENTS.DESCRIPTION' | translate }}</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="description"
+              placeholder="Escribir Descripcion"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="custom-card-style col-12 mt-2 flex-wrap d-flex">
+        <div class="col-12 p-0">
+          <div class="form-group">
+            <label>{{ 'MOVEMENTS.AMOUNT' | translate }}</label>
+            <input
+              type="text"
+              class="form-control"
+              mask="separator.2"
+              [allowNegativeNumbers]="true"
+              thousandSeparator="."
+              separatorLimit="100000"
+              placeholder="Valor"
+              formControlName="amount"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #loadingAll let-loading="loading">
+  <div *ngIf="loading === true" class="w-100 text-center h-100 loading-wrapper">
+    <div class="in">
+      <img
+        [width]="'5rem'"
+        src="../../../../../assets/images/loading-svg.svg"
+        alt="loading"
+      />
+    </div>
+  </div>
+</ng-template>

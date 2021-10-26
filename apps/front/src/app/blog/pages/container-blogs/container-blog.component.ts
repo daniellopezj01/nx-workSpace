@@ -38,7 +38,7 @@ export class ContainerBlogComponent implements OnInit {
           return throwError(err);
         })
       )
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.data = res;
       });
   }

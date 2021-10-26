@@ -91,7 +91,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked, OnDestroy {
           return throwError(err);
         })
       )
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.sendForm.reset();
         this.dataMessages.messages.push(_.head(res.messages));
       });
@@ -110,7 +110,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked, OnDestroy {
         finalize(() => (this.loading = false)),
         tap((a) => (this.dataRaw = a))
       )
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.dataMessages = res;
       });
   }
